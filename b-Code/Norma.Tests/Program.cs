@@ -75,6 +75,10 @@ static void TestCommandRegistration()
     Equal(ExpectedCommandCount(), registry.All.Count(d => d.Name.StartsWith(domain + ".", StringComparison.Ordinal)));
     True(Catalog.All.Count >= 30, $"计算条数异常：{Catalog.All.Count}");
 
+    // 与宿主 diana.docs.audit 的 summary-too-long 同一把尺子。
+    foreach (var descriptor in registry.All)
+        True(descriptor.Summary.Length <= NormaCommands.SummaryLimit, $"{descriptor.Name} 一句话说明 {descriptor.Summary.Length} 字，超过 {NormaCommands.SummaryLimit}");
+
     foreach (var method in new[] { "describe", "actions", "data" })
     {
         True(registry.TryGet(domain + ".ui." + method, out var ui), $"缺少 {domain}.ui.{method}");

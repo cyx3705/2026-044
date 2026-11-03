@@ -18,7 +18,7 @@ internal static class NormaCommands
             Name = name,
             Domain = NormaIdentity.Domain,
             CommandClass = calculation.Topic,
-            Summary = $"{calculation.Title}。出处：{calculation.Source}。适用：{calculation.Scope}",
+            Summary = Summary(calculation),
             Example = name + " " + string.Join(" ", calculation.Inputs
                 .Where(input => !input.IsOptional)
                 .Select(input => input.Name + "=" + (input.IsChoice ? input.Choices![0] : Num.Format(input.Example)))),
@@ -26,6 +26,29 @@ internal static class NormaCommands
             Parameters = calculation.Inputs.Select(Spec).ToList(),
             Handler = CommandDescriptor.Sync(context => Run(calculation, context)),
         };
+    }
+
+    /// <summary>宿主自描述审计要求一句话说明不超过这么多字。</summary>
+    internal const int SummaryLimit = 120;
+
+    /// <summary>
+    /// 一句话说明：名称加出处简称（出处里第一个冒号或分号之前的部分）。完整出处与适用范围
+    /// 太长，放在 formula.show 和每次计算结果的 source / scope 里。
+    /// </summary>
+    internal static string Summary(Calculation calculation)
+    {
+        var source = calculation.Source;
+        var cut = source.IndexOfAny(['：', '；']);
+        var brief = cut > 0 ? source[..cut] : source;
+        if (brief.Length > 50)
+        {
+            var comma = brief.IndexOf('，');
+            brief = comma is > 0 and <= 50 ? brief[..comma] : brief[..49] + "…";
+        }
+
+        var tail = $"；完整出处与适用范围见 {NormaIdentity.Domain}.formula.show";
+        var head = $"{calculation.Title}（{brief}）";
+        return head.Length + tail.Length <= SummaryLimit ? head + tail : head;
     }
 
     private static ParameterSpec Spec(Input input)
