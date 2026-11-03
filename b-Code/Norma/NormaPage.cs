@@ -1,22 +1,22 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
 
-namespace HistoryExemplum;
+namespace Norma;
 
 /// <summary>
 /// Aurora 页面协议 V1：一页，上面一块控制面板放按钮，下面一张表。
 /// </summary>
 /// <remarks>
-/// 三条规矩（离线测试守着）：owner 与 scene 用 <see cref="ExemplumIdentity.PageOwner"/>；
+/// 三条规矩（离线测试守着）：owner 与 scene 用 <see cref="NormaIdentity.PageOwner"/>；
 /// 每个按钮的 action 都在 <see cref="Actions()"/> 里声明；每个动作指向的指令都已注册。
 /// </remarks>
-internal static class ExemplumPage
+internal static class NormaPage
 {
-    public const string PageId = ExemplumIdentity.Domain;
+    public const string PageId = NormaIdentity.Domain;
     public const string PanelId = "hello-actions";
     public const string HistoryTableId = "hello-history";
     public const string HistoryView = "history";
-    public const string PingActionId = ExemplumIdentity.Domain + ".hello.ping";
+    public const string PingActionId = NormaIdentity.Domain + ".hello.ping";
 
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -26,14 +26,14 @@ internal static class ExemplumPage
     public static string Describe() => JsonSerializer.Serialize(new
     {
         schemaVersion = 1,
-        owner = ExemplumIdentity.PageOwner,
+        owner = NormaIdentity.PageOwner,
         pages = new object[]
         {
             new
             {
                 id = PageId,
-                title = ExemplumIdentity.PageTitle,
-                scene = ExemplumIdentity.PageOwner,
+                title = NormaIdentity.PageTitle,
+                scene = NormaIdentity.PageOwner,
                 placement = new { side = "center", visible = true, singleton = true },
                 content = new
                 {
@@ -70,7 +70,7 @@ internal static class ExemplumPage
                             id = HistoryTableId,
                             dataSource = new
                             {
-                                command = ExemplumIdentity.Domain + ".ui.data",
+                                command = NormaIdentity.Domain + ".ui.data",
                                 args = new { view = HistoryView },
                             },
                             columns = new object[]
@@ -88,14 +88,14 @@ internal static class ExemplumPage
     public static string Actions() => JsonSerializer.Serialize(new
     {
         schemaVersion = 1,
-        owner = ExemplumIdentity.PageOwner,
+        owner = NormaIdentity.PageOwner,
         actions = new object[]
         {
             new
             {
                 id = PingActionId,
                 title = "打招呼",
-                command = ExemplumIdentity.Domain + ".hello.ping",
+                command = NormaIdentity.Domain + ".hello.ping",
                 summary = "打一声招呼，记进表格",
             },
         },

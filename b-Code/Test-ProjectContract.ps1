@@ -83,8 +83,8 @@ if ($moduleManifests.Count -ne 1) {
 $componentRoot = $moduleManifests[0].DirectoryName
 $moduleManifest = Read-Text $moduleManifests[0].FullName | ConvertFrom-Json
 $moduleName = [string]$moduleManifest.name
-if ($moduleName -cnotmatch '^History[A-Z][A-Za-z0-9]*$') {
-    $errors.Add("模块名必须形如 History<神名>，实际 $moduleName")
+if ($moduleName -cnotmatch '^[A-Z][A-Za-z0-9]*$') {
+    $errors.Add("模块名必须是首字母大写的字母数字，实际 $moduleName")
 }
 if ((Split-Path -Leaf $componentRoot) -ne $moduleName) {
     $errors.Add("模块目录名必须与模块名相同：b-Code/$moduleName/")

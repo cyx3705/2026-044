@@ -1,61 +1,33 @@
-<!-- template:head -->
-# ModuleReady
+# Norma
 
-> 宿主模块起步模板：派生、跑一条脚本，就是一个可构建、可测试、可热装的 HistoryVulcan 模块仓
-<!-- /template:head -->
+> 机械设计经验公式库：按标准条款自描述的公式与查表，供 AI 调用与扩展
 
-<!-- template:usage -->
-## 从模板建立模块
-
-本模板从 `0000-001-AIReady` 派生，内含一个能直接跑通的示范模块 `HistoryExemplum`（域 `exemplum`，
-一页 Aurora 页面、三条示范指令、离线测试含宿主装载冒烟）。新模块不必再去别的模块仓里复制。
-
-1. 建仓：`janus.proj.create name=2026-0xx-History<神名> base=0000-002-ModuleReady`。
-2. 在新仓主树实例化（机械改名、改身份，跑完脚本删掉自己）：
-
-   ```powershell
-   powershell -NoProfile -ExecutionPolicy Bypass -File .\b-Code\New-ModuleFromTemplate.ps1 `
-       -Name History<神名> -Description '<一句话描述>' [-Domain <域>] [-PageTitle <页面标题>]
-   ```
-
-   构建、测试通过后把这次实例化提交成一个脚手架提交，让之后的开发工作区只装业务改动。
-3. 不用改宿主仓：发布描述已在 `project.manifest.json` 的 `publish` 节（宿主 5.8.0 起模块自带）。
-4. `vulcan.dev.start` 开工作区，在里面把 `hello.*` 示范换成真实业务、填完 `{{...}}`，
-   跑严格合同检查，再 `submit`（候选构建并热装）→ 审过 → `finish`。
-
-模板自身的验证（模板模式，不带 `-Instantiation`）：
-
-```powershell
-dotnet run --project .\b-Code\HistoryExemplum.Tests\HistoryExemplum.Tests.csproj -c Release -p:NuGetAudit=false
-powershell -NoProfile -ExecutionPolicy Bypass -File .\b-Code\Test-ProjectContract.ps1
-```
-
-<!-- /template:usage -->
 ## 定位
 
-{{这个模块做什么、为谁做；两三句话}}
+把机械设计里的经验公式和查表做成一条条可调用的指令，每条都带着自己的出处条款、变量、单位和适用范围，AI 通过自描述就能找到、调用和核对。目标是取代 R 机械设计这类老软件：切面统一，扩展只需按同一格式加一条公式。
 
-- {{明确不做的事，以及它属于哪个模块}}
+- 不做建模、出图和标注，那是 Strenua（SolidWorks）与 SolidEdgeMCP 的事；本模块只算数、查表、给判据。
+- 不搬没有许可证或限制非商业的第三方代码和表格数据；公式按标准原文自己实现，第三方项目只当核对样例。
 
 ## 概况
 
 | 项 | 值 |
 | --- | --- |
 | 角色 | 宿主模块（`kind=module`） |
-| 指令域 | `exemplum` |
-| 界面 | Aurora 描述式页面（场景 `HistoryExemplum`） |
+| 指令域 | `norma` |
+| 界面 | Aurora 描述式页面（场景 `HistoryNorma`） |
 | MCP 投影 | `readonly` |
-| 版本与宿主下限 | [`HistoryExemplumVersion.props`](./b-Code/HistoryExemplum/HistoryExemplumVersion.props) |
+| 版本与宿主下限 | [`NormaVersion.props`](./b-Code/Norma/NormaVersion.props) |
 
 ## 能力
 
 | 按钮 | 指令 | 用途 |
 | --- | --- | --- |
-| 打招呼 | `exemplum.hello.ping` | 示范：改状态的无参指令，刷新页面表格 |
-| — | `exemplum.hello.echo text=…` | 示范：带参数的只读指令 |
-| — | `exemplum.hello.list` | 示范：只读列表，投影到 MCP |
+| 打招呼 | `norma.hello.ping` | 示范：改状态的无参指令，刷新页面表格 |
+| — | `norma.hello.echo text=…` | 示范：带参数的只读指令 |
+| — | `norma.hello.list` | 示范：只读列表，投影到 MCP |
 
-指令说明就是注册时的自描述（`diana.docs.read domain=exemplum`，宿主 6.1.0 起没有消费文档）；自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
+指令说明就是注册时的自描述（`diana.docs.read domain=norma`，宿主 6.1.0 起没有消费文档）；自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
 
 ## 入口
 
@@ -69,8 +41,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\b-Code\Test-ProjectContrac
 
 | 路径 | 职责 |
 | --- | --- |
-| `b-Code/HistoryExemplum/` | 模块源码、manifest 与 `eng/` 构建脚本 |
-| `b-Code/HistoryExemplum.Tests/` | 离线自动验证（含宿主装载冒烟） |
+| `b-Code/Norma/` | 模块源码、manifest 与 `eng/` 构建脚本 |
+| `b-Code/Norma.Tests/` | 离线自动验证（含宿主装载冒烟） |
 | `b-Code/` | 项目合同检查 |
 | `b-Office/` | 唯一长期文档 `current/现行约定.md` |
 | `z-Publish/` | 正式快照与 `history/` 归档，由宿主管线写入 |
@@ -78,8 +50,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\b-Code\Test-ProjectContrac
 ## 构建与验证
 
 ```powershell
-dotnet build .\b-Code\HistoryExemplum\HistoryExemplum.csproj -c Release -p:NuGetAudit=false
-dotnet run --project .\b-Code\HistoryExemplum.Tests\HistoryExemplum.Tests.csproj -c Release -p:NuGetAudit=false
+dotnet build .\b-Code\Norma\Norma.csproj -c Release -p:NuGetAudit=false
+dotnet run --project .\b-Code\Norma.Tests\Norma.Tests.csproj -c Release -p:NuGetAudit=false
 powershell -NoProfile -ExecutionPolicy Bypass -File .\b-Code\Test-ProjectContract.ps1 -Instantiation
 ```
 
@@ -90,13 +62,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\b-Code\Test-ProjectContrac
 
 改动只进 `vulcan.dev.start` 创建的工作区，经宿主 Console CLI 走
 `vulcan.dev.start` → `vulcan.dev.submit`（候选构建并热装送审）→ `vulcan.dev.finish`（批准后并回并写入 `z-Publish`）。
-本仓不自行发布；`eng/Build-HistoryExemplumPackage.ps1` 只用于本地候选构建。
+本仓不自行发布；`eng/Build-NormaPackage.ps1` 只用于本地候选构建。
 
 ## 要点
 
-- 页面 owner 由指令域推出（`exemplum` → `HistoryExemplum`），合同检查与离线测试都守着这条。
-- 版本只改 `HistoryExemplumVersion.props`，再同步两份 manifest；三处不一致构建前就失败。
-- {{本模块特有的要点}}
+- 页面 owner 由指令域推出（`norma` → `HistoryNorma`），合同检查与离线测试都守着这条。
+- 版本只改 `NormaVersion.props`，再同步两份 manifest；三处不一致构建前就失败。
+- 每条公式都要有编号、出处条款、输入输出变量与单位、适用范围；缺一项就不算登记完成。
 
 ## 保留内容
 

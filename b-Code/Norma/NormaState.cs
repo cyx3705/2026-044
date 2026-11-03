@@ -1,12 +1,12 @@
 using System.Globalization;
 using HistoryVulcan.Core.Commands;
 
-namespace HistoryExemplum;
+namespace Norma;
 
 /// <summary>
 /// 模块的运行状态，页面表格从这里取行。示范「指令改状态 → 通知 Aurora 刷新表格」这条回路。
 /// </summary>
-internal sealed class ExemplumState(ICommandBus? bus)
+internal sealed class NormaState(ICommandBus? bus)
 {
     private readonly object _gate = new();
     private readonly List<DateTime> _pings = [];
@@ -58,8 +58,8 @@ internal sealed class ExemplumState(ICommandBus? bus)
         try
         {
             await bus.ExecuteAsync(
-                $"aurora.ui.refreshdata node={ExemplumPage.HistoryTableId}",
-                // 来源由宿主盖章（module:HistoryExemplum），模块不自填。
+                $"aurora.ui.refreshdata node={NormaPage.HistoryTableId}",
+                // 来源由宿主盖章（module:Norma），模块不自填。
                 "").ConfigureAwait(false);
         }
         catch (Exception)

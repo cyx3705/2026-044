@@ -6,28 +6,27 @@
     "strictValidationArgument": "-Instantiation"
   },
   "project": {
-    "id": "0000-002",
-    "name": "ModuleReady",
-    "title": "OneHistory \u5BBF\u4E3B\u6A21\u5757\u8D77\u6B65\u6A21\u677F",
+    "id": "2026-044",
+    "name": "Norma",
+    "title": "Norma 机械设计经验公式库：按标准条款自描述的公式与查表，供 AI 调用与扩展",
     "kind": [
-      "template",
       "software",
       "appshell-module"
     ],
-    "status": "template",
+    "status": "active",
     "version": "0.1.1",
     "branch": "main"
   },
   "paths": {
     "activeRoots": [
       "b-Office",
-      "b-Code/HistoryExemplum",
-      "b-Code/HistoryExemplum.Tests",
+      "b-Code/Norma",
+      "b-Code/Norma.Tests",
       "b-Code"
     ],
     "sourceRoots": [
-      "b-Code/HistoryExemplum",
-      "b-Code/HistoryExemplum.Tests"
+      "b-Code/Norma",
+      "b-Code/Norma.Tests"
     ],
     "generatedRoots": [
       "b-Code/**/bin",
@@ -51,11 +50,11 @@
   },
   "commands": {
     "setup": null,
-    "build": "dotnet build .\\b-Code\\HistoryExemplum\\HistoryExemplum.csproj -c Release -p:NuGetAudit=false",
-    "test": "dotnet run --project .\\b-Code\\HistoryExemplum.Tests\\HistoryExemplum.Tests.csproj -c Release -p:NuGetAudit=false",
+    "build": "dotnet build .\\b-Code\\Norma\\Norma.csproj -c Release -p:NuGetAudit=false",
+    "test": "dotnet run --project .\\b-Code\\Norma.Tests\\Norma.Tests.csproj -c Release -p:NuGetAudit=false",
     "verify": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\b-Code\\Test-ProjectContract.ps1 -Instantiation",
     "run": null,
-    "package": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\b-Code\\HistoryExemplum\\eng\\Build-HistoryExemplumPackage.ps1"
+    "package": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\b-Code\\Norma\\eng\\Build-NormaPackage.ps1"
   },
   "externalDependencies": [
     "HistoryVulcan 5.1.2 \u6216\u66F4\u65B0\u7684\u53D1\u5E03\u5FEB\u7167\uFF1AC:\\OneHistory\\HistoryClio\\2026-023-HistoryVulcan\\z-Publish",
@@ -71,14 +70,14 @@
     "artifacts/**"
   ],
   "publish": {
-    "versionProps": "b-Code\\HistoryExemplum\\HistoryExemplumVersion.props",
-    "versionProperty": "HistoryExemplumVersion",
-    "sourceManifest": "b-Code\\HistoryExemplum\\module.manifest.json",
+    "versionProps": "b-Code\\Norma\\NormaVersion.props",
+    "versionProperty": "NormaVersion",
+    "sourceManifest": "b-Code\\Norma\\module.manifest.json",
     "package": {
-      "project": "b-Code\\HistoryExemplum\\HistoryExemplum.csproj",
+      "project": "b-Code\\Norma\\Norma.csproj",
       "files": [
-        "HistoryExemplum.dll",
-        "HistoryExemplum.xml",
+        "Norma.dll",
+        "Norma.xml",
         "module.manifest.json"
       ]
     },
@@ -88,12 +87,12 @@
         "arguments": [
           "run",
           "--project",
-          "b-Code\\HistoryExemplum.Tests\\HistoryExemplum.Tests.csproj",
+          "b-Code\\Norma.Tests\\Norma.Tests.csproj",
           "-c",
           "Release",
           "-p:NuGetAudit=false"
         ],
-        "description": "Run HistoryExemplum offline tests"
+        "description": "Run Norma offline tests"
       }
     ]
   }

@@ -1,7 +1,7 @@
-using System.Security.Cryptography;
+using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
-using HistoryExemplum;
+using Norma;
 using HistoryVulcan.Core.Commands;
 using System.Diagnostics;
 using System.Reflection;
@@ -46,14 +46,14 @@ static Func<Task> Sync(Action test) => () =>
 static Registrar Registry()
 {
     var registry = new Registrar();
-    HistoryExemplumModule.Register(registry, new ExemplumState(null));
+    NormaModule.Register(registry, new NormaState(null));
     return registry;
 }
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
-    var domain = ExemplumIdentity.Domain;
+    var domain = NormaIdentity.Domain;
     string[] expected =
     [
         domain + ".hello.ping",
@@ -82,24 +82,24 @@ static void TestCommandRegistration()
 static void TestPageOwner()
 {
     // Aurora 的判据：owner = "History" + 首字母大写的指令域；对不上整页被静默拒收。
-    var expected = "History" + char.ToUpperInvariant(ExemplumIdentity.Domain[0]) + ExemplumIdentity.Domain[1..];
-    Equal(expected, ExemplumIdentity.PageOwner);
+    var expected = "History" + char.ToUpperInvariant(NormaIdentity.Domain[0]) + NormaIdentity.Domain[1..];
+    Equal(expected, NormaIdentity.PageOwner);
 
-    using var description = JsonDocument.Parse(ExemplumPage.Describe());
+    using var description = JsonDocument.Parse(NormaPage.Describe());
     var root = description.RootElement;
     Equal(expected, root.GetProperty("owner").GetString()!);
     Equal(1, root.GetProperty("schemaVersion").GetInt32());
     foreach (var page in root.GetProperty("pages").EnumerateArray())
         Equal(expected, page.GetProperty("scene").GetString()!);
 
-    using var actions = JsonDocument.Parse(ExemplumPage.Actions());
+    using var actions = JsonDocument.Parse(NormaPage.Actions());
     Equal(expected, actions.RootElement.GetProperty("owner").GetString()!);
 }
 
 static void TestPageWiring()
 {
     var registry = Registry();
-    using var actions = JsonDocument.Parse(ExemplumPage.Actions());
+    using var actions = JsonDocument.Parse(NormaPage.Actions());
     var declared = new HashSet<string>(StringComparer.Ordinal);
     foreach (var action in actions.RootElement.GetProperty("actions").EnumerateArray())
     {
@@ -109,7 +109,7 @@ static void TestPageWiring()
         True(registry.TryGet(command.Split(' ')[0], out _), $"动作 {id} 指向未注册的指令 {command}");
     }
 
-    using var description = JsonDocument.Parse(ExemplumPage.Describe());
+    using var description = JsonDocument.Parse(NormaPage.Describe());
     var nodes = Descendants(description.RootElement).ToList();
     foreach (var button in nodes.Where(node => node.TryGetProperty("kind", out var kind) && kind.GetString() == "button"))
     {
@@ -127,17 +127,17 @@ static void TestPageWiring()
 static void TestVersionsAgree()
 {
     var manifest = ReadManifest(Path.Combine(AppContext.BaseDirectory, "module.manifest.json"));
-    Equal(ExemplumIdentity.Name, manifest.GetProperty("name").GetString()!);
-    Equal(ExemplumIdentity.Name + ".dll", manifest.GetProperty("artifact").GetString()!);
+    Equal(NormaIdentity.Name, manifest.GetProperty("name").GetString()!);
+    Equal(NormaIdentity.Name + ".dll", manifest.GetProperty("artifact").GetString()!);
     Equal(new ModuleInfo().Version, manifest.GetProperty("version").GetString()!);
-    Equal(ExemplumIdentity.Name, new ModuleInfo().ModuleName);
-    Equal(ExemplumIdentity.Description, manifest.GetProperty("description").GetString()!);
+    Equal(NormaIdentity.Name, new ModuleInfo().ModuleName);
+    Equal(NormaIdentity.Description, manifest.GetProperty("description").GetString()!);
 }
 
 static async Task TestHostLoadsPackage()
 {
-    var root = Path.Combine(Path.GetTempPath(), ExemplumIdentity.Name + ".Tests", Guid.NewGuid().ToString("N"));
-    var package = Path.Combine(root, ExemplumIdentity.Name);
+    var root = Path.Combine(Path.GetTempPath(), NormaIdentity.Name + ".Tests", Guid.NewGuid().ToString("N"));
+    var package = Path.Combine(root, NormaIdentity.Name);
     Directory.CreateDirectory(package);
     try
     {
@@ -154,20 +154,23 @@ static async Task TestHostLoadsPackage()
             File.Copy(from, Path.Combine(package, file));
         }
 
-        WriteChecksums(package);
+        // 宿主 7.0 起只接受 nupkg；只在临时目录构造测试候选，不安装或修改运行区。
+        var archive = Path.Combine(root, NormaIdentity.Name + ".nupkg");
+        WriteNugetPackage(package, archive, manifest.GetProperty("version").GetString()!);
 
-        var echo = await Probe(package, ExemplumIdentity.Domain + ".hello.echo text=OneHistory");
+        var echo = await Probe(archive, NormaIdentity.Domain + ".hello.echo text=OneHistory");
+        True(echo.GetProperty("data").ValueKind == JsonValueKind.Object, "宿主探针未返回装载数据：" + echo.GetRawText());
         var module = echo.GetProperty("data").GetProperty("module");
         True(module.GetProperty("attached").GetBoolean(),
             "宿主没有接上模块：" + string.Join("；", module.GetProperty("attachFailures").EnumerateArray().Select(item => item.GetString()))
             + "；诊断：" + string.Join("；", echo.GetProperty("diagnostics").EnumerateArray().Select(item => item.GetString())));
-        Equal(ExemplumIdentity.Name, module.GetProperty("name").GetString());
+        Equal(NormaIdentity.Name, module.GetProperty("name").GetString());
         Equal(6, module.GetProperty("commandCount").GetInt32());
         var result = echo.GetProperty("data").GetProperty("result");
         True(result.GetProperty("success").GetBoolean(), result.GetProperty("message").GetString() ?? "");
         Equal("OneHistory", result.GetProperty("message").GetString());
 
-        var ping = await Probe(package, ExemplumIdentity.Domain + ".hello.ping");
+        var ping = await Probe(archive, NormaIdentity.Domain + ".hello.ping");
         True(ping.GetProperty("success").GetBoolean(), ping.GetRawText());
     }
     finally
@@ -214,14 +217,17 @@ static JsonElement ReadManifest(string path)
 }
 
 // 与 eng/Build-*Package.ps1 同一格式：大写十六进制、两个空格、正斜杠路径、无 BOM。
-static void WriteChecksums(string package)
+// 与宿主实际 nupkg 相同：nuspec 与模块有效载荷平铺，不带运行区状态或数据。
+static void WriteNugetPackage(string package, string archive, string version)
 {
-    var lines = Directory.GetFiles(package, "*", SearchOption.AllDirectories)
-        .Where(path => !Path.GetFileName(path).Equals("SHA256SUMS", StringComparison.OrdinalIgnoreCase))
-        .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
-        .Select(path => $"{Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(path)))}  "
-                        + Path.GetRelativePath(package, path).Replace('\\', '/'));
-    File.WriteAllLines(Path.Combine(package, "SHA256SUMS"), lines, new UTF8Encoding(false));
+    File.WriteAllText(Path.Combine(package, NormaIdentity.Name + ".nuspec"), $"""
+        <?xml version="1.0" encoding="utf-8"?>
+        <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+          <metadata><id>{NormaIdentity.Name}</id><version>{version}</version>
+          <authors>HistoryVulcan</authors><description>{NormaIdentity.Name}</description></metadata>
+        </package>
+        """, new UTF8Encoding(false));
+    ZipFile.CreateFromDirectory(package, archive);
 }
 
 static IEnumerable<JsonElement> Descendants(JsonElement element)

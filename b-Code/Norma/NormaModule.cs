@@ -1,7 +1,7 @@
 using HistoryVulcan.Core.Commands;
 using HistoryVulcan.Core.Modules;
 
-namespace HistoryExemplum;
+namespace Norma;
 
 /// <summary>
 /// 模块装配入口：业务指令 + Aurora 页面协议三条指令（describe / actions / data）。
@@ -12,7 +12,7 @@ namespace HistoryExemplum;
 /// 改东西的不标 <c>Readonly</c>；只读查询标 <c>Readonly</c>（mcpExposure=readonly 时只有它们投影到 MCP）；
 /// 界面内部协议一律带 <c>HiddenReason</c>。
 /// </remarks>
-public sealed class HistoryExemplumModule : IModuleContextAware
+public sealed class NormaModule : IModuleContextAware
 {
     private const string Hidden = "Aurora 页面内部协议，不对远程消费面暴露";
 
@@ -20,19 +20,19 @@ public sealed class HistoryExemplumModule : IModuleContextAware
     public void Attach(IModuleContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
-        var state = new ExemplumState(context.Bus);
+        var state = new NormaState(context.Bus);
         context.RegisterCommands(registry => Register(registry, state));
     }
 
-    internal static void Register(ICommandRegistrar registry, ExemplumState state)
+    internal static void Register(ICommandRegistrar registry, NormaState state)
     {
         registry.Register(new CommandDescriptor
         {
-            Name = ExemplumIdentity.Domain + ".hello.ping",
-            Domain = ExemplumIdentity.Domain,
+            Name = NormaIdentity.Domain + ".hello.ping",
+            Domain = NormaIdentity.Domain,
             CommandClass = "hello",
             Summary = "打一声招呼，记进页面表格",
-            Example = ExemplumIdentity.Domain + ".hello.ping",
+            Example = NormaIdentity.Domain + ".hello.ping",
             Level = CommandLevel.Run,
             Handler = async context =>
             {
@@ -43,11 +43,11 @@ public sealed class HistoryExemplumModule : IModuleContextAware
 
         registry.Register(new CommandDescriptor
         {
-            Name = ExemplumIdentity.Domain + ".hello.echo",
-            Domain = ExemplumIdentity.Domain,
+            Name = NormaIdentity.Domain + ".hello.echo",
+            Domain = NormaIdentity.Domain,
             CommandClass = "hello",
             Summary = "原样返回一段文本",
-            Example = ExemplumIdentity.Domain + ".hello.echo text=OneHistory",
+            Example = NormaIdentity.Domain + ".hello.echo text=OneHistory",
             Readonly = true,
             Parameters =
             [
@@ -64,30 +64,30 @@ public sealed class HistoryExemplumModule : IModuleContextAware
 
         registry.Register(new CommandDescriptor
         {
-            Name = ExemplumIdentity.Domain + ".hello.list",
-            Domain = ExemplumIdentity.Domain,
+            Name = NormaIdentity.Domain + ".hello.list",
+            Domain = NormaIdentity.Domain,
             CommandClass = "hello",
             Summary = "列出招呼记录",
-            Example = ExemplumIdentity.Domain + ".hello.list",
+            Example = NormaIdentity.Domain + ".hello.list",
             Readonly = true,
             Handler = CommandDescriptor.Sync(_ => CommandResult.Ok($"共 {state.Count} 次招呼", state.Rows())),
         });
 
-        registry.Register(Internal("describe", "返回页面描述", _ => Json(ExemplumPage.Describe())));
-        registry.Register(Internal("actions", "返回页面动作声明", _ => Json(ExemplumPage.Actions())));
+        registry.Register(Internal("describe", "返回页面描述", _ => Json(NormaPage.Describe())));
+        registry.Register(Internal("actions", "返回页面动作声明", _ => Json(NormaPage.Actions())));
         registry.Register(new CommandDescriptor
         {
-            Name = ExemplumIdentity.Domain + ".ui.data",
-            Domain = ExemplumIdentity.Domain,
+            Name = NormaIdentity.Domain + ".ui.data",
+            Domain = NormaIdentity.Domain,
             CommandClass = "ui",
             Summary = "返回页面表格的行",
             Readonly = true,
             HiddenReason = Hidden,
             AllowUnspecifiedParameters = true,
             Handler = CommandDescriptor.Sync(context =>
-                context.GetString("view")?.Trim().ToLowerInvariant() is null or ExemplumPage.HistoryView
+                context.GetString("view")?.Trim().ToLowerInvariant() is null or NormaPage.HistoryView
                     ? CommandResult.Ok("招呼记录", state.Rows())
-                    : CommandResult.Fail($"未知 view；支持 {ExemplumPage.HistoryView}")),
+                    : CommandResult.Fail($"未知 view；支持 {NormaPage.HistoryView}")),
         });
     }
 
@@ -96,8 +96,8 @@ public sealed class HistoryExemplumModule : IModuleContextAware
     private static CommandDescriptor Internal(string method, string summary, Func<CommandContext, CommandResult> handler)
         => new()
         {
-            Name = ExemplumIdentity.Domain + ".ui." + method,
-            Domain = ExemplumIdentity.Domain,
+            Name = NormaIdentity.Domain + ".ui." + method,
+            Domain = NormaIdentity.Domain,
             CommandClass = "ui",
             Summary = summary,
             Readonly = true,
