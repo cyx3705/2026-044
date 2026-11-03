@@ -1,76 +1,85 @@
 using HistoryVulcan.Core.Commands;
 using HistoryVulcan.Core.Modules;
+using Norma.Formulas;
 
 namespace Norma;
 
 /// <summary>
-/// 模块装配入口：业务指令 + Aurora 页面协议三条指令（describe / actions / data）。
+/// 模块装配入口：每条计算一条只读指令（见 <see cref="NormaCommands"/>），加目录两条与 Aurora 页面协议三条。
 /// </summary>
 /// <remarks>
-/// 模板里的 hello.* 是示范：一条改状态的无参指令（页面按钮）、一条带参数的只读指令（控制台）、
-/// 一条只读列表（MCP）。实例化后换成真实业务，但保留这三种形态的写法：
-/// 改东西的不标 <c>Readonly</c>；只读查询标 <c>Readonly</c>（mcpExposure=readonly 时只有它们投影到 MCP）；
+/// 全部指令只读、无状态：相同输入永远得到相同输出，谁调都安全（mcpExposure=readonly 时全部投影到 MCP）。
 /// 界面内部协议一律带 <c>HiddenReason</c>。
 /// </remarks>
 public sealed class NormaModule : IModuleContextAware
 {
     private const string Hidden = "Aurora 页面内部协议，不对远程消费面暴露";
 
-    /// <summary>宿主在装载时注入权威指令总线与命令注册器。</summary>
+    /// <summary>宿主在装载时注入命令注册器。</summary>
     public void Attach(IModuleContext context)
     {
         ArgumentNullException.ThrowIfNull(context);
-        var state = new NormaState(context.Bus);
-        context.RegisterCommands(registry => Register(registry, state));
+        context.RegisterCommands(Register);
     }
 
-    internal static void Register(ICommandRegistrar registry, NormaState state)
+    internal static void Register(ICommandRegistrar registry)
     {
-        registry.Register(new CommandDescriptor
-        {
-            Name = NormaIdentity.Domain + ".hello.ping",
-            Domain = NormaIdentity.Domain,
-            CommandClass = "hello",
-            Summary = "打一声招呼，记进页面表格",
-            Example = NormaIdentity.Domain + ".hello.ping",
-            Level = CommandLevel.Run,
-            Handler = async context =>
-            {
-                context.Progress?.Report("正在打招呼…");
-                return CommandResult.Ok(await state.PingAsync().ConfigureAwait(false));
-            },
-        });
+        foreach (var calculation in Catalog.All)
+            registry.Register(NormaCommands.For(calculation));
 
         registry.Register(new CommandDescriptor
         {
-            Name = NormaIdentity.Domain + ".hello.echo",
+            Name = NormaIdentity.Domain + ".formula.list",
             Domain = NormaIdentity.Domain,
-            CommandClass = "hello",
-            Summary = "原样返回一段文本",
-            Example = NormaIdentity.Domain + ".hello.echo text=OneHistory",
+            CommandClass = "formula",
+            Summary = "列出全部计算（指令名、名称、出处），可按类筛选",
+            Example = NormaIdentity.Domain + ".formula.list topic=gear",
             Readonly = true,
             Parameters =
             [
                 new ParameterSpec
                 {
-                    Name = "text",
-                    Description = "要原样返回的文本，任意字符串，例如 OneHistory",
+                    Name = "topic",
+                    Description = "只列这一类，如 gear、bolt、bearing；省略列全部",
                     Type = ParamType.String,
-                    Required = true,
+                    AllowedValues = Catalog.All.Select(item => item.Topic).Distinct().ToArray(),
                 },
             ],
-            Handler = CommandDescriptor.Sync(context => CommandResult.Ok(context.RequireString("text"))),
+            Handler = CommandDescriptor.Sync(context =>
+            {
+                var rows = NormaCommands.CatalogRows(context.GetString("topic"));
+                return CommandResult.Ok($"共 {rows.Count} 条计算", rows);
+            }),
         });
 
         registry.Register(new CommandDescriptor
         {
-            Name = NormaIdentity.Domain + ".hello.list",
+            Name = NormaIdentity.Domain + ".formula.show",
             Domain = NormaIdentity.Domain,
-            CommandClass = "hello",
-            Summary = "列出招呼记录",
-            Example = NormaIdentity.Domain + ".hello.list",
+            CommandClass = "formula",
+            Summary = "查看一条计算的完整元数据：出处、适用范围、输入输出的符号与单位",
+            Example = NormaIdentity.Domain + ".formula.show id=gear.contact",
             Readonly = true,
-            Handler = CommandDescriptor.Sync(_ => CommandResult.Ok($"共 {state.Count} 次招呼", state.Rows())),
+            Parameters =
+            [
+                new ParameterSpec
+                {
+                    Name = "id",
+                    Description = "计算编号，即指令名去掉 norma. 前缀，如 gear.contact",
+                    Type = ParamType.String,
+                    Required = true,
+                    Position = 0,
+                },
+            ],
+            Handler = CommandDescriptor.Sync(context =>
+            {
+                var id = context.RequireString("id");
+                if (id.StartsWith(NormaIdentity.Domain + ".", StringComparison.OrdinalIgnoreCase))
+                    id = id[(NormaIdentity.Domain.Length + 1)..];
+                return Catalog.Find(id) is { } calculation
+                    ? CommandResult.Ok($"{calculation.Title}：{calculation.Source}", NormaCommands.Describe(calculation))
+                    : CommandResult.Fail($"没有计算 {id}；用 {NormaIdentity.Domain}.formula.list 查看全部");
+            }),
         });
 
         registry.Register(Internal("describe", "返回页面描述", _ => Json(NormaPage.Describe())));
@@ -85,9 +94,9 @@ public sealed class NormaModule : IModuleContextAware
             HiddenReason = Hidden,
             AllowUnspecifiedParameters = true,
             Handler = CommandDescriptor.Sync(context =>
-                context.GetString("view")?.Trim().ToLowerInvariant() is null or NormaPage.HistoryView
-                    ? CommandResult.Ok("招呼记录", state.Rows())
-                    : CommandResult.Fail($"未知 view；支持 {NormaPage.HistoryView}")),
+                context.GetString("view")?.Trim().ToLowerInvariant() is null or NormaPage.CatalogView
+                    ? CommandResult.Ok("计算目录", NormaCommands.CatalogRows(null))
+                    : CommandResult.Fail($"未知 view；支持 {NormaPage.CatalogView}")),
         });
     }
 

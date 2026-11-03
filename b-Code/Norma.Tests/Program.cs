@@ -2,6 +2,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
 using Norma;
+using Norma.Formulas;
 using HistoryVulcan.Core.Commands;
 using System.Diagnostics;
 using System.Reflection;
@@ -14,6 +15,11 @@ Console.OutputEncoding = Encoding.UTF8;
 var tests = new (string Name, Func<Task> Run)[]
 {
     ("command registration", Sync(TestCommandRegistration)),
+    ("formula metadata is complete", Sync(TestFormulaMetadata)),
+    ("every formula runs on its example", Sync(TestFormulaExamples)),
+    ("hand-checked reference values", Sync(TestReferenceValues)),
+    ("input validation rejects bad values", Sync(TestValidation)),
+    ("formula core has no host reference", Sync(TestCoreIsHostFree)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -46,30 +52,28 @@ static Func<Task> Sync(Action test) => () =>
 static Registrar Registry()
 {
     var registry = new Registrar();
-    NormaModule.Register(registry, new NormaState(null));
+    NormaModule.Register(registry);
     return registry;
 }
+
+static int ExpectedCommandCount() => Catalog.All.Count + 5;
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
     var domain = NormaIdentity.Domain;
-    string[] expected =
-    [
-        domain + ".hello.ping",
-        domain + ".hello.echo",
-        domain + ".hello.list",
-        domain + ".ui.describe",
-        domain + ".ui.actions",
-        domain + ".ui.data",
-    ];
+    var expected = Catalog.All.Select(item => domain + "." + item.Id)
+        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
+        .ToList();
     foreach (var name in expected)
     {
         True(registry.TryGet(name, out var descriptor), $"未注册 {name}");
         Equal(domain, descriptor!.Domain!);
+        True(descriptor.Readonly, $"{name} 必须只读");
     }
 
-    Equal(expected.Length, registry.All.Count(d => d.Name.StartsWith(domain + ".", StringComparison.Ordinal)));
+    Equal(ExpectedCommandCount(), registry.All.Count(d => d.Name.StartsWith(domain + ".", StringComparison.Ordinal)));
+    True(Catalog.All.Count >= 30, $"计算条数异常：{Catalog.All.Count}");
 
     foreach (var method in new[] { "describe", "actions", "data" })
     {
@@ -77,6 +81,190 @@ static void TestCommandRegistration()
         True(ui!.Readonly, $"{domain}.ui.{method} 必须只读");
         True(ui.HiddenReason is not null, $"{domain}.ui.{method} 是界面内部协议，必须 HiddenReason");
     }
+}
+
+static void TestFormulaMetadata()
+{
+    foreach (var item in Catalog.All)
+    {
+        True(System.Text.RegularExpressions.Regex.IsMatch(item.Id, "^[a-z]+\\.[a-z0-9]+$"), $"计算编号必须是 类.方法 小写：{item.Id}");
+        foreach (var text in new[] { item.Title, item.Source, item.Scope })
+            True(!string.IsNullOrWhiteSpace(text), $"{item.Id} 缺名称、出处或适用范围");
+        True(item.Outputs.Count > 0, $"{item.Id} 没有输出");
+        var names = item.Inputs.Select(input => input.Name).Concat(item.Outputs.Select(output => output.Name)).ToList();
+        foreach (var input in item.Inputs)
+        {
+            True(System.Text.RegularExpressions.Regex.IsMatch(input.Name, "^[a-z][a-z0-9_]*$"), $"{item.Id} 参数名必须小写：{input.Name}");
+            True(!string.IsNullOrWhiteSpace(input.Description), $"{item.Id}.{input.Name} 缺说明");
+            if (input.IsChoice)
+                True(input.DefaultChoice is null || input.Choices!.Contains(input.DefaultChoice), $"{item.Id}.{input.Name} 缺省不在可选值内");
+            else
+                True(input.Unit is not null, $"{item.Id}.{input.Name} 缺单位");
+        }
+
+        True(item.Inputs.Select(input => input.Name).Distinct().Count() == item.Inputs.Count, $"{item.Id} 输入重名");
+        True(item.Outputs.Select(output => output.Name).Distinct().Count() == item.Outputs.Count, $"{item.Id} 输出重名");
+        foreach (var output in item.Outputs)
+            True(!string.IsNullOrWhiteSpace(output.Description) && !string.IsNullOrWhiteSpace(output.Symbol), $"{item.Id}.{output.Name} 缺符号或说明");
+        True(names.Count > 0, item.Id);
+    }
+}
+
+// 每条计算按示例值（必填量用 Example，选填量用缺省）都能跑通，输出全为有限值——
+// 这也是自描述示例行能直接复制执行的保证。
+static void TestFormulaExamples()
+{
+    var registry = Registry();
+    foreach (var item in Catalog.All)
+    {
+        var result = Run(item.Id, ExampleArgs(item));
+        foreach (var output in item.Outputs)
+            True(double.IsFinite(result[output.Name]), $"{item.Id}.{output.Name} 示例结果不是有限值：{result[output.Name]}");
+
+        True(registry.TryGet(NormaIdentity.Domain + "." + item.Id, out var descriptor), item.Id);
+        var outcome = descriptor!.Handler(new CommandContext(descriptor, ExampleArgs(item), "test", null, CancellationToken.None)).Result;
+        True(outcome.Success, $"{item.Id} 指令执行失败：{outcome.Message}");
+        JsonSerializer.Serialize(outcome.Data);
+    }
+}
+
+static Dictionary<string, string> ExampleArgs(Calculation item)
+    => item.Inputs.Where(input => !input.IsOptional).ToDictionary(
+        input => input.Name,
+        input => input.IsChoice ? input.Choices![0] : input.Example.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+
+static Result Run(string id, IReadOnlyDictionary<string, string> args)
+{
+    var item = Catalog.Find(id) ?? throw new InvalidOperationException($"没有计算 {id}");
+    var numbers = new Dictionary<string, double>();
+    var choices = new Dictionary<string, string>();
+    foreach (var (name, value) in args)
+    {
+        var input = item.Inputs.Single(candidate => candidate.Name == name);
+        if (input.IsChoice)
+            choices[name] = value;
+        else
+            numbers[name] = double.Parse(value, System.Globalization.CultureInfo.InvariantCulture);
+    }
+
+    return item.Run(numbers, choices);
+}
+
+static Result Calc(string id, string args)
+    => Run(id, args.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(pair => pair.Split('=')).ToDictionary(pair => pair[0], pair => pair[1]));
+
+static void Near(double expected, double actual, double tolerance, string what)
+{
+    if (Math.Abs(expected - actual) > tolerance)
+        throw new InvalidOperationException($"{what}：期望 {expected}±{tolerance}，实际 {actual}");
+}
+
+// 手算或标准表值对照。每条都能用计算器独立复核。
+static void TestReferenceValues()
+{
+    Near(65.862, Calc("drive.torque", "p=10 n=1450")["t"], 0.001, "T = 9550·10/1450");
+
+    var gear = Calc("gear.geometry", "mn=2 z1=20 z2=40");
+    Near(40, gear["d1"], 1e-9, "d₁");
+    Near(44, gear["da1"], 1e-9, "dₐ₁");
+    Near(35, gear["df1"], 1e-9, "d_f1");
+    Near(60, gear["aw"], 1e-9, "标准中心距");
+    Near(1.635, gear["eps_alpha"], 0.003, "z=20/40 标准直齿端面重合度");
+    Near(0.0, gear["dy"], 1e-12, "零变位 Δy");
+    Near(1 - 20 * Math.Pow(Math.Sin(20 * Math.PI / 180), 2) / 2, gear["xmin1"], 1e-9, "x_min = 1 − z sin²α/2");
+
+    // 正变位：αwt 必须大于 αt，中心距增大
+    var shifted = Calc("gear.geometry", "mn=2 z1=20 z2=40 x1=0.3 x2=0.2");
+    True(shifted["aw"] > 60 && shifted["alpha_wt"] > 20 && shifted["dy"] > 0, "正变位后中心距、啮合角、Δy 应增大");
+
+    var contact = Calc("gear.contact", "mn=2 z1=20 z2=40 t1=100 b=40 sigma_hlim=1100");
+    Near(189.8, contact["ze"], 0.1, "钢对钢 Z_E");
+    Near(Math.Sqrt(2 / (Math.Cos(20 * Math.PI / 180) * Math.Sin(20 * Math.PI / 180))), contact["zh"], 1e-6, "标准直齿 Z_H");
+    Near(5000, contact["ft"], 1e-9, "F_t = 2000T/d");
+
+    // ISO 6336-3 方法 B 的量级：z=20 标准齿 Y_F 约 1.4～1.6、Y_S 约 1.9～2.1；齿数越多 Y_F 越小
+    var bending = Calc("gear.bending", "mn=2 z1=20 z2=40 t1=100 b=40 sigma_flim1=350 sigma_flim2=300");
+    True(bending["yf1"] is > 1.3 and < 1.7, $"Y_F1={bending["yf1"]}");
+    True(bending["ys1"] is > 1.8 and < 2.2, $"Y_S1={bending["ys1"]}");
+    True(bending["yf2"] < bending["yf1"], "大轮 Y_F 应小于小轮");
+    var positive = Calc("gear.bending", "mn=2 z1=20 z2=40 x1=0.5 t1=100 b=40 sigma_flim1=350 sigma_flim2=300");
+    True(positive["yf1"] < bending["yf1"], "正变位应减小 Y_F");
+
+    var life = Calc("bearing.life", "c=30000 p=3000 n=1000 type=ball");
+    Near(1000, life["l10"], 1e-9, "L₁₀ = (C/P)³");
+    Near(1e9 / 60000, life["lh"], 1e-6, "L_h = 10⁶L/(60n)");
+    Near(250, Calc("bearing.life", "c=30000 p=3000 n=1000 type=ball reliability=99")["lnm"], 1e-9, "a₁(99%) = 0.25");
+    Near(30000, Calc("bearing.required", "p=3000 n=1000 lh=16666.666666666667 type=ball")["c_req"], 1e-6, "寿命反解回原值");
+
+    var spring = Calc("spring.compression", "d=4 dm=32 n=10 f=200");
+    Near(8, spring["c"], 1e-12, "C");
+    Near(1.184018, spring["k_wahl"], 1e-6, "Wahl K(8)");
+    Near(301.5, spring["tau"], 0.1, "τ = 8KFD/(πd³)");
+    Near(7.7148, spring["rate"], 1e-4, "k = Gd⁴/(8D³n)");
+    Near(4, Calc("spring.wire", $"f=200 c=8 tau_allow={spring["tau"].ToString("R", System.Globalization.CultureInfo.InvariantCulture)}")["d"], 1e-9, "簧丝直径反解回原值");
+
+    Near(57.99, Calc("bolt.thread", "d=10 p=1.5")["as"], 0.01, "M10 应力截面积（ISO 898-1 表值 58.0）");
+    Near(84.27, Calc("bolt.thread", "d=12 p=1.75")["as"], 0.01, "M12 应力截面积（表值 84.3）");
+    Near(448.3, Calc("bolt.tension", "d=10 p=1.5 f0=20000 sigma_s=640")["sigma_ca"], 0.1, "1.3F/A_s");
+    Near(40, Calc("bolt.torque", "f0=20000 d=10")["t"], 1e-9, "T = KFd");
+    Near(20000, Calc("bolt.preload", "t=40 d=10")["f0"], 1e-9, "F₀ = T/(Kd)");
+
+    Near(28, Calc("shaft.torsion", "p=7.5 n=480")["d0"], 1e-9, "112·∛(7.5/480)");
+    Near(65.789, Calc("key.flat", "t=200 d=40 b=12 h=8 l=50")["sigma_p"], 0.001, "2T/(k l d)");
+
+    Near(21, Calc("fit.it", "size=25 grade=7")["it_rounded"], 0, "IT7 18～30 mm（表值 21）");
+    Near(16, Calc("fit.it", "size=40 grade=6")["it_rounded"], 0, "IT6 30～50 mm（表值 16）");
+    Near(46, Calc("fit.it", "size=60 grade=8")["it_rounded"], 0, "IT8 50～80 mm（表值 46）");
+    Near(35, Calc("fit.it", "size=100 grade=7")["it_rounded"], 0, "IT7 80～120 mm（表值 35）");
+
+    Near(1000.0 / 9.6, Calc("beam.deflection", "case=simple_point f=1000 l=1000 e=200000 i=1000000")["deflection"] * 1000, 1e-6, "FL³/(48EI)");
+
+    var chain = Calc("chain.geometry", "p=12.7 z1=21 z2=63 a0=500 n1=960");
+    Near(121.875, chain["lp0"], 0.01, "链节数");
+    Near(122, chain["lp"], 0, "圆整为偶数");
+    Near(500.8, chain["a"], 0.1, "理论中心距");
+
+    Near(1709.2, Calc("belt.geometry", "d1=125 d2=315 a0=500 n1=1450")["l0"], 0.1, "开口带长");
+
+    var goodman = Calc("fatigue.safety", "sigma_a=80 sigma_m=120 se=200 sut=600 sy=355");
+    Near(1 / (80.0 / 200 + 120.0 / 600), goodman["n"], 1e-12, "Goodman");
+
+    var press = Calc("fit.press", "d=50 l=60 delta=40 d2=100");
+    // 同材料实心轴：p = E δ (d₂² − d²) / (2 d d₂²)
+    Near(206000 * 0.04 * (100.0 * 100 - 2500) / (2 * 50 * 100 * 100), press["p"], 1e-9, "同材料实心轴 Lamé 闭式解");
+}
+
+static void TestValidation()
+{
+    static void Rejects(string id, string args, string because)
+    {
+        try
+        {
+            Calc(id, args);
+        }
+        catch (ArgumentException)
+        {
+            return;
+        }
+
+        throw new InvalidOperationException($"{id} {args} 应被拒绝：{because}");
+    }
+
+    Rejects("drive.torque", "p=-1 n=1000", "功率必须大于 0");
+    Rejects("drive.torque", "n=1000", "缺必填量");
+    Rejects("gear.geometry", "mn=2 z1=40 z2=20", "z₂ 不能小于 z₁");
+    Rejects("bearing.life", "c=1 p=1 n=1 type=needle", "选项不在可选值内");
+    Rejects("fit.press", "d=50 l=60 delta=40 d2=40", "轮毂外径必须大于配合直径");
+    Rejects("fit.it", "size=600 grade=7", "超出 500 mm");
+}
+
+static void TestCoreIsHostFree()
+{
+    var core = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Norma", "Formulas"));
+    True(Directory.Exists(core), $"找不到公式核心目录 {core}");
+    foreach (var file in Directory.GetFiles(core, "*.cs", SearchOption.AllDirectories))
+        True(!File.ReadAllText(file).Contains("HistoryVulcan", StringComparison.Ordinal),
+            $"{Path.GetFileName(file)} 引用了宿主；Formulas/ 必须能原样抽成独立 NuGet 包");
 }
 
 static void TestPageOwner()
@@ -158,20 +346,25 @@ static async Task TestHostLoadsPackage()
         var archive = Path.Combine(root, NormaIdentity.Name + ".nupkg");
         WriteNugetPackage(package, archive, manifest.GetProperty("version").GetString()!);
 
-        var echo = await Probe(archive, NormaIdentity.Domain + ".hello.echo text=OneHistory");
-        True(echo.GetProperty("data").ValueKind == JsonValueKind.Object, "宿主探针未返回装载数据：" + echo.GetRawText());
-        var module = echo.GetProperty("data").GetProperty("module");
+        var torque = await Probe(archive, NormaIdentity.Domain + ".drive.torque p=10 n=1450");
+        True(torque.GetProperty("data").ValueKind == JsonValueKind.Object, "宿主探针未返回装载数据：" + torque.GetRawText());
+        var module = torque.GetProperty("data").GetProperty("module");
         True(module.GetProperty("attached").GetBoolean(),
             "宿主没有接上模块：" + string.Join("；", module.GetProperty("attachFailures").EnumerateArray().Select(item => item.GetString()))
-            + "；诊断：" + string.Join("；", echo.GetProperty("diagnostics").EnumerateArray().Select(item => item.GetString())));
+            + "；诊断：" + string.Join("；", torque.GetProperty("diagnostics").EnumerateArray().Select(item => item.GetString())));
         Equal(NormaIdentity.Name, module.GetProperty("name").GetString());
-        Equal(6, module.GetProperty("commandCount").GetInt32());
-        var result = echo.GetProperty("data").GetProperty("result");
+        Equal(ExpectedCommandCount(), module.GetProperty("commandCount").GetInt32());
+        var result = torque.GetProperty("data").GetProperty("result");
         True(result.GetProperty("success").GetBoolean(), result.GetProperty("message").GetString() ?? "");
-        Equal("OneHistory", result.GetProperty("message").GetString());
+        True(result.GetProperty("message").GetString()!.Contains("T=65.86 N·m", StringComparison.Ordinal),
+            "宿主执行结果不对：" + result.GetProperty("message").GetString());
 
-        var ping = await Probe(archive, NormaIdentity.Domain + ".hello.ping");
-        True(ping.GetProperty("success").GetBoolean(), ping.GetRawText());
+        // 选项参数与缺省值经宿主参数校验后仍能正确到达计算。
+        var life = await Probe(archive, NormaIdentity.Domain + ".bearing.life c=30000 p=3000 n=1000 type=ball reliability=99");
+        var lifeResult = life.GetProperty("data").GetProperty("result");
+        True(lifeResult.GetProperty("success").GetBoolean(), lifeResult.GetRawText());
+        True(lifeResult.GetProperty("message").GetString()!.Contains("L_nm=250 10⁶ r", StringComparison.Ordinal),
+            "宿主执行结果不对：" + lifeResult.GetProperty("message").GetString());
     }
     finally
     {

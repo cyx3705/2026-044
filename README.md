@@ -21,11 +21,21 @@
 
 ## 能力
 
-| 按钮 | 指令 | 用途 |
-| --- | --- | --- |
-| 打招呼 | `norma.hello.ping` | 示范：改状态的无参指令，刷新页面表格 |
-| — | `norma.hello.echo text=…` | 示范：带参数的只读指令 |
-| — | `norma.hello.list` | 示范：只读列表，投影到 MCP |
+每条计算是一条只读指令 `norma.<类>.<方法>`，全部投影到 MCP。
+
+| 类 | 指令 |
+| --- | --- |
+| 齿轮 | `gear.geometry` 几何、`gear.contact` 接触强度、`gear.bending` 弯曲强度（ISO 6336 方法 B）、`gear.diameter` / `gear.module` 初估 |
+| 轴与疲劳 | `drive.torque`、`shaft.torsion`、`shaft.combined`、`fatigue.endurance`、`fatigue.safety`、`fatigue.shaft` |
+| 连接 | `key.flat`、`bolt.thread` / `torque` / `preload` / `tension` / `friction` / `shear`、`weld.fillet`、`fit.press` |
+| 传动 | `screw.drive`、`belt.geometry`、`chain.geometry` |
+| 支承与弹性件 | `bearing.load` / `life` / `required` / `static`、`spring.compression` / `wire` |
+| 其他 | `fit.it` 标准公差、`beam.deflection` 梁 |
+| 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
+
+页面只有一张目录表，加一个按钮把目录列到控制台。
+
+指令说明就是注册时的自描述（`diana.docs.read domain=norma`，宿主 6.1.0 起没有消费文档）；每条都带出处、适用范围、参数的符号/单位/范围。自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
 
 指令说明就是注册时的自描述（`diana.docs.read domain=norma`，宿主 6.1.0 起没有消费文档）；自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
 

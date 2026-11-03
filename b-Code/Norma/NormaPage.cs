@@ -13,10 +13,10 @@ namespace Norma;
 internal static class NormaPage
 {
     public const string PageId = NormaIdentity.Domain;
-    public const string PanelId = "hello-actions";
-    public const string HistoryTableId = "hello-history";
-    public const string HistoryView = "history";
-    public const string PingActionId = NormaIdentity.Domain + ".hello.ping";
+    public const string PanelId = "catalog-actions";
+    public const string CatalogTableId = "catalog";
+    public const string CatalogView = "catalog";
+    public const string ListActionId = NormaIdentity.Domain + ".formula.list";
 
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -53,7 +53,7 @@ internal static class NormaPage
                                     mode = "even",
                                     widgets = new object[]
                                     {
-                                        new { kind = "button", action = PingActionId, text = "打招呼" },
+                                        new { kind = "button", action = ListActionId, text = "列出目录到控制台" },
                                     },
                                 },
                             },
@@ -62,21 +62,23 @@ internal static class NormaPage
                         {
                             type = "text",
                             style = "caption",
-                            text = "执行过程与结果同时写进控制台。",
+                            text = "每条计算就是一条指令，在控制台或经 MCP 调用；参数与出处见 norma.formula.show。",
                         },
                         new
                         {
                             type = "table",
-                            id = HistoryTableId,
+                            id = CatalogTableId,
                             dataSource = new
                             {
                                 command = NormaIdentity.Domain + ".ui.data",
-                                args = new { view = HistoryView },
+                                args = new { view = CatalogView },
                             },
                             columns = new object[]
                             {
-                                new { key = "index", title = "次序", width = "80" },
-                                new { key = "time", title = "时间", width = "*" },
+                                new { key = "topic", title = "类", width = "90" },
+                                new { key = "command", title = "指令", width = "200" },
+                                new { key = "title", title = "名称", width = "220" },
+                                new { key = "source", title = "出处", width = "*" },
                             },
                         },
                     },
@@ -93,10 +95,10 @@ internal static class NormaPage
         {
             new
             {
-                id = PingActionId,
-                title = "打招呼",
-                command = NormaIdentity.Domain + ".hello.ping",
-                summary = "打一声招呼，记进表格",
+                id = ListActionId,
+                title = "列出目录",
+                command = NormaIdentity.Domain + ".formula.list",
+                summary = "把全部计算列到控制台",
             },
         },
     }, Options);
