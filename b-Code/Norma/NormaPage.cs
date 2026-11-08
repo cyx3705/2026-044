@@ -16,7 +16,12 @@ internal static class NormaPage
     public const string PanelId = "catalog-actions";
     public const string CatalogTableId = "catalog";
     public const string CatalogView = "catalog";
+    public const string ToolsTableId = "tools";
+    public const string ToolsView = "tools";
+    public const string LookupPanelId = "std-lookup";
+    public const string LookupBoxId = "q";
     public const string ListActionId = NormaIdentity.Domain + ".formula.list";
+    public const string LookupActionId = NormaIdentity.Domain + ".std.lookup";
 
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -60,6 +65,30 @@ internal static class NormaPage
                         },
                         new
                         {
+                            type = "panel",
+                            id = LookupPanelId,
+                            text = "标准代号查表",
+                            rows = new object[]
+                            {
+                                new
+                                {
+                                    mode = "flex",
+                                    widgets = new object[]
+                                    {
+                                        new { kind = "textbox", id = LookupBoxId, label = "代号/名称", flex = true, minWidth = 180 },
+                                        new { kind = "button", action = LookupActionId, text = "查代号" },
+                                    },
+                                },
+                            },
+                        },
+                        new
+                        {
+                            type = "text",
+                            style = "caption",
+                            text = "代号如 GB、JB/ZQ、DIN，名称如 国家标准、国际标准化；结果显示在控制台。",
+                        },
+                        new
+                        {
                             type = "text",
                             style = "caption",
                             text = "每条计算就是一条指令，在控制台或经 MCP 调用；参数与出处见 norma.formula.show。",
@@ -72,6 +101,23 @@ internal static class NormaPage
                             {
                                 command = NormaIdentity.Domain + ".ui.data",
                                 args = new { view = CatalogView },
+                            },
+                            columns = new object[]
+                            {
+                                new { key = "topic", title = "类", width = "90" },
+                                new { key = "command", title = "指令", width = "200" },
+                                new { key = "title", title = "名称", width = "220" },
+                                new { key = "source", title = "出处", width = "*" },
+                            },
+                        },
+                        new
+                        {
+                            type = "table",
+                            id = ToolsTableId,
+                            dataSource = new
+                            {
+                                command = NormaIdentity.Domain + ".ui.data",
+                                args = new { view = ToolsView },
                             },
                             columns = new object[]
                             {
@@ -99,6 +145,14 @@ internal static class NormaPage
                 title = "列出目录",
                 command = NormaIdentity.Domain + ".formula.list",
                 summary = "把全部计算列到控制台",
+            },
+            new
+            {
+                id = LookupActionId,
+                title = "查代号",
+                command = NormaIdentity.Domain + ".std.lookup",
+                args = new { q = "{" + LookupBoxId + "}" },
+                summary = "按代号或名称查国内外标准代号，结果显示在控制台",
             },
         },
     }, Options);

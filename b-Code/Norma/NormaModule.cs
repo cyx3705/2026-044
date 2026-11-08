@@ -133,9 +133,17 @@ public sealed class NormaModule : IModuleContextAware
             HiddenReason = Hidden,
             AllowUnspecifiedParameters = true,
             Handler = CommandDescriptor.Sync(context =>
-                context.GetString("view")?.Trim().ToLowerInvariant() is null or NormaPage.CatalogView
-                    ? CommandResult.Ok("计算目录", NormaCommands.CatalogRows(null))
-                    : CommandResult.Fail($"未知 view；支持 {NormaPage.CatalogView}")),
+            {
+                var view = context.GetString("view")?.Trim().ToLowerInvariant();
+                return view switch
+                {
+                    null or "" or NormaPage.CatalogView
+                        => CommandResult.Ok("计算目录", NormaCommands.CatalogRows(null)),
+                    NormaPage.ToolsView
+                        => CommandResult.Ok("工具目录", NormaCommands.ToolRows()),
+                    _ => CommandResult.Fail($"未知 view；支持 {NormaPage.CatalogView}、{NormaPage.ToolsView}"),
+                };
+            }),
         });
     }
 

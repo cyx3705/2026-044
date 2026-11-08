@@ -361,6 +361,21 @@ static void TestPageWiring()
         var command = source.GetProperty("dataSource").GetProperty("command").GetString()!;
         True(registry.TryGet(command, out _), $"表格取数指令未注册：{command}");
     }
+
+    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == "q"),
+        "页面缺少标准代号查询输入框");
+    var lookup = actions.RootElement.GetProperty("actions").EnumerateArray()
+        .Single(action => action.GetProperty("id").GetString() == "norma.std.lookup");
+    Equal("{q}", lookup.GetProperty("args").GetProperty("q").GetString());
+
+    True(registry.TryGet("norma.ui.data", out var uiData), "缺少 norma.ui.data");
+    var outcome = uiData!.Handler(new CommandContext(
+        uiData, new Dictionary<string, string> { ["view"] = "tools" }, "test", null, CancellationToken.None)).Result;
+    True(outcome.Success, "ui.data view=tools 失败：" + outcome.Message);
+    var tools = JsonSerializer.SerializeToElement(outcome.Data);
+    True(tools.ValueKind == JsonValueKind.Array && tools.EnumerateArray().Any(row =>
+            row.GetProperty("command").GetString() == "norma.std.lookup"),
+        "工具目录里没有 norma.std.lookup");
 }
 
 static void TestVersionsAgree()
