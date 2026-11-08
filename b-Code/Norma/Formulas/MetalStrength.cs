@@ -284,10 +284,9 @@ public static class MetalStrength
         if (hrc is not null && shore.Curve("hs").CoversX(hrc.Value))
             values["hs"] = shore.Curve("hs").Evaluate(hrc.Value);
 
-        foreach (var item in Scales)
-            if (!values.ContainsKey(item.Key))
-                undefined.TryAdd(item.Key,
-                    SteelScaleKeys.Contains(item.Key) ? DomainText("steel", item.Key) : "钢不使用该硬度制");
+        foreach (var item in SteelScaleKeys)
+            if (!values.ContainsKey(item))
+                undefined.TryAdd(item, ShortDomainText("steel", item));
 
         var strengths = new Dictionary<string, double>(StringComparer.Ordinal);
         var strengthUndefined = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -296,7 +295,7 @@ public static class MetalStrength
         if (selected is { } sigma)
             strengths[spec.Key] = sigma;
         else
-            strengthUndefined[spec.Key] = why ?? $"{grade.Title} 在该硬度下无定义";
+            strengthUndefined[spec.Key] = why ?? "无定义";
 
         if (grade.Key != GenericSteel && hrc is not null
             && high.Has(GenericSteel) && high.Curve(GenericSteel).CoversX(hrc.Value))
@@ -340,10 +339,9 @@ public static class MetalStrength
         values[scale.Key] = value;
 
         var supported = FamilyScaleKeys(family.Key);
-        foreach (var item in Scales)
-            if (!values.ContainsKey(item.Key))
-                undefined.TryAdd(item.Key,
-                    supported.Contains(item.Key) ? DomainText(family.Key, item.Key) : $"{family.Title}不使用该硬度制");
+        foreach (var key in supported)
+            if (!values.ContainsKey(key))
+                undefined.TryAdd(key, ShortDomainText(family.Key, key));
 
         var strengths = new Dictionary<string, double>(StringComparer.Ordinal);
         var strengthUndefined = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -352,7 +350,7 @@ public static class MetalStrength
             if (table.Has(spec.Column) && table.Curve(spec.Column).CoversX(coordinate))
                 strengths[spec.Key] = table.Curve(spec.Column).Evaluate(coordinate);
             else
-                strengthUndefined[spec.Key] = $"{grade.Title} 仅在 {GradeDomainText(tables, grade, spec)} 有定义";
+                strengthUndefined[spec.Key] = ShortGradeDomainText(tables, spec);
         }
 
         var notes = new List<string>();
@@ -391,7 +389,7 @@ public static class MetalStrength
 
             if (!table.Has(key))
             {
-                undefined.TryAdd(key, DomainText(familyKey, key));
+                undefined.TryAdd(key, ShortDomainText(familyKey, key));
                 continue;
             }
 
@@ -399,7 +397,7 @@ public static class MetalStrength
             if (curve.CoversX(coordinate))
                 values[key] = curve.Evaluate(coordinate);
             else
-                undefined.TryAdd(key, DomainText(familyKey, key));
+                undefined.TryAdd(key, ShortDomainText(familyKey, key));
         }
     }
 
@@ -427,7 +425,7 @@ public static class MetalStrength
             var curve = high.Curve(gradeKey);
             if (curve.CoversX(hrc.Value))
                 return curve.Evaluate(hrc.Value);
-            why = $"{GradeTitle(gradeKey)} 仅在 {SteelGradeDomainText(gradeKey)} 有定义";
+            why = SteelGradeRange(gradeKey);
             return null;
         }
 
@@ -436,23 +434,21 @@ public static class MetalStrength
             return low.Curve("sigma_b").Evaluate(hrb.Value);
 
         why = hrc is null
-            ? gradeKey == GenericSteel
-                ? "该硬度落在 HRB 段，HRC 段无定义"
-                : $"{GradeTitle(gradeKey)} 只在 HRC 段有数据"
-            : $"手册表没有「{GradeTitle(gradeKey)}」列";
+            ? gradeKey == GenericSteel ? "HRB段" : "HRC段"
+            : "无列";
         return null;
     }
 
-    private static string SteelGradeDomainText(string gradeKey)
+    private static string SteelGradeRange(string gradeKey)
     {
         var high = High.Value;
         if (!high.Has(gradeKey))
-            return "该表无此列";
+            return "无列";
         var curve = high.Curve(gradeKey);
-        return $"HRC {Num.Format(curve.MinX)}–{Num.Format(curve.MaxX)}";
+        return $"{Num.Format(curve.MinX)}–{Num.Format(curve.MaxX)}";
     }
 
-    private static string GradeDomainText(IReadOnlyList<MetalTable> tables, MetalGrade grade, StrengthSpec spec)
+    private static string ShortGradeDomainText(IReadOnlyList<MetalTable> tables, StrengthSpec spec)
     {
         var ranges = tables
             .Where(table => table.Has(spec.Column))
@@ -462,7 +458,7 @@ public static class MetalStrength
                 return $"{Num.Format(curve.MinX)}–{Num.Format(curve.MaxX)}";
             })
             .ToList();
-        return ranges.Count == 0 ? "该表没有这一列" : $"HB {string.Join(" 或 ", ranges)}";
+        return ranges.Count == 0 ? "无列" : string.Join("/", ranges);
     }
 
     /// <summary>某硬度制在某一族里的定义域说明；同一种硬度制可能只在其中一段表里有。</summary>
@@ -519,6 +515,59 @@ public static class MetalStrength
         var text = string.Join(" 或 ", ranges.Select(range => $"{Num.Format(range.Min)}–{Num.Format(range.Max)}"));
         var gap = ranges.Count > 1 ? "（原表中间缺行）" : "";
         return $"{title} 仅在 {text} 有定义{gap}";
+    }
+
+    /// <summary>回执里的短定义域：只给范围，不带说明句，避免每次调用都重复长文本。</summary>
+    private static string ShortDomainText(string familyKey, string scaleKey)
+    {
+        if (familyKey == "steel")
+        {
+            var high = High.Value;
+            var low = Low.Value;
+            var shore = Shore.Value;
+            if (scaleKey == "hs")
+            {
+                var curve = shore.Curve("hs");
+                return $"{Num.Format(curve.MinY)}–{Num.Format(curve.MaxY)}";
+            }
+
+            if (scaleKey == "hv")
+            {
+                var (lowMin, lowMax) = low.Domain("hv");
+                var (highMin, highMax) = high.Domain("hv");
+                return $"{Num.Format(lowMin)}–{Num.Format(lowMax)}/{Num.Format(highMin)}–{Num.Format(highMax)}";
+            }
+
+            if (high.Has(scaleKey))
+            {
+                var (min, max) = high.Domain(scaleKey);
+                return $"{Num.Format(min)}–{Num.Format(max)}";
+            }
+
+            if (low.Has(scaleKey))
+            {
+                var (min, max) = low.Domain(scaleKey);
+                return $"{Num.Format(min)}–{Num.Format(max)}";
+            }
+
+            return "";
+        }
+
+        var tables = familyKey switch
+        {
+            "aluminum" => new[] { Aluminum.Value },
+            "copper" => new[] { CopperLow.Value, CopperHigh.Value },
+            _ => Array.Empty<MetalTable>(),
+        };
+        var ranges = tables
+            .Where(table => table.Has(scaleKey))
+            .Select(table =>
+            {
+                var (min, max) = table.Domain(scaleKey);
+                return $"{Num.Format(min)}–{Num.Format(max)}";
+            })
+            .ToList();
+        return string.Join("/", ranges);
     }
 
     private static double Round(string key, double value)

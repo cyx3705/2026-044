@@ -246,46 +246,43 @@ public sealed class NormaModule : IModuleContextAware
 
     private static string MetalMessage(MetalResult result)
     {
-        var family = MetalStrength.FamilyTitle(result.Family);
-        var grade = MetalStrength.GradeTitle(result.Grade);
         var defined = MetalStrength.Scales
             .Where(item => result.Values.ContainsKey(item.Key))
             .Select(item => $"{item.Title}={Num.Format(result.Values[item.Key])}");
-        var text = $"硬度换算（{family}，{MetalStrength.ScaleTitle(result.Scale)}={Num.Format(result.Value)}）：" +
-                   string.Join("，", defined);
+        var text = $"{MetalStrength.FamilyTitle(result.Family)} " +
+                   $"{MetalStrength.ScaleTitle(result.Scale)}={Num.Format(result.Value)}" +
+                   $"({MetalStrength.GradeTitle(result.Grade)}): " +
+                   string.Join(" ", defined);
 
         if (result.Strengths.Count > 0)
-            text += $"；{grade}：" + string.Join("，", result.Strengths.Select(pair =>
-                $"{MetalStrength.StrengthTitle(pair.Key)}={Num.Format(pair.Value)} MPa"));
+            text += " | " + string.Join(",", result.Strengths.Select(pair =>
+                $"{MetalStrength.StrengthTitle(pair.Key)}={Num.Format(pair.Value)}")) + " MPa";
         foreach (var (key, why) in result.StrengthUndefined)
-            text += $"；{MetalStrength.StrengthTitle(key)}：{why}";
+            text += $" | {MetalStrength.StrengthTitle(key)}无定义({why})";
 
-        var supported = MetalStrength.FamilyScaleKeys(result.Family);
         var undefined = MetalStrength.Scales
-            .Where(item => supported.Contains(item.Key) && result.Undefined.ContainsKey(item.Key))
-            .Select(item => $"{item.Title}=无定义（{result.Undefined[item.Key]}）")
+            .Where(item => result.Undefined.ContainsKey(item.Key))
+            .Select(item => item.Title)
             .ToList();
         if (undefined.Count > 0)
-            text += "；" + string.Join("；", undefined);
+            text += " | 无定义: " + string.Join(",", undefined);
         foreach (var note in result.Notes)
-            text += $"；注：{note}";
+            text += " | " + note;
         return text;
     }
 
     private static object MetalPayload(MetalResult result) => new
     {
-        family = new { key = result.Family, title = MetalStrength.FamilyTitle(result.Family) },
-        input = new { scale = result.Scale, value = result.Value },
-        grade = new { key = result.Grade, title = MetalStrength.GradeTitle(result.Grade) },
-        hardness = MetalStrength.Scales.ToDictionary(
-            item => item.Key,
-            item => result.Values.TryGetValue(item.Key, out var value) ? (double?)value : null),
+        family = result.Family,
+        scale = result.Scale,
+        value = result.Value,
+        grade = result.Grade,
+        hardness = result.Values,
         undefined = result.Undefined,
         strength = result.Strengths,
         strength_undefined = result.StrengthUndefined,
         notes = result.Notes,
-        source = MetalStrength.Source,
-        scope = MetalStrength.Scope,
+        source = "sjzl章",
     };
 
     private static CommandDescriptor Internal(string method, string summary, Func<CommandContext, CommandResult> handler)
