@@ -33,7 +33,7 @@
 | 其他 | `fit.it` 标准公差、`beam.deflection` 梁 |
 | 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
 | 标准代号 | `norma.std.lookup q=` 按代号或名称互查（机械工程师手册「国内/国外部分标准代号」两页） |
-| 金属强度 | `norma.metal.strength value= scale= steel=` 硬度互转与抗拉强度换算（机械工程师手册「黑色金属硬度及强度换算」，PCHIP 保形插值，分钢种） |
+| 金属强度 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
 
 页面有一张目录表，加两个操作面板：标准代号查表、金属强度换算。
 

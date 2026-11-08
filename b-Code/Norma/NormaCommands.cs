@@ -180,7 +180,7 @@ internal static class NormaCommands
                 ["id"] = "metal.strength",
                 ["topic"] = "金属强度",
                 ["command"] = NormaIdentity.Domain + ".metal.strength",
-                ["title"] = "金属硬度与抗拉强度换算：PCHIP 插值，分钢种并标注无定义区间",
+                ["title"] = "金属硬度与强度换算：钢/铝/铜，PCHIP 插值，分牌号并标注无定义区间",
                 ["source"] = MetalStrength.Source,
             },
         ];

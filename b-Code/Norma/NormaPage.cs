@@ -22,7 +22,8 @@ internal static class NormaPage
     public const string MetalPanelId = "metal-strength";
     public const string MetalValueId = "metal-value";
     public const string MetalScaleId = "metal-scale";
-    public const string MetalSteelId = "metal-steel";
+    public const string MetalFamilyId = "metal-family";
+    public const string MetalGradeId = "metal-grade";
     public const string ListActionId = NormaIdentity.Domain + ".formula.list";
     public const string LookupActionId = NormaIdentity.Domain + ".std.lookup";
     public const string MetalActionId = NormaIdentity.Domain + ".metal.strength";
@@ -97,6 +98,16 @@ internal static class NormaPage
                                     mode = "flex",
                                     widgets = new object[]
                                     {
+                                        new
+                                        {
+                                            kind = "textbox",
+                                            id = MetalFamilyId,
+                                            label = "材料",
+                                            mode = "select",
+                                            options = MetalStrength.Families.Select(item => item.Key).ToArray(),
+                                            value = "steel",
+                                            minWidth = 110,
+                                        },
                                         new { kind = "textbox", id = MetalValueId, label = "硬度值", flex = true, minWidth = 90 },
                                         new
                                         {
@@ -111,12 +122,12 @@ internal static class NormaPage
                                         new
                                         {
                                             kind = "textbox",
-                                            id = MetalSteelId,
-                                            label = "钢种",
+                                            id = MetalGradeId,
+                                            label = "牌号",
                                             mode = "select",
-                                            options = MetalStrength.Steels.Select(item => item.Key).ToArray(),
-                                            value = MetalStrength.GenericSteel,
-                                            minWidth = 110,
+                                            options = new[] { "auto" }.Concat(MetalStrength.Grades.Select(item => item.Key)).ToArray(),
+                                            value = "auto",
+                                            minWidth = 120,
                                         },
                                         new { kind = "button", action = MetalActionId, text = "换算" },
                                     },
@@ -174,11 +185,12 @@ internal static class NormaPage
                 command = NormaIdentity.Domain + ".metal.strength",
                 args = new
                 {
+                    family = "{" + MetalFamilyId + "}",
                     value = "{" + MetalValueId + "}",
                     scale = "{" + MetalScaleId + "}",
-                    steel = "{" + MetalSteelId + "}",
+                    grade = "{" + MetalGradeId + "}",
                 },
-                summary = "按硬度值与钢种换算各硬度制与抗拉强度，结果显示在控制台",
+                summary = "按材料族、硬度值与牌号换算各硬度制与强度，结果显示在控制台",
             },
         },
     }, Options);

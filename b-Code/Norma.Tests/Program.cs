@@ -340,72 +340,132 @@ static void TestMetalStrength()
         return JsonSerializer.SerializeToElement(outcome.Data);
     }
 
-    Equal(12, MetalStrength.Scales.Count);
+    Equal(14, MetalStrength.Scales.Count);
+    Equal(3, MetalStrength.Families.Count);
     Equal(10, MetalStrength.Steels.Count);
+    Equal(21, MetalStrength.Grades.Count);
 
-    // 手册 HRC45 行的原值：PCHIP 节点处必须原样返回。
-    var hrc45 = Metal(command, "value=45 scale=hrc steel=generic");
+    // ---- 钢：节点值、分钢种、定义域 ----
+    var hrc45 = Metal(command, "family=steel value=45 scale=hrc grade=generic");
     var hardness = hrc45.GetProperty("hardness");
     Near(45, hardness.GetProperty("hrc").GetDouble(), 1e-9, "HRC 节点");
     Near(73.2, hardness.GetProperty("hra").GetDouble(), 0.05, "HRC45 → HRA");
     Near(82.9, hardness.GetProperty("hr15n").GetDouble(), 0.05, "HRC45 → HR15N");
     Near(436, hardness.GetProperty("hv").GetDouble(), 0.6, "HRC45 → HV");
     Near(424, hardness.GetProperty("hb").GetDouble(), 0.6, "HRC45 → HB");
-    Near(1480, hrc45.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC45 不分钢种 σb");
+    Near(1480, hrc45.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "HRC45 不分钢种 σb");
 
-    var stainless = Metal(command, "value=45 scale=hrc steel=stainless");
-    Near(1457, stainless.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC45 不锈钢 σb");
-    Near(1480, stainless.GetProperty("sigma_b").GetProperty("generic").GetDouble(), 0.6, "HRC45 不分钢种对照");
+    var stainless = Metal(command, "family=steel value=45 scale=hrc grade=stainless");
+    Near(1457, stainless.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "HRC45 不锈钢 σb");
+    Near(1480, stainless.GetProperty("strength").GetProperty("sigma_b_generic").GetDouble(), 0.6, "HRC45 不分钢种对照");
 
     // 源表铬钢 HRC45 印成 1488（与碳钢同值），按上下行 1403、1497 改为 1450。
-    var chrome45 = Metal(command, "value=45 scale=hrc steel=chrome");
-    Near(1450, chrome45.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "铬钢 HRC45 σb（已修正为 1450）");
+    var chrome45 = Metal(command, "family=steel value=45 scale=hrc grade=chrome");
+    Near(1450, chrome45.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铬钢 HRC45 σb（已修正为 1450）");
 
     // 铬钼钢 HRC39=1246 没有足够证据，保持原表值不改。
-    var chromeMo39 = Metal(command, "value=39 scale=hrc steel=chrome_mo");
-    Near(1246, chromeMo39.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "铬钼钢 HRC39 保持原表值");
+    var chromeMo39 = Metal(command, "family=steel value=39 scale=hrc grade=chrome_mo");
+    Near(1246, chromeMo39.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铬钼钢 HRC39 保持原表值");
+
+    // 兼容别名：旧调用 steel= 仍然可用。
+    var alias = Metal(command, "value=45 scale=hrc steel=stainless");
+    Near(1457, alias.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "steel= 兼容别名");
 
     // 反算：HV 436 回到 HRC 45。
-    var fromHv = Metal(command, "value=436 scale=hv steel=generic");
+    var fromHv = Metal(command, "family=steel value=436 scale=hv grade=generic");
     Near(45, fromHv.GetProperty("hardness").GetProperty("hrc").GetDouble(), 0.05, "HV436 → HRC");
 
     // HRC60：HB/HRB/HBS 没有定义，必须显式说明，不能猜。
-    var hrc60 = Metal(command, "value=60 scale=hrc steel=generic");
+    var hrc60 = Metal(command, "family=steel value=60 scale=hrc grade=generic");
     Equal(JsonValueKind.Null, hrc60.GetProperty("hardness").GetProperty("hb").ValueKind);
     True(hrc60.GetProperty("undefined").TryGetProperty("hb", out var hbWhy), "HRC60 应说明 HB 无定义");
     True(hbWhy.GetString()!.Contains("211–501", StringComparison.Ordinal), "HB 定义域说明不对：" + hbWhy);
-    Near(2607, hrc60.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC60 不分钢种 σb");
+    Near(2607, hrc60.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "HRC60 不分钢种 σb");
 
     // HRA 从 HRC39 起才有定义。
-    var hrc38 = Metal(command, "value=38 scale=hrc steel=generic");
+    var hrc38 = Metal(command, "family=steel value=38 scale=hrc grade=generic");
     Equal(JsonValueKind.Null, hrc38.GetProperty("hardness").GetProperty("hra").ValueKind);
     True(hrc38.GetProperty("undefined").TryGetProperty("hra", out var hraWhy), "HRC38 应说明 HRA 无定义");
     True(hraWhy.GetString()!.Contains("70–86.6", StringComparison.Ordinal), "HRA 定义域说明不对：" + hraWhy);
 
     // HRB 段：σb 用低硬度表；HRC 不定义。
-    var hrb90 = Metal(command, "value=90 scale=hrb steel=generic");
+    var hrb90 = Metal(command, "family=steel value=90 scale=hrb grade=generic");
     Near(183, hrb90.GetProperty("hardness").GetProperty("hv").GetDouble(), 0.6, "HRB90 → HV");
-    Near(629, hrb90.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRB90 不分钢种 σb");
+    Near(629, hrb90.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "HRB90 不分钢种 σb");
     Equal(JsonValueKind.Null, hrb90.GetProperty("hardness").GetProperty("hrc").ValueKind);
 
     // 钢种在 HRB 段没有数据：报无定义，不回落到别的钢种。
-    var lowSteel = Metal(command, "value=90 scale=hrb steel=carbon");
-    Equal(JsonValueKind.Null, lowSteel.GetProperty("sigma_b").GetProperty("steel").ValueKind);
-    True(lowSteel.GetProperty("sigma_b").GetProperty("undefined").GetString()!.Contains("碳钢", StringComparison.Ordinal),
-        "碳钢无定义的理由不对");
+    var lowSteel = Metal(command, "family=steel value=90 scale=hrb grade=carbon");
+    True(lowSteel.GetProperty("strength_undefined").TryGetProperty("sigma_b", out var lowWhy), "碳钢在 HRB90 应无定义");
+    True(lowWhy.GetString()!.Contains("碳钢", StringComparison.Ordinal), "碳钢无定义的理由不对");
 
     // HRB100 与高硬度表在 HV 上重叠：应能补出 HRC/HB。
-    var hrb100 = Metal(command, "value=100 scale=hrb steel=generic");
-    Near(803, hrb100.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRB100 不分钢种 σb");
+    var hrb100 = Metal(command, "family=steel value=100 scale=hrb grade=generic");
+    Near(803, hrb100.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "HRB100 不分钢种 σb");
     True(hrb100.GetProperty("hardness").GetProperty("hrc").GetDouble() is > 21 and < 23, "HRB100 应换算出 HRC≈22");
     Near(233, hrb100.GetProperty("hardness").GetProperty("hb").GetDouble(), 5, "HRB100 → HB");
 
-    // 超出定义域直接失败，不返回外推值。
-    foreach (var args in new[] { "value=75 scale=hrc", "value=100 scale=hv", "value=50 scale=hrb" })
+    // ---- 钢：肖氏 ----
+    var shore = Metal(command, "family=steel value=68 scale=hrc grade=generic");
+    Near(96.6, shore.GetProperty("hardness").GetProperty("hs").GetDouble(), 0.05, "HRC68 → HS");
+    var fromHs = Metal(command, "family=steel value=96.6 scale=hs grade=generic");
+    Near(68, fromHs.GetProperty("hardness").GetProperty("hrc").GetDouble(), 0.05, "HS96.6 → HRC");
+    var shoreLow = Metal(command, "family=steel value=20 scale=hrc grade=generic");
+    Near(34.0, shoreLow.GetProperty("hardness").GetProperty("hs").GetDouble(), 0.05, "HRC20 → HS");
+
+    // ---- 铝合金 ----
+    var aluminum = Metal(command, "family=aluminum value=120 scale=hb grade=a211_212_annealed");
+    Near(126.5, aluminum.GetProperty("hardness").GetProperty("hv").GetDouble(), 0.6, "铝 HB120 → HV");
+    Near(69.3, aluminum.GetProperty("hardness").GetProperty("hrb").GetDouble(), 0.05, "铝 HB120 → HRB");
+    Near(425, aluminum.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "2A11/2A12 退火 σb");
+    var a7a04 = Metal(command, "family=aluminum value=120 scale=hb grade=a7a04");
+    Near(444, a7a04.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "7A04 σb");
+    var aluminumHigh = Metal(command, "family=aluminum value=170 scale=hb grade=a211_212_annealed");
+    Equal(JsonValueKind.Null, aluminumHigh.GetProperty("hardness").GetProperty("hv").ValueKind);
+    Near(624, aluminumHigh.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铝 HB170 σb");
+    True(aluminumHigh.GetProperty("notes").GetArrayLength() > 0, "铝 HB170 应有重复段说明");
+    var aluminumA7High = Metal(command, "family=aluminum value=170 scale=hb grade=a7a04");
+    True(aluminumA7High.GetProperty("strength_undefined").TryGetProperty("sigma_b", out var a7Why), "7A04 在 HB170 应无定义");
+    True(a7Why.GetString()!.Contains("7A04", StringComparison.Ordinal), "7A04 无定义理由不对");
+
+    // ---- 铜合金 ----
+    var brass = Metal(command, "family=copper value=120 scale=hb grade=brass_plate");
+    Near(121.9, brass.GetProperty("hardness").GetProperty("hv").GetDouble(), 0.6, "黄铜 HB120 → HV");
+    Near(398, brass.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "黄铜板材 σb");
+    var beryllium = Metal(command, "family=copper value=200 scale=hb grade=beryllium_plate");
+    Near(657, beryllium.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铍青铜板材 σb");
+    Near(577, beryllium.GetProperty("strength").GetProperty("sigma_02").GetDouble(), 0.6, "铍青铜板材 σ0.2");
+    Near(404, beryllium.GetProperty("strength").GetProperty("sigma_001").GetDouble(), 0.6, "铍青铜板材 σ0.01");
+    var berylliumHigh = Metal(command, "family=copper value=300 scale=hb grade=beryllium_plate");
+    Near(32.4, berylliumHigh.GetProperty("hardness").GetProperty("hrc").GetDouble(), 0.05, "铍青铜 HB300 → HRC");
+    Near(1018, berylliumHigh.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铍青铜 HB300 σb");
+    var brassHigh = Metal(command, "family=copper value=300 scale=hb grade=brass_plate");
+    True(brassHigh.GetProperty("strength_undefined").TryGetProperty("sigma_b", out var brassWhy), "黄铜在 HB300 应无定义");
+    True(brassWhy.GetString()!.Contains("黄铜板材", StringComparison.Ordinal), "黄铜无定义理由不对");
+    var copperGap = Execute(command, "family=copper value=250 scale=hb");
+    True(!copperGap.Success, "铜 HB250 应被拒绝");
+    True(copperGap.Message.Contains("缺行", StringComparison.Ordinal), "铜缺口理由不对：" + copperGap.Message);
+    var copper220 = Metal(command, "family=copper value=220 scale=hb grade=beryllium_bar");
+    Near(808, copper220.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铍青铜 HB220 σb");
+    var copper288 = Metal(command, "family=copper value=288 scale=hb grade=beryllium_bar");
+    Near(1047, copper288.GetProperty("strength").GetProperty("sigma_b").GetDouble(), 0.6, "铍青铜 HB288 σb");
+
+    // ---- 拒绝 ----
+    foreach (var args in new[]
+             {
+                 "family=steel value=75 scale=hrc",
+                 "family=steel value=100 scale=hv",
+                 "family=steel value=50 scale=hrb",
+                 "family=steel value=100 scale=hs",
+                 "family=aluminum value=120 scale=hs",
+                 "family=copper value=25 scale=hrc",
+             })
     {
         var outcome = Execute(command, args);
         True(!outcome.Success, $"{args} 应被拒绝");
-        True(outcome.Message.Contains("超出定义域", StringComparison.Ordinal), $"{args} 的拒绝理由不对：{outcome.Message}");
+        True(outcome.Message.Contains("超出定义域", StringComparison.Ordinal)
+             || outcome.Message.Contains("不支持", StringComparison.Ordinal),
+            $"{args} 的拒绝理由不对：{outcome.Message}");
     }
 }
 
@@ -466,13 +526,16 @@ static void TestPageWiring()
         "页面缺少金属强度换算的硬度值输入框");
     True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalScaleId),
         "页面缺少硬度制选择框");
-    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalSteelId),
-        "页面缺少钢种选择框");
+    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalFamilyId),
+        "页面缺少材料族选择框");
+    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalGradeId),
+        "页面缺少牌号选择框");
     var metal = actions.RootElement.GetProperty("actions").EnumerateArray()
         .Single(action => action.GetProperty("id").GetString() == "norma.metal.strength");
+    Equal("{metal-family}", metal.GetProperty("args").GetProperty("family").GetString());
     Equal("{metal-value}", metal.GetProperty("args").GetProperty("value").GetString());
     Equal("{metal-scale}", metal.GetProperty("args").GetProperty("scale").GetString());
-    Equal("{metal-steel}", metal.GetProperty("args").GetProperty("steel").GetString());
+    Equal("{metal-grade}", metal.GetProperty("args").GetProperty("grade").GetString());
 
     True(registry.TryGet("norma.ui.data", out var uiData), "缺少 norma.ui.data");
     var outcome = uiData!.Handler(new CommandContext(

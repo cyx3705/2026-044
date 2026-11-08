@@ -35,5 +35,9 @@
     <!-- 硬度—强度换算节点表（机械工程师手册 sjzl 章），PCHIP 的锚点。 -->
     <EmbeddedResource Include="Formulas\metal-high.tsv" LogicalName="Norma.Formulas.metal-high.tsv" />
     <EmbeddedResource Include="Formulas\metal-low.tsv" LogicalName="Norma.Formulas.metal-low.tsv" />
+    <EmbeddedResource Include="Formulas\metal-shore.tsv" LogicalName="Norma.Formulas.metal-shore.tsv" />
+    <EmbeddedResource Include="Formulas\metal-aluminum.tsv" LogicalName="Norma.Formulas.metal-aluminum.tsv" />
+    <EmbeddedResource Include="Formulas\metal-copper-low.tsv" LogicalName="Norma.Formulas.metal-copper-low.tsv" />
+    <EmbeddedResource Include="Formulas\metal-copper-high.tsv" LogicalName="Norma.Formulas.metal-copper-high.tsv" />
   </ItemGroup>
 </Project>
