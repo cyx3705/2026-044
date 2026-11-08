@@ -20,6 +20,8 @@ var tests = new (string Name, Func<Task> Run)[]
     ("hand-checked reference values", Sync(TestReferenceValues)),
     ("input validation rejects bad values", Sync(TestValidation)),
     ("formula core has no host reference", Sync(TestCoreIsHostFree)),
+    ("standards table is complete", Sync(TestStandardsTable)),
+    ("standard lookup works both ways", Sync(TestStandardLookup)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -56,14 +58,14 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 5;
+static int ExpectedCommandCount() => Catalog.All.Count + 6;
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
     var domain = NormaIdentity.Domain;
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
-        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
+        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
     foreach (var name in expected)
     {
@@ -271,6 +273,51 @@ static void TestCoreIsHostFree()
             $"{Path.GetFileName(file)} 引用了宿主；Formulas/ 必须能原样抽成独立 NuGet 包");
 }
 
+static void TestStandardsTable()
+{
+    var all = Standards.All;
+    True(all.Count >= 100, $"标准代号条数异常：{all.Count}");
+    True(all.Count(item => item.Scope == "国内") >= 20, "国内标准代号太少");
+    True(all.Count(item => item.Scope == "国外") >= 70, "国外标准代号太少");
+    True(all.Select(item => Standards.NormalizeCode(item.Code)).Distinct().Count() == all.Count,
+        "标准代号有重复");
+    foreach (var item in all)
+    {
+        True(item.Code.Length > 0 && item.Name.Length > 0, "代号或名称为空");
+        True(item.Scope is "国内" or "国外", $"{item.Code} 的 scope 应为 国内/国外");
+    }
+}
+
+static void TestStandardLookup()
+{
+    static StandardCode First(string query)
+    {
+        var found = Standards.Lookup(query, 20);
+        True(found.Items.Count > 0, $"「{query}」没有命中");
+        return found.Items[0];
+    }
+
+    Equal("国家标准", First("GB").Name);
+    Equal("JB/ZQ", First("JB/ZQ").Code);
+    Equal("国家军用标准", First("gjb").Name);
+    Equal("国际标准化组织标准", First("ISO").Name);
+    Equal("德国工业标准", First("DIN").Name);
+    Equal("GB", First("GB/T 5782").Code);
+    True(Standards.Lookup("国际标准化", 20).Items.Any(item => item.Code == "ISO"), "按名称找 ISO 失败");
+    True(Standards.Lookup("德国", 20).Items.Any(item => item.Code == "DIN"), "按名称找 DIN 失败");
+    Equal(0, Standards.Lookup("不存在的标准xyz", 20).Total);
+    var limited = Standards.Lookup("标准", 3);
+    True(limited.Total > 3 && limited.Items.Count == 3, "limit 未生效");
+
+    var registry = Registry();
+    True(registry.TryGet("norma.std.lookup", out var descriptor), "未注册 norma.std.lookup");
+    var outcome = descriptor!.Handler(new CommandContext(
+        descriptor, new Dictionary<string, string> { ["q"] = "GB" }, "test", null, CancellationToken.None)).Result;
+    True(outcome.Success, "std.lookup 执行失败：" + outcome.Message);
+    True(outcome.Message.Contains("国家标准", StringComparison.Ordinal), "std.lookup 消息不对：" + outcome.Message);
+    JsonSerializer.Serialize(outcome.Data);
+}
+
 static void TestPageOwner()
 {
     // Aurora 的判据：owner = "History" + 首字母大写的指令域；对不上整页被静默拒收。
@@ -369,6 +416,13 @@ static async Task TestHostLoadsPackage()
         True(lifeResult.GetProperty("success").GetBoolean(), lifeResult.GetRawText());
         True(lifeResult.GetProperty("message").GetString()!.Contains("L_nm=250 10⁶ r", StringComparison.Ordinal),
             "宿主执行结果不对：" + lifeResult.GetProperty("message").GetString());
+
+        // 标准代号表是嵌入资源，宿主装载后同样能查到。
+        var std = await Probe(archive, NormaIdentity.Domain + ".std.lookup q=ISO");
+        var stdResult = std.GetProperty("data").GetProperty("result");
+        True(stdResult.GetProperty("success").GetBoolean(), stdResult.GetRawText());
+        True(stdResult.GetProperty("message").GetString()!.Contains("国际标准化组织标准", StringComparison.Ordinal),
+            "宿主查标准代号结果不对：" + stdResult.GetProperty("message").GetString());
     }
     finally
     {

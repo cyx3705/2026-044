@@ -32,6 +32,7 @@
 | 支承与弹性件 | `bearing.load` / `life` / `required` / `static`、`spring.compression` / `wire` |
 | 其他 | `fit.it` 标准公差、`beam.deflection` 梁 |
 | 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
+| 标准代号 | `norma.std.lookup q=` 按代号或名称互查（机械工程师手册「国内/国外部分标准代号」两页） |
 
 页面只有一张目录表，加一个按钮把目录列到控制台。
 
