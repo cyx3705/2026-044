@@ -121,6 +121,59 @@ public sealed class NormaModule : IModuleContextAware
             }),
         });
 
+        registry.Register(new CommandDescriptor
+        {
+            Name = NormaIdentity.Domain + ".metal.strength",
+            Domain = NormaIdentity.Domain,
+            CommandClass = "metal",
+            Summary = "金属硬度与抗拉强度换算：按手册表 PCHIP 插值，分钢种并标明各硬度制的无定义区间",
+            Example = NormaIdentity.Domain + ".metal.strength value=45 scale=hrc steel=generic",
+            Readonly = true,
+            Parameters =
+            [
+                new ParameterSpec
+                {
+                    Name = "value",
+                    Description = "硬度值；按 scale 指定的硬度制",
+                    Type = ParamType.Double,
+                    Required = true,
+                    Position = 0,
+                },
+                new ParameterSpec
+                {
+                    Name = "scale",
+                    Description = "输入硬度制：hrc/hra/hr15n/hr30n/hr45n/hv/hb/hrb/hr15t/hr30t/hr45t/hbs",
+                    Type = ParamType.String,
+                    Default = "hrc",
+                    AllowedValues = MetalStrength.Scales.Select(item => item.Key).ToArray(),
+                },
+                new ParameterSpec
+                {
+                    Name = "steel",
+                    Description = "强度口径：generic 不分钢种，其余为手册钢种列",
+                    Type = ParamType.String,
+                    Default = MetalStrength.GenericSteel,
+                    AllowedValues = MetalStrength.Steels.Select(item => item.Key).ToArray(),
+                },
+            ],
+            Handler = CommandDescriptor.Sync(context =>
+            {
+                var value = context.GetDouble("value", double.NaN);
+                try
+                {
+                    var result = MetalStrength.Convert(
+                        context.GetString("scale") ?? "hrc",
+                        value,
+                        context.GetString("steel") ?? MetalStrength.GenericSteel);
+                    return CommandResult.Ok(MetalMessage(result), MetalPayload(result));
+                }
+                catch (ArgumentException ex)
+                {
+                    return CommandResult.Fail(ex.Message);
+                }
+            }),
+        });
+
         registry.Register(Internal("describe", "返回页面描述", _ => Json(NormaPage.Describe())));
         registry.Register(Internal("actions", "返回页面动作声明", _ => Json(NormaPage.Actions())));
         registry.Register(new CommandDescriptor
@@ -170,6 +223,51 @@ public sealed class NormaModule : IModuleContextAware
             scope = item.Scope,
             note = item.Note,
         }),
+    };
+
+    private static string MetalMessage(MetalResult result)
+    {
+        var steelTitle = MetalStrength.SteelTitle(result.Steel);
+        var defined = MetalStrength.Scales
+            .Where(item => result.Values.ContainsKey(item.Key))
+            .Select(item => $"{item.Title}={Num.Format(result.Values[item.Key])}");
+        var text = $"硬度换算（{MetalStrength.ScaleTitle(result.Scale)}={Num.Format(result.Value)}）：" +
+                   string.Join("，", defined);
+
+        if (result.SigmaB is { } sigma)
+        {
+            text += $"；σb({steelTitle})={Num.Format(sigma)} MPa";
+            if (result.Steel != MetalStrength.GenericSteel && result.SigmaBGeneric is { } generic)
+                text += $"（不分钢种 {Num.Format(generic)} MPa）";
+        }
+        else if (result.SigmaBUndefined is { } why)
+        {
+            text += $"；σb({steelTitle})：{why}";
+        }
+
+        var undefined = MetalStrength.Scales
+            .Where(item => result.Undefined.ContainsKey(item.Key))
+            .Select(item => $"{item.Title}=无定义（{result.Undefined[item.Key]}）")
+            .ToList();
+        return undefined.Count == 0 ? text : text + "；" + string.Join("；", undefined);
+    }
+
+    private static object MetalPayload(MetalResult result) => new
+    {
+        input = new { scale = result.Scale, value = result.Value },
+        steel = new { key = result.Steel, title = MetalStrength.SteelTitle(result.Steel) },
+        hardness = MetalStrength.Scales.ToDictionary(
+            item => item.Key,
+            item => result.Values.TryGetValue(item.Key, out var value) ? (double?)value : null),
+        undefined = result.Undefined,
+        sigma_b = new
+        {
+            steel = result.SigmaB,
+            generic = result.SigmaBGeneric,
+            undefined = result.SigmaBUndefined,
+        },
+        source = MetalStrength.Source,
+        scope = MetalStrength.Scope,
     };
 
     private static CommandDescriptor Internal(string method, string summary, Func<CommandContext, CommandResult> handler)

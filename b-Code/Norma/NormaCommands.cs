@@ -163,7 +163,7 @@ internal static class NormaCommands
             })
             .ToList();
 
-    /// <summary>不是计算公式、但属于本模块的查表工具。目前只有标准代号查表。</summary>
+    /// <summary>不是计算公式、但属于本模块的查表与换算工具。</summary>
     internal static IReadOnlyList<IReadOnlyDictionary<string, string>> ToolRows()
         =>
         [
@@ -174,6 +174,14 @@ internal static class NormaCommands
                 ["command"] = NormaIdentity.Domain + ".std.lookup",
                 ["title"] = "国内外标准代号查表：按代号或名称互查",
                 ["source"] = $"机械工程师手册 国内/国外部分标准代号（{Standards.All.Count} 条）",
+            },
+            new Dictionary<string, string>
+            {
+                ["id"] = "metal.strength",
+                ["topic"] = "金属强度",
+                ["command"] = NormaIdentity.Domain + ".metal.strength",
+                ["title"] = "金属硬度与抗拉强度换算：PCHIP 插值，分钢种并标注无定义区间",
+                ["source"] = MetalStrength.Source,
             },
         ];
 

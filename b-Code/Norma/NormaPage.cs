@@ -1,5 +1,6 @@
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using Norma.Formulas;
 
 namespace Norma;
 
@@ -18,8 +19,13 @@ internal static class NormaPage
     public const string CatalogView = "catalog";
     public const string LookupPanelId = "std-lookup";
     public const string LookupBoxId = "q";
+    public const string MetalPanelId = "metal-strength";
+    public const string MetalValueId = "metal-value";
+    public const string MetalScaleId = "metal-scale";
+    public const string MetalSteelId = "metal-steel";
     public const string ListActionId = NormaIdentity.Domain + ".formula.list";
     public const string LookupActionId = NormaIdentity.Domain + ".std.lookup";
+    public const string MetalActionId = NormaIdentity.Domain + ".metal.strength";
 
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -81,6 +87,44 @@ internal static class NormaPage
                         },
                         new
                         {
+                            type = "panel",
+                            id = MetalPanelId,
+                            text = "金属强度换算",
+                            rows = new object[]
+                            {
+                                new
+                                {
+                                    mode = "flex",
+                                    widgets = new object[]
+                                    {
+                                        new { kind = "textbox", id = MetalValueId, label = "硬度值", flex = true, minWidth = 90 },
+                                        new
+                                        {
+                                            kind = "textbox",
+                                            id = MetalScaleId,
+                                            label = "硬度制",
+                                            mode = "select",
+                                            options = MetalStrength.Scales.Select(item => item.Key).ToArray(),
+                                            value = "hrc",
+                                            minWidth = 90,
+                                        },
+                                        new
+                                        {
+                                            kind = "textbox",
+                                            id = MetalSteelId,
+                                            label = "钢种",
+                                            mode = "select",
+                                            options = MetalStrength.Steels.Select(item => item.Key).ToArray(),
+                                            value = MetalStrength.GenericSteel,
+                                            minWidth = 110,
+                                        },
+                                        new { kind = "button", action = MetalActionId, text = "换算" },
+                                    },
+                                },
+                            },
+                        },
+                        new
+                        {
                             type = "table",
                             id = CatalogTableId,
                             dataSource = new
@@ -122,6 +166,19 @@ internal static class NormaPage
                 command = NormaIdentity.Domain + ".std.lookup",
                 args = new { q = "{" + LookupBoxId + "}" },
                 summary = "按代号或名称查国内外标准代号，结果显示在控制台",
+            },
+            new
+            {
+                id = MetalActionId,
+                title = "金属强度换算",
+                command = NormaIdentity.Domain + ".metal.strength",
+                args = new
+                {
+                    value = "{" + MetalValueId + "}",
+                    scale = "{" + MetalScaleId + "}",
+                    steel = "{" + MetalSteelId + "}",
+                },
+                summary = "按硬度值与钢种换算各硬度制与抗拉强度，结果显示在控制台",
             },
         },
     }, Options);

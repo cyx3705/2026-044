@@ -22,6 +22,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("formula core has no host reference", Sync(TestCoreIsHostFree)),
     ("standards table is complete", Sync(TestStandardsTable)),
     ("standard lookup works both ways", Sync(TestStandardLookup)),
+    ("metal strength conversion and domains", Sync(TestMetalStrength)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -58,14 +59,14 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 6;
+static int ExpectedCommandCount() => Catalog.All.Count + 7;
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
     var domain = NormaIdentity.Domain;
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
-        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
+        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
     foreach (var name in expected)
     {
@@ -318,6 +319,88 @@ static void TestStandardLookup()
     JsonSerializer.Serialize(outcome.Data);
 }
 
+static void TestMetalStrength()
+{
+    var registry = Registry();
+    True(registry.TryGet("norma.metal.strength", out var descriptor), "未注册 norma.metal.strength");
+    var command = descriptor!;
+
+    static Dictionary<string, string> Args(string text)
+        => text.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(pair => pair.Split('='))
+            .ToDictionary(pair => pair[0], pair => pair[1]);
+
+    static CommandResult Execute(CommandDescriptor descriptor, string args)
+        => descriptor.Handler(new CommandContext(descriptor, Args(args), "test", null, CancellationToken.None)).Result;
+
+    static JsonElement Metal(CommandDescriptor descriptor, string args)
+    {
+        var outcome = Execute(descriptor, args);
+        True(outcome.Success, $"metal.strength {args} 失败：{outcome.Message}");
+        return JsonSerializer.SerializeToElement(outcome.Data);
+    }
+
+    Equal(12, MetalStrength.Scales.Count);
+    Equal(10, MetalStrength.Steels.Count);
+
+    // 手册 HRC45 行的原值：PCHIP 节点处必须原样返回。
+    var hrc45 = Metal(command, "value=45 scale=hrc steel=generic");
+    var hardness = hrc45.GetProperty("hardness");
+    Near(45, hardness.GetProperty("hrc").GetDouble(), 1e-9, "HRC 节点");
+    Near(73.2, hardness.GetProperty("hra").GetDouble(), 0.05, "HRC45 → HRA");
+    Near(82.9, hardness.GetProperty("hr15n").GetDouble(), 0.05, "HRC45 → HR15N");
+    Near(436, hardness.GetProperty("hv").GetDouble(), 0.6, "HRC45 → HV");
+    Near(424, hardness.GetProperty("hb").GetDouble(), 0.6, "HRC45 → HB");
+    Near(1480, hrc45.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC45 不分钢种 σb");
+
+    var stainless = Metal(command, "value=45 scale=hrc steel=stainless");
+    Near(1457, stainless.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC45 不锈钢 σb");
+    Near(1480, stainless.GetProperty("sigma_b").GetProperty("generic").GetDouble(), 0.6, "HRC45 不分钢种对照");
+
+    // 反算：HV 436 回到 HRC 45。
+    var fromHv = Metal(command, "value=436 scale=hv steel=generic");
+    Near(45, fromHv.GetProperty("hardness").GetProperty("hrc").GetDouble(), 0.05, "HV436 → HRC");
+
+    // HRC60：HB/HRB/HBS 没有定义，必须显式说明，不能猜。
+    var hrc60 = Metal(command, "value=60 scale=hrc steel=generic");
+    Equal(JsonValueKind.Null, hrc60.GetProperty("hardness").GetProperty("hb").ValueKind);
+    True(hrc60.GetProperty("undefined").TryGetProperty("hb", out var hbWhy), "HRC60 应说明 HB 无定义");
+    True(hbWhy.GetString()!.Contains("211–501", StringComparison.Ordinal), "HB 定义域说明不对：" + hbWhy);
+    Near(2607, hrc60.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC60 不分钢种 σb");
+
+    // HRA 从 HRC39 起才有定义。
+    var hrc38 = Metal(command, "value=38 scale=hrc steel=generic");
+    Equal(JsonValueKind.Null, hrc38.GetProperty("hardness").GetProperty("hra").ValueKind);
+    True(hrc38.GetProperty("undefined").TryGetProperty("hra", out var hraWhy), "HRC38 应说明 HRA 无定义");
+    True(hraWhy.GetString()!.Contains("70–86.6", StringComparison.Ordinal), "HRA 定义域说明不对：" + hraWhy);
+
+    // HRB 段：σb 用低硬度表；HRC 不定义。
+    var hrb90 = Metal(command, "value=90 scale=hrb steel=generic");
+    Near(183, hrb90.GetProperty("hardness").GetProperty("hv").GetDouble(), 0.6, "HRB90 → HV");
+    Near(629, hrb90.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRB90 不分钢种 σb");
+    Equal(JsonValueKind.Null, hrb90.GetProperty("hardness").GetProperty("hrc").ValueKind);
+
+    // 钢种在 HRB 段没有数据：报无定义，不回落到别的钢种。
+    var lowSteel = Metal(command, "value=90 scale=hrb steel=carbon");
+    Equal(JsonValueKind.Null, lowSteel.GetProperty("sigma_b").GetProperty("steel").ValueKind);
+    True(lowSteel.GetProperty("sigma_b").GetProperty("undefined").GetString()!.Contains("碳钢", StringComparison.Ordinal),
+        "碳钢无定义的理由不对");
+
+    // HRB100 与高硬度表在 HV 上重叠：应能补出 HRC/HB。
+    var hrb100 = Metal(command, "value=100 scale=hrb steel=generic");
+    Near(803, hrb100.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRB100 不分钢种 σb");
+    True(hrb100.GetProperty("hardness").GetProperty("hrc").GetDouble() is > 21 and < 23, "HRB100 应换算出 HRC≈22");
+    Near(233, hrb100.GetProperty("hardness").GetProperty("hb").GetDouble(), 5, "HRB100 → HB");
+
+    // 超出定义域直接失败，不返回外推值。
+    foreach (var args in new[] { "value=75 scale=hrc", "value=100 scale=hv", "value=50 scale=hrb" })
+    {
+        var outcome = Execute(command, args);
+        True(!outcome.Success, $"{args} 应被拒绝");
+        True(outcome.Message.Contains("超出定义域", StringComparison.Ordinal), $"{args} 的拒绝理由不对：{outcome.Message}");
+    }
+}
+
 static void TestPageOwner()
 {
     // Aurora 的判据：owner = "History" + 首字母大写的指令域；对不上整页被静默拒收。
@@ -370,6 +453,18 @@ static void TestPageWiring()
     var lookup = actions.RootElement.GetProperty("actions").EnumerateArray()
         .Single(action => action.GetProperty("id").GetString() == "norma.std.lookup");
     Equal("{q}", lookup.GetProperty("args").GetProperty("q").GetString());
+
+    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalValueId),
+        "页面缺少金属强度换算的硬度值输入框");
+    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalScaleId),
+        "页面缺少硬度制选择框");
+    True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == NormaPage.MetalSteelId),
+        "页面缺少钢种选择框");
+    var metal = actions.RootElement.GetProperty("actions").EnumerateArray()
+        .Single(action => action.GetProperty("id").GetString() == "norma.metal.strength");
+    Equal("{metal-value}", metal.GetProperty("args").GetProperty("value").GetString());
+    Equal("{metal-scale}", metal.GetProperty("args").GetProperty("scale").GetString());
+    Equal("{metal-steel}", metal.GetProperty("args").GetProperty("steel").GetString());
 
     True(registry.TryGet("norma.ui.data", out var uiData), "缺少 norma.ui.data");
     var outcome = uiData!.Handler(new CommandContext(
@@ -441,6 +536,13 @@ static async Task TestHostLoadsPackage()
         True(stdResult.GetProperty("success").GetBoolean(), stdResult.GetRawText());
         True(stdResult.GetProperty("message").GetString()!.Contains("国际标准化组织标准", StringComparison.Ordinal),
             "宿主查标准代号结果不对：" + stdResult.GetProperty("message").GetString());
+
+        // 硬度—强度表的嵌入资源与 PCHIP 在宿主上下文里同样可用。
+        var metal = await Probe(archive, NormaIdentity.Domain + ".metal.strength value=45 scale=hrc steel=stainless");
+        var metalResult = metal.GetProperty("data").GetProperty("result");
+        True(metalResult.GetProperty("success").GetBoolean(), metalResult.GetRawText());
+        True(metalResult.GetProperty("message").GetString()!.Contains("1457 MPa", StringComparison.Ordinal),
+            "宿主金属强度换算结果不对：" + metalResult.GetProperty("message").GetString());
     }
     finally
     {
