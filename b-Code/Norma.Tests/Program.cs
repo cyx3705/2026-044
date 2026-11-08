@@ -345,6 +345,18 @@ static void TestMetalStrength()
     Equal(10, MetalStrength.Steels.Count);
     Equal(21, MetalStrength.Grades.Count);
 
+    // 自描述必须把「族 × 硬度制」矩阵和族牌号列表直接写给 AI，不能只靠运行时报错。
+    var familySpec = command.Parameters.Single(item => item.Name == "family");
+    True(familySpec.Description.Contains("steel→", StringComparison.Ordinal)
+         && familySpec.Description.Contains("aluminum→", StringComparison.Ordinal)
+         && familySpec.Description.Contains("copper→", StringComparison.Ordinal),
+        "family 参数缺少族 × 硬度制矩阵");
+    var gradeSpec = command.Parameters.Single(item => item.Name == "grade");
+    True(gradeSpec.Description.Contains("steel=generic", StringComparison.Ordinal)
+         && gradeSpec.Description.Contains("aluminum=a211_212_annealed", StringComparison.Ordinal)
+         && gradeSpec.Description.Contains("copper=brass_plate", StringComparison.Ordinal),
+        "grade 参数缺少族牌号列表");
+
     // ---- 钢：节点值、分钢种、定义域 ----
     var hrc45 = Metal(command, "family=steel value=45 scale=hrc grade=generic");
     var hardness = hrc45.GetProperty("hardness");

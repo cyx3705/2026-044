@@ -134,7 +134,7 @@ public sealed class NormaModule : IModuleContextAware
                 new ParameterSpec
                 {
                     Name = "value",
-                    Description = "硬度值；按 scale 指定的硬度制",
+                    Description = "硬度值；取值范围随 family+scale 变化，超出会返回定义域错误",
                     Type = ParamType.Double,
                     Required = true,
                     Position = 0,
@@ -142,7 +142,7 @@ public sealed class NormaModule : IModuleContextAware
                 new ParameterSpec
                 {
                     Name = "family",
-                    Description = "材料族：steel 钢、aluminum 变形铝合金、copper 铜合金",
+                    Description = "材料族。各族可用硬度制：steel→hrc,hra,hr15n,hr30n,hr45n,hv,hb,hrb,hr15t,hr30t,hr45t,hbs,hs；aluminum→hb,hv,hrb,hrf,hr15t,hr30t,hr45t；copper→hb,hv,hrb,hrf,hr15t,hr30t,hr45t,hrc,hra,hr15n,hr30n,hr45n。默认牌号：steel=generic，aluminum=aluminum_generic，copper=brass_plate",
                     Type = ParamType.String,
                     Default = "steel",
                     AllowedValues = MetalStrength.Families.Select(item => item.Key).ToArray(),
@@ -150,7 +150,7 @@ public sealed class NormaModule : IModuleContextAware
                 new ParameterSpec
                 {
                     Name = "scale",
-                    Description = "输入硬度制：hrc/hra/hr15n/hr30n/hr45n/hv/hb/hrb/hrf/hr15t/hr30t/hr45t/hbs/hs",
+                    Description = "输入硬度制；必须属于 family 的可用列表（见 family 参数）",
                     Type = ParamType.String,
                     Default = "hrc",
                     AllowedValues = MetalStrength.Scales.Select(item => item.Key).ToArray(),
@@ -158,7 +158,7 @@ public sealed class NormaModule : IModuleContextAware
                 new ParameterSpec
                 {
                     Name = "grade",
-                    Description = "强度口径：钢种、铝合金牌号或铜合金板材/棒材；auto 取该族默认",
+                    Description = "强度口径，按 family 取：steel=generic,carbon,chrome,chrome_ba,chrome_ni,chrome_mo,chrome_mo_ni,chrome_si_mn,ultra,stainless；aluminum=a211_212_annealed,a7a04,a2a50,a2a14,a211_212_natural,a2a50_a2a14_natural,aluminum_generic；copper=brass_plate,brass_bar,beryllium_plate,beryllium_bar；auto=该族默认",
                     Type = ParamType.String,
                     Default = "auto",
                     AllowedValues = new[] { "auto" }.Concat(MetalStrength.Grades.Select(item => item.Key)).ToArray(),
