@@ -357,6 +357,14 @@ static void TestMetalStrength()
     Near(1457, stainless.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "HRC45 不锈钢 σb");
     Near(1480, stainless.GetProperty("sigma_b").GetProperty("generic").GetDouble(), 0.6, "HRC45 不分钢种对照");
 
+    // 源表铬钢 HRC45 印成 1488（与碳钢同值），按上下行 1403、1497 改为 1450。
+    var chrome45 = Metal(command, "value=45 scale=hrc steel=chrome");
+    Near(1450, chrome45.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "铬钢 HRC45 σb（已修正为 1450）");
+
+    // 铬钼钢 HRC39=1246 没有足够证据，保持原表值不改。
+    var chromeMo39 = Metal(command, "value=39 scale=hrc steel=chrome_mo");
+    Near(1246, chromeMo39.GetProperty("sigma_b").GetProperty("steel").GetDouble(), 0.6, "铬钼钢 HRC39 保持原表值");
+
     // 反算：HV 436 回到 HRC 45。
     var fromHv = Metal(command, "value=436 scale=hv steel=generic");
     Near(45, fromHv.GetProperty("hardness").GetProperty("hrc").GetDouble(), 0.05, "HV436 → HRC");
