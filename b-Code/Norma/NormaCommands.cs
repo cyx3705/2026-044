@@ -177,6 +177,10 @@ internal static class NormaCommands
             },
         ];
 
+    /// <summary>页面那张表：计算在前，工具接在后面，同一个表格里显示。</summary>
+    internal static IReadOnlyList<IReadOnlyDictionary<string, string>> PageRows()
+        => CatalogRows(null).Concat(ToolRows()).ToList();
+
     /// <summary>一条计算的完整元数据。</summary>
     internal static object Describe(Calculation calculation) => new
     {

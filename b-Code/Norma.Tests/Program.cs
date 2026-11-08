@@ -364,18 +364,21 @@ static void TestPageWiring()
 
     True(nodes.Any(node => node.TryGetProperty("id", out var id) && id.GetString() == "q"),
         "页面缺少标准代号查询输入框");
+    Equal(1, nodes.Count(node => node.TryGetProperty("type", out var type) && type.GetString() == "table"));
+    True(!nodes.Any(node => node.TryGetProperty("style", out var style) && style.GetString() == "caption"),
+        "页面不应再有 caption 小字");
     var lookup = actions.RootElement.GetProperty("actions").EnumerateArray()
         .Single(action => action.GetProperty("id").GetString() == "norma.std.lookup");
     Equal("{q}", lookup.GetProperty("args").GetProperty("q").GetString());
 
     True(registry.TryGet("norma.ui.data", out var uiData), "缺少 norma.ui.data");
     var outcome = uiData!.Handler(new CommandContext(
-        uiData, new Dictionary<string, string> { ["view"] = "tools" }, "test", null, CancellationToken.None)).Result;
-    True(outcome.Success, "ui.data view=tools 失败：" + outcome.Message);
-    var tools = JsonSerializer.SerializeToElement(outcome.Data);
-    True(tools.ValueKind == JsonValueKind.Array && tools.EnumerateArray().Any(row =>
+        uiData, new Dictionary<string, string> { ["view"] = "catalog" }, "test", null, CancellationToken.None)).Result;
+    True(outcome.Success, "ui.data view=catalog 失败：" + outcome.Message);
+    var rows = JsonSerializer.SerializeToElement(outcome.Data);
+    True(rows.ValueKind == JsonValueKind.Array && rows.EnumerateArray().Any(row =>
             row.GetProperty("command").GetString() == "norma.std.lookup"),
-        "工具目录里没有 norma.std.lookup");
+        "目录里没有 norma.std.lookup");
 }
 
 static void TestVersionsAgree()

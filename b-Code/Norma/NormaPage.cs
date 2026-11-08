@@ -16,8 +16,6 @@ internal static class NormaPage
     public const string PanelId = "catalog-actions";
     public const string CatalogTableId = "catalog";
     public const string CatalogView = "catalog";
-    public const string ToolsTableId = "tools";
-    public const string ToolsView = "tools";
     public const string LookupPanelId = "std-lookup";
     public const string LookupBoxId = "q";
     public const string ListActionId = NormaIdentity.Domain + ".formula.list";
@@ -83,41 +81,12 @@ internal static class NormaPage
                         },
                         new
                         {
-                            type = "text",
-                            style = "caption",
-                            text = "代号如 GB、JB/ZQ、DIN，名称如 国家标准、国际标准化；结果显示在控制台。",
-                        },
-                        new
-                        {
-                            type = "text",
-                            style = "caption",
-                            text = "每条计算就是一条指令，在控制台或经 MCP 调用；参数与出处见 norma.formula.show。",
-                        },
-                        new
-                        {
                             type = "table",
                             id = CatalogTableId,
                             dataSource = new
                             {
                                 command = NormaIdentity.Domain + ".ui.data",
                                 args = new { view = CatalogView },
-                            },
-                            columns = new object[]
-                            {
-                                new { key = "topic", title = "类", width = "90" },
-                                new { key = "command", title = "指令", width = "200" },
-                                new { key = "title", title = "名称", width = "220" },
-                                new { key = "source", title = "出处", width = "*" },
-                            },
-                        },
-                        new
-                        {
-                            type = "table",
-                            id = ToolsTableId,
-                            dataSource = new
-                            {
-                                command = NormaIdentity.Domain + ".ui.data",
-                                args = new { view = ToolsView },
                             },
                             columns = new object[]
                             {

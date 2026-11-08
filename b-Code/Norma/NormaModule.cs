@@ -138,10 +138,8 @@ public sealed class NormaModule : IModuleContextAware
                 return view switch
                 {
                     null or "" or NormaPage.CatalogView
-                        => CommandResult.Ok("计算目录", NormaCommands.CatalogRows(null)),
-                    NormaPage.ToolsView
-                        => CommandResult.Ok("工具目录", NormaCommands.ToolRows()),
-                    _ => CommandResult.Fail($"未知 view；支持 {NormaPage.CatalogView}、{NormaPage.ToolsView}"),
+                        => CommandResult.Ok("目录", NormaCommands.PageRows()),
+                    _ => CommandResult.Fail($"未知 view；支持 {NormaPage.CatalogView}"),
                 };
             }),
         });
