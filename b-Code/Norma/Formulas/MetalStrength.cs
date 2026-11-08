@@ -284,9 +284,10 @@ public static class MetalStrength
         if (hrc is not null && shore.Curve("hs").CoversX(hrc.Value))
             values["hs"] = shore.Curve("hs").Evaluate(hrc.Value);
 
-        foreach (var item in SteelScaleKeys)
-            if (!values.ContainsKey(item))
-                undefined.TryAdd(item, DomainText("steel", item));
+        foreach (var item in Scales)
+            if (!values.ContainsKey(item.Key))
+                undefined.TryAdd(item.Key,
+                    SteelScaleKeys.Contains(item.Key) ? DomainText("steel", item.Key) : "钢不使用该硬度制");
 
         var strengths = new Dictionary<string, double>(StringComparer.Ordinal);
         var strengthUndefined = new Dictionary<string, string>(StringComparer.Ordinal);
@@ -338,9 +339,11 @@ public static class MetalStrength
         AddBranch(table, coordinate, FamilyScaleKeys(family.Key), values, undefined, family.Key);
         values[scale.Key] = value;
 
-        foreach (var key in FamilyScaleKeys(family.Key))
-            if (!values.ContainsKey(key))
-                undefined.TryAdd(key, DomainText(family.Key, key));
+        var supported = FamilyScaleKeys(family.Key);
+        foreach (var item in Scales)
+            if (!values.ContainsKey(item.Key))
+                undefined.TryAdd(item.Key,
+                    supported.Contains(item.Key) ? DomainText(family.Key, item.Key) : $"{family.Title}不使用该硬度制");
 
         var strengths = new Dictionary<string, double>(StringComparer.Ordinal);
         var strengthUndefined = new Dictionary<string, string>(StringComparer.Ordinal);

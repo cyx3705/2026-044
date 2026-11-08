@@ -260,8 +260,9 @@ public sealed class NormaModule : IModuleContextAware
         foreach (var (key, why) in result.StrengthUndefined)
             text += $"；{MetalStrength.StrengthTitle(key)}：{why}";
 
+        var supported = MetalStrength.FamilyScaleKeys(result.Family);
         var undefined = MetalStrength.Scales
-            .Where(item => result.Undefined.ContainsKey(item.Key))
+            .Where(item => supported.Contains(item.Key) && result.Undefined.ContainsKey(item.Key))
             .Select(item => $"{item.Title}=无定义（{result.Undefined[item.Key]}）")
             .ToList();
         if (undefined.Count > 0)
