@@ -27,6 +27,7 @@ public sealed class NormaModule : IModuleContextAware
         ManualCommands.Register(registry);
         PhysicalCommands.Register(registry);
         DriveCommands.Register(registry);
+        CastIronCommands.Register(registry);
 
         foreach (var calculation in Catalog.All)
             registry.Register(NormaCommands.For(calculation));
@@ -132,7 +133,7 @@ public sealed class NormaModule : IModuleContextAware
             Name = NormaIdentity.Domain + ".metal.strength",
             Domain = NormaIdentity.Domain,
             CommandClass = "material",
-            Summary = "金属硬度与强度换算：钢/铝/铜，PCHIP 保形插值，分牌号并标明各硬度制的无定义区间",
+            Summary = "强度换算：金属硬度互转与强度估算，钢/铝/铜，PCHIP 保形插值，分牌号并标明各硬度制的无定义区间",
             Example = NormaIdentity.Domain + ".metal.strength family=steel value=45 scale=hrc grade=stainless",
             Readonly = true,
             Parameters =

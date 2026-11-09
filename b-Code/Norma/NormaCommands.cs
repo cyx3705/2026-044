@@ -180,7 +180,7 @@ internal static class NormaCommands
                 ["id"] = "metal.strength",
                 ["topic"] = "机械材料",
                 ["command"] = NormaIdentity.Domain + ".metal.strength",
-                ["title"] = "金属硬度与强度换算：钢/铝/铜，PCHIP 插值，分牌号并标注无定义区间",
+                ["title"] = "强度换算：金属硬度互转与强度估算，钢/铝/铜，PCHIP 插值，分牌号并标注无定义区间",
                 ["source"] = MetalStrength.Source,
             },
             new Dictionary<string, string>
@@ -191,9 +191,17 @@ internal static class NormaCommands
             },
         ];
 
+    internal static IReadOnlyList<IReadOnlyDictionary<string, string>> IronRows() =>
+        new[] { "grade", "strength" }.Select(key => (IReadOnlyDictionary<string, string>)new Dictionary<string, string>
+        {
+            ["id"] = "material." + key, ["topic"] = "机械材料", ["command"] = "norma.material." + key,
+            ["title"] = key == "grade" ? "铸铁牌号及化学成分" : "铸铁材料力学性能（材料强度）",
+            ["source"] = "机械工程师手册 铸铁整节28页/30表；出处与标准年份见查询返回",
+        }).ToArray();
+
     /// <summary>页面那张表：计算在前，工具接在后面，同一个表格里显示。</summary>
     internal static IReadOnlyList<IReadOnlyDictionary<string, string>> PageRows()
-        => CatalogRows(null).Concat(ToolRows()).Concat(PhysicalTables.Tables.Select(table =>
+        => CatalogRows(null).Concat(ToolRows()).Concat(IronRows()).Concat(PhysicalTables.Tables.Select(table =>
             (IReadOnlyDictionary<string, string>)new Dictionary<string, string>
             {
                 ["id"] = "material." + table.Key, ["topic"] = "机械材料",

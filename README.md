@@ -39,7 +39,9 @@
 
 | 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
 
-页面有一张目录表，加两个操作面板：标准代号查表、金属强度换算。
+铸铁数据：`norma.material.grade` 牌号及化学成分，`norma.material.strength` 材料力学性能（材料强度）；覆盖铸铁整节28页30表。支持q/family/grade/table与offset/limit，牌号工具还可按section筛选命名、热处理、化学成分与牌号目录。试样、壁厚、铸型、温度和热处理条件随表头返回。
+
+页面有一张目录表，加两个操作面板：标准代号查表、强度换算（保留命令`norma.metal.strength`）。
 
 指令说明就是注册时的自描述（`diana.docs.read domain=norma`，宿主 6.1.0 起没有消费文档）；每条都带出处、适用范围、参数的符号/单位/范围。自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
 

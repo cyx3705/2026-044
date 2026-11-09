@@ -26,6 +26,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("metal strength conversion and domains", Sync(TestMetalStrength)),
     ("mechanical material tables and classification", Sync(TestPhysicalTables)),
     ("drive efficiency reference table", Sync(TestDriveEfficiency)),
+    ("cast iron coverage and conditional values", Sync(TestCastIron)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -62,7 +63,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 21;
+static int ExpectedCommandCount() => Catalog.All.Count + 23;
 
 static void TestCommandRegistration()
 {
@@ -73,6 +74,7 @@ static void TestCommandRegistration()
         .ToList();
     expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     expected.Add("norma.drive.efficiency");
+    expected.AddRange(new[] { "norma.material.grade", "norma.material.strength" });
     foreach (var name in expected)
     {
         True(registry.TryGet(name, out var descriptor), $"未注册 {name}");
@@ -660,6 +662,14 @@ static async Task TestHostLoadsPackage()
         True(efficiencyResult.GetProperty("success").GetBoolean(), efficiencyResult.GetRawText());
         Near(0.4, efficiencyResult.GetProperty("data").GetProperty("items")[0].GetProperty("efficiency").GetProperty("min").GetDouble(), 0, "隔离宿主传动效率");
 
+        foreach (var (key, field, expected) in new[] { ("grade", "c4", 14d), ("strength", "c3", 58d) })
+        {
+            var ironProbe = await Probe(archive, $"norma.material.{key} grade=KmTBCr15Mo");
+            var ironResult = ironProbe.GetProperty("data").GetProperty("result");
+            True(ironResult.GetProperty("success").GetBoolean(), ironResult.GetRawText());
+            Near(expected, ironResult.GetProperty("data").GetProperty("items")[0].GetProperty("properties").GetProperty(field).GetProperty("min").GetDouble(), 0, "隔离宿主铸铁 " + key);
+        }
+
         // 标准代号表是嵌入资源，宿主装载后同样能查到。
         var std = await Probe(archive, NormaIdentity.Domain + ".std.lookup q=ISO");
         var stdResult = std.GetProperty("data").GetProperty("result");
@@ -923,6 +933,92 @@ static void TestMaterialLimits()
 
 // REQ-MATERIAL-002/003：独立表值、整表覆盖、缺值与筛选、目录和分类。
 // REQ-DRIVE-001: independent references from native manual, including damaged-source repairs.
+static void TestCastIron()
+{
+    // Independent inventory from the native directory and reviewed tables, including both two-table pages.
+    int[] entries = [214,891,346,614,296,294,295,295,297,574,574,575,489,490,192,193,471,470,344,345,301,300,303,302,551,550,299,298,402,403];
+    int[] counts = [15,39,20,5,6,6,22,20,17,8,10,8,10,10,5,5,5,5,9,9,17,17,13,13,10,10,13,13,9,9];
+    Equal(30, CastIron.Tables.Count);
+    Equal(28, CastIron.Tables.Select(t => t.Entry).Distinct().Count());
+    Equal(358, CastIron.Tables.Sum(t => t.Rows.Length));
+    Equal(2265, CastIron.Tables.Sum(t => t.Rows.Sum(r => r.Length)));
+    for (var i = 0; i < counts.Length; i++)
+    {
+        var t = CastIron.Tables[i]; Equal(entries[i], t.Entry); Equal(counts[i], t.Rows.Length);
+        True(t.ByteOffset > 0 && t.SourceFile == "jxclsj/jxclsj.ysc" && t.Notes.Length > 0, "出处/脚注遗漏");
+        True(t.Fields.All(f => f.Headers.Length > 0 && f.Name.Length > 0), "表头遗漏");
+        foreach (var row in t.Rows) Equal(t.Fields.Length, row.Length);
+    }
+    CastIron.Row R(string table, string grade) => CastIron.Search("strength", table: table, grade: grade, limit: 100).Items.First();
+    Near(300, R("iron:346:1", "KTH300-06").Properties["c2"].Min!.Value, 0, "可锻最低抗拉");
+    True(R("iron:346:1", "KTH300-06").Properties["c2"].Value is null, "最低值不是实测值");
+    True(R("iron:346:1", "KTH300-06").Properties["c1"].Options!.SequenceEqual(new double[] { 12, 15 }), "离散直径不能变成范围");
+    Equal(3, CastIron.Search("strength", grade: "KTB450-07").Total);
+    Near(335, R("iron:614:1", "RuT420").Properties["c2"].Min!.Value, 0, "蠕墨屈服");
+    Equal(8, CastIron.Search("strength", grade: "HT250").Total);
+    var walls = R("iron:295:1", "HT250").Properties["c2"];
+    True(walls.Min == 4 && walls.Max == 10 && walls.MinInclusive == false && walls.MaxInclusive == true, "壁厚开闭区间");
+    var gray = CastIron.Search("strength", table: "iron:295:2", grade: "HT300").Items[2];
+    Near(200, gray.Properties["c5"].Min!.Value, 0, "原窗口恢复R25值");
+    var rh = CastIron.Search("strength", table: "iron:297:1", q: "260").Items.Single();
+    Near(171, rh.Properties["c1"].Value!.Value, 0, "灰铁RH表");
+    Near(400, R("iron:574:2", "QT700-2A").Properties["c3"].Min!.Value, 0, "附铸表头最小值");
+    Equal(2, CastIron.Search("strength", grade: "Q600-3TA").Total);
+    Equal(0, CastIron.Search("strength", grade: "QT600-3A").Total);
+    Near(800, R("iron:575:1", "QT-H300").Properties["c2"].Min!.Value, 0, "硬度等级参考最小抗拉");
+    Near(14, R("iron:490:1", "RTSi5").Properties["c5"].Value!.Value, 0, "700℃短时值不可按常识改写");
+    Near(48, R("iron:193:1", "STSi15R").Properties["c3"].Max!.Value, 0, "硬度最大值");
+    Equal("HBC", R("iron:193:1", "STSi15R").Properties["c3"].Unit);
+    Near(44, R("iron:470:1", "MQTMn6").Properties["c6"].Min!.Value, 0, "耐磨括号硬度下限");
+    Equal("HBC", R("iron:470:1", "MQTMn6").Properties["c6"].Unit);
+    Near(58, R("iron:345:1", "KmTBCr15Mo").Properties["c3"].Min!.Value, 0, "抗磨白口硬化态HRC");
+    Near(3.2, R("iron:300:1", "MTCrCu35").Properties["c4"].Min!.Value, 0, "导轨挠度");
+    Near(1000, R("iron:302:1", "稀土铸铁").Properties["c3"].Max!.Value, 0, "机床零件抗弯区间");
+    Equal(3, CastIron.Search("strength", family: "汽缸套", grade: "铬钼铜铸铁").Total);
+    var cylinder = R("iron:550:1", "磷铬铸铁").Properties["c1"];
+    True(cylinder.Min == 200 && cylinder.MinInclusive == false, "严格大于不能改≥");
+    var ring = R("iron:298:1", "镍铬铸铁");
+    True(ring.Properties["c6"].Value is null && ring.Properties["c6"].Undefined == "原表未给出", "原表空白不填0");
+    var chill = CastIron.Search("strength", table: "iron:403:1", grade: "普通冷硬铸铁").Items;
+    Equal(5, chill.Count); Equal("HB", chill[1].Properties["c1"].Unit);
+    Near(450, chill[1].Properties["c1"].Min!.Value, 0, "混排硬度单位");
+    Near(50, R("iron:403:1", "镍铬铜冷硬铸铁").Properties["c1"].Parts!["600℃回火后"].Min!.Value, 0, "回火条件");
+    var chemical = CastIron.Search("grade", table: "iron:192:1", grade: "STSi15R").Items.Single();
+    True(chemical.Properties["c1"].Value is null && chemical.Properties["c1"].Max == 1, "化学表头最大值");
+    var inverted = CastIron.Search("grade", table: "iron:299:1", grade: "钨铸铁").Items.Single().Properties["c6"];
+    True(inverted.Value is null && inverted.Min is null && inverted.Undefined == "原表区间倒置，待核", "倒置不可排序");
+    Equal(39, CastIron.Search("grade", section: "heat_state", limit: 100).Total);
+    var other = CastIron.Search("grade", table: "iron:551:1", grade: "磷锑铸铁").Items.Single();
+    Near(0.06, other.Properties["c9"].Parts!["Sb"].Min!.Value, 0, "其他元素可数值取用");
+    True(other.Properties["c9"].Text.Contains("加入量"), "加入量条件不能丢");
+    Equal("iron:550:1:9", other.RelatedId!);
+    True(CastIron.Search("grade", grade: "QT900-2").Items.All(r => r.Kind == "catalog" && r.Note!.Contains("未在此表给出")), "无化学数据明确说明");
+    foreach (var tool in new[] { "grade", "strength" })
+    {
+        var all = new List<CastIron.Row>(); int? start = 0;
+        while (start is not null)
+        {
+            var page = CastIron.Search(tool, offset: start.Value, limit: 7);
+            all.AddRange(page.Items); start = page.NextOffset;
+        }
+        Equal(CastIron.Search(tool).Total, all.Count);
+        Equal(all.Count, all.Select(r => r.Id).Distinct().Count());
+        foreach (var row in all) foreach (var cell in row.Properties.Values)
+            True(cell.Kind != "text" || cell.Unit.Length == 0, "未解析数值单元格：" + row.Id + " " + cell.Text);
+        Equal(0, CastIron.Search(tool, q: "不存在的材料").Total);
+        var registry = Registry(); True(registry.TryGet("norma.material." + tool, out var command), "缺少铸铁工具");
+        Equal("material", command!.CommandClass);
+        var result = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "KmTBCr15Mo" }, "test", null, CancellationToken.None)).Result;
+        True(result.Success, result.Message); JsonSerializer.Serialize(result.Data);
+    }
+    foreach (var (start, limit) in new[] { (-1, 20), (0, 0), (0, 101) })
+    {
+        var rejected = false; try { CastIron.Search("strength", offset: start, limit: limit); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "非法分页拒绝");
+    }
+    foreach (var key in new[] { "grade", "strength" }) True(NormaCommands.PageRows().Any(r => r["id"] == "material." + key), "目录遗漏");
+}
+
 static void TestDriveEfficiency()
 {
     var all = DriveEfficiency.Search(null, 0, 100);
@@ -1091,7 +1187,7 @@ static void TestPhysicalTables()
         Equal("原表区间倒置，待核", cell.Undefined!);
         True(cell.Value is null && cell.Min is null && cell.Max is null && row.Note is not null, "倒置范围不能自动排序猜改");
     }
-    Equal(10, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
+    Equal(12, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
     foreach (var (offset, limit, period) in new[] { (-1, 20, (string?)null), (0, 0, (string?)null), (0, 101, (string?)null), (0, 20, (string?)"20~150") })
     {
         var rejected = false;

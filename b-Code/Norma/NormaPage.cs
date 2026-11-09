@@ -90,7 +90,7 @@ internal static class NormaPage
                         {
                             type = "panel",
                             id = MetalPanelId,
-                            text = "机械材料 · 金属强度换算",
+                            text = "机械材料 · 强度换算",
                             rows = new object[]
                             {
                                 new
@@ -181,7 +181,7 @@ internal static class NormaPage
             new
             {
                 id = MetalActionId,
-                title = "机械材料 · 金属强度换算",
+                title = "机械材料 · 强度换算",
                 command = NormaIdentity.Domain + ".metal.strength",
                 args = new
                 {
