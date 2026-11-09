@@ -29,6 +29,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("cast iron coverage and conditional values", Sync(TestCastIron)),
     ("cast iron scalar and explicit variable lookup", Sync(TestCastIronLookup)),
     ("compact material passports and optional filters", Sync(TestMaterialLibrary)),
+    ("steel grade cards and source conditions", Sync(TestSteelMaterials)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -1014,7 +1015,7 @@ static void TestMaterialLibrary()
         .Count(g => J(Q(g)).TryGetProperty("同族参考配方（非本牌号标准指标）", out _)));
     var serialization = new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
     var sizes = new List<int>();
-    foreach (var group in MaterialLibrary.Data.GroupBy(f => (f.Family, Grade: System.Text.RegularExpressions.Regex.Replace(f.Grade, @"\s|\*", "").ToUpperInvariant())))
+    foreach (var group in MaterialLibrary.Data.Where(f => !f.RowId.StartsWith("steel:")).GroupBy(f => (f.Family, Grade: System.Text.RegularExpressions.Regex.Replace(f.Grade, @"\s|\*", "").ToUpperInvariant())))
     {
         var card = J(Q(group.First().Grade, family: group.Key.Family));
         True(!card.TryGetProperty("missing", out _) && !card.TryGetProperty("error", out _), "单牌号卡片不要求补属性/条件");
@@ -1030,6 +1031,55 @@ static void TestMaterialLibrary()
     Equal("DH33", J(representativeResponse.Data!).GetProperty("牌号").GetString()!);
     var sourceResponse = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "钨铸铁", ["basis"] = "source" }, "test", null, CancellationToken.None)).Result;
     Equal("钨铸铁", J(sourceResponse.Data!).GetProperty("材料名称").GetString()!);
+}
+
+// REQ-STEEL-001: independent native-table references, units, products and complete cards.
+static void TestSteelMaterials()
+{
+    var tables = SteelMaterials.Tables;
+    Equal(227, tables.Count);
+    Equal(153, tables.Select(t => t.Key).Distinct().Count());
+    Equal(3112, tables.Sum(t => t.Rows.Length));
+    True(tables.All(t => t.SourceId.StartsWith("jxclsj:") && t.ByteOffset > 0 && t.HeaderRows.Length > 0), "钢材源表必须可追溯");
+    True(tables.All(t => t.Rows.All(r => r.Length == t.Fields.Length)), "源表行列完整");
+    var facts = SteelMaterials.Facts;
+    string V(string row, string p) => facts.Single(f => f.RowId == row && f.Property == p).Value;
+    Equal("0.42~0.50 %", V("steel:30:1:12", "C"));
+    Equal("≥600 MPa", V("steel:31:1:12", "抗拉强度"));
+    Equal("0.80~1.10 %", V("steel:56:2:11", "Cr"));
+    Equal("≥980 MPa", V("steel:57:1:29", "抗拉强度"));
+    Equal("≤207 HBS", V("steel:57:1:29", "硬度HBS"));
+    True(facts.Single(f => f.RowId == "steel:57:1:29" && f.Property == "硬度HBS").Condition.Contains("供应状态"), "退火供应硬度不能假装调质试样硬度");
+    Equal("179~207 HBS", V("steel:27:1:3", "硬度HBS"));
+    True(facts.Single(f => f.RowId == "steel:27:1:3" && f.Property == "硬度HBS").Condition.Contains("退火后"), "轴承钢硬度状态保留");
+    Equal("≥590 MPa", V("steel:59:1:1", "抗拉强度"));
+    Equal("≥18 %", V("steel:59:1:25", "伸长率δ5"));
+    Equal("≥235 MPa", V("steel:104:1:1", "屈服点"));
+    Equal("620 MPa", V("steel:73:1:1", "抗拉强度"));
+    Equal("≤0.20 %", V("steel:2:1:1", "C"));
+    True(facts.Any(f => f.RowId.StartsWith("steel:170:") && f.Tool == "strength" && f.Property == "抗拉强度" && f.Grade == "1Cr18Ni9Ti" && f.Condition.Contains("钢丝状态=R")), "最右侧牌号布局不得丢掉钢丝性能");
+    True(!facts.Any(f => f.Grade.EndsWith("-R")), "钢丝状态不混入材料牌号");
+    True(facts.Any(f => f.Property == "压痕直径" && f.Value == "≥4.3 mm"), "压痕直径不能带硬度单位");
+    True(facts.Any(f => f.Value.Contains("原表区间倒置")), "原表倒置区间必须标注");
+    True(!facts.Any(f => f.Property == "值"), "横置表必须返回具体属性和单位");
+    var sizes = new List<int>();
+    var encoder = new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+    foreach (var group in facts.GroupBy(f => f.Grade))
+    {
+        var card = JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: group.Key));
+        Equal("钢", card.GetProperty("类别").GetString()!);
+        True(!card.TryGetProperty("missing", out _), "钢跨产品和标准合一张牌号卡");
+        // Optional paging is never allowed to truncate a full grade card.
+        Equal(card.GetRawText(), JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: group.Key, offset: 10, limit: 1)).GetRawText());
+        foreach (var value in group.Select(f => f.Value).Distinct())
+            True(card.GetRawText().Contains(JsonSerializer.Serialize(value)), "卡片遗漏已收录值 " + group.Key + " " + value);
+        sizes.Add(Encoding.UTF8.GetByteCount(JsonSerializer.Serialize(card, encoder)));
+    }
+    Console.WriteLine($"Steel cards: {sizes.Count}, median {sizes.Order().ElementAt(sizes.Count / 2)} B, max {sizes.Max()} B; {facts.Count} facts");
+    Equal("1.40~1.65 %", (string)MaterialLibrary.Query("grade", grade: "GCr15", property: "Cr"));
+    var command = Registry().All.Single(c => c.Name == "norma.material.grade");
+    var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "GCr15" }, "test", null, CancellationToken.None)).Result;
+    Equal("GCr15", JsonSerializer.SerializeToElement(response.Data!).GetProperty("牌号").GetString()!);
 }
 
 static void TestCastIronLookup()

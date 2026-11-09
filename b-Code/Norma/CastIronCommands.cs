@@ -14,7 +14,7 @@ internal static class CastIronCommands
                 new() { Name = "grade", Type = ParamType.String, Description = "材料牌号或品种名，忽略空格和推荐标记；只填此项即返回材料卡片；无牌号配方默认返回标明非等同的代表选型卡。省略返回牌号选项；*=兼容单变量展开" },
                 new() { Name = "property", Type = ParamType.String, Description = "可选属性/元素过滤，如抗拉强度、Cr。唯一条件返回带单位的值，多条件返回对应性能；省略保留全部。*=兼容属性展开" },
                 new() { Name = "condition", Type = ParamType.String, Description = "可选条件精确过滤：试样/壁厚/温度/热处理/同名配方，按卡片条件填写；省略保留所有场景，不插值；*=兼容条件展开" },
-                new() { Name = "family", Type = ParamType.String, Description = "可选材料分支，仅同名跨分支时返回选项要求区分；一次最多一个参数为*" },
+                new() { Name = "family", Type = ParamType.String, Description = "可选材料分支；钢可用钢筛选，跨钢种/产品同牌号合并；非钢同名跨分支返回选项；一次最多一个参数为*" },
                 new() { Name = "basis", Type = ParamType.String, Default = "representative", AllowedValues = ["representative", "source"], Description = "名称查询口径：representative默认返回代表牌号及原配方，明确非等同；source返回原配方。直接查正式牌号不受影响；属性过滤跟随所选口径" },
                 new() { Name = "offset", Type = ParamType.Int, Default = "0", Description = "选项/显式变化表的分页偏移≥0，默认0；材料卡片完整返回，不分页" },
                 new() { Name = "limit", Type = ParamType.Int, Default = "20", Description = "选项/显式变化表每页1～100项，默认20；材料卡片不受此参数截断" },
@@ -22,7 +22,7 @@ internal static class CastIronCommands
             registry.Register(new CommandDescriptor
             {
                 Name = "norma.material." + key, Domain = "norma", CommandClass = "material", Readonly = true,
-                Summary = key == "grade" ? "材料库：输入牌号返回化学成分及各场景力学性能的精简JSON卡片（现收录铸铁）；其他参数均为可选过滤" : "材料力学性能：输入牌号返回各场景性能；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
+                Summary = key == "grade" ? "材料库：输入牌号返回化学成分及各场景力学性能的精简JSON卡片（铸铁、钢）；钢材跨标准、产品、热处理条件合入同一卡片；其他参数均为可选过滤" : "材料力学性能：输入铸铁或钢的牌号返回各场景性能；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
                 Example = "norma.material." + key + " grade=HT250",
                 Parameters = parameters,
                 Handler = CommandDescriptor.Sync(c =>

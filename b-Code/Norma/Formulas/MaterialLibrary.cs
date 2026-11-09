@@ -18,7 +18,8 @@ internal static class MaterialLibrary
         ["铬钼铜铸铁"] = ["MTCrMoCu25", "MTCrMoCu30", "MTCrMoCu35"],
         ["Cu-Cr-Mo合金铸铁"] = ["MTCrMoCu25", "MTCrMoCu30", "MTCrMoCu35"],
     };
-    internal static IEnumerable<CastIronLookup.Fact> Data => CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).Where(f =>
+    private static readonly Lazy<CastIronLookup.Fact[]> AllFacts = new(() => CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).Concat(SteelMaterials.Facts).ToArray());
+    internal static IEnumerable<CastIronLookup.Fact> Data => AllFacts.Value.Where(f =>
         f.Family != "通用" && !Labels.Contains(f.Property));
 
     internal static object Query(string tool, string? family = null, string? grade = null, string? property = null,
@@ -31,7 +32,7 @@ internal static class MaterialLibrary
         {
             if (basis == "representative" && MaterialRepresentatives.Selections.Any(s => Norm(s.Material) == Norm(grade)))
                 throw new ArgumentException("名称代表选型不支持*；请直接查询返回牌号，或用basis=source展开原配方");
-            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).ToArray());
+            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, AllFacts.Value);
         }
         var selections = MaterialRepresentatives.Selections.Where(s => Norm(s.Material) == Norm(grade)
             && (string.IsNullOrWhiteSpace(family) || Norm(s.Family) == Norm(family))).ToArray();
@@ -55,7 +56,7 @@ internal static class MaterialLibrary
             return result;
         }
         var rows = Data.Where(f => tool != "strength" || f.Tool == "strength");
-        if (!string.IsNullOrWhiteSpace(family)) rows = rows.Where(f => Norm(f.Family) == Norm(family));
+        if (!string.IsNullOrWhiteSpace(family)) rows = rows.Where(f => Norm(f.Family) == Norm(family) || family == "钢" && f.RowId.StartsWith("steel:", StringComparison.Ordinal));
         if (basis == "representative" && string.IsNullOrWhiteSpace(family) && string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition)
             && !string.IsNullOrWhiteSpace(grade) && GradeAliases.TryGetValue(grade.Trim(), out var aliases))
         {
@@ -75,9 +76,9 @@ internal static class MaterialLibrary
                 nextOffset = offset + limit < options.Length ? (int?)(offset + limit) : null };
         }
         if (facts.Length == 0)
-            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).ToArray());
+            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, AllFacts.Value);
         var families = facts.Select(f => f.Family).Distinct().ToArray();
-        if (families.Length > 1) return new { missing = "family", @default = (string?)null, options = families };
+        if (families.Length > 1 && !facts.All(f => f.RowId.StartsWith("steel:", StringComparison.Ordinal))) return new { missing = "family", @default = (string?)null, options = families };
         if (!string.IsNullOrWhiteSpace(property) && facts.Select(f => f.Condition).Distinct().Count() == 1
             && facts.Select(f => f.Value).Distinct().Count() == 1) return facts[0].Value;
         return Card(facts, tool != "strength", string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition));
@@ -121,6 +122,13 @@ internal static class MaterialLibrary
         var name = first.Grade.Trim().TrimEnd('*');
         var ungraded = Regex.IsMatch(name, @"[\p{IsCJKUnifiedIdeographs}]");
         var result = new Dictionary<string, object> { [ungraded ? "材料名称" : "牌号"] = name, ["类别"] = first.Family };
+        if (facts.All(f => f.RowId.StartsWith("steel:", StringComparison.Ordinal)))
+        {
+            result["类别"] = "钢";
+            result["说明"] = "手册旧版数据；原文疑点未擅改，未给出的项目省略";
+            if (Regex.IsMatch(name, @"A1|Mi|Mnr|^45ML$|^Cr18Ni9$|^1Cr$|^W$|Mo[l]|Ni[l]|Ni1O|M0[23]"))
+                result["牌号疑点"] = "原表写法，疑似拼写不一致；未自动映射其他牌号";
+        }
         var aliases = GradeAliases.Where(p => p.Value.Any(a => Norm(a) == Norm(name))).Select(p => p.Key).ToArray();
         if (aliases.Length > 0) result["材料名称"] = aliases;
         if (ungraded)
@@ -142,7 +150,7 @@ internal static class MaterialLibrary
         }
         var mechanical = facts.Where(f => f.Tool == "strength").ToArray();
         if (mechanical.Length > 0) result["力学性能"] = Block(mechanical);
-        result["来源"] = facts.Where(f => f.Property != "化学成分").Select(f => f.Source)
+        result["来源"] = facts.Select(f => f.Source)
             .GroupBy(s => s.Split(' ')[0]).Select(g => g.OrderByDescending(s => s.Length).First()).ToArray();
         if (!ungraded && references)
         {
