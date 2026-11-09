@@ -21,7 +21,7 @@ internal static class SteelMaterials
         return source;
     });
     internal static IReadOnlyList<Table> Tables => SourceData.Value.Tables;
-    private static readonly Lazy<CastIronLookup.Fact[]> Data = new(Build);
+    private static readonly Lazy<CastIronLookup.Fact[]> Data = new(() => Build(Tables));
     internal static IReadOnlyList<CastIronLookup.Fact> Facts => Data.Value;
     private static string Clean(string value) => Regex.Replace(value, @"\s+", "").Replace("\u00ad", "");
 
@@ -31,11 +31,11 @@ internal static class SteelMaterials
         var primary = Regex.Replace(text, @"[（(][^）)]*[）)]", "");
         // Only these source rows use spaces to separate several full grades.
         // Other spaces are typography inside one grade (ML 40, 9Cr2 W, etc.).
-        var separator = page is 24 or 103 or 106 ? @"[、，,；;\s]+" : @"[、，,；;]+";
+        var separator = page is 24 or 103 or 106 || page >= 1000 ? @"[、，,；;\s]+" : @"[、，,；;]+";
         foreach (var token in Regex.Split(primary.Trim(), separator))
         {
             var grade = Clean(token).TrimEnd('①', '②', '③', '④', '⑤', '*');
-            if ((Regex.IsMatch(grade, @"^[A-Za-z0-9][A-Za-z0-9-]*$") && grade.Any(char.IsLetter)) || Regex.IsMatch(grade, @"^\d{2,3}$"))
+            if ((Regex.IsMatch(grade, page >= 1000 ? @"^[A-Za-z0-9][A-Za-z0-9.\-]*$" : @"^[A-Za-z0-9][A-Za-z0-9-]*$") && grade.Any(char.IsLetter)) || Regex.IsMatch(grade, page >= 1000 ? @"^\d{2,4}$" : @"^\d{2,3}$"))
                 yield return grade;
         }
     }
@@ -60,14 +60,14 @@ internal static class SteelMaterials
         return s;
     }
 
-    private static CastIronLookup.Fact[] Build()
+    internal static CastIronLookup.Fact[] Build(IReadOnlyList<Table> tables)
     {
         var facts = new List<CastIronLookup.Fact>();
         var seen = new Dictionary<(string, string, string, string, string), HashSet<string>>();
-        var numericGrades = Tables.Where(t => t.Fields.Any(f => f.Kind == "grade" && f.Role == "property"))
+        var numericGrades = tables.Where(t => t.Fields.Any(f => f.Kind == "grade" && f.Role == "property"))
             .SelectMany(t => t.Rows.SelectMany(r => Grades(r[t.GradeColumn], t.Key)))
             .Where(g => int.TryParse(g, out _)).Distinct().ToArray();
-        foreach (var table in Tables)
+        foreach (var table in tables)
         for (var ri = 0; ri < table.Rows.Length; ri++)
         {
             var row = table.Rows[ri];
@@ -111,6 +111,8 @@ internal static class SteelMaterials
                     if (f.Name.StartsWith("硬度") && printedHardness.Success)
                         f = f with { Name = "硬度" + printedHardness.Value, Unit = printedHardness.Value };
                     var condition = baseCondition + (f.Context.Length > 0 ? "；" + f.Context : "");
+                    if (table.Key >= 1000 && f.Semantics.Length > 0 && Regex.IsMatch(row[ci].Trim(), @"^\d+(?:\.\d+)?(?:\s+\d+(?:\.\d+)?)+$"))
+                        condition += f.Semantics == "min" ? "；表头逐项下限≥" : "；表头逐项上限≤";
                     var value = Cell(row[ci], f);
                     // Missing cells stay in authoritative tables; compact cards omit them.
                     if (value == "未给出") continue;
@@ -124,6 +126,10 @@ internal static class SteelMaterials
                     values.Add(f.Value);
                     facts.Add(collision ? f with { Condition = f.Condition + "；原表行=" + rowId } : f);
                 }
+                if (rowFacts.Count == 0 && table.Key >= 1000)
+                    foreach (var (field, column) in table.Fields.Select((field, column) => (field, column)).Where(x => x.field.Role == "condition" && x.field.Name.Contains("热处理")))
+                        if (!string.IsNullOrWhiteSpace(row[column]))
+                            facts.Add(new("strength", table.Family, grade, field.Name, table.Scenario + " [" + table.SourceId + "]", row[column], source.Trim(), rowId));
                 if (rowFacts.Count == 0)
                     facts.Add(new("grade", table.Family, grade, "化学成分", baseCondition, "仅牌号目录，原页未给出成分", source.Trim(), rowId));
             }

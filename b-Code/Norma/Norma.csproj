@@ -34,6 +34,7 @@
     <EmbeddedResource Include="Formulas\physical-*.tsv" />
     <EmbeddedResource Include="Formulas\cast-iron.json" LogicalName="Norma.Formulas.cast-iron.json" />
     <EmbeddedResource Include="Formulas\steel.json" LogicalName="Norma.Formulas.steel.json" />
+    <EmbeddedResource Include="Formulas\nonferrous.json" LogicalName="Norma.Formulas.nonferrous.json" />
     <EmbeddedResource Include="Formulas\drive-efficiency.tsv" LogicalName="Norma.Formulas.drive-efficiency.tsv" />
     <EmbeddedResource Include="ManualWindowCapture.ps1" LogicalName="Norma.ManualWindowCapture.ps1" />
     <EmbeddedResource Include="Formulas\standards.tsv" LogicalName="Norma.Formulas.standards.tsv" />

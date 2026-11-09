@@ -30,6 +30,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("cast iron scalar and explicit variable lookup", Sync(TestCastIronLookup)),
     ("compact material passports and optional filters", Sync(TestMaterialLibrary)),
     ("steel grade cards and source conditions", Sync(TestSteelMaterials)),
+    ("nonferrous and special alloy grade cards", Sync(TestNonFerrousMaterials)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -1015,7 +1016,7 @@ static void TestMaterialLibrary()
         .Count(g => J(Q(g)).TryGetProperty("同族参考配方（非本牌号标准指标）", out _)));
     var serialization = new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
     var sizes = new List<int>();
-    foreach (var group in MaterialLibrary.Data.Where(f => !f.RowId.StartsWith("steel:")).GroupBy(f => (f.Family, Grade: System.Text.RegularExpressions.Regex.Replace(f.Grade, @"\s|\*", "").ToUpperInvariant())))
+    foreach (var group in MaterialLibrary.Data.Where(f => !f.RowId.StartsWith("steel:") && !f.RowId.StartsWith("nonferrous:")).GroupBy(f => (f.Family, Grade: System.Text.RegularExpressions.Regex.Replace(f.Grade, @"\s|\*", "").ToUpperInvariant())))
     {
         var card = J(Q(group.First().Grade, family: group.Key.Family));
         True(!card.TryGetProperty("missing", out _) && !card.TryGetProperty("error", out _), "单牌号卡片不要求补属性/条件");
@@ -1082,6 +1083,64 @@ static void TestSteelMaterials()
     var command = Registry().All.Single(c => c.Name == "norma.material.grade");
     var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "GCr15" }, "test", null, CancellationToken.None)).Result;
     Equal("GCr15", JsonSerializer.SerializeToElement(response.Data!).GetProperty("牌号").GetString()!);
+}
+
+// REQ-MATERIAL-009: independent native references, alias ambiguity and complete condition sets.
+static void TestNonFerrousMaterials()
+{
+    var tables = NonFerrousMaterials.Tables;
+    Equal(282, tables.Count);
+    Equal(139, tables.Select(t => t.Key).Distinct().Count());
+    Equal(3524, tables.Sum(t => t.Rows.Length));
+    True(tables.All(t => t.SourceFile == "jxclsj/jxclsj.ysc" && t.Path.Length > 0 && t.HeaderRows.Length > 0), "新材料源表可追溯");
+    True(tables.All(t => t.Rows.All(r => r.Length == t.Fields.Length)), "新材料表行列完整");
+    True(tables.All(t => t.ByteOffset > 0 && t.SourceId.StartsWith("jxclsj:")), "新材料原文件页索引完整");
+    True(tables.Single(t => t.Key == 1076).Scenario.Contains(">0.5mm"), "黄铜带厚度条件来自正文，不能依赖截断窗口标题");
+    True(tables.Single(t => t.Key == 1046 && t.Id.EndsWith(":3")).Scenario.Contains("高温持久"), "高温子表不沿用室温主标题");
+    var facts = NonFerrousMaterials.Facts;
+    foreach (var grade in tables.SelectMany(t => t.Rows.SelectMany(r => SteelMaterials.Grades(r[t.GradeColumn], t.Key))).Distinct(StringComparer.OrdinalIgnoreCase))
+        True(facts.Any(f => f.Grade.Equals(grade, StringComparison.OrdinalIgnoreCase)), "原表牌号不能因全部性能空缺而消失 " + grade);
+    CastIronLookup.Fact F(int page, string grade, string property) => facts.First(f => f.RowId.StartsWith("nonferrous:" + page + ":") && f.Grade == grade && f.Property == property);
+    Equal("≥99.95 %", F(1001, "T1", "Cu+Ag").Value);
+    Equal("≤0.001 %", F(1001, "T1", "P").Value);
+    Equal("6.0～7.0 %", F(1005, "QSn6.5-0.1", "Sn").Value);
+    Equal("0.10～0.25 %", F(1005, "QSn6.5-0.1", "P").Value);
+    Equal("240 MPa", F(1002, "T2", "抗拉强度").Value);
+    Equal("110000 MPa", F(1002, "T2", "弹性模量").Value);
+    Equal("≥155 MPa", F(1017, "ZAlSi7Mg", "抗拉强度").Value);
+    Equal("2.66 g/cm³", F(1020, "ZAlSi7Mg", "密度ρ/g·cm^-3").Value);
+    Equal("4.5 g/cm³", F(1029, "TA1", "0℃密度ρ/g·cm^-3").Value);
+    Equal("4.0～6.0 %", F(1036, "CuPb9Sn5", "Sn").Value);
+    Equal("≥100 MPa", F(1095, "F0001J", "抗拉强度").Value);
+    Equal("≥4.59×10^-15", F(1107, "F2100G5", "渗透系数/m^2").Value);
+    Equal("515 MPa", F(2031, "NS111", "抗拉强度").Value);
+    True(facts.Any(f => f.Grade == "6061" && f.Tool == "grade") && facts.Any(f => f.Grade == "6061" && f.Tool == "strength"), "四位铝牌号成分与力学性能齐全");
+    True(facts.Any(f => f.Grade == "H96" && f.Value.Contains("原表区间倒置")), "原表倒置区间保留");
+    True(facts.Any(f => f.Grade == "GH1015" && f.Condition.Contains("单位倍率疑点")), "异常倍率不得换算");
+    True(!facts.Any(f => f.Value.Contains("余～量")), "排版空格不构造成分区间");
+    var encoder = new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+    var sizes = new List<int>();
+    foreach (var group in facts.GroupBy(f => f.Grade, StringComparer.OrdinalIgnoreCase))
+    {
+        var card = JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: group.Key));
+        True(!card.TryGetProperty("missing", out _) && !card.TryGetProperty("error", out _), "新牌号直接得到卡片 " + group.Key);
+        Equal(card.GetRawText(), JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: group.Key, limit: 1, offset: 100)).GetRawText());
+        foreach (var value in group.Select(f => f.Value).Distinct())
+            True(card.GetRawText().Contains(JsonSerializer.Serialize(value)), "新卡片遗漏值 " + group.Key + " " + value);
+        sizes.Add(Encoding.UTF8.GetByteCount(JsonSerializer.Serialize(card, encoder)));
+    }
+    Console.WriteLine($"New material cards: {sizes.Count}, median {sizes.Order().ElementAt(sizes.Count / 2)} B, max {sizes.Max()} B; {facts.Count} facts");
+    var castAl = JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: "ZL101"));
+    Equal("ZAlSi7Mg", castAl.GetProperty("牌号").GetString()!);
+    True(castAl.TryGetProperty("化学成分", out _) && castAl.TryGetProperty("力学性能", out _) && castAl.TryGetProperty("物理及使用性能", out _), "铸铝代号关联全部数据");
+    Equal("2A12", JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: "LY12")).GetProperty("牌号").GetString()!);
+    var ambiguous = JsonSerializer.SerializeToElement(MaterialLibrary.Query("grade", grade: "GH140"));
+    Equal("grade", ambiguous.GetProperty("missing").GetString()!);
+    Equal(2, ambiguous.GetProperty("options").GetArrayLength());
+    var density = F(1020, "ZAlSi7Mg", "密度ρ/g·cm^-3");
+    Equal(density.Value, (string)MaterialLibrary.Query("grade", grade: "ZL101", property: density.Property, condition: density.Condition));
+    var strengthOnly = JsonSerializer.SerializeToElement(MaterialLibrary.Query("strength", grade: "ZL101"));
+    True(!strengthOnly.TryGetProperty("化学成分", out _) && !strengthOnly.TryGetProperty("物理及使用性能", out _), "力学入口不混入成分和物理性能");
 }
 
 static void TestCastIronLookup()
