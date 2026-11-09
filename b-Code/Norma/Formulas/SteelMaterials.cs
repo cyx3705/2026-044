@@ -57,6 +57,8 @@ internal static class SteelMaterials
         if (Regex.IsMatch(s, @"\d+\.\d+\.\d+")) s += "（原表数字格式异常，待核）";
         if (field.Unit.Length == 0 && field.Name.Contains("强度") && Regex.IsMatch(s, @"^\s*[≥≤<>]?\d") && !Regex.IsMatch(s, @"MPa|Mpa|HB|HRC"))
             s += "（原表未标单位）";
+        if (field.Unit.Length == 0 && field.Name.StartsWith("伸长率") && Regex.IsMatch(s, @"^\s*[≥≤<>]?\d"))
+            s += "（原表未标单位）";
         return s;
     }
 

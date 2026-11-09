@@ -1107,6 +1107,8 @@ static void TestNonFerrousMaterials()
     Equal("0.10～0.25 %", F(1005, "QSn6.5-0.1", "P").Value);
     Equal("240 MPa", F(1002, "T2", "抗拉强度").Value);
     Equal("110000 MPa", F(1002, "T2", "弹性模量").Value);
+    True(facts.Any(f => f.Grade == "QBe2" && f.Property == "硬度HV" && f.Value.Contains("90^⑤ HV")), "青铜脚注⑤明确是HV，不得沿用HBS表头");
+    True(!facts.Any(f => f.Tool == "grade" && f.Value.Contains("Ti-6Al-4V")), "钛合金成分组是身份条件，不能加百分号当元素量");
     Equal("≥155 MPa", F(1017, "ZAlSi7Mg", "抗拉强度").Value);
     Equal("2.66 g/cm³", F(1020, "ZAlSi7Mg", "密度ρ/g·cm^-3").Value);
     Equal("4.5 g/cm³", F(1029, "TA1", "0℃密度ρ/g·cm^-3").Value);
