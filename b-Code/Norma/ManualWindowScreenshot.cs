@@ -18,14 +18,18 @@ internal static class ManualWindowScreenshot
         return Run(root, "capture", null, null, null, 0, 30, id, x, y, width, height);
     }
 
-    internal static object Open(string root, string name, string? path) => Run(root, "open", name, path, null, 0, 30, null, 0, 0, 0, 0);
+    internal static object Open(string root, string name, string? path, int scrollY = 0)
+    {
+        if (scrollY is < 0 or > 50000) throw new ArgumentException("scroll_y应为0～50000像素");
+        return Run(root, "open", name, path, null, 0, 30, null, 0, 0, 0, 0, scrollY);
+    }
     internal static object DirectoryView(string root, string? query, int offset, int limit)
     {
         if (offset < 0 || limit is < 1 or > 100) throw new ArgumentException("offset≥0，limit为1～100");
         return Run(root, "directory", null, null, query, offset, limit, null, 0, 0, 0, 0);
     }
 
-    private static object Run(string root, string action, string? name, string? path, string? query, int offset, int limit, string? id, int x, int y, int width, int height)
+    private static object Run(string root, string action, string? name, string? path, string? query, int offset, int limit, string? id, int x, int y, int width, int height, int scrollY = 0)
     {
         Validate(x, y, width, height);
         if (action == "open" && string.IsNullOrWhiteSpace(name)) throw new ArgumentException("name必填，应为完整页名称");
@@ -60,7 +64,7 @@ internal static class ManualWindowScreenshot
         foreach (var arg in new[] { "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", script,
             "-WindowHandle", target.Handle.ToString(CultureInfo.InvariantCulture), "-ExpectedProcessId", target.Id.ToString(CultureInfo.InvariantCulture),
             "-X", x.ToString(CultureInfo.InvariantCulture), "-Y", y.ToString(CultureInfo.InvariantCulture), "-Width", width.ToString(CultureInfo.InvariantCulture), "-Height", height.ToString(CultureInfo.InvariantCulture), "-OutputPath", image }) start.ArgumentList.Add(arg);
-        foreach (var pair in new[] { ("-Action", action), ("-PageName", name), ("-PagePath", path), ("-Query", query), ("-Offset", offset.ToString(CultureInfo.InvariantCulture)), ("-Limit", limit.ToString(CultureInfo.InvariantCulture)) })
+        foreach (var pair in new[] { ("-Action", action), ("-ScrollY", scrollY.ToString(CultureInfo.InvariantCulture)), ("-PageName", name), ("-PagePath", path), ("-Query", query), ("-Offset", offset.ToString(CultureInfo.InvariantCulture)), ("-Limit", limit.ToString(CultureInfo.InvariantCulture)) })
             if (pair.Item2 is not null) { start.ArgumentList.Add(pair.Item1); start.ArgumentList.Add(pair.Item2); }
         using var child = Process.Start(start) ?? throw new IOException("无法启动Windows系统截图辅助进程");
         var stdout = child.StandardOutput.ReadToEndAsync();

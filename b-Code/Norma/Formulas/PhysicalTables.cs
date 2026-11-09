@@ -71,7 +71,7 @@ internal static class PhysicalTables
         var items = rows.Skip(offset).Take(limit).Select(r => period is null ? r : r with
         { Properties = r.Properties.Where(p => p.Key == period).ToDictionary(p => p.Key, p => p.Value) }).ToList();
         return new(key, table.Title, $"机械工程师手册 sjzl:{table.Entry}，sjzl/sjzl.ysc，HTML字节偏移{table.ByteOffset}（条目号不是印刷页码）",
-            "原表参考值，不按牌号细分；范围保留上下界，不取中值、不插值、不外推。—为原表未给出，?为源页缺损；未辨材料不可映射到具体材料。线膨胀系数按原表温度区间选列，不当作某温度瞬时值；70~1000为原文。单位按每个属性返回，GPa换为MPa需乘1000。", rows.Count, offset,
+            "原表参考值，不按牌号细分；范围保留上下界，不取中值、不插值、不外推。已按原窗口核对材料名和可辨数值；—为原表未给出（含空白），不补猜。线膨胀系数按原表温度区间选列，不当作某温度瞬时值；70~1000为原文。单位按每个属性返回，GPa换为MPa需乘1000。", rows.Count, offset,
             offset + items.Count < rows.Count ? offset + items.Count : null, items);
     }
 }

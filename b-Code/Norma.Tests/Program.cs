@@ -769,6 +769,12 @@ static void TestManual()
         True(capture.GetProperty("capture").GetProperty("width").GetInt32() < capture.GetProperty("capture").GetProperty("windowWidth").GetInt32(), "正文截图没有排除左侧目录");
         Equal("常用材料弹性模量及泊松比", capture.GetProperty("capture").GetProperty("contentTitle").GetString()!);
         Console.WriteLine(capture.GetRawText());
+        var scrolled = JsonSerializer.SerializeToElement(ManualWindowScreenshot.Open(ManualCommands.DefaultRoot, "松散物料的堆密度和安息角", null, 5000)).GetProperty("page");
+        True(scrolled.GetProperty("verified").GetBoolean(), "长表滚动后标题未经核实");
+        Equal(5000, scrolled.GetProperty("scrollY").GetInt32());
+        var bottom = JsonSerializer.SerializeToElement(ManualWindowScreenshot.Capture(ManualCommands.DefaultRoot, null, 0, 0, 0, 0)).GetProperty("capture");
+        Equal("松散物料的堆密度和安息角", bottom.GetProperty("contentTitle").GetString()!);
+        Console.WriteLine("Native scrolled content: " + bottom.GetRawText());
         var missingRejected = false;
         try { ManualWindowScreenshot.Open(ManualCommands.DefaultRoot, "不存在的手册页-验收", null); } catch (IOException) { missingRejected = true; }
         True(missingRejected, "不存在的原页面被报告为打开成功");
@@ -959,9 +965,24 @@ static void TestPhysicalTables()
     Near(35, coke.Properties["angle_moving"].Value!.Value, 0, "运动角");
     Near(50, coke.Properties["angle_static"].Value!.Value, 0, "静止角");
     Equal("原表未给出", PhysicalTables.Search("elastic", "球墨铸铁", null, 0, 20).Items.Single().Properties["g"].Undefined!);
-    Equal("源页该值缺损，待核", PhysicalTables.Search("thermal", "灰铸铁", null, 0, 20).Items.Single().Properties["melting"].Undefined!);
-    Equal(2, PhysicalTables.Search("density", "未辨材料", null, 0, 20).Total);
-    Equal(1, PhysicalTables.Search("thermal", "未辨材料", null, 0, 20).Total);
+    // REQ-MATERIAL-004: values and names verified against native manual screenshots.
+    Near(103, PhysicalTables.Search("elastic", "铸铝青铜", null, 0, 20).Items.Single().Properties["e"].Value!.Value, 0, "铸铝青铜E");
+    Near(1200, PhysicalTables.Search("thermal", "灰铸铁", null, 0, 20).Items.Single().Properties["melting"].Value!.Value, 0, "灰铸铁熔点");
+    Near(8.62, PhysicalTables.Search("density", "铸造黄铜", null, 0, 20).Items.Single().Properties["rho"].Value!.Value, 0, "铸造黄铜密度");
+    var wood = PhysicalTables.Search("density", "木材", null, 0, 20).Items.Single().Properties["rho"];
+    Near(0.4, wood.Min!.Value, 0, "木材密度下界");
+    Near(0.75, wood.Max!.Value, 0, "木材密度上界");
+    Near(0.31, PhysicalTables.Search("thermal", "聚酰胺", null, 0, 20).Items.Single().Properties["conductivity"].Value!.Value, 0, "聚酰胺导热");
+    var peat = PhysicalTables.Search("bulk", "泥煤(湿)", null, 0, 20).Items.Single().Properties["rho_bulk"];
+    Near(0.5, peat.Min!.Value, 0, "湿泥煤下界");
+    Near(0.65, peat.Max!.Value, 0, "湿泥煤上界");
+    Equal("原表未给出", PhysicalTables.Search("bulk", "粘土(湿)", null, 0, 20).Items.Single().Properties["angle_moving"].Undefined!);
+    foreach (var table in PhysicalTables.Tables)
+        foreach (var row in PhysicalTables.Search(table.Key, null, null, 0, 100).Items)
+        {
+            True(!row.Material.StartsWith("未辨材料"), "原窗口已确认全部材料名称");
+            True(row.Properties.Values.All(v => v.Text != "?"), "不应遗留已核对的缺损占位");
+        }
     var registry2 = Registry();
     foreach (var name in new[] { "norma.material.limits", "norma.metal.strength" })
     {

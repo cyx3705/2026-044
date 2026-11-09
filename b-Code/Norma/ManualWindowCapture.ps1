@@ -1,4 +1,4 @@
-﻿param([long]$WindowHandle,[int]$ExpectedProcessId,[int]$X=0,[int]$Y=0,[int]$Width=0,[int]$Height=0,[string]$OutputPath,[string]$Action='capture',[string]$PageName,[string]$PagePath,[string]$Query,[int]$Offset=0,[int]$Limit=30)
+﻿param([long]$WindowHandle,[int]$ExpectedProcessId,[int]$X=0,[int]$Y=0,[int]$Width=0,[int]$Height=0,[string]$OutputPath,[string]$Action='capture',[string]$PageName,[string]$PagePath,[string]$Query,[int]$Offset=0,[int]$Limit=30,[int]$ScrollY=0)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding=New-Object System.Text.UTF8Encoding($false)
 Add-Type -AssemblyName System.Drawing
@@ -27,6 +27,12 @@ public static class NormaWindowCapture {
   var iid=new Guid("332C4425-26CB-11D0-B483-00C04FD90119"); object doc;
   if(ObjectFromLresult(new IntPtr(result),ref iid,IntPtr.Zero,out doc)!=0)return "";
   try {return Convert.ToString(doc.GetType().InvokeMember("title",System.Reflection.BindingFlags.GetProperty,null,doc,null));}finally{if(Marshal.IsComObject(doc))Marshal.ReleaseComObject(doc);}
+ }
+ public static void Scroll(IntPtr content,int y) {
+  var result=Message(content,RegisterWindowMessage("WM_HTML_GETOBJECT"),0,0);var iid=new Guid("332C4425-26CB-11D0-B483-00C04FD90119");object doc;
+  if(result==0||ObjectFromLresult(new IntPtr(result),ref iid,IntPtr.Zero,out doc)!=0)throw new Exception("无法读取正文滚动接口");object window=null;
+  try {window=doc.GetType().InvokeMember("parentWindow",System.Reflection.BindingFlags.GetProperty,null,doc,null);window.GetType().InvokeMember("scrollTo",System.Reflection.BindingFlags.InvokeMethod,null,window,new object[]{0,y});}
+  finally{if(window!=null&&Marshal.IsComObject(window))Marshal.ReleaseComObject(window);if(Marshal.IsComObject(doc))Marshal.ReleaseComObject(doc);}
  }
  public static void Select(IntPtr tree,long item) { Message(tree,0x1114,0,item);Message(tree,0x110B,9,item);if(Message(tree,0x110A,9,0)!=item)throw new Exception("原目录未确认选择成功"); }
  public static void Expand(IntPtr tree,long item){Message(tree,0x1102,2,item);}
@@ -94,7 +100,9 @@ if($Action -eq 'open') {
   Start-Sleep -Milliseconds 100
  }
  if(-not $verified){throw ('已选择目录项，但右侧正文标题未匹配：'+$title+'；不报告打开成功')}
- @{name=$PageName;path=$selected.Path;contentTitle=$title;verified=$true;processId=$ExpectedProcessId;windowHandle=$WindowHandle;note='已在原手册打开并核实右侧正文标题；可继续manual.screenshot截正文'} | ConvertTo-Json -Compress
+ if($ScrollY -lt 0 -or $ScrollY -gt 50000){throw 'scroll_y应为0～50000像素'}
+ [NormaWindowCapture]::Scroll($contentHandle,$ScrollY)
+ @{scrollY=$ScrollY;name=$PageName;path=$selected.Path;contentTitle=$title;verified=$true;processId=$ExpectedProcessId;windowHandle=$WindowHandle;note='已在原手册打开并核实右侧正文标题；可继续manual.screenshot截正文'} | ConvertTo-Json -Compress
  exit 0
 }
 $directoryItems=@()

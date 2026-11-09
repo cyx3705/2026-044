@@ -63,8 +63,8 @@ internal static class ManualCommands
             Summary = "按完整页名称在原手册打开页面，选择后核实右侧正文标题；同名页用directory返回的完整path区分，不修改手册文件",
             Example = "norma.manual.open name=常用材料弹性模量及泊松比",
             Parameters = [Root(), new ParameterSpec { Name = "name", Description = "原手册目录中的完整页名称，严格匹配；如常用材料弹性模量及泊松比", Type = ParamType.String, Required = true },
-                Text("path", "可选：directory返回的完整目录路径，/分隔；逐级展开祖先并区分同名页")],
-            Handler = CommandDescriptor.Sync(c => Execute(() => ManualWindowScreenshot.Open(c.GetString("root") ?? DefaultRoot, c.RequireString("name"), c.GetString("path"))))
+                Text("path", "可选：directory返回的完整目录路径，/分隔；逐级展开祖先并区分同名页"), Number("scroll_y", "打开后滚到正文纵向像素位置，0～50000，默认0回顶部；长表下方核对时增大", "0")],
+            Handler = CommandDescriptor.Sync(c => Execute(() => ManualWindowScreenshot.Open(c.GetString("root") ?? DefaultRoot, c.RequireString("name"), c.GetString("path"), c.GetInt("scroll_y", 0))))
         });
         registry.Register(new CommandDescriptor
         {
