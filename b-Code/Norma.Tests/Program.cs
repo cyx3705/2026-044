@@ -24,6 +24,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("standards table is complete", Sync(TestStandardsTable)),
     ("standard lookup works both ways", Sync(TestStandardLookup)),
     ("metal strength conversion and domains", Sync(TestMetalStrength)),
+    ("mechanical material tables and classification", Sync(TestPhysicalTables)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -60,7 +61,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 9;
+static int ExpectedCommandCount() => Catalog.All.Count + 14;
 
 static void TestCommandRegistration()
 {
@@ -69,6 +70,7 @@ static void TestCommandRegistration()
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
         .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
+    expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     foreach (var name in expected)
     {
         True(registry.TryGet(name, out var descriptor), $"未注册 {name}");
@@ -631,6 +633,23 @@ static async Task TestHostLoadsPackage()
             var manualResult = manual.GetProperty("data").GetProperty("result");
             True(manualResult.GetProperty("success").GetBoolean(), manualResult.GetRawText());
         }
+
+        // 新物理表经隔离宿主装载后的实际命令调用。
+        foreach (var (method, query, field, expected) in new[]
+        {
+            ("elastic", "铅", "e", 16d), ("density", "铅", "rho", 11.37),
+            ("thermal", "铜", "conductivity", 384d), ("expansion", "碳钢", "20~100", 10.6),
+            ("bulk", "焦炭", "rho_bulk", 0.36),
+        })
+        {
+            var physical = await Probe(archive, $"norma.material.{method} q={query}");
+            var physicalResult = physical.GetProperty("data").GetProperty("result");
+            True(physicalResult.GetProperty("success").GetBoolean(), physicalResult.GetRawText());
+            var payload = physicalResult.GetProperty("data");
+            var row = payload.GetProperty("items")[0];
+            Near(expected, row.GetProperty("properties").GetProperty(field).GetProperty("min").GetDouble(), 1e-9, "宿主物理表 " + method);
+        }
+
         // 标准代号表是嵌入资源，宿主装载后同样能查到。
         var std = await Probe(archive, NormaIdentity.Domain + ".std.lookup q=ISO");
         var stdResult = std.GetProperty("data").GetProperty("result");
@@ -844,6 +863,80 @@ static void TestMaterialLimits()
         Equal(ManualCommands.DefaultRoot, root.Default);
     }
 }
+
+// REQ-MATERIAL-002/003：独立表值、整表覆盖、缺值与筛选、目录和分类。
+static void TestPhysicalTables()
+{
+    var expectedCounts = new[] { 28, 56, 14, 17, 50 };
+    for (var i = 0; i < PhysicalTables.Tables.Length; i++)
+    {
+        var t = PhysicalTables.Tables[i];
+        var all = PhysicalTables.Search(t.Key, null, null, 0, 100);
+        Equal(expectedCounts[i], all.Total);
+        Equal(expectedCounts[i], all.Items.Count);
+        Equal(all.Total, all.Items.Select(row => row.Id).Distinct().Count());
+        foreach (var row in all.Items)
+        {
+            Equal(t.Fields.Length, row.Properties.Count);
+            foreach (var value in row.Properties.Values)
+            {
+                if (value.Undefined is null)
+                    True(value.Min.HasValue && value.Max.HasValue && value.Min <= value.Max, "表范围错误");
+                else True(value.Value is null && value.Min is null && value.Max is null, "缺值不能造数");
+            }
+        }
+        var first = PhysicalTables.Search(t.Key, null, null, 0, 2);
+        var second = PhysicalTables.Search(t.Key, null, null, first.NextOffset!.Value, 2);
+        Equal(all.Items[2].Id, second.Items[0].Id);
+        Equal(0, PhysicalTables.Search(t.Key, "不存在的材料", null, 0, 20).Total);
+        var registry = Registry();
+        True(registry.TryGet("norma.material." + t.Key, out var descriptor), "未注册物理表");
+        Equal("material", descriptor!.CommandClass);
+        var outcome = descriptor.Handler(new CommandContext(descriptor, new Dictionary<string, string>(), "test", null, CancellationToken.None)).Result;
+        True(outcome.Success, outcome.Message);
+        JsonSerializer.Serialize(outcome.Data);
+    }
+    var steel = PhysicalTables.Search("elastic", "碳钢", null, 0, 20).Items.Single();
+    Near(206, steel.Properties["e"].Value!.Value, 0, "钢 E/GPa");
+    Near(79.4, steel.Properties["g"].Value!.Value, 0, "钢 G/GPa");
+    Near(0.3, steel.Properties["nu"].Value!.Value, 0, "钢泊松比");
+    Near(11.37, PhysicalTables.Search("density", "铅", null, 0, 20).Items.Single().Properties["rho"].Value!.Value, 0, "铅密度");
+    var carbon = PhysicalTables.Search("density", "碳钢", null, 0, 20).Items.Single().Properties["rho"];
+    Near(7.3, carbon.Min!.Value, 0, "碳钢密度下界");
+    Near(7.85, carbon.Max!.Value, 0, "碳钢密度上界");
+    True(carbon.Value is null, "范围不能自动取中值");
+    var copper = PhysicalTables.Search("thermal", "铜", null, 0, 20).Items.Single();
+    Near(1083, copper.Properties["melting"].Value!.Value, 0, "铜熔点");
+    Near(384, copper.Properties["conductivity"].Value!.Value, 0, "铜导热");
+    Near(0.394, copper.Properties["specific_heat"].Value!.Value, 0, "铜比热");
+    var expansion = PhysicalTables.Search("expansion", "碳钢", "20~100", 0, 20).Items.Single();
+    Equal(1, expansion.Properties.Count);
+    Near(10.6, expansion.Properties["20~100"].Min!.Value, 0, "线膨胀下界");
+    Near(12.2, expansion.Properties["20~100"].Max!.Value, 0, "线膨胀上界");
+    var coke = PhysicalTables.Search("bulk", "焦炭", null, 0, 20).Items.Single();
+    Near(0.36, coke.Properties["rho_bulk"].Min!.Value, 0, "焦炭堆密度");
+    Near(35, coke.Properties["angle_moving"].Value!.Value, 0, "运动角");
+    Near(50, coke.Properties["angle_static"].Value!.Value, 0, "静止角");
+    Equal("原表未给出", PhysicalTables.Search("elastic", "球墨铸铁", null, 0, 20).Items.Single().Properties["g"].Undefined!);
+    Equal("源页该值缺损，待核", PhysicalTables.Search("thermal", "灰铸铁", null, 0, 20).Items.Single().Properties["melting"].Undefined!);
+    Equal(2, PhysicalTables.Search("density", "未辨材料", null, 0, 20).Total);
+    Equal(1, PhysicalTables.Search("thermal", "未辨材料", null, 0, 20).Total);
+    var registry2 = Registry();
+    foreach (var name in new[] { "norma.material.limits", "norma.metal.strength" })
+    {
+        registry2.TryGet(name, out var descriptor);
+        Equal("material", descriptor!.CommandClass);
+    }
+    Equal(7, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
+    foreach (var (offset, limit, period) in new[] { (-1, 20, (string?)null), (0, 0, (string?)null), (0, 101, (string?)null), (0, 20, (string?)"20~150") })
+    {
+        var rejected = false;
+        try { PhysicalTables.Search("expansion", null, period, offset, limit); }
+        catch (ArgumentException) { rejected = true; }
+        True(rejected, "无效分页或温区必须拒绝");
+    }
+}
+
 /// <summary>
 /// 模块登记口的测试替身：只记下登记了哪些指令。宿主 6.0.0 起注册表是宿主内部类，
 /// 登记口 ICommandRegistrar 就是模块能看到的全部；来源由宿主盖章，这里不再核对。

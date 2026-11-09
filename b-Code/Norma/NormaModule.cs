@@ -25,6 +25,7 @@ public sealed class NormaModule : IModuleContextAware
     internal static void Register(ICommandRegistrar registry)
     {
         ManualCommands.Register(registry);
+        PhysicalCommands.Register(registry);
 
         foreach (var calculation in Catalog.All)
             registry.Register(NormaCommands.For(calculation));
@@ -42,14 +43,16 @@ public sealed class NormaModule : IModuleContextAware
                 new ParameterSpec
                 {
                     Name = "topic",
-                    Description = "只列这一类，如 gear、bolt、bearing；省略列全部",
+                    Description = "只列这一类，如 gear、bolt、bearing；material 为机械材料（强度与物理性能）；省略列全部",
                     Type = ParamType.String,
                     AllowedValues = Catalog.All.Select(item => item.Topic).Distinct().ToArray(),
                 },
             ],
             Handler = CommandDescriptor.Sync(context =>
             {
-                var rows = NormaCommands.CatalogRows(context.GetString("topic"));
+                var topic = context.GetString("topic");
+                var rows = string.IsNullOrWhiteSpace(topic) ? NormaCommands.PageRows()
+                    : NormaCommands.PageRows().Where(row => row["topic"] == Catalog.TopicTitle(topic)).ToList();
                 return CommandResult.Ok($"共 {rows.Count} 条计算", rows);
             }),
         });
@@ -127,7 +130,7 @@ public sealed class NormaModule : IModuleContextAware
         {
             Name = NormaIdentity.Domain + ".metal.strength",
             Domain = NormaIdentity.Domain,
-            CommandClass = "metal",
+            CommandClass = "material",
             Summary = "金属硬度与强度换算：钢/铝/铜，PCHIP 保形插值，分牌号并标明各硬度制的无定义区间",
             Example = NormaIdentity.Domain + ".metal.strength family=steel value=45 scale=hrc grade=stainless",
             Readonly = true,

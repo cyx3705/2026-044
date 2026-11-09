@@ -39,7 +39,7 @@ public static class Catalog
         "belt" => "带传动",
         "chain" => "链传动",
         "beam" => "梁",
-        "material" => "材料强度",
+        "material" => "机械材料",
         _ => topic,
     };
 }

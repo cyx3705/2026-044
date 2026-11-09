@@ -178,7 +178,7 @@ internal static class NormaCommands
             new Dictionary<string, string>
             {
                 ["id"] = "metal.strength",
-                ["topic"] = "金属强度",
+                ["topic"] = "机械材料",
                 ["command"] = NormaIdentity.Domain + ".metal.strength",
                 ["title"] = "金属硬度与强度换算：钢/铝/铜，PCHIP 插值，分牌号并标注无定义区间",
                 ["source"] = MetalStrength.Source,
@@ -187,7 +187,13 @@ internal static class NormaCommands
 
     /// <summary>页面那张表：计算在前，工具接在后面，同一个表格里显示。</summary>
     internal static IReadOnlyList<IReadOnlyDictionary<string, string>> PageRows()
-        => CatalogRows(null).Concat(ToolRows()).ToList();
+        => CatalogRows(null).Concat(ToolRows()).Concat(PhysicalTables.Tables.Select(table =>
+            (IReadOnlyDictionary<string, string>)new Dictionary<string, string>
+            {
+                ["id"] = "material." + table.Key, ["topic"] = "机械材料",
+                ["command"] = "norma.material." + table.Key, ["title"] = table.Title,
+                ["source"] = "机械工程师手册 sjzl:" + table.Entry,
+            })).ToList();
 
     /// <summary>一条计算的完整元数据。</summary>
     internal static object Describe(Calculation calculation) => new

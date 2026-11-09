@@ -34,8 +34,10 @@
 | 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
 | 手册查询 | `norma.manual.search q= [scope=title/text]` 搜索/浏览目录，`norma.manual.read id=` 分页读正文或 HTML |
 | 标准代号 | `norma.std.lookup q=` 按代号或名称互查（机械工程师手册「国内/国外部分标准代号」两页） |
-| 材料极限 | `norma.material.limits material= sigma_b=` 从抗拉强度估算材料对称/脉动疲劳极限，保留区间与无定义项 |
-| 金属强度 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
+| 机械材料 | `norma.material.limits material= sigma_b=` 从抗拉强度估算材料对称/脉动疲劳极限，保留区间与无定义项 |
+| 机械材料 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
+
+| 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；q= 查询，省略浏览整表 |
 
 页面有一张目录表，加两个操作面板：标准代号查表、金属强度换算。
 
