@@ -69,7 +69,7 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.directory", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "独立查看原手册左侧目录：返回目录控件PNG和可访问条目的名称、完整path、选中与展开状态；可过滤分页，正文截图走manual.screenshot",
+            Summary = "文字查看原手册左侧目录：只返回文字树与条目的名称、完整path、选中和展开状态，不生成目录截图；支持过滤分页",
             Example = "norma.manual.directory q=常用材料 limit=30",
             Parameters = [Root(), Text("q", "按目录名称包含匹配；省略浏览当前可访问目录（折叠分组可能尚未暴露子页）"),
                 Number("offset", "跳过匹配条数，≥0", "0"), Number("limit", "返回条数，1～100", "30")],

@@ -63,7 +63,7 @@ $handle=[IntPtr]$WindowHandle
 [uint32]$actualProcessId=0
 [void][NormaWindowCapture]::GetWindowThreadProcessId($handle,[ref]$actualProcessId)
 if($actualProcessId -ne $ExpectedProcessId){throw '手册窗口句柄已失效或所属进程改变'}
-if([NormaWindowCapture]::IsIconic($handle)){throw '手册窗口已最小化，请还原后重试'}
+if($Action -ne 'directory' -and [NormaWindowCapture]::IsIconic($handle)){throw '手册窗口已最小化，请还原后重试'}
 $treeHandle=[NormaWindowCapture]::Child($handle,'SysTreeView32')
 $contentHandle=[NormaWindowCapture]::Child($handle,'Internet Explorer_Server')
 if($treeHandle -eq [IntPtr]::Zero -or $contentHandle -eq [IntPtr]::Zero){throw '手册目录或右侧正文控件不可识别，拒绝猜测裁切区域'}
@@ -104,13 +104,19 @@ if($Action -eq 'directory'){
   $directoryItems+=@{name=$item.Name;path=$item.Path;selected=$item.Selected;expansion=$item.Expansion}
  }
 }
+if($Action -eq 'directory'){
+ $page=@($directoryItems | Select-Object -Skip $Offset -First $Limit)
+ $next=$null;if($Offset+$page.Count -lt $directoryItems.Count){$next=$Offset+$page.Count}
+ $lines=@($page | ForEach-Object {('  '*($_.path.Split('/').Count-1))+$_.name+$(if($_.selected){' [当前]'}else{''})})
+ @{total=$directoryItems.Count;offset=$Offset;returned=$page.Count;nextOffset=$next;items=$page;text=[string]::Join("`n",$lines);note='原手册目录文字查看器；name为完整页名，path用于区分同名和展开祖先；不生成目录截图'} | ConvertTo-Json -Depth 8 -Compress
+ exit 0
+}
 $rect=New-Object NormaWindowCapture+Rect
 if(-not [NormaWindowCapture]::GetWindowRect($handle,[ref]$rect)){throw '无法读取手册窗口；请在交互桌面会话运行'}
 $fullWidth=$rect.Right-$rect.Left
 $fullHeight=$rect.Bottom-$rect.Top
 if($fullWidth -lt 1 -or $fullHeight -lt 1 -or $fullWidth -gt 12000 -or $fullHeight -gt 12000){throw '窗口尺寸不可截图'}
 $regionHandle=$contentHandle
-if($Action -eq 'directory'){$regionHandle=$treeHandle}
 $region=New-Object NormaWindowCapture+Rect
 if(-not [NormaWindowCapture]::GetWindowRect($regionHandle,[ref]$region)){throw '无法读取目标区域尺寸'}
 $regionWidth=$region.Right-$region.Left;$regionHeight=$region.Bottom-$region.Top
@@ -131,11 +137,5 @@ try {
  $crop=$bitmap.Clone((New-Object System.Drawing.Rectangle($cropX,$cropY,$Width,$Height)),[System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
  try {$crop.Save($OutputPath,[System.Drawing.Imaging.ImageFormat]::Png)} finally {$crop.Dispose()}
  $result=@{contentTitle=[NormaWindowCapture]::DocumentTitle($contentHandle);imagePath=$OutputPath;width=$Width;height=$Height;x=$X;y=$Y;regionWidth=$regionWidth;regionHeight=$regionHeight;windowWidth=$fullWidth;windowHeight=$fullHeight;processId=$ExpectedProcessId;windowHandle=$WindowHandle;evidence='native-window';method='Windows PrintWindow';region='content';note='原手册右侧正文像素截图；裁切坐标相对正文控件左上角，不含左侧目录和工具栏'}
- if($Action -eq 'directory'){
-  $result.region='directory';$result.note='左侧原目录控件截图与当前可访问目录项；折叠分组可能尚未暴露子页，path用于逐级展开定位'
-  $result.total=$directoryItems.Count;$result.offset=$Offset;$result.items=@($directoryItems | Select-Object -Skip $Offset -First $Limit);$result.returned=$result.items.Count
-  $result.nextOffset=$null
-  if($Offset+$result.returned -lt $result.total){$result.nextOffset=$Offset+$result.returned}
- }
  $result | ConvertTo-Json -Depth 8 -Compress
 } finally {$graphics.Dispose();$bitmap.Dispose()}

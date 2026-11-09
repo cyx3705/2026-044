@@ -759,7 +759,10 @@ static void TestManual()
     ManualWindowScreenshot.Validate(0, 0, 0, 0);
     if (Environment.GetEnvironmentVariable("NORMA_NATIVE_SCREENSHOT_TEST") == "1")
     {
-        Console.WriteLine(JsonSerializer.Serialize(ManualWindowScreenshot.DirectoryView(ManualCommands.DefaultRoot, "常用材料", 0, 30)));
+        var directory = JsonSerializer.SerializeToElement(ManualWindowScreenshot.DirectoryView(ManualCommands.DefaultRoot, "常用材料", 0, 30)).GetProperty("directory");
+        True(directory.GetProperty("total").GetInt32() > 0 && directory.GetProperty("text").GetString()!.Contains("常用材料"), "目录文字查看器没有返回匹配目录");
+        True(!directory.TryGetProperty("imagePath", out _), "目录查看器不应生成截图");
+        Console.WriteLine("Native text directory: " + directory.GetProperty("total").GetInt32() + " matches; no screenshot");
         Console.WriteLine(JsonSerializer.Serialize(ManualWindowScreenshot.Open(ManualCommands.DefaultRoot, "常用材料弹性模量及泊松比", null)));
         var capture = JsonSerializer.SerializeToElement(ManualWindowScreenshot.Capture(ManualCommands.DefaultRoot, null, 0, 0, 0, 0));
         Equal("content", capture.GetProperty("capture").GetProperty("region").GetString()!);

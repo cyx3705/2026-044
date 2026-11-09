@@ -71,8 +71,10 @@ internal static class ManualWindowScreenshot
             child.WaitForExit(5000);
             throw new IOException("系统窗口截图超时（30秒），已终止辅助进程");
         }
-        if (child.ExitCode != 0 || (action != "open" && !File.Exists(image))) throw new IOException("系统截图失败：" + stderr.GetAwaiter().GetResult());
+        if (child.ExitCode != 0 || (action == "capture" && !File.Exists(image))) throw new IOException("系统截图失败：" + stderr.GetAwaiter().GetResult());
         var data = JsonSerializer.Deserialize<JsonElement>(stdout.GetAwaiter().GetResult());
+        if (action == "directory") return new { title = target.Title, directory = data };
+        if (action == "open") return new { title = target.Title, page = data };
         return new { title = target.Title, capture = data };
     }
 }
