@@ -170,6 +170,7 @@ static void Near(double expected, double actual, double tolerance, string what)
 // 手算或标准表值对照。每条都能用计算器独立复核。
 static void TestReferenceValues()
 {
+    TestMaterialLimits();
     Near(65.862, Calc("drive.torque", "p=10 n=1450")["t"], 0.001, "T = 9550·10/1450");
 
     var gear = Calc("gear.geometry", "mn=2 z1=20 z2=40");
@@ -619,6 +620,17 @@ static async Task TestHostLoadsPackage()
         True(lifeResult.GetProperty("message").GetString()!.Contains("L_nm=250 10⁶ r", StringComparison.Ordinal),
             "宿主执行结果不对：" + lifeResult.GetProperty("message").GetString());
 
+        // REQ-MATERIAL-001：隔离宿主参数校验、null 序列化与实际调用。
+        var limits = await Probe(archive, "norma.material.limits material=aluminum sigma_b=300");
+        var limitResult = limits.GetProperty("data").GetProperty("result");
+        True(limitResult.GetProperty("success").GetBoolean(), limitResult.GetRawText());
+        True(limitResult.GetProperty("message").GetString()!.Contains("123.5", StringComparison.Ordinal), "宿主铝合金计算错误");
+        if (Environment.GetEnvironmentVariable("NORMA_MANUAL_TEST_ROOT") is { Length: > 0 })
+        {
+            var manual = await Probe(archive, "norma.manual.read id=sjzl:7 length=100");
+            var manualResult = manual.GetProperty("data").GetProperty("result");
+            True(manualResult.GetProperty("success").GetBoolean(), manualResult.GetRawText());
+        }
         // 标准代号表是嵌入资源，宿主装载后同样能查到。
         var std = await Probe(archive, NormaIdentity.Domain + ".std.lookup q=ISO");
         var stdResult = std.GetProperty("data").GetProperty("result");
@@ -768,6 +780,20 @@ static void TestManual()
             registry.TryGet("norma.manual.read", out var command);
             var outcome = command!.Handler(new CommandContext(command, new Dictionary<string, string> { ["root"] = realRoot, ["id"] = "sjzl:17" }, "test", null, CancellationToken.None)).Result;
             True(outcome.Success, outcome.Message);
+            // REQ-MANUAL-003：真实默认路径，不传 root 调用命令。
+            foreach (var method in new[] { "search", "read" })
+            {
+                registry.TryGet("norma.manual." + method, out var defaultCommand);
+                var arguments = method == "search"
+                    ? new Dictionary<string, string> { ["q"] = "极限强度", ["chapter"] = "sjzl" }
+                    : new Dictionary<string, string> { ["id"] = "sjzl:7" };
+                var actualDefault = defaultCommand!.Handler(new CommandContext(defaultCommand, arguments, "test", null, CancellationToken.None)).Result;
+                True(actualDefault.Success, "省略 root 的 " + method + " 失败：" + actualDefault.Message);
+                var defaultJson = Json(actualDefault.Data!);
+                if (method == "search")
+                    Equal("sjzl:7", defaultJson.GetProperty("items")[0].GetProperty("id").GetString()!);
+                else Equal("常用材料极限强度的近似关系", defaultJson.GetProperty("title").GetString()!);
+            }
             Console.WriteLine($"  Local manual: {actual.Length} pages / {actual.Select(p => p.File).Distinct().Count()} chapters; real command read passed");
         }
         foreach (var id in new[] { "../sjzl:1", "sjzl:0", "sjzl:999" })
@@ -780,6 +806,43 @@ static void TestManual()
     finally { Directory.Delete(root, true); }
 }
 
+// REQ-MATERIAL-001：独立手算对照每一列，包含区间、缺值、命令 JSON 和输入拒绝。
+static void TestMaterialLimits()
+{
+    var steel = Calc("material.limits", "material=structural_steel sigma_b=600");
+    var names = new[] { "sigma_m1t", "sigma_m1", "tau_m1_min", "tau_m1_max", "sigma_0t", "sigma_0", "tau_0" };
+    var expected = new[] { 180d, 258d, 150d, 150d, 255.6, 343.14, 225d };
+    for (var i = 0; i < names.Length; i++) Near(expected[i], steel[names[i]], 1e-9, "结构钢 " + names[i]);
+    var cast = Calc("material.limits", "material=cast_iron sigma_b=200");
+    var castExpected = new[] { 45d, 90d, 72d, 72d, 63.9, 121.5, 97.2 };
+    for (var i = 0; i < names.Length; i++) Near(castExpected[i], cast[names[i]], 1e-9, "铸铁 " + names[i]);
+
+    var aluminum = Calc("material.limits", "material=aluminum sigma_b=300");
+    Near(123.5, aluminum["sigma_m1t"], 1e-9, "铝拉压");
+    Near(123.5, aluminum["sigma_m1"], 1e-9, "铝弯曲");
+    Near(67.925, aluminum["tau_m1_min"], 1e-9, "铝扭转下界");
+    Near(71.63, aluminum["tau_m1_max"], 1e-9, "铝扭转上界");
+    Near(185.25, aluminum["sigma_0t"], 1e-9, "铝脉动拉压");
+    True(double.IsNaN(aluminum["sigma_0"]) && double.IsNaN(aluminum["tau_0"]), "原表—不可补猜");
+    var json = JsonSerializer.SerializeToElement(NormaCommands.Payload(aluminum));
+    var outputs = json.GetProperty("outputs").EnumerateArray().ToDictionary(o => o.GetProperty("name").GetString()!);
+    Equal(JsonValueKind.Null, outputs["sigma_0"].GetProperty("value").ValueKind);
+    Equal(JsonValueKind.Null, outputs["tau_0"].GetProperty("value").ValueKind);
+    foreach (var bad in new[] { "material=aluminum sigma_b=0", "material=aluminum sigma_b=-1", "material=aluminum sigma_b=NaN", "material=aluminum sigma_b=Infinity", "material=unknown sigma_b=600", "material=structural_steel" })
+    {
+        var rejected = false;
+        try { Calc("material.limits", bad); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "必须拒绝 " + bad);
+    }
+    var registry = Registry();
+    foreach (var method in new[] { "search", "read" })
+    {
+        registry.TryGet("norma.manual." + method, out var descriptor);
+        var root = descriptor!.Parameters.Single(p => p.Name == "root");
+        True(!root.Required, "root 必须可省略");
+        Equal(ManualCommands.DefaultRoot, root.Default);
+    }
+}
 /// <summary>
 /// 模块登记口的测试替身：只记下登记了哪些指令。宿主 6.0.0 起注册表是宿主内部类，
 /// 登记口 ICommandRegistrar 就是模块能看到的全部；来源由宿主盖章，这里不再核对。

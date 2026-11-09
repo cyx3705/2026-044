@@ -9,6 +9,7 @@ public static class Catalog
             .Concat(Shafts.All())
             .Concat(Joints.All())
             .Concat(Elements.All())
+            .Concat(Materials.All())
             .ToList();
         var duplicate = all.GroupBy(item => item.Id).FirstOrDefault(group => group.Count() > 1);
         if (duplicate is not null)
@@ -38,6 +39,7 @@ public static class Catalog
         "belt" => "带传动",
         "chain" => "链传动",
         "beam" => "梁",
+        "material" => "材料强度",
         _ => topic,
     };
 }
