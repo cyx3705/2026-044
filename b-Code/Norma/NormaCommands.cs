@@ -98,7 +98,7 @@ internal static class NormaCommands
     internal static string Message(Result result)
     {
         var values = string.Join("，", result.Calculation.Outputs.Select(output =>
-            $"{output.Symbol}={Num.Format(result[output.Name])}{(output.Unit.Length == 0 ? "" : " " + output.Unit)}"));
+            double.IsNaN(result[output.Name]) ? $"{output.Symbol}=无定义" : $"{output.Symbol}={Num.Format(result[output.Name])}{(output.Unit.Length == 0 ? "" : " " + output.Unit)}"));
         var verdict = result.Checks.Count == 0
             ? ""
             : result.AllPass

@@ -824,6 +824,7 @@ static void TestMaterialLimits()
     Near(71.63, aluminum["tau_m1_max"], 1e-9, "铝扭转上界");
     Near(185.25, aluminum["sigma_0t"], 1e-9, "铝脉动拉压");
     True(double.IsNaN(aluminum["sigma_0"]) && double.IsNaN(aluminum["tau_0"]), "原表—不可补猜");
+    True(NormaCommands.Message(aluminum).Contains("σ₀=无定义") && !NormaCommands.Message(aluminum).Contains("NaN"), "无定义项的人读摘要");
     var json = JsonSerializer.SerializeToElement(NormaCommands.Payload(aluminum));
     var outputs = json.GetProperty("outputs").EnumerateArray().ToDictionary(o => o.GetProperty("name").GetString()!);
     Equal(JsonValueKind.Null, outputs["sigma_0"].GetProperty("value").ValueKind);
