@@ -61,7 +61,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 17;
+static int ExpectedCommandCount() => Catalog.All.Count + 20;
 
 static void TestCommandRegistration()
 {
@@ -640,6 +640,9 @@ static async Task TestHostLoadsPackage()
             ("elastic", "铅", "e", 16d), ("density", "铅", "rho", 11.37),
             ("thermal", "铜", "conductivity", 384d), ("expansion", "碳钢", "20~100", 10.6),
             ("bulk", "焦炭", "rho_bulk", 0.36),
+            ("friction", "钢-钢", "static_dry", 0.15),
+            ("object_friction", "滚动轴承/深沟球轴承/轴向载荷", "f", 0.004),
+            ("rolling_arm", "橡胶轮胎对沥青路面", "k", 2.5),
         })
         {
             var physical = await Probe(archive, $"norma.material.{method} q={query}");
@@ -914,7 +917,7 @@ static void TestMaterialLimits()
 // REQ-MATERIAL-002/003：独立表值、整表覆盖、缺值与筛选、目录和分类。
 static void TestPhysicalTables()
 {
-    var expectedCounts = new[] { 28, 56, 14, 17, 50 };
+    var expectedCounts = new[] { 28, 56, 14, 17, 50, 20, 28, 11 };
     for (var i = 0; i < PhysicalTables.Tables.Length; i++)
     {
         var t = PhysicalTables.Tables[i];
@@ -989,7 +992,32 @@ static void TestPhysicalTables()
         registry2.TryGet(name, out var descriptor);
         Equal("material", descriptor!.CommandClass);
     }
-    Equal(7, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
+    // REQ-MATERIAL-005: native-page references, condition columns and source anomalies.
+    var steelFriction = PhysicalTables.Search("friction", "钢-钢", null, 0, 20).Items.Single();
+    Near(0.15, steelFriction.Properties["static_dry"].Value!.Value, 0, "钢钢静摩擦无润滑");
+    Near(0.1, steelFriction.Properties["static_lubricated"].Min!.Value, 0, "钢钢静摩擦有润滑下界");
+    Near(0.12, steelFriction.Properties["static_lubricated"].Max!.Value, 0, "钢钢静摩擦有润滑上界");
+    Near(0.15, steelFriction.Properties["sliding_dry"].Value!.Value, 0, "钢钢动摩擦无润滑");
+    Near(0.05, steelFriction.Properties["sliding_lubricated"].Min!.Value, 0, "钢钢动摩擦有润滑下界");
+    Near(0.1, steelFriction.Properties["sliding_lubricated"].Max!.Value, 0, "钢钢动摩擦有润滑上界");
+    Near(0.18, PhysicalTables.Search("friction", "铸铁-铸铁", null, 0, 20).Items.Single().Properties["static_lubricated"].Value!.Value, 0, "恢复HTML缺失值");
+    Equal("原表未给出", PhysicalTables.Search("friction", "钢-软钢", null, 0, 20).Items.Single().Properties["static_dry"].Undefined!);
+    var axial = PhysicalTables.Search("object_friction", "深沟球轴承 轴向载荷", null, 0, 20).Items.Single();
+    Near(0.004, axial.Properties["f"].Value!.Value, 0, "轴向载荷与径向载荷不能混用");
+    Near(0.003, PhysicalTables.Search("object_friction", "特殊密封全液体", null, 0, 20).Items.Single().Properties["f"].Min!.Value, 0, "恢复全液体轴承名称及数据");
+    var arm = PhysicalTables.Search("rolling_arm", "橡胶轮胎对沥青路面", null, 0, 20).Items.Single().Properties["k"];
+    Near(2.5, arm.Value!.Value, 0, "沥青路面滚动力臂");
+    Equal("mm", arm.Unit);
+    foreach (var (key, query, field, original) in new[]
+    { ("rolling_arm", "木材与木材", "k", "0.5~0.3"), ("object_friction", "离合器", "f", "0.43~0.4") })
+    {
+        var row = PhysicalTables.Search(key, query, null, 0, 20).Items.Single();
+        var cell = row.Properties[field];
+        Equal(original, cell.Text);
+        Equal("原表区间倒置，待核", cell.Undefined!);
+        True(cell.Value is null && cell.Min is null && cell.Max is null && row.Note is not null, "倒置范围不能自动排序猜改");
+    }
+    Equal(10, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
     foreach (var (offset, limit, period) in new[] { (-1, 20, (string?)null), (0, 0, (string?)null), (0, 101, (string?)null), (0, 20, (string?)"20~150") })
     {
         var rejected = false;

@@ -37,7 +37,7 @@
 | 机械材料 | `norma.material.limits material= sigma_b=` 从抗拉强度估算材料对称/脉动疲劳极限，保留区间与无定义项 |
 | 机械材料 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
 
-| 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；q= 查询，省略浏览整表 |
+| 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
 
 页面有一张目录表，加两个操作面板：标准代号查表、金属强度换算。
 

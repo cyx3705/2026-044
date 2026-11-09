@@ -11,7 +11,7 @@ internal static class PhysicalCommands
         {
             var parameters = new List<ParameterSpec>
             {
-                new() { Name = "q", Type = ParamType.String, Description = "材料名称或返回的条目ID；精确名称优先，否则按空格分词全部包含；省略浏览整表，原表缺名用未辨材料占位；返回属性：" + string.Join("、", table.Fields.Select(f => f.Key + "=" + f.Title + (f.Unit.Length == 0 ? "" : "(" + f.Unit + ")"))) },
+                new() { Name = "q", Type = ParamType.String, Description = "材料配对、对象/载荷/摩擦状态名称或返回的条目ID；精确名称优先，否则空格分词全部包含；省略浏览整表；返回属性：" + string.Join("、", table.Fields.Select(f => f.Key + "=" + f.Title + (f.Unit.Length == 0 ? "" : "(" + f.Unit + ")"))) },
                 new() { Name = "offset", Type = ParamType.Int, Default = "0", Description = "跳过匹配条数，≥0，缺省0；按 nextOffset 继续翻页" },
                 new() { Name = "limit", Type = ParamType.Int, Default = "20", Description = "每页条数1～100，缺省20；0条也是正常查询结果" },
             };
@@ -23,8 +23,11 @@ internal static class PhysicalCommands
             registry.Register(new CommandDescriptor
             {
                 Name = "norma.material." + table.Key, Domain = "norma", CommandClass = "material", Readonly = true,
-                Summary = table.Title + "查表（机械材料）：保留区间、单位与无定义项，省略q浏览整表；机械工程师手册",
-                Example = "norma.material." + table.Key + (table.Key == "bulk" ? " q=焦炭" : table.Key == "expansion" ? " q=碳钢 period=20~100" : " q=铅"),
+                Summary = table.Title + "查表（机械材料）：保留区间、单位与无定义项，省略q浏览整表；机械工程师手册" +
+                    (table.Key == "rolling_arm" ? "；k单位mm，不是无量纲系数；倒置区间仅保留原文，数值null" : table.Key == "object_friction" ? "；f无量纲，按对象/载荷/摩擦状态区分；倒置区间数值null" : table.Key == "friction" ? "；区分静/滑动、有/无润滑四列，无量纲" : ""),
+                Example = "norma.material." + table.Key + (table.Key switch
+                { "bulk" => " q=焦炭", "expansion" => " q=碳钢 period=20~100", "friction" => " q=钢-钢",
+                  "object_friction" => " q=深沟球轴承", "rolling_arm" => " q=橡胶轮胎", _ => " q=铅" }),
                 Parameters = parameters,
                 Handler = CommandDescriptor.Sync(c =>
                 {

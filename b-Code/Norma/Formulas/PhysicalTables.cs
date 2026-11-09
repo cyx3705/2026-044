@@ -23,6 +23,11 @@ internal static class PhysicalTables
             Periods.Select(p => new Field(p, "温度范围 " + p + " ℃ 的线膨胀系数 α", "10⁻⁶/℃")).ToArray()),
         new("bulk", "松散物料的堆密度和安息角", 30, 1703354,
             [new("rho_bulk", "堆密度", "t/m³"), new("angle_moving", "运动时安息角", "°"), new("angle_static", "静止时安息角", "°")]),
+        new("friction", "材料的滑动摩擦系数", 4, 61704,
+            [new("static_dry", "静摩擦/无润滑剂", "1"), new("static_lubricated", "静摩擦/有润滑剂", "1"),
+             new("sliding_dry", "滑动摩擦/无润滑剂", "1"), new("sliding_lubricated", "滑动摩擦/有润滑剂", "1")]),
+        new("object_friction", "物体的摩擦系数", 32, 2198427, [new("f", "摩擦系数 f", "1")]),
+        new("rolling_arm", "滚动摩擦力臂(大约值)", 16, 532283, [new("k", "滚动摩擦力臂 k", "mm")]),
     ];
     private static readonly Lazy<IReadOnlyDictionary<string, IReadOnlyList<Row>>> Data = new(() =>
         Tables.ToDictionary(t => t.Key, t => Load(t)));
@@ -43,6 +48,8 @@ internal static class PhysicalTables
                 ? "源页材料名缺损，保留可辨数值，不推定其材料身份。" : null;
             if (table.Key == "elastic" && cells[0] is "玻璃" or "有机玻璃" or "硬聚氟乙烯")
                 note = "按原表保留名称与数值，存在疑似源表错字/异常值；未经其他证据确认不自动更正。";
+            if (properties.Values.Any(v => v.Undefined == "原表区间倒置，待核"))
+                note = "原窗口已核对该倒置区间，保留原文；未确认正确端点，不排序、不猜改，数值返回null。";
             rows.Add(new Row(table.Key + ":" + (rows.Count + 1), cells[0], properties, note));
         }
         return rows;
@@ -55,7 +62,8 @@ internal static class PhysicalTables
         var parts = text.Split('~');
         var min = double.Parse(parts[0], CultureInfo.InvariantCulture);
         var max = parts.Length == 1 ? min : double.Parse(parts[1], CultureInfo.InvariantCulture);
-        if (!double.IsFinite(min) || !double.IsFinite(max) || min > max) throw new InvalidOperationException("物理性能值错误 " + text);
+        if (!double.IsFinite(min) || !double.IsFinite(max)) throw new InvalidOperationException("物理性能值错误 " + text);
+        if (min > max) return new(text, unit, null, null, null, "原表区间倒置，待核");
         return new(text, unit, min == max ? min : null, min, max, null);
     }
 
@@ -71,7 +79,19 @@ internal static class PhysicalTables
         var items = rows.Skip(offset).Take(limit).Select(r => period is null ? r : r with
         { Properties = r.Properties.Where(p => p.Key == period).ToDictionary(p => p.Key, p => p.Value) }).ToList();
         return new(key, table.Title, $"机械工程师手册 sjzl:{table.Entry}，sjzl/sjzl.ysc，HTML字节偏移{table.ByteOffset}（条目号不是印刷页码）",
-            "原表参考值，不按牌号细分；范围保留上下界，不取中值、不插值、不外推。已按原窗口核对材料名和可辨数值；—为原表未给出（含空白），不补猜。线膨胀系数按原表温度区间选列，不当作某温度瞬时值；70~1000为原文。单位按每个属性返回，GPa换为MPa需乘1000。", rows.Count, offset,
+            Scope(key), rows.Count, offset,
             offset + items.Count < rows.Count ? offset + items.Count : null, items);
+    }
+
+    private static string Scope(string key)
+    {
+        const string common = "原表参考值；范围保留上下界，不取中值、不插值、不外推。已核对原窗口；—为原表未给出，数值null，不补猜。";
+        return common + (key switch
+        {
+            "friction" => "四列分别为静摩擦/滑动摩擦、有/无润滑剂，系数无量纲（单位1）；不把不同条件混用。材料配对按原文查询。",
+            "object_friction" => "名称保留类别/对象/载荷或摩擦状态，空格分词可组合查询；f无量纲（单位1）。制动带保留原表压力条件。离合器0.43~0.4原表倒置，保留text，数值null并说明。",
+            "rolling_arm" => "k为滚动摩擦力臂大约值，单位mm，不是无量纲摩擦系数；木材与木材0.5~0.3原表倒置，保留text，数值null并说明。",
+            _ => "不按牌号细分。线膨胀系数按原表温区选列，不当作瞬时值；70~1000为原文。单位按属性返回，GPa换为MPa乘1000。",
+        });
     }
 }
