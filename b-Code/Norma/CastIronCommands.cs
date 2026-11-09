@@ -11,10 +11,11 @@ internal static class CastIronCommands
         {
             var parameters = new List<ParameterSpec>
             {
-                new() { Name = "grade", Type = ParamType.String, Description = "材料牌号或品种名，忽略空格和推荐标记；只填此项即返回材料卡片。省略返回牌号选项；*=兼容单变量展开" },
+                new() { Name = "grade", Type = ParamType.String, Description = "材料牌号或品种名，忽略空格和推荐标记；只填此项即返回材料卡片；无牌号配方默认返回标明非等同的代表选型卡。省略返回牌号选项；*=兼容单变量展开" },
                 new() { Name = "property", Type = ParamType.String, Description = "可选属性/元素过滤，如抗拉强度、Cr。唯一条件返回带单位的值，多条件返回对应性能；省略保留全部。*=兼容属性展开" },
                 new() { Name = "condition", Type = ParamType.String, Description = "可选条件精确过滤：试样/壁厚/温度/热处理/同名配方，按卡片条件填写；省略保留所有场景，不插值；*=兼容条件展开" },
                 new() { Name = "family", Type = ParamType.String, Description = "可选材料分支，仅同名跨分支时返回选项要求区分；一次最多一个参数为*" },
+                new() { Name = "basis", Type = ParamType.String, Default = "representative", AllowedValues = ["representative", "source"], Description = "名称查询口径：representative默认返回代表牌号及原配方，明确非等同；source返回原配方。直接查正式牌号不受影响；属性过滤跟随所选口径" },
                 new() { Name = "offset", Type = ParamType.Int, Default = "0", Description = "选项/显式变化表的分页偏移≥0，默认0；材料卡片完整返回，不分页" },
                 new() { Name = "limit", Type = ParamType.Int, Default = "20", Description = "选项/显式变化表每页1～100项，默认20；材料卡片不受此参数截断" },
             };
@@ -28,7 +29,7 @@ internal static class CastIronCommands
                 {
                     try
                     {
-                        var value = MaterialLibrary.Query(key, c.GetString("family"), c.GetString("grade"), c.GetString("property"), c.GetString("condition"), c.GetInt("offset", 0), c.GetInt("limit", 20));
+                        var value = MaterialLibrary.Query(key, c.GetString("family"), c.GetString("grade"), c.GetString("property"), c.GetString("condition"), c.GetInt("offset", 0), c.GetInt("limit", 20), c.GetString("basis") ?? "representative");
                         return CommandResult.Ok(value is string s ? s : "材料查询结果", value);
                     }
                     catch (ArgumentException ex) { return CommandResult.Fail(ex.Message); }

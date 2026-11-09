@@ -18,19 +18,45 @@ internal static class MaterialLibrary
         ["铬钼铜铸铁"] = ["MTCrMoCu25", "MTCrMoCu30", "MTCrMoCu35"],
         ["Cu-Cr-Mo合金铸铁"] = ["MTCrMoCu25", "MTCrMoCu30", "MTCrMoCu35"],
     };
-    internal static IEnumerable<CastIronLookup.Fact> Data => CastIronLookup.Facts.Where(f =>
+    internal static IEnumerable<CastIronLookup.Fact> Data => CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).Where(f =>
         f.Family != "通用" && !Labels.Contains(f.Property));
 
     internal static object Query(string tool, string? family = null, string? grade = null, string? property = null,
-        string? condition = null, int offset = 0, int limit = 20)
+        string? condition = null, int offset = 0, int limit = 20, string basis = "representative")
     {
         if (offset < 0 || limit is < 1 or > 100) throw new ArgumentException("offset≥0，limit为1～100");
+        if (basis is not ("representative" or "source")) throw new ArgumentException("basis为representative或source");
         // Keep the explicit scalar/variable interface, including naming and heat-state dictionaries.
         if (new[] { family, grade, property, condition }.Contains("*"))
-            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit);
+        {
+            if (basis == "representative" && MaterialRepresentatives.Selections.Any(s => Norm(s.Material) == Norm(grade)))
+                throw new ArgumentException("名称代表选型不支持*；请直接查询返回牌号，或用basis=source展开原配方");
+            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).ToArray());
+        }
+        var selections = MaterialRepresentatives.Selections.Where(s => Norm(s.Material) == Norm(grade)
+            && (string.IsNullOrWhiteSpace(family) || Norm(s.Family) == Norm(family))).ToArray();
+        if (basis == "representative" && selections.Length > 0)
+        {
+            if (selections.Length > 1) return new { missing = "family", @default = (string?)null, options = selections.Select(s => s.Family).ToArray() };
+            var selected = selections[0];
+            var target = Data.Where(f => Norm(f.Grade) == Norm(selected.Grade)).ToArray();
+            var targetFamily = target.Select(f => f.Family).Distinct().Single();
+            var answer = Query(tool, targetFamily, selected.Grade, property, condition, offset, limit, "source");
+            var result = answer as Dictionary<string, object> ?? new Dictionary<string, object> { ["牌号"] = selected.Grade, ["取值"] = answer };
+            result["代表对象"] = selected.Family + "/" + selected.Material;
+            result["选型关系"] = "用途基准，非等同或替代认证";
+            result["选型说明"] = selected.Reason;
+            result["选型依据"] = selected.Source;
+            if (string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition))
+            {
+                var original = Data.Where(f => f.Family == selected.Family && f.Grade == selected.Material).ToArray();
+                result["原配方（非代表牌号指标）"] = Card(original, tool != "strength", false);
+            }
+            return result;
+        }
         var rows = Data.Where(f => tool != "strength" || f.Tool == "strength");
         if (!string.IsNullOrWhiteSpace(family)) rows = rows.Where(f => Norm(f.Family) == Norm(family));
-        if (string.IsNullOrWhiteSpace(family) && string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition)
+        if (basis == "representative" && string.IsNullOrWhiteSpace(family) && string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition)
             && !string.IsNullOrWhiteSpace(grade) && GradeAliases.TryGetValue(grade.Trim(), out var aliases))
         {
             return new { 材料名称 = grade, 牌号映射 = aliases,
@@ -49,7 +75,7 @@ internal static class MaterialLibrary
                 nextOffset = offset + limit < options.Length ? (int?)(offset + limit) : null };
         }
         if (facts.Length == 0)
-            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit);
+            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).ToArray());
         var families = facts.Select(f => f.Family).Distinct().ToArray();
         if (families.Length > 1) return new { missing = "family", @default = (string?)null, options = families };
         if (!string.IsNullOrWhiteSpace(property) && facts.Select(f => f.Condition).Distinct().Count() == 1
@@ -101,16 +127,30 @@ internal static class MaterialLibrary
         {
             result["牌号状态"] = GradeAliases.TryGetValue(name, out var series) ? "已关联同族牌号，非配方等同" : "原表未指定，尚未确认对应牌号";
             if (series is not null) result["关联牌号"] = series;
+            var representative = MaterialRepresentatives.Selections.SingleOrDefault(s => s.Material == name && s.Family == first.Family);
+            if (representative is not null)
+            {
+                result["牌号状态"] = "已选用途基准，非等同牌号";
+                result["代表牌号"] = representative.Grade;
+            }
         }
         if (chemistry)
         {
             var chemical = facts.Where(f => f.Tool == "grade").ToArray();
-            result["化学成分"] = chemical.All(f => f.Property == "化学成分") ? "原表未给出" : Block(chemical);
+            result["化学成分"] = chemical.All(f => f.Property == "化学成分")
+                ? chemical.Select(f => f.Value).Distinct().FirstOrDefault() ?? "原表未给出" : Block(chemical);
         }
         var mechanical = facts.Where(f => f.Tool == "strength").ToArray();
         if (mechanical.Length > 0) result["力学性能"] = Block(mechanical);
         result["来源"] = facts.Where(f => f.Property != "化学成分").Select(f => f.Source)
             .GroupBy(s => s.Split(' ')[0]).Select(g => g.OrderByDescending(s => s.Length).First()).ToArray();
+        if (!ungraded && references)
+        {
+            var selectedFor = MaterialRepresentatives.Selections.Where(s => Norm(s.Grade) == Norm(name))
+                .GroupBy(s => s.Family).ToDictionary(g => g.Key, g => g.Select(s => s.Material).ToArray());
+            if (selectedFor.Count > 0) result["代表选型对象（非等同）"] = selectedFor;
+            if (name == "DH33") result["牌号体系"] = "东亚企业牌号；ISO材料细类MC13；弹性模量原页未标单位，未录入";
+        }
         if (aliases.Length > 0 && chemistry && references)
         {
             var reference = Data.Where(f => aliases.Contains(f.Grade)).ToArray();

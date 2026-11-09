@@ -970,6 +970,41 @@ static void TestMaterialLibrary()
     var alias = J(MaterialLibrary.Query("grade", grade: "磷铸铁"));
     Equal(4, alias.GetProperty("牌号映射").GetArrayLength());
     Equal("MTP15", alias.GetProperty("牌号映射")[0].GetString()!);
+    // User-selected purpose baselines must never relabel the original alloy recipe as grade data.
+    Equal(29, MaterialRepresentatives.Selections.Length);
+    Equal(27, MaterialRepresentatives.Selections.Select(s => s.Material).Distinct().Count());
+    Equal(5, MaterialRepresentatives.Selections.Select(s => s.Grade).Distinct().Count());
+    var tungsten = J(Q("钨铸铁"));
+    Equal("DH33", tungsten.GetProperty("牌号").GetString()!);
+    Equal("厂家未公开", tungsten.GetProperty("化学成分").GetString()!);
+    Equal("≥450 MPa", tungsten.GetProperty("力学性能").GetProperty("厂家公布值").GetProperty("抗弯强度").GetString()!);
+    Equal("0.4~0.35（原表区间倒置，待核）", tungsten.GetProperty("原配方（非代表牌号指标）").GetProperty("化学成分").GetProperty("W").GetString()!);
+    Equal("用途基准，非等同或替代认证", tungsten.GetProperty("选型关系").GetString()!);
+    var directRing = J(Q("DH33"));
+    Equal("240～330 HV30", directRing.GetProperty("力学性能").GetProperty("厂家公布值").GetProperty("硬度").GetString()!);
+    True(!directRing.GetProperty("力学性能").GetProperty("厂家公布值").TryGetProperty("弹性模量", out _), "未标弹性模量单位不能推断");
+    var rawTungsten = J(MaterialLibrary.Query("grade", grade: "钨铸铁", basis: "source"));
+    Equal("钨铸铁", rawTungsten.GetProperty("材料名称").GetString()!);
+    Equal("DH33", rawTungsten.GetProperty("代表牌号").GetString()!);
+    Equal("HT350", J(Q("稀土铸铁")).GetProperty("牌号").GetString()!);
+    Equal("KmTBNi4Cr2-GT", J(Q("镍铬铜冷硬铸铁")).GetProperty("牌号").GetString()!);
+    Equal("KmTBCr2", J(Q("普通冷硬铸铁")).GetProperty("牌号").GetString()!);
+    Equal(5, J(Q("普通冷硬铸铁")).GetProperty("原配方（非代表牌号指标）").GetProperty("化学成分").EnumerateObject().Count());
+    Equal("family", J(Q("磷稀土铸铁")).GetProperty("missing").GetString()!);
+    var filteredRing = J(Q("钨铸铁", "硬度"));
+    Equal("240～330 HV30", filteredRing.GetProperty("取值").GetString()!);
+    Equal("DH33", filteredRing.GetProperty("牌号").GetString()!);
+    Equal("≥450 MPa", J(MaterialLibrary.Query("strength", grade: "DH33", property: "*")).GetProperty("抗弯强度").GetString()!);
+    Equal("0.4~0.35（原表区间倒置，待核）", (string)MaterialLibrary.Query("grade", grade: "钨铸铁", property: "W", basis: "source"));
+    foreach (var selection in MaterialRepresentatives.Selections)
+    {
+        var selected = J(Q(selection.Material, family: selection.Family));
+        Equal(selection.Grade, selected.GetProperty("牌号").GetString()!);
+        True(selected.TryGetProperty("原配方（非代表牌号指标）", out _) && selected.TryGetProperty("选型说明", out _), "全部代表选型必须可追溯");
+        var canonical = J(Q(selection.Grade));
+        Equal(canonical.GetProperty("化学成分").GetRawText(), selected.GetProperty("化学成分").GetRawText());
+        Equal(canonical.GetProperty("力学性能").GetRawText(), selected.GetProperty("力学性能").GetRawText());
+    }
     var guide = J(Q("MTCrMoCu35"));
     Equal("0.15～0.25 %", guide.GetProperty("化学成分").GetProperty("Cr").GetString()!);
     var references = guide.GetProperty("同族参考配方（非本牌号标准指标）");
@@ -991,6 +1026,10 @@ static void TestMaterialLibrary()
     True(command.Parameters.All(p => !p.Required), "查询过滤参数全部可选");
     var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "HT250" }, "test", null, CancellationToken.None)).Result;
     Equal("HT250", J(response.Data!).GetProperty("牌号").GetString()!);
+    var representativeResponse = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "钨铸铁" }, "test", null, CancellationToken.None)).Result;
+    Equal("DH33", J(representativeResponse.Data!).GetProperty("牌号").GetString()!);
+    var sourceResponse = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "钨铸铁", ["basis"] = "source" }, "test", null, CancellationToken.None)).Result;
+    Equal("钨铸铁", J(sourceResponse.Data!).GetProperty("材料名称").GetString()!);
 }
 
 static void TestCastIronLookup()

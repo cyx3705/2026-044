@@ -92,7 +92,7 @@ internal static class CastIronLookup
         return facts.Distinct().ToArray();
     }
     internal static object Lookup(string tool, string? family = null, string? grade = null, string? property = null,
-        string? condition = null, int offset = 0, int limit = 20)
+        string? condition = null, int offset = 0, int limit = 20, IReadOnlyList<Fact>? facts = null)
     {
         if (offset < 0 || limit is < 1 or > 100) throw new ArgumentException("offset≥0，limit为1～100");
         string[] keys = ["family", "grade", "property", "condition"];
@@ -100,7 +100,7 @@ internal static class CastIronLookup
         if (inputs.Count(x => x == "*") > 1) throw new ArgumentException("一次只允许一个参数为*；其余参数须固定");
         var wildcard = Array.FindIndex(inputs, x => x == "*");
         string Get(Fact f, int i) => i switch { 0 => f.Family, 1 => f.Grade, 2 => f.Property, _ => f.Condition };
-        var rows = Facts.Where(f => f.Tool == tool).ToList();
+        var rows = (facts ?? Facts).Where(f => f.Tool == tool).ToList();
         for (var i = 0; i < keys.Length; i++)
             if (!string.IsNullOrWhiteSpace(inputs[i]) && inputs[i] != "*")
             {

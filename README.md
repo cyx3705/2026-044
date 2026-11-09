@@ -39,16 +39,18 @@
 
 | 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
 
-材料库：`norma.material.grade grade=HT250` 直接返回该牌号的化学成分、各场景力学性能和来源；目前收录铸铁28页30表。`norma.material.strength`保留力学性能入口。property/condition/family均为可选过滤，唯一属性/条件仍直接返回带单位的值；显式一个`*`保留兼容的一维展开。牌号卡片完整返回，不受limit截断；省略grade才返回分页选项。无牌号品种用“材料名称”标识，不冒充正式牌号。
+材料库：`norma.material.grade grade=HT250` 直接返回该牌号的化学成分、各场景力学性能和来源；目前收录铸铁28页30表。`norma.material.strength`保留力学性能入口。property/condition/family均为可选过滤，唯一属性/条件仍直接返回带单位的值；显式一个`*`保留兼容的一维展开。牌号卡片完整返回，不受limit截断；省略grade才返回分页选项。无牌号配方默认按用途选择代表牌号，返回同格式卡片、选型关系和原配方；basis=source查看原配方，明确代表选型不是材料等同或替代认证。
 
 ```text
 norma.material.grade grade=HT250
 norma.material.grade grade=MTCrMoCu35
+norma.material.grade grade=钨铸铁
+norma.material.grade grade=钨铸铁 basis=source
 norma.material.grade grade=KmTBCr15Mo property=Cr
 norma.material.strength grade=HT250 property=抗拉强度 condition=单铸试棒
 ```
 
-6个合金体系名称关联到17个导轨牌号；各用途原数据写入对应卡片“同族参考配方（非本牌号标准指标）”，不覆盖牌号标准成分/性能，不宣称跨用途等同。尚未找到对应系列的29个分支名称条目仍可按名称与family查原数据，清单见现行约定REQ-MATERIAL-007。
+6个合金体系名称关联到17个导轨牌号；各用途原数据写入对应卡片“同族参考配方（非本牌号标准指标）”，不覆盖牌号标准成分/性能，不宣称跨用途等同。其余29个分支名称条目（27个名称）依REQ-MATERIAL-008选用5个用途基准：HT250、HT350、东亚DH33、KmTBCr2、KmTBNi4Cr2-GT。名称默认返回代表卡及原配方；basis=source只查原数据。DH33新增厂家公开抗弯强度与HV30硬度，化学成分未公开；其他牌号沿用手册原数据。
 
 页面有一张目录表，加两个操作面板：标准代号查表、强度换算（保留命令`norma.metal.strength`）。
 
