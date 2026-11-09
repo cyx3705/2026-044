@@ -26,6 +26,7 @@ public sealed class NormaModule : IModuleContextAware
     {
         ManualCommands.Register(registry);
         PhysicalCommands.Register(registry);
+        DriveCommands.Register(registry);
 
         foreach (var calculation in Catalog.All)
             registry.Register(NormaCommands.For(calculation));

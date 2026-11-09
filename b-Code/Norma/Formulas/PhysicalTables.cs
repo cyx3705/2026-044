@@ -55,7 +55,7 @@ internal static class PhysicalTables
         return rows;
     }
 
-    private static Cell CellValue(string text, string unit)
+    internal static Cell CellValue(string text, string unit)
     {
         if (text is "—" or "?")
             return new(text, unit, null, null, null, text == "—" ? "原表未给出" : "源页该值缺损，待核");

@@ -183,6 +183,12 @@ internal static class NormaCommands
                 ["title"] = "金属硬度与强度换算：钢/铝/铜，PCHIP 插值，分牌号并标注无定义区间",
                 ["source"] = MetalStrength.Source,
             },
+            new Dictionary<string, string>
+            {
+                ["id"] = "drive.efficiency", ["topic"] = Catalog.TopicTitle("drive"),
+                ["command"] = "norma.drive.efficiency", ["title"] = DriveEfficiency.Title,
+                ["source"] = DriveEfficiency.Source,
+            },
         ];
 
     /// <summary>页面那张表：计算在前，工具接在后面，同一个表格里显示。</summary>

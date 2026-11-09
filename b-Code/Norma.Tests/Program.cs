@@ -25,6 +25,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("standard lookup works both ways", Sync(TestStandardLookup)),
     ("metal strength conversion and domains", Sync(TestMetalStrength)),
     ("mechanical material tables and classification", Sync(TestPhysicalTables)),
+    ("drive efficiency reference table", Sync(TestDriveEfficiency)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -61,7 +62,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 20;
+static int ExpectedCommandCount() => Catalog.All.Count + 21;
 
 static void TestCommandRegistration()
 {
@@ -71,6 +72,7 @@ static void TestCommandRegistration()
         .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".manual.screenshot", domain + ".manual.open", domain + ".manual.directory", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
     expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
+    expected.Add("norma.drive.efficiency");
     foreach (var name in expected)
     {
         True(registry.TryGet(name, out var descriptor), $"未注册 {name}");
@@ -653,6 +655,11 @@ static async Task TestHostLoadsPackage()
             Near(expected, row.GetProperty("properties").GetProperty(field).GetProperty("min").GetDouble(), 1e-9, "宿主物理表 " + method);
         }
 
+        var efficiencyProbe = await Probe(archive, "norma.drive.efficiency q=自锁蜗杆");
+        var efficiencyResult = efficiencyProbe.GetProperty("data").GetProperty("result");
+        True(efficiencyResult.GetProperty("success").GetBoolean(), efficiencyResult.GetRawText());
+        Near(0.4, efficiencyResult.GetProperty("data").GetProperty("items")[0].GetProperty("efficiency").GetProperty("min").GetDouble(), 0, "隔离宿主传动效率");
+
         // 标准代号表是嵌入资源，宿主装载后同样能查到。
         var std = await Probe(archive, NormaIdentity.Domain + ".std.lookup q=ISO");
         var stdResult = std.GetProperty("data").GetProperty("result");
@@ -915,6 +922,73 @@ static void TestMaterialLimits()
 }
 
 // REQ-MATERIAL-002/003：独立表值、整表覆盖、缺值与筛选、目录和分类。
+// REQ-DRIVE-001: independent references from native manual, including damaged-source repairs.
+static void TestDriveEfficiency()
+{
+    var all = DriveEfficiency.Search(null, 0, 100);
+    Equal(53, all.Total);
+    Equal(13, all.Items.Select(r => r.Category).Distinct().Count());
+    Equal(53, all.Items.Select(r => r.Id).Distinct().Count());
+    Equal(3, all.Items.Count(r => r.Efficiency.Undefined is not null));
+    foreach (var row in all.Items)
+    {
+        var e = row.Efficiency;
+        Equal("1", e.Unit);
+        if (e.Undefined is null) True(e.Min > 0 && e.Min <= e.Max && e.Max <= 1, "效率域错误");
+        else True(e.Value is null && e.Min is null && e.Max is null && row.Note is not null, "源表倒置不能造数");
+    }
+    var rows = new List<string>();
+    int? offset = 0;
+    while (offset is not null)
+    {
+        var page = DriveEfficiency.Search(null, offset.Value, 7);
+        rows.AddRange(page.Items.Select(r => r.Id));
+        offset = page.NextOffset;
+    }
+    True(rows.SequenceEqual(all.Items.Select(r => r.Id)), "分页有丢失或重复");
+    Equal(0, DriveEfficiency.Search("不存在的传动", 0, 20).Total);
+    var gears = DriveEfficiency.Search("圆柱齿轮传动 8级", 0, 20).Items.Single();
+    Near(0.97, gears.Efficiency.Value!.Value, 0, "8级圆柱齿轮稀油润滑");
+    Equal(gears.Id, DriveEfficiency.Search(gears.Id, 0, 20).Items.Single().Id);
+    Equal(5, DriveEfficiency.Search("滑动轴承", 0, 20).Total); // category plus identically named composite-wheel form
+    var worm = DriveEfficiency.Search("自锁蜗杆", 0, 20).Items.Single().Efficiency;
+    Near(0.4, worm.Min!.Value, 0, "自锁蜗杆下界");
+    Near(0.45, worm.Max!.Value, 0, "自锁蜗杆上界");
+    True(worm.Value is null, "效率范围不可取中值");
+    Near(0.96, DriveEfficiency.Search("同步带", 0, 20).Items.Single().Efficiency.Min!.Value, 0, "同步带效率");
+    Near(0.96, DriveEfficiency.Search("滚子链", 0, 20).Items.Single().Efficiency.Value!.Value, 0, "滚子链效率");
+    var variable = DriveEfficiency.Search("无级变速器", 0, 20).Items.Single();
+    Near(0.92, variable.Efficiency.Min!.Value, 0, "无级变速器下界");
+    Near(0.95, variable.Efficiency.Max!.Value, 0, "恢复无级变速器上界");
+    True(variable.Note!.Contains("滚动轴承的损耗考虑在内"), "减速器脚注遗漏");
+    Equal(10, all.Items.Count(r => r.Note?.Contains(DriveEfficiency.ReducerNote) == true));
+    var main = DriveEfficiency.Search("轧机主减速器", 0, 20).Items.Single().Efficiency;
+    Near(0.93, main.Min!.Value, 0, "恢复轧机主减速器下界");
+    Near(0.96, main.Max!.Value, 0, "恢复轧机主减速器上界");
+    Near(0.3, DriveEfficiency.Search("滑动丝杠", 0, 20).Items.Single().Efficiency.Min!.Value, 0, "滑动丝杠");
+    Near(0.90, DriveEfficiency.Search("滚动丝杠", 0, 20).Items.Single().Efficiency.Max!.Value, 0, "滚动丝杠");
+    Near(0.97, DriveEfficiency.Search("万向联轴器(α≤3°)", 0, 20).Items.Single().Efficiency.Min!.Value, 0, "万向节小角度");
+    Near(0.95, DriveEfficiency.Search("万向联轴器(α＞3°)", 0, 20).Items.Single().Efficiency.Min!.Value, 0, "万向节大角度");
+    Equal("0.98~0.90", DriveEfficiency.Search("槽摩擦轮", 0, 20).Items.Single().Efficiency.Text);
+    Equal("0.99~0.95", DriveEfficiency.Search("复合轮组 滚动轴承", 0, 20).Items.Single().Efficiency.Text);
+    True(all.Items[0].Note!.Contains("错字"), "首行精度异常必须说明");
+    Near(0.93, DriveEfficiency.Search("轧机人字齿轮座(滑动轴承)", 0, 20).Items.Single().Efficiency.Value!.Value, 0, "相同端点照录");
+    foreach (var (start, limit) in new[] { (-1, 20), (0, 0), (0, 101) })
+    {
+        var rejected = false;
+        try { DriveEfficiency.Search(null, start, limit); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "非法分页必须拒绝");
+    }
+    var registry = Registry();
+    True(registry.TryGet("norma.drive.efficiency", out var command), "未注册效率工具");
+    Equal("drive", command!.CommandClass);
+    var result = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["q"] = "槽摩擦轮" }, "test", null, CancellationToken.None)).Result;
+    True(result.Success, result.Message);
+    var data = JsonSerializer.SerializeToElement(result.Data);
+    Equal(JsonValueKind.Null, data.GetProperty("items")[0].GetProperty("efficiency").GetProperty("value").ValueKind);
+    True(NormaCommands.PageRows().Any(row => row["id"] == "drive.efficiency" && row["topic"] == Catalog.TopicTitle("drive")), "目录分类错误");
+}
+
 static void TestPhysicalTables()
 {
     var expectedCounts = new[] { 28, 56, 14, 17, 50, 20, 28, 11 };

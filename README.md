@@ -28,7 +28,7 @@
 | 齿轮 | `gear.geometry` 几何、`gear.contact` 接触强度、`gear.bending` 弯曲强度（ISO 6336 方法 B）、`gear.diameter` / `gear.module` 初估 |
 | 轴与疲劳 | `drive.torque`、`shaft.torsion`、`shaft.combined`、`fatigue.endurance`、`fatigue.safety`、`fatigue.shaft` |
 | 连接 | `key.flat`、`bolt.thread` / `torque` / `preload` / `tension` / `friction` / `shear`、`weld.fillet`、`fit.press` |
-| 传动 | `screw.drive`、`belt.geometry`、`chain.geometry` |
+| 传动 | `screw.drive`、`belt.geometry`、`chain.geometry`；`norma.drive.efficiency q=` 按类型/工况查53条机械传动效率概略值，省略q分页浏览 |
 | 支承与弹性件 | `bearing.load` / `life` / `required` / `static`、`spring.compression` / `wire` |
 | 其他 | `fit.it` 标准公差、`beam.deflection` 梁 |
 | 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
