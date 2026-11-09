@@ -8,7 +8,7 @@ namespace Norma;
 /// 模块装配入口：每条计算一条只读指令（见 <see cref="NormaCommands"/>），加目录两条与 Aurora 页面协议三条。
 /// </summary>
 /// <remarks>
-/// 全部指令只读、无状态：相同输入永远得到相同输出，谁调都安全（mcpExposure=readonly 时全部投影到 MCP）。
+/// 全部指令只读（mcpExposure=readonly 时投影到 MCP）；公式无状态，手册查询读取调用方指定文件的当前内容。
 /// 界面内部协议一律带 <c>HiddenReason</c>。
 /// </remarks>
 public sealed class NormaModule : IModuleContextAware
@@ -24,6 +24,8 @@ public sealed class NormaModule : IModuleContextAware
 
     internal static void Register(ICommandRegistrar registry)
     {
+        ManualCommands.Register(registry);
+
         foreach (var calculation in Catalog.All)
             registry.Register(NormaCommands.For(calculation));
 

@@ -32,6 +32,7 @@
 | 支承与弹性件 | `bearing.load` / `life` / `required` / `static`、`spring.compression` / `wire` |
 | 其他 | `fit.it` 标准公差、`beam.deflection` 梁 |
 | 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
+| 手册查询 | `norma.manual.search root= q= [scope=title/text]` 搜索/浏览目录，`norma.manual.read root= id=` 分页读正文或 HTML |
 | 标准代号 | `norma.std.lookup q=` 按代号或名称互查（机械工程师手册「国内/国外部分标准代号」两页） |
 | 金属强度 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
 

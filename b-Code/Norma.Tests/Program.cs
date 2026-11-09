@@ -15,6 +15,7 @@ Console.OutputEncoding = Encoding.UTF8;
 var tests = new (string Name, Func<Task> Run)[]
 {
     ("command registration", Sync(TestCommandRegistration)),
+    ("manual search and source reading", Sync(TestManual)),
     ("formula metadata is complete", Sync(TestFormulaMetadata)),
     ("every formula runs on its example", Sync(TestFormulaExamples)),
     ("hand-checked reference values", Sync(TestReferenceValues)),
@@ -59,14 +60,14 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 7;
+static int ExpectedCommandCount() => Catalog.All.Count + 9;
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
     var domain = NormaIdentity.Domain;
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
-        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
+        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
     foreach (var name in expected)
     {
@@ -716,6 +717,67 @@ static void Equal<T>(T expected, T actual)
 {
     if (!EqualityComparer<T>.Default.Equals(expected, actual))
         throw new InvalidOperationException($"期望 {expected}，实际 {actual}");
+}
+
+// REQ-MANUAL-001/002: synthetic source with Chinese, merged cells, images and pagination.
+static void TestManual()
+{
+    var root = Path.Combine(Path.GetTempPath(), "norma-manual-" + Guid.NewGuid().ToString("N"));
+    Directory.CreateDirectory(root);
+    try
+    {
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        var source = "yingkeyushouceku_m1_2005" + new string('\0', 120) +
+            "<html><head><title>钢的硬度</title><style>hidden</style></head><body><table><tr><td rowspan=2>HRC</td><td>强度</td></tr><tr><td>123</td></tr></table><img src='a.gif'></body></html>" +
+            "<html><head><title>单位</title></head><body>兆帕 &amp; 牛顿</body></html>";
+        File.WriteAllBytes(Path.Combine(root, "sjzl.ysc"), Encoding.GetEncoding(936).GetBytes(source));
+        JsonElement Json(object value) => JsonSerializer.SerializeToElement(value);
+        var labelBytes = new byte[113];
+        Encoding.ASCII.GetBytes("yingkeyushouceku_m1_2005").CopyTo(labelBytes, 0);
+        Encoding.GetEncoding(936).GetBytes("目录原标签").CopyTo(labelBytes, 25);
+        File.WriteAllBytes(Path.Combine(root, "untitled.ysc"), labelBytes.Concat(Encoding.ASCII.GetBytes("<html><body>data</body></html>")).ToArray());
+        Equal("目录原标签", Json(Manual.Read(root, "untitled:1", "text", 0, 20)).GetProperty("title").GetString()!);
+        File.Delete(Path.Combine(root, "untitled.ysc"));
+        var result = Json(Manual.Search(root, "硬度", "title", null, 0, 20));
+        Equal(1, result.GetProperty("total").GetInt32());
+        Equal("sjzl:1", result.GetProperty("items")[0].GetProperty("id").GetString()!);
+        Equal(1, Json(Manual.Search(root, "123", "text", "sjzl", 0, 20)).GetProperty("total").GetInt32());
+        Equal(0, Json(Manual.Search(root, "不存在", "text", null, 0, 20)).GetProperty("total").GetInt32());
+        Equal(1, Json(Manual.Search(root, "", "title", null, 1, 1)).GetProperty("returned").GetInt32());
+        var page = Json(Manual.Read(root, "sjzl:1", "text", 0, 20000));
+        var content = page.GetProperty("content").GetString()!;
+        True(content.Contains("HRC\t强度") && content.Contains("123"), "表格行/单元格丢失");
+        True(!content.Contains("hidden"), "样式泄漏正文");
+        Equal("a.gif", page.GetProperty("images")[0].GetString()!);
+        var first = Json(Manual.Read(root, "sjzl:1", "text", 0, 3));
+        var rest = Json(Manual.Read(root, "sjzl:1", "text", 3, 20000));
+        Equal(content, first.GetProperty("content").GetString()! + rest.GetProperty("content").GetString()!);
+        True(Json(Manual.Read(root, "sjzl:1", "html", 0, 20000)).GetProperty("content").GetString()!.Contains("rowspan=2"), "合并单元格原文丢失");
+        if (Environment.GetEnvironmentVariable("NORMA_MANUAL_TEST_ROOT") is { Length: > 0 } realRoot)
+        {
+            var actual = Manual.Load(realRoot).ToArray();
+            True(actual.Length > 1000, "本地手册页数异常");
+            True(actual.All(p => p.Title.Length > 0), "本地手册标题有缺失");
+            True(actual.Select(p => p.Id).Distinct().Count() == actual.Length, "真实手册页 ID 有冲突");
+            var standard = Json(Manual.Read(realRoot, "sjzl:17", "text", 0, 20000));
+            True(standard.GetProperty("title").GetString()!.Contains("国内部分标准代号"), "真实页序号与标题不一致");
+            True(standard.GetProperty("content").GetString()!.Contains("国家标准"), "真实 GBK 表格正文无法读取");
+            var matches = Json(Manual.Search(realRoot, "硬度", "title", null, 0, 20));
+            True(matches.GetProperty("total").GetInt32() > 0, "全书标题搜索失败");
+            var registry = Registry();
+            registry.TryGet("norma.manual.read", out var command);
+            var outcome = command!.Handler(new CommandContext(command, new Dictionary<string, string> { ["root"] = realRoot, ["id"] = "sjzl:17" }, "test", null, CancellationToken.None)).Result;
+            True(outcome.Success, outcome.Message);
+            Console.WriteLine($"  Local manual: {actual.Length} pages / {actual.Select(p => p.File).Distinct().Count()} chapters; real command read passed");
+        }
+        foreach (var id in new[] { "../sjzl:1", "sjzl:0", "sjzl:999" })
+        {
+            var rejected = false;
+            try { Manual.Read(root, id, "text", 0, 20); } catch (ArgumentException) { rejected = true; }
+            True(rejected, "应拒绝非法或不存在的 ID");
+        }
+    }
+    finally { Directory.Delete(root, true); }
 }
 
 /// <summary>
