@@ -14,7 +14,7 @@
       "appshell-module"
     ],
     "status": "active",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "branch": "main"
   },
   "paths": {
@@ -46,7 +46,7 @@
     ]
   },
   "documents": {
-    "conventions": "b-Office/\u73B0\u884C\u7EA6\u5B9A.md"
+    "conventions": "b-Office/现行约定.md"
   },
   "commands": {
     "setup": null,
@@ -57,9 +57,10 @@
     "package": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\b-Code\\Norma\\eng\\Build-NormaPackage.ps1"
   },
   "externalDependencies": [
-    "HistoryVulcan 5.1.2 \u6216\u66F4\u65B0\u7684\u53D1\u5E03\u5FEB\u7167\uFF1AC:\\OneHistory\\HistoryClio\\2026-023-HistoryVulcan\\z-Publish",
-    ".NET 8 SDK \u4E0E Windows Desktop Runtime\uFF08\u76EE\u6807\u6846\u67B6 net8.0-windows\uFF09",
-    "HistoryAurora\uFF08\u53EF\u9009\uFF09\uFF1A\u9875\u9762\u7531\u5B83\u6309\u63CF\u8FF0\u534F\u8BAE\u6E32\u67D3\uFF1B\u6CA1\u6709\u5B83\u6307\u4EE4\u7167\u6837\u80FD\u5728\u63A7\u5236\u53F0\u6267\u884C"
+    "HistoryVulcan 5.1.2 或更新的发布快照：C:\\OneHistory\\HistoryClio\\2026-023-HistoryVulcan\\z-Publish",
+    ".NET 8 SDK 与 Windows Desktop Runtime（目标框架 net8.0-windows）",
+    "HistoryAurora（可选）：页面由它按描述协议渲染；没有它指令照样能在控制台执行",
+    "Microsoft Edge（可选；仅 norma.manual.screenshot 提取HTML截图脚手架使用，本机已有，不自动安装）"
   ],
   "contextExclusions": [
     "z-Publish/**",

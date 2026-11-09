@@ -61,14 +61,14 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 14;
+static int ExpectedCommandCount() => Catalog.All.Count + 15;
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
     var domain = NormaIdentity.Domain;
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
-        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
+        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".manual.screenshot", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
     expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     foreach (var name in expected)
@@ -753,6 +753,26 @@ static void Equal<T>(T expected, T actual)
 // REQ-MANUAL-001/002: synthetic source with Chinese, merged cells, images and pagination.
 static void TestManual()
 {
+    foreach (var input in new[] { (-1, 1400, 1600), (0, 639, 1600), (0, 1400, 4001) })
+    {
+        var rejected = false;
+        try { ManualScreenshot.Validate(input.Item1, input.Item2, input.Item3); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "非法截图尺寸未拒绝");
+    }
+    var safe = ManualScreenshot.Html(new Manual.Page("test:1", "<标题>", "test.ysc", 1, 0,
+        "<body><meta http-equiv=refresh content='0;url=https://example.com'><table><tr><td>核对</td></tr></table><script>alert(1)</script></body>"), 500);
+    True(safe.Contains("default-src 'none'") && safe.Contains("&lt;标题&gt;") && safe.Contains("top:-500px"), "截图安全边界或裁切偏移丢失");
+    True(!safe.Contains("<script") && !safe.Contains("http-equiv=refresh"), "源页面活动内容未清除");
+    True(safe.Contains(ManualScreenshot.EvidenceNote) && safe.Contains("<td>核对</td>"), "证据标记或表格丢失");
+    if (Environment.GetEnvironmentVariable("NORMA_MANUAL_SCREENSHOT_ROOT") is { Length: > 0 } captureRoot)
+    {
+        foreach (var id in new[] { "sjzl:5", "sjzl:6", "sjzl:8", "sjzl:9", "sjzl:30" })
+        {
+            var capture = JsonSerializer.SerializeToElement(ManualScreenshot.Capture(captureRoot, id, 0, 1400, 2600));
+            True(File.Exists(capture.GetProperty("imagePath").GetString()), "未生成截图");
+            Console.WriteLine(capture.GetRawText());
+        }
+    }
     var root = Path.Combine(Path.GetTempPath(), "norma-manual-" + Guid.NewGuid().ToString("N"));
     Directory.CreateDirectory(root);
     try

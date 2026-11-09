@@ -33,6 +33,17 @@ internal static class ManualCommands
             Handler = CommandDescriptor.Sync(c => Execute(() => Manual.Read((c.GetString("root") ?? DefaultRoot), c.RequireString("id"),
                 c.GetString("format") ?? "text", c.GetInt("offset", 0), c.GetInt("length", 6000))))
         });
+        registry.Register(new CommandDescriptor
+        {
+            Name = "norma.manual.screenshot", Domain = "norma", CommandClass = "manual", Readonly = true,
+            Summary = "按页ID及纵向位置生成本地PNG，核对提取HTML的表格布局；非原版窗口截图，不能单凭此图猜补缺值；需要本机Edge",
+            Example = "norma.manual.screenshot id=sjzl:5 y=0 height=1600",
+            Parameters = [Root(), new ParameterSpec { Name = "id", Description = "manual.search返回的页ID，如sjzl:5；条目序号不是印刷页码", Type = ParamType.String, Required = true },
+                Number("y", "从提取页面顶部跳过的像素，0～50000；缺损在下方时增大", "0"),
+                Number("width", "截图宽度像素，640～2400", "1400"), Number("height", "截图高度像素，300～4000", "1600")],
+            Handler = CommandDescriptor.Sync(c => Execute(() => ManualScreenshot.Capture(c.GetString("root") ?? DefaultRoot,
+                c.RequireString("id"), c.GetInt("y", 0), c.GetInt("width", 1400), c.GetInt("height", 1600))))
+        });
     }
     private static ParameterSpec Root() => new() { Name = "root", Description = "开发脚手架的手册目录；省略使用固定的本机默认路径，可显式覆盖为软件根目录、base 或 jxgcsdzsc", Type = ParamType.String, Default = DefaultRoot };
     private static ParameterSpec Text(string name, string description) => new() { Name = name, Description = description, Type = ParamType.String };
