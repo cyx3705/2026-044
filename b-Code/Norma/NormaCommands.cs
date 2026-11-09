@@ -169,6 +169,11 @@ internal static class NormaCommands
         [
             new Dictionary<string, string>
             {
+                ["id"] = "product.spec", ["topic"] = "机械材料", ["command"] = "norma.product.spec",
+                ["title"] = "产品规格库", ["source"] = "机械工程师手册 机械工程材料；原标准与年代见规格卡",
+            },
+            new Dictionary<string, string>
+            {
                 ["id"] = "std.lookup",
                 ["topic"] = "标准代号",
                 ["command"] = NormaIdentity.Domain + ".std.lookup",

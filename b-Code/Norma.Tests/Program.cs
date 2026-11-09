@@ -32,6 +32,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("steel grade cards and source conditions", Sync(TestSteelMaterials)),
     ("nonferrous and special alloy grade cards", Sync(TestNonFerrousMaterials)),
     ("named nonmetal and composite material cards", Sync(TestNamedMaterials)),
+    ("product specifications, combinations and tolerance boundaries", Sync(TestProductSpecs)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -68,7 +69,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 24;
+static int ExpectedCommandCount() => Catalog.All.Count + 25;
 
 static void TestCommandRegistration()
 {
@@ -79,6 +80,7 @@ static void TestCommandRegistration()
         .ToList();
     expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     expected.Add("norma.drive.efficiency");
+    expected.Add("norma.product.spec");
     expected.AddRange(new[] { "norma.material.grade", "norma.material.strength", "norma.material.library" });
     foreach (var name in expected)
     {
@@ -667,6 +669,12 @@ static async Task TestHostLoadsPackage()
         True(efficiencyResult.GetProperty("success").GetBoolean(), efficiencyResult.GetRawText());
         Near(0.4, efficiencyResult.GetProperty("data").GetProperty("items")[0].GetProperty("efficiency").GetProperty("min").GetDouble(), 0, "隔离宿主传动效率");
 
+        var specProbe = await Probe(archive, "norma.product.spec name=结构用热轧无缝钢管 spec=\"{\\\"外径\\\":32,\\\"壁厚\\\":3}\" property=理论重量");
+        var specResult = specProbe.GetProperty("data").GetProperty("result");
+        True(specResult.GetProperty("success").GetBoolean(), specResult.GetRawText());
+        True(specResult.GetProperty("data").ValueKind == JsonValueKind.String, specResult.GetRawText());
+        Equal("2.15 kg·m^-1", specResult.GetProperty("data").GetString()!);
+
         foreach (var (key, args, expected) in new[] { ("grade", "property=Cr", "14～18 %"), ("strength", "property=硬度HRC condition=硬化态或硬化态并去应力处理", "≥58 HRC") })
         {
             var ironProbe = await Probe(archive, $"norma.material.{key} grade=KmTBCr15Mo {args}");
@@ -1088,6 +1096,67 @@ static void TestSteelMaterials()
 
 // REQ-MATERIAL-009: independent native references, alias ambiguity and complete condition sets.
 // REQ-MATERIAL-010: independent native reference cells, formulation isolation and terse lookup.
+static void TestProductSpecs()
+{
+    JsonElement J(object value) => JsonSerializer.SerializeToElement(value);
+    Equal(84, ProductSpecs.Pages.Count);
+    Equal(131, ProductSpecs.Entries.SelectMany(e => e.Values).Select(c => (c.Page, c.Table)).Distinct().Count());
+    Equal(7562, ProductSpecs.Entries.Count);
+    Equal("2.15 kg·m^-1", (string)ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":32,\"壁厚\":3}", "理论重量"));
+    var beam = J(ProductSpecs.Query("热轧普通工字钢", "20a"));
+    Equal("27.929 kg·m^-1", beam.GetProperty("数据").GetProperty("理论重量").GetString()!);
+    Equal("200 mm", beam.GetProperty("数据").GetProperty("h").GetString()!);
+    True(beam.GetProperty("原注").EnumerateArray().Any(v => v.GetString()!.Contains("原表")), "可疑原表值的注释不能丢失");
+    var missing = J(ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":32}"));
+    Equal("spec.壁厚", missing.GetProperty("missing").GetString()!);
+    Equal(JsonValueKind.Null, missing.GetProperty("default").ValueKind);
+    var hole = J(ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":32,\"壁厚\":8.5}"));
+    Equal("spec.壁厚", hole.GetProperty("missing").GetString()!);
+    True(!hole.GetProperty("options").EnumerateArray().Any(v => v.GetString() == "8.5 mm"), "空格被误收为供应组合");
+    var gradeMissing = J(ProductSpecs.Query("铝青铜板的尺寸及厚度允许偏差", "{\"厚度\":1.2,\"宽度\":400}", "厚度允许偏差"));
+    Equal("spec.精度", gradeMissing.GetProperty("missing").GetString()!);
+    Equal("±0.075 mm", (string)ProductSpecs.Query("铝青铜板的尺寸及厚度允许偏差", "{\"厚度\":1.2,\"宽度\":400,\"精度\":\"普通级\"}", "厚度允许偏差"));
+    Equal("±0.060 mm", (string)ProductSpecs.Query("铝青铜板的尺寸及厚度允许偏差", "{\"厚度\":1.2,\"宽度\":400,\"精度\":\"较高级\"}", "厚度允许偏差"));
+    Equal("±0.25 mm", (string)ProductSpecs.Query("热轧圆钢和方钢的尺寸允许偏差", "{\"尺寸\":20,\"精度\":\"1组\"}", "允许偏差"));
+    Equal("±0.30 mm", (string)ProductSpecs.Query("热轧圆钢和方钢的尺寸允许偏差", "{\"尺寸\":20.01,\"精度\":\"1组\"}", "允许偏差"));
+    Equal("+1.5 -0.5 mm", (string)ProductSpecs.Query("聚四氟乙烯棒材", "{\"直径\":50}", "直径允许公差"));
+    Equal("+15 0 mm", (string)ProductSpecs.Query("钛-钢复合板", "{\"厚度\":10,\"宽度\":1000}", "宽度允许偏差"));
+    Equal("+10 0 mm", (string)ProductSpecs.Query("钛-不锈钢复合板", "{\"厚度\":10,\"宽度\":1000}", "宽度允许偏差"));
+    var variable = J(ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":32,\"壁厚\":\"*\"}", "理论重量", limit: 2));
+    Equal(2, variable.GetProperty("rows").GetArrayLength());
+    Equal(2, variable.GetProperty("nextOffset").GetInt32());
+    True(variable.GetProperty("total").GetInt32() > 2, "变化表未分页");
+    var properties = J(ProductSpecs.Query("热轧普通工字钢", "20a", "*", limit: 100));
+    True(properties.GetProperty("rows").GetArrayLength() >= 15 && properties.TryGetProperty("原注", out _), "属性表或原注丢失");
+    Equal(beam.GetRawText(), J(ProductSpecs.Query("热轧普通工字钢", "20a", offset: 999, limit: 1)).GetRawText());
+    True(J(ProductSpecs.Query("无缝钢管")).GetProperty("options").GetArrayLength() > 1, "部分产品名不应自动选首项");
+    foreach (var request in new Func<object>[]
+    {
+        () => ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":\"*\",\"壁厚\":\"*\"}"),
+        () => ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":32,\"壁厚\":\"*\"}", "*"),
+        () => ProductSpecs.Query("工字钢", "{bad}"),
+        () => ProductSpecs.Query("工字钢", "{\"型号\":null}"),
+        () => ProductSpecs.Query("工字钢", "{\"型号\":20,\"型号\":20}"),
+        () => ProductSpecs.Query(limit: 101), () => ProductSpecs.Query(offset: -1),
+    })
+    {
+        var rejected = false;
+        try { request(); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "非法规格请求未拒绝");
+    }
+    True(!ProductSpecs.Matches(new ProductSpecs.Axis(">7~20", "mm", true), "7"), "开区间边界错误");
+    True(ProductSpecs.Matches(new ProductSpecs.Axis(">7~20", "mm", true), "20 mm"), "闭区间/显式单位匹配错误");
+    True(!ProductSpecs.Matches(new ProductSpecs.Axis("20~7", "mm", true), "10"), "倒置区间不可猜测");
+    True(!ProductSpecs.Matches(new ProductSpecs.Axis("20±1", "mm", true), "20"), "尺寸与公差不可混作连续范围");
+    var command = Registry().All.Single(c => c.Name == "norma.product.spec");
+    True(command.Readonly && command.Parameters.All(p => !p.Required), "产品规格必须只读且参数可选");
+    True(command.Parameters.Single(p => p.Name == "name").Description.Contains("结构用热轧无缝钢管(外径/壁厚)"), "产品及输入选项未写入工具提示词");
+    var response = command.Handler(new CommandContext(command, new Dictionary<string, string>
+        { ["name"] = "结构用热轧无缝钢管", ["spec"] = "{\"外径\":32,\"壁厚\":3}", ["property"] = "理论重量" }, "test", null, CancellationToken.None)).Result;
+    Equal("2.15 kg·m^-1", response.Data!.ToString()!);
+    True(NormaCommands.PageRows().Any(r => r["id"] == "product.spec" && r["topic"] == "机械材料"), "产品库目录遗漏");
+}
+
 static void TestNamedMaterials()
 {
     var facts = NamedMaterials.Facts;
@@ -1508,7 +1577,7 @@ static void TestPhysicalTables()
         Equal("原表区间倒置，待核", cell.Undefined!);
         True(cell.Value is null && cell.Min is null && cell.Max is null && row.Note is not null, "倒置范围不能自动排序猜改");
     }
-    Equal(13, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
+    Equal(14, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
     foreach (var (offset, limit, period) in new[] { (-1, 20, (string?)null), (0, 0, (string?)null), (0, 101, (string?)null), (0, 20, (string?)"20~150") })
     {
         var rejected = false;

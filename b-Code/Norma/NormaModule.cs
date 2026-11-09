@@ -29,6 +29,7 @@ public sealed class NormaModule : IModuleContextAware
         DriveCommands.Register(registry);
         CastIronCommands.Register(registry);
         NamedMaterialCommands.Register(registry);
+        ProductCommands.Register(registry);
 
         foreach (var calculation in Catalog.All)
             registry.Register(NormaCommands.For(calculation));

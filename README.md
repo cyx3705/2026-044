@@ -39,6 +39,8 @@
 
 | 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
 
+产品规格库（首批84页131表）：`norma.product.spec name=结构用热轧无缝钢管 spec='{"外径":32,"壁厚":3}' property=理论重量`，固定条件取值或返回规格卡，一个`*`展开表。产品选项与每种产品的spec字段已写入命令自描述。当前85个产品/专表入口，涵盖型钢、钢管、部分板棒管制品和公差；不是材料大卷全部规格表。
+
 非金属及复合材料库：`norma.material.library name=PTFE` 或 `name=T300/4211`，按名称/型号返回完整精简资料卡；覆盖124页159张性能及成分表，514个原文材料名称/型号，保留配方、含量基准、方向、温度与尺寸条件。可选property/condition/family过滤；省略name或名称有歧义时返回选项，单个`*`可展开变化表。纯规格和泛用途表未搬入材料卡。
 
 金属牌号库：`norma.material.grade grade=HT250` 直接返回该牌号的化学成分、各场景力学/物理性能和来源；已收录铸铁28页30表、钢材153页227表，以及铜铝锌钛/轴承/高温/耐蚀/粉末冶金材料139页（199张原表归一化为282表，623张新增牌号卡）。保留原表待核异写和旧版标准，按产品/状态/温度等条件合并；ZL101、LY12等明确代号/旧牌号可以直查，歧义返回目标选项。`norma.material.strength`保留力学性能入口。property/condition/family均为可选过滤，唯一属性/条件直接返回带单位的值；显式一个`*`保留兼容的一维展开。牌号卡片完整返回，不受limit截断；省略grade返回分页选项。无牌号配方默认按用途选择代表牌号，返回同格式卡片、选型关系和原配方；basis=source查看原配方，代表选型不是材料等同或替代认证。
