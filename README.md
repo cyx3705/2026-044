@@ -39,13 +39,16 @@
 
 | 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
 
-铸铁数据：`norma.material.grade` 牌号及化学成分、`norma.material.strength` 材料力学性能（材料强度）；覆盖28页30表。输入grade/property/condition/family，唯一结果只返回带单位及边界的值；缺变量返回default=null与当前相关选项。只有显式一个参数为`*`才返回该变量→值的表；offset/limit仅用于选项和变化表分页。不再返回整库目录、列编号或表头包装。
+材料库：`norma.material.grade grade=HT250` 直接返回该牌号的化学成分、各场景力学性能和来源；目前收录铸铁28页30表。`norma.material.strength`保留力学性能入口。property/condition/family均为可选过滤，唯一属性/条件仍直接返回带单位的值；显式一个`*`保留兼容的一维展开。牌号卡片完整返回，不受limit截断；省略grade才返回分页选项。无牌号品种用“材料名称”标识，不冒充正式牌号。
 
 ```text
-norma.material.strength grade=HT250 property=抗拉强度 condition=单铸试棒
+norma.material.grade grade=HT250
+norma.material.grade grade=MTCrMoCu35
 norma.material.grade grade=KmTBCr15Mo property=Cr
-norma.material.strength grade=QT900-2 property=*
+norma.material.strength grade=HT250 property=抗拉强度 condition=单铸试棒
 ```
+
+6个合金体系名称关联到17个导轨牌号；各用途原数据写入对应卡片“同族参考配方（非本牌号标准指标）”，不覆盖牌号标准成分/性能，不宣称跨用途等同。尚未找到对应系列的29个分支名称条目仍可按名称与family查原数据，清单见现行约定REQ-MATERIAL-007。
 
 页面有一张目录表，加两个操作面板：标准代号查表、强度换算（保留命令`norma.metal.strength`）。
 

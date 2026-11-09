@@ -11,25 +11,25 @@ internal static class CastIronCommands
         {
             var parameters = new List<ParameterSpec>
             {
-                new() { Name = "grade", Type = ParamType.String, Description = "牌号或品种精确匹配，忽略空格和推荐标记*；省略返回default=null及牌号选项，不自动浏览数据；命名/热处理页用铸铁名称/状态名称。单独*=变化值" },
-                new() { Name = "property", Type = ParamType.String, Description = "所求属性/元素，如抗拉强度、硬度、Cr、C；省略返回属性选项；*=变化值，返回属性→值表。值自带单位及≥/≤/区间，成分为质量分数%，强度MPa；缺值不填0" },
-                new() { Name = "condition", Type = ParamType.String, Description = "试样、壁厚、温度/热处理或同名配方条件，按缺参选项原样填写，如单铸试棒；省略时唯一条件自动确定，多条件返回选项。*=只展开条件；不插值、不取中值" },
-                new() { Name = "family", Type = ParamType.String, Description = "分支精确名称，仅同名跨分支时需补充；省略且存在多个分支时返回选项。*=展开分支；grade/property/condition/family一次只允许一个*，其他变量必须唯一" },
-                new() { Name = "offset", Type = ParamType.Int, Default = "0", Description = "选项/变化表的分页偏移≥0，默认0；单值不分页" },
-                new() { Name = "limit", Type = ParamType.Int, Default = "20", Description = "选项/变化表每页1～100项，默认20；按nextOffset续页" },
+                new() { Name = "grade", Type = ParamType.String, Description = "材料牌号或品种名，忽略空格和推荐标记；只填此项即返回材料卡片。省略返回牌号选项；*=兼容单变量展开" },
+                new() { Name = "property", Type = ParamType.String, Description = "可选属性/元素过滤，如抗拉强度、Cr。唯一条件返回带单位的值，多条件返回对应性能；省略保留全部。*=兼容属性展开" },
+                new() { Name = "condition", Type = ParamType.String, Description = "可选条件精确过滤：试样/壁厚/温度/热处理/同名配方，按卡片条件填写；省略保留所有场景，不插值；*=兼容条件展开" },
+                new() { Name = "family", Type = ParamType.String, Description = "可选材料分支，仅同名跨分支时返回选项要求区分；一次最多一个参数为*" },
+                new() { Name = "offset", Type = ParamType.Int, Default = "0", Description = "选项/显式变化表的分页偏移≥0，默认0；材料卡片完整返回，不分页" },
+                new() { Name = "limit", Type = ParamType.Int, Default = "20", Description = "选项/显式变化表每页1～100项，默认20；材料卡片不受此参数截断" },
             };
             registry.Register(new CommandDescriptor
             {
                 Name = "norma.material." + key, Domain = "norma", CommandClass = "material", Readonly = true,
-                Summary = key == "grade" ? "铸铁牌号及化学成分取值：参数齐全只返回值；缺变量返回默认值和选项；仅显式一个参数=*时返回表" : "铸铁材料力学性能（材料强度）取值：参数齐全只返回值；缺变量返回默认值和选项；仅显式一个参数=*时返回表",
-                Example = "norma.material." + key + (key == "grade" ? " grade=KmTBCr15Mo property=Cr" : " grade=HT250 property=抗拉强度 condition=单铸试棒"),
+                Summary = key == "grade" ? "材料库：输入牌号返回化学成分及各场景力学性能的精简JSON卡片（现收录铸铁）；其他参数均为可选过滤" : "材料力学性能：输入牌号返回各场景性能；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
+                Example = "norma.material." + key + " grade=HT250",
                 Parameters = parameters,
                 Handler = CommandDescriptor.Sync(c =>
                 {
                     try
                     {
-                        var value = CastIronLookup.Lookup(key, c.GetString("family"), c.GetString("grade"), c.GetString("property"), c.GetString("condition"), c.GetInt("offset", 0), c.GetInt("limit", 20));
-                        return CommandResult.Ok(value is string s ? s : "取值结果", value);
+                        var value = MaterialLibrary.Query(key, c.GetString("family"), c.GetString("grade"), c.GetString("property"), c.GetString("condition"), c.GetInt("offset", 0), c.GetInt("limit", 20));
+                        return CommandResult.Ok(value is string s ? s : "材料查询结果", value);
                     }
                     catch (ArgumentException ex) { return CommandResult.Fail(ex.Message); }
                 })

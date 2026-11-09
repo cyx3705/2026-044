@@ -195,7 +195,7 @@ internal static class NormaCommands
         new[] { "grade", "strength" }.Select(key => (IReadOnlyDictionary<string, string>)new Dictionary<string, string>
         {
             ["id"] = "material." + key, ["topic"] = "机械材料", ["command"] = "norma.material." + key,
-            ["title"] = key == "grade" ? "铸铁牌号及化学成分" : "铸铁材料力学性能（材料强度）",
+            ["title"] = key == "grade" ? "材料库（牌号卡片）" : "铸铁材料力学性能（材料强度）",
             ["source"] = "机械工程师手册 铸铁整节28页/30表；出处与标准年份见查询返回",
         }).ToArray();
 

@@ -28,6 +28,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("drive efficiency reference table", Sync(TestDriveEfficiency)),
     ("cast iron coverage and conditional values", Sync(TestCastIron)),
     ("cast iron scalar and explicit variable lookup", Sync(TestCastIronLookup)),
+    ("compact material passports and optional filters", Sync(TestMaterialLibrary)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -934,6 +935,64 @@ static void TestMaterialLimits()
 
 // REQ-MATERIAL-002/003：独立表值、整表覆盖、缺值与筛选、目录和分类。
 // REQ-DRIVE-001: independent references from native manual, including damaged-source repairs.
+static void TestMaterialLibrary()
+{
+    JsonElement J(object v) => JsonSerializer.SerializeToElement(v);
+    object Q(string grade, string? property = null, string? condition = null, string? family = null, string tool = "grade")
+        => MaterialLibrary.Query(tool, family, grade, property, condition);
+    var ht = J(Q("HT250"));
+    Equal("HT250", ht.GetProperty("牌号").GetString()!);
+    Equal("原表未给出", ht.GetProperty("化学成分").GetString()!);
+    var tensile = ht.GetProperty("力学性能").GetProperty("抗拉强度");
+    Equal(25, tensile.EnumerateObject().Count());
+    Equal("≥250 MPa", tensile.GetProperty("单铸试棒").GetString()!);
+    True(tensile.EnumerateObject().Any(p => p.Name.Contains("20<壁厚≤40 mm")), "壁厚开闭边界可读");
+    Equal(1, ht.GetProperty("来源").GetArrayLength());
+    var white = J(Q("KmTBCr15Mo"));
+    Equal("14～18 %", white.GetProperty("化学成分").GetProperty("Cr").GetString()!);
+    Equal(3, white.GetProperty("力学性能").EnumerateObject().Count());
+    Equal("14～18 %", (string)Q("KmTBCr15Mo", "Cr"));
+    Equal("≥250 MPa", (string)Q("HT250", "抗拉强度", "单铸试棒"));
+    Equal(25, J(Q("HT250", "抗拉强度")).GetProperty("力学性能").GetProperty("抗拉强度").EnumerateObject().Count());
+    var cylinder = J(Q("铬钼铜铸铁", family: "汽缸套用耐磨铸铁"));
+    Equal(3, cylinder.GetProperty("化学成分").EnumerateObject().Count());
+    Equal(3, cylinder.GetProperty("力学性能").EnumerateObject().Count());
+    Equal("铬钼铜铸铁", cylinder.GetProperty("材料名称").GetString()!);
+    True(!cylinder.TryGetProperty("牌号", out _), "品种名不能冒充牌号");
+    Equal(4, J(Q("磷铸铁")).GetProperty("牌号映射").GetArrayLength());
+    Equal("HT250", J(MaterialLibrary.Query("grade", grade: "HT 250*")).GetProperty("牌号").GetString()!);
+    Equal("T", (string)Q("退火态", "状态代号"));
+    var strength = J(Q("HT250", tool: "strength"));
+    True(!strength.TryGetProperty("化学成分", out _), "兼容性能入口不混成分");
+    var options = J(MaterialLibrary.Query("grade", limit: 7));
+    Equal(7, options.GetProperty("options").GetArrayLength());
+    Equal(7, options.GetProperty("nextOffset").GetInt32());
+    var alias = J(MaterialLibrary.Query("grade", grade: "磷铸铁"));
+    Equal(4, alias.GetProperty("牌号映射").GetArrayLength());
+    Equal("MTP15", alias.GetProperty("牌号映射")[0].GetString()!);
+    var guide = J(Q("MTCrMoCu35"));
+    Equal("0.15～0.25 %", guide.GetProperty("化学成分").GetProperty("Cr").GetString()!);
+    var references = guide.GetProperty("同族参考配方（非本牌号标准指标）");
+    Equal(3, references.EnumerateObject().Count());
+    Equal(3, references.GetProperty("汽缸套用耐磨铸铁/铬钼铜铸铁").GetProperty("化学成分").EnumerateObject().Count());
+    Equal(17, MaterialLibrary.Data.Where(f => f.Family == "机床导轨用耐磨铸铁").Select(f => f.Grade).Distinct()
+        .Count(g => J(Q(g)).TryGetProperty("同族参考配方（非本牌号标准指标）", out _)));
+    var serialization = new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+    var sizes = new List<int>();
+    foreach (var group in MaterialLibrary.Data.GroupBy(f => (f.Family, Grade: System.Text.RegularExpressions.Regex.Replace(f.Grade, @"\s|\*", "").ToUpperInvariant())))
+    {
+        var card = J(Q(group.First().Grade, family: group.Key.Family));
+        True(!card.TryGetProperty("missing", out _) && !card.TryGetProperty("error", out _), "单牌号卡片不要求补属性/条件");
+        sizes.Add(System.Text.Encoding.UTF8.GetByteCount(JsonSerializer.Serialize(card, serialization)));
+    }
+    Console.WriteLine($"Material cards: {sizes.Count}, median {sizes.Order().ElementAt(sizes.Count / 2)} B, max {sizes.Max()} B");
+    True(sizes.Max() < 5000, "包括同族配方的卡片大小受限");
+    var command = Registry().All.Single(c => c.Name == "norma.material.grade");
+    True(command.Parameters.All(p => !p.Required), "查询过滤参数全部可选");
+    var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "HT250" }, "test", null, CancellationToken.None)).Result;
+    Equal("HT250", J(response.Data!).GetProperty("牌号").GetString()!);
+}
+
 static void TestCastIronLookup()
 {
     JsonElement J(object v) => JsonSerializer.SerializeToElement(v);
