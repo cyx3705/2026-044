@@ -27,6 +27,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("mechanical material tables and classification", Sync(TestPhysicalTables)),
     ("drive efficiency reference table", Sync(TestDriveEfficiency)),
     ("cast iron coverage and conditional values", Sync(TestCastIron)),
+    ("cast iron scalar and explicit variable lookup", Sync(TestCastIronLookup)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -662,12 +663,12 @@ static async Task TestHostLoadsPackage()
         True(efficiencyResult.GetProperty("success").GetBoolean(), efficiencyResult.GetRawText());
         Near(0.4, efficiencyResult.GetProperty("data").GetProperty("items")[0].GetProperty("efficiency").GetProperty("min").GetDouble(), 0, "隔离宿主传动效率");
 
-        foreach (var (key, field, expected) in new[] { ("grade", "c4", 14d), ("strength", "c3", 58d) })
+        foreach (var (key, args, expected) in new[] { ("grade", "property=Cr", "14～18 %"), ("strength", "property=硬度HRC condition=硬化态或硬化态并去应力处理", "≥58 HRC") })
         {
-            var ironProbe = await Probe(archive, $"norma.material.{key} grade=KmTBCr15Mo");
+            var ironProbe = await Probe(archive, $"norma.material.{key} grade=KmTBCr15Mo {args}");
             var ironResult = ironProbe.GetProperty("data").GetProperty("result");
             True(ironResult.GetProperty("success").GetBoolean(), ironResult.GetRawText());
-            Near(expected, ironResult.GetProperty("data").GetProperty("items")[0].GetProperty("properties").GetProperty(field).GetProperty("min").GetDouble(), 0, "隔离宿主铸铁 " + key);
+            Equal(expected, ironResult.GetProperty("data").GetString()!);
         }
 
         // 标准代号表是嵌入资源，宿主装载后同样能查到。
@@ -933,6 +934,56 @@ static void TestMaterialLimits()
 
 // REQ-MATERIAL-002/003：独立表值、整表覆盖、缺值与筛选、目录和分类。
 // REQ-DRIVE-001: independent references from native manual, including damaged-source repairs.
+static void TestCastIronLookup()
+{
+    JsonElement J(object v) => JsonSerializer.SerializeToElement(v);
+    object L(string tool, string? grade = null, string? property = null, string? condition = null, string? family = null)
+        => CastIronLookup.Lookup(tool, family, grade, property, condition);
+    Equal("≥250 MPa", (string)L("strength", "HT250", "抗拉强度", "单铸试棒"));
+    Equal("14～18 %", (string)L("grade", "KmTBCr15Mo", "Cr"));
+    Equal("≤1 %", (string)L("grade", "STSi15R", "C")); // max inferred from source header
+    Equal("原表未给出", (string)L("grade", "QT900-2", "化学成分"));
+    Equal("0.06～0.08 %（加入量）", (string)L("grade", "磷锑铸铁", "Sb"));
+    Equal("T", (string)L("grade", "退火态", "状态代号"));
+    Equal("0.4~0.35（原表区间倒置，待核）", (string)L("grade", "钨铸铁", "W"));
+    var missing = J(L("strength", "HT250"));
+    Equal("property", missing.GetProperty("missing").GetString()!);
+    Equal(JsonValueKind.Null, missing.GetProperty("default").ValueKind);
+    True(missing.GetProperty("options").EnumerateArray().Select(v => v.GetString()).SequenceEqual(new[] { "抗拉强度" }), "缺参返回选项，不自动展开");
+    var conditions = J(L("strength", "HT250", "抗拉强度"));
+    Equal("condition", conditions.GetProperty("missing").GetString()!);
+    True(conditions.GetProperty("options").EnumerateArray().Any(v => v.GetString() == "单铸试棒"), "试样选项遗漏");
+    var table = J(L("strength", "QT900-2", "*"));
+    Equal("≥900 MPa", table.GetProperty("抗拉强度").GetString()!);
+    Equal("280～360 HBS", table.GetProperty("硬度").GetString()!);
+    True(!table.TryGetProperty("catalog", out _) && !table.TryGetProperty("tables", out _), "不返回目录与表头包装");
+    Equal("≥900 MPa", (string)L("strength", "QT900-2", "抗拉强度"));
+    var varyingConditions = J(L("strength", "HT250", "抗拉强度", "*"));
+    True(varyingConditions.TryGetProperty("values", out _), "变化条件长表应分页");
+    Equal("condition", J(L("strength", "HT250", "*")).GetProperty("missing").GetString()!);
+    Equal("14 MPa", (string)L("strength", "RTSi5", "抗拉强度", "700℃高温短时"));
+    Equal("≥58 HRC", (string)L("strength", "KmTBCr15Mo", "硬度HRC", "硬化态或硬化态并去应力处理"));
+    Equal("condition", J(L("strength", "镍铬铜冷硬铸铁", "白口层硬度")).GetProperty("missing").GetString()!);
+    Equal("50～55 HRC", (string)L("strength", "镍铬铜冷硬铸铁", "白口层硬度", "600℃回火后"));
+    var cylinder = J(L("strength", "铬钼铜铸铁", "抗拉强度", family: "汽缸套用耐磨铸铁"));
+    Equal("condition", cylinder.GetProperty("missing").GetString()!);
+    Equal(3, cylinder.GetProperty("options").GetArrayLength());
+    Equal("≥280 MPa", (string)L("strength", "铬钼铜铸铁", "抗拉强度", "同名配方3", "汽缸套用耐磨铸铁"));
+    var manyStars = false; try { L("strength", "*", "*"); } catch (ArgumentException) { manyStars = true; }
+    True(manyStars, "禁止多维展开");
+    // Every normalized value must be addressable without dumping unrelated rows or choosing the first value.
+    foreach (var fact in CastIronLookup.Facts)
+    {
+        var result = L(fact.Tool, fact.Grade, fact.Property, fact.Condition, fact.Family);
+        if (result is string value) Equal(fact.Value, value);
+        else True(J(result).TryGetProperty("error", out _), "完整参数不能返回缺参/整库");
+    }
+    var command = Registry().All.Single(c => c.Name == "norma.material.strength");
+    var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "HT250", ["property"] = "抗拉强度", ["condition"] = "单铸试棒" }, "test", null, CancellationToken.None)).Result;
+    Equal("≥250 MPa", J(response.Data!).GetString()!);
+    True(J(response.Data!).GetRawText().Length < 30, "正常取值必须保持常数大小");
+}
+
 static void TestCastIron()
 {
     // Independent inventory from the native directory and reviewed tables, including both two-table pages.

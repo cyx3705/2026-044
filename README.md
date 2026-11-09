@@ -39,7 +39,13 @@
 
 | 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
 
-铸铁数据：`norma.material.grade` 牌号及化学成分，`norma.material.strength` 材料力学性能（材料强度）；覆盖铸铁整节28页30表。支持q/family/grade/table与offset/limit，牌号工具还可按section筛选命名、热处理、化学成分与牌号目录。试样、壁厚、铸型、温度和热处理条件随表头返回。
+铸铁数据：`norma.material.grade` 牌号及化学成分、`norma.material.strength` 材料力学性能（材料强度）；覆盖28页30表。输入grade/property/condition/family，唯一结果只返回带单位及边界的值；缺变量返回default=null与当前相关选项。只有显式一个参数为`*`才返回该变量→值的表；offset/limit仅用于选项和变化表分页。不再返回整库目录、列编号或表头包装。
+
+```text
+norma.material.strength grade=HT250 property=抗拉强度 condition=单铸试棒
+norma.material.grade grade=KmTBCr15Mo property=Cr
+norma.material.strength grade=QT900-2 property=*
+```
 
 页面有一张目录表，加两个操作面板：标准代号查表、强度换算（保留命令`norma.metal.strength`）。
 
