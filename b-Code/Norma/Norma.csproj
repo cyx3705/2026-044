@@ -32,6 +32,7 @@
     <None Update="module.manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <!-- 标准代号表随 DLL 走，部署时不需要额外数据文件。 -->
     <EmbeddedResource Include="Formulas\physical-*.tsv" />
+    <EmbeddedResource Include="ManualWindowCapture.ps1" LogicalName="Norma.ManualWindowCapture.ps1" />
     <EmbeddedResource Include="Formulas\standards.tsv" LogicalName="Norma.Formulas.standards.tsv" />
     <!-- 硬度—强度换算节点表（机械工程师手册 sjzl 章），PCHIP 的锚点。 -->
     <EmbeddedResource Include="Formulas\metal-high.tsv" LogicalName="Norma.Formulas.metal-high.tsv" />

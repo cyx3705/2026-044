@@ -36,13 +36,26 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.screenshot", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "按页ID及纵向位置生成本地PNG，核对提取HTML的表格布局；非原版窗口截图，不能单凭此图猜补缺值；需要本机Edge",
-            Example = "norma.manual.screenshot id=sjzl:5 y=0 height=1600",
-            Parameters = [Root(), new ParameterSpec { Name = "id", Description = "manual.search返回的页ID，如sjzl:5；条目序号不是印刷页码", Type = ParamType.String, Required = true },
-                Number("y", "从提取页面顶部跳过的像素，0～50000；缺损在下方时增大", "0"),
-                Number("width", "截图宽度像素，640～2400", "1400"), Number("height", "截图高度像素，300～4000", "1600")],
-            Handler = CommandDescriptor.Sync(c => Execute(() => ManualScreenshot.Capture(c.GetString("root") ?? DefaultRoot,
-                c.RequireString("id"), c.GetInt("y", 0), c.GetInt("width", 1400), c.GetInt("height", 1600))))
+            Summary = "截取原手册当前窗口为PNG（Windows PrintWindow），支持局部裁切；默认window无需id且不自动翻页；mode=html才渲染提取HTML",
+            Example = "norma.manual.screenshot mode=window",
+            Parameters = [Root(), Choice("mode", "window为原手册当前窗口系统截图；html为提取页渲染（不能代替原版核对）", "window", ["window", "html"]),
+                Text("id", "仅mode=html必填，manual.search返回的页ID；window请省略且先在原手册打开所需页面"),
+                Number("x", "仅window：相对窗口左上角的横向裁切像素，0～12000", "0"),
+                Number("y", "window：相对窗口纵向裁切像素；html：页面纵向偏移像素；默认0", "0"),
+                Number("width", "window：裁切宽度，0截到右边缘；html：640～2400，0使用1400", "0"),
+                Number("height", "window：裁切高度，0截到底边缘；html：300～4000，0使用1600", "0")],
+            Handler = CommandDescriptor.Sync(c => Execute(() =>
+            {
+                var mode = c.GetString("mode") ?? "window";
+                var width = c.GetInt("width", 0);
+                var height = c.GetInt("height", 0);
+                if (mode == "window") return ManualWindowScreenshot.Capture(c.GetString("root") ?? DefaultRoot, c.GetString("id"),
+                    c.GetInt("x", 0), c.GetInt("y", 0), width, height);
+                if (mode != "html") throw new ArgumentException("mode应为window或html");
+                if (c.GetInt("x", 0) != 0) throw new ArgumentException("html模式不支持x裁切");
+                return ManualScreenshot.Capture(c.GetString("root") ?? DefaultRoot, c.RequireString("id"), c.GetInt("y", 0),
+                    width == 0 ? 1400 : width, height == 0 ? 1600 : height);
+            }))
         });
     }
     private static ParameterSpec Root() => new() { Name = "root", Description = "开发脚手架的手册目录；省略使用固定的本机默认路径，可显式覆盖为软件根目录、base 或 jxgcsdzsc", Type = ParamType.String, Default = DefaultRoot };

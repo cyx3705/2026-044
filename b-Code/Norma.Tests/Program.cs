@@ -753,6 +753,13 @@ static void Equal<T>(T expected, T actual)
 // REQ-MANUAL-001/002: synthetic source with Chinese, merged cells, images and pagination.
 static void TestManual()
 {
+    var nativeRejected = false;
+    try { ManualWindowScreenshot.Validate(-1, 0, 0, 0); } catch (ArgumentException) { nativeRejected = true; }
+    True(nativeRejected, "原窗口截图必须拒绝负裁切坐标");
+    ManualWindowScreenshot.Validate(0, 0, 0, 0);
+    if (Environment.GetEnvironmentVariable("NORMA_NATIVE_SCREENSHOT_TEST") == "1")
+        Console.WriteLine(JsonSerializer.Serialize(ManualWindowScreenshot.Capture(ManualCommands.DefaultRoot, null, 0, 0, 0, 0)));
+
     foreach (var input in new[] { (-1, 1400, 1600), (0, 639, 1600), (0, 1400, 4001) })
     {
         var rejected = false;
