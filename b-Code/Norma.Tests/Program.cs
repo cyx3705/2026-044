@@ -1107,6 +1107,7 @@ static void TestNamedMaterials()
     True(hybrid.Condition.Contains("QY8911双马来体系") && !hybrid.Condition.Contains("4211"), "混杂层板基体被混淆");
     var carbon = facts.Where(f => f.Name == "T300/4211" && f.Property == "纵向抗拉强度/MPa").ToArray();
     True(carbon.Any(f => f.Value == "1396") && carbon.Any(f => f.Value == "1310" && f.Condition.Contains("=-60")), "碳纤层板常温/低温数据丢失");
+    True(carbon.Single(f => f.Value == "1396").Condition.Contains("体积分数Φf=(60±3)%"), "T300/4211与脚注②的含量关联丢失");
     Equal("6.723", facts.Single(f => f.Name == "铸造铜-石墨复合材料" && f.Property.StartsWith("密度")).Value);
     True(facts.Where(f => f.Name == "铸造石墨铝合金复合材料" && f.Property.StartsWith("密度")).Select(f => f.Value).SequenceEqual(["2.63", "2.52"]), "同页铜基和铝基数据混合");
     True(facts.Any(f => f.Page == 4002 && f.Value == "—"), "耐蚀评价的—是“不推荐”，不能当空值删除");
