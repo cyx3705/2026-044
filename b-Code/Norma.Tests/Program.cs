@@ -31,6 +31,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("compact material passports and optional filters", Sync(TestMaterialLibrary)),
     ("steel grade cards and source conditions", Sync(TestSteelMaterials)),
     ("nonferrous and special alloy grade cards", Sync(TestNonFerrousMaterials)),
+    ("named nonmetal and composite material cards", Sync(TestNamedMaterials)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -67,7 +68,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 23;
+static int ExpectedCommandCount() => Catalog.All.Count + 24;
 
 static void TestCommandRegistration()
 {
@@ -78,7 +79,7 @@ static void TestCommandRegistration()
         .ToList();
     expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     expected.Add("norma.drive.efficiency");
-    expected.AddRange(new[] { "norma.material.grade", "norma.material.strength" });
+    expected.AddRange(new[] { "norma.material.grade", "norma.material.strength", "norma.material.library" });
     foreach (var name in expected)
     {
         True(registry.TryGet(name, out var descriptor), $"未注册 {name}");
@@ -1086,6 +1087,63 @@ static void TestSteelMaterials()
 }
 
 // REQ-MATERIAL-009: independent native references, alias ambiguity and complete condition sets.
+// REQ-MATERIAL-010: independent native reference cells, formulation isolation and terse lookup.
+static void TestNamedMaterials()
+{
+    var facts = NamedMaterials.Facts;
+    Equal(124, NamedMaterials.Pages.Count);
+    Equal(159, facts.Select(f => (f.Page, f.Table)).Distinct().Count());
+    Equal(6762, facts.Count);
+    Equal(514, facts.Select(f => f.Name).Distinct().Count());
+    Equal("2.1~2.2 g·cm^-3", (string)NamedMaterials.Query("PTFE", "密度"));
+    var pvc = JsonSerializer.SerializeToElement(NamedMaterials.Query("PVC"));
+    Equal("name", pvc.GetProperty("missing").GetString()!);
+    Equal(2, pvc.GetProperty("options").GetArrayLength());
+    Equal(2, JsonSerializer.SerializeToElement(NamedMaterials.Query("POM")).GetProperty("options").GetArrayLength());
+    Equal("34.8", facts.Single(f => f.Name == "冷杉" && f.Property.Contains("顺纹抗压强度")).Value);
+    True(facts.Single(f => f.Name == "冷杉" && f.Property.Contains("顺纹抗压强度")).Condition.Contains("四川大渡河、青衣江"), "木材地区条件丢失");
+    var hybrid = facts.Single(f => f.Name == "Q-C/G-4" && f.Property == "纵向抗拉强度/MPa");
+    Equal("945", hybrid.Value);
+    True(hybrid.Condition.Contains("QY8911双马来体系") && !hybrid.Condition.Contains("4211"), "混杂层板基体被混淆");
+    var carbon = facts.Where(f => f.Name == "T300/4211" && f.Property == "纵向抗拉强度/MPa").ToArray();
+    True(carbon.Any(f => f.Value == "1396") && carbon.Any(f => f.Value == "1310" && f.Condition.Contains("=-60")), "碳纤层板常温/低温数据丢失");
+    Equal("6.723", facts.Single(f => f.Name == "铸造铜-石墨复合材料" && f.Property.StartsWith("密度")).Value);
+    True(facts.Where(f => f.Name == "铸造石墨铝合金复合材料" && f.Property.StartsWith("密度")).Select(f => f.Value).SequenceEqual(["2.63", "2.52"]), "同页铜基和铝基数据混合");
+    True(facts.Any(f => f.Page == 4002 && f.Value == "—"), "耐蚀评价的—是“不推荐”，不能当空值删除");
+    True(facts.Any(f => f.Page == 4282 && f.Condition.Contains("体积分数")), "玻纤体积分数丢失");
+    True(facts.Any(f => f.Page == 4288 && f.Name.Contains("质量分数")), "碳纤质量分数丢失");
+    True(JsonSerializer.Serialize(NamedMaterials.Query("T300/4211")).Contains("\\u2460"), "碳纤维体积分数脚注丢失");
+    var first = JsonSerializer.SerializeToElement(NamedMaterials.Query(limit: 1));
+    Equal("name", first.GetProperty("missing").GetString()!);
+    Equal(JsonValueKind.Null, first.GetProperty("default").ValueKind);
+    Equal(1, first.GetProperty("options").GetArrayLength());
+    Equal(1, first.GetProperty("nextOffset").GetInt32());
+    Equal(JsonSerializer.Serialize(NamedMaterials.Query("PTFE")), JsonSerializer.Serialize(NamedMaterials.Query("PTFE", offset: 10000, limit: 1)));
+    var table = JsonSerializer.SerializeToElement(NamedMaterials.Query("PTFE", "*", "常用工程塑料物理-力学性能"));
+    True(table.GetProperty("rows").GetArrayLength() >= 10, "显式属性变化未返回表");
+    foreach (var request in new Func<object>[] { () => NamedMaterials.Query("PTFE", "*", "*"), () => NamedMaterials.Query(limit: 101), () => NamedMaterials.Query(offset: -1) })
+    {
+        var rejected = false;
+        try { request(); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "非法材料查询未拒绝");
+    }
+    var sizes = new List<int>();
+    foreach (var group in facts.GroupBy(f => (f.Name, f.Family)))
+    {
+        var card = NamedMaterials.Query(group.Key.Name, family: group.Key.Family);
+        var json = JsonSerializer.Serialize(card);
+        True(!JsonSerializer.SerializeToElement(card).TryGetProperty("missing", out _), "具体材料卡不应要求补参");
+        foreach (var value in group.Select(f => f.Value).Distinct())
+            True(json.Contains(JsonSerializer.Serialize(value)), "资料卡遗漏原表单元格：" + group.Key.Name + "/" + value);
+        sizes.Add(Encoding.UTF8.GetByteCount(JsonSerializer.Serialize(card, new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping })));
+    }
+    Console.WriteLine($"Named material cards: {sizes.Count}, median {sizes.Order().ElementAt(sizes.Count / 2)} B, max {sizes.Max()} B");
+    var command = Registry().All.Single(c => c.Name == "norma.material.library");
+    True(command.Readonly && command.Parameters.All(p => !p.Required), "材料库只读且过滤参数均可选");
+    var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["name"] = "PTFE", ["property"] = "密度" }, "test", null, CancellationToken.None)).Result;
+    Equal("2.1~2.2 g·cm^-3", response.Data!.ToString()!);
+}
+
 static void TestNonFerrousMaterials()
 {
     var tables = NonFerrousMaterials.Tables;
@@ -1449,7 +1507,7 @@ static void TestPhysicalTables()
         Equal("原表区间倒置，待核", cell.Undefined!);
         True(cell.Value is null && cell.Min is null && cell.Max is null && row.Note is not null, "倒置范围不能自动排序猜改");
     }
-    Equal(12, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
+    Equal(13, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
     foreach (var (offset, limit, period) in new[] { (-1, 20, (string?)null), (0, 0, (string?)null), (0, 101, (string?)null), (0, 20, (string?)"20~150") })
     {
         var rejected = false;

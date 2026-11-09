@@ -22,7 +22,7 @@ internal static class CastIronCommands
             registry.Register(new CommandDescriptor
             {
                 Name = "norma.material." + key, Domain = "norma", CommandClass = "material", Readonly = true,
-                Summary = key == "grade" ? "材料库：输入牌号返回化学成分、各场景力学及物理性能的精简JSON卡片；覆盖铸铁、钢、有色金属、高温/耐蚀合金及粉末冶金；其他参数均可选" : "材料力学性能：输入牌号返回各产品/状态/温度性能；支持铸铁、钢及有色/高温/耐蚀/粉末冶金材料；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
+                Summary = key == "grade" ? "金属牌号库：输入牌号返回成分及各场景力学/物理性能的精简JSON卡片；含铸铁、钢、有色及特种合金；非金属和复合材料名称查询见material.library" : "材料力学性能：输入牌号返回各产品/状态/温度性能；支持铸铁、钢及有色/高温/耐蚀/粉末冶金材料；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
                 Example = "norma.material." + key + " grade=HT250",
                 Parameters = parameters,
                 Handler = CommandDescriptor.Sync(c =>
