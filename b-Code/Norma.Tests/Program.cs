@@ -1051,6 +1051,8 @@ static void TestSteelMaterials()
     Equal("≤207 HBS", V("steel:57:1:29", "硬度HBS"));
     True(facts.Single(f => f.RowId == "steel:57:1:29" && f.Property == "硬度HBS").Condition.Contains("供应状态"), "退火供应硬度不能假装调质试样硬度");
     Equal("179~207 HBS", V("steel:27:1:3", "硬度HBS"));
+    Equal("YB/T1-1980", tables.Single(t => t.Id == "steel:27:1").Standard.Single());
+    Equal("GB/T3086-1982", tables.Single(t => t.Id == "steel:27:2").Standard.Single());
     True(facts.Single(f => f.RowId == "steel:27:1:3" && f.Property == "硬度HBS").Condition.Contains("退火后"), "轴承钢硬度状态保留");
     Equal("≥590 MPa", V("steel:59:1:1", "抗拉强度"));
     Equal("≥18 %", V("steel:59:1:25", "伸长率δ5"));
