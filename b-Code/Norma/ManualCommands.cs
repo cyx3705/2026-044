@@ -36,12 +36,12 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.screenshot", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "截取原手册当前窗口为PNG（Windows PrintWindow），支持局部裁切；默认window无需id且不自动翻页；mode=html才渲染提取HTML",
+            Summary = "仅截原手册右侧正文为PNG（自动识别正文控件，排除左侧目录和工具栏）；支持正文内局部裁切；先manual.open按名称打开页；mode=html为提取HTML",
             Example = "norma.manual.screenshot mode=window",
             Parameters = [Root(), Choice("mode", "window为原手册当前窗口系统截图；html为提取页渲染（不能代替原版核对）", "window", ["window", "html"]),
                 Text("id", "仅mode=html必填，manual.search返回的页ID；window请省略且先在原手册打开所需页面"),
-                Number("x", "仅window：相对窗口左上角的横向裁切像素，0～12000", "0"),
-                Number("y", "window：相对窗口纵向裁切像素；html：页面纵向偏移像素；默认0", "0"),
+                Number("x", "仅window：相对右侧正文左上角的横向裁切像素，0～12000", "0"),
+                Number("y", "window：相对右侧正文纵向裁切像素；html：页面纵向偏移像素；默认0", "0"),
                 Number("width", "window：裁切宽度，0截到右边缘；html：640～2400，0使用1400", "0"),
                 Number("height", "window：裁切高度，0截到底边缘；html：300～4000，0使用1600", "0")],
             Handler = CommandDescriptor.Sync(c => Execute(() =>
@@ -56,6 +56,24 @@ internal static class ManualCommands
                 return ManualScreenshot.Capture(c.GetString("root") ?? DefaultRoot, c.RequireString("id"), c.GetInt("y", 0),
                     width == 0 ? 1400 : width, height == 0 ? 1600 : height);
             }))
+        });
+        registry.Register(new CommandDescriptor
+        {
+            Name = "norma.manual.open", Domain = "norma", CommandClass = "manual", Readonly = true,
+            Summary = "按完整页名称在原手册打开页面，选择后核实右侧正文标题；同名页用directory返回的完整path区分，不修改手册文件",
+            Example = "norma.manual.open name=常用材料弹性模量及泊松比",
+            Parameters = [Root(), new ParameterSpec { Name = "name", Description = "原手册目录中的完整页名称，严格匹配；如常用材料弹性模量及泊松比", Type = ParamType.String, Required = true },
+                Text("path", "可选：directory返回的完整目录路径，/分隔；逐级展开祖先并区分同名页")],
+            Handler = CommandDescriptor.Sync(c => Execute(() => ManualWindowScreenshot.Open(c.GetString("root") ?? DefaultRoot, c.RequireString("name"), c.GetString("path"))))
+        });
+        registry.Register(new CommandDescriptor
+        {
+            Name = "norma.manual.directory", Domain = "norma", CommandClass = "manual", Readonly = true,
+            Summary = "独立查看原手册左侧目录：返回目录控件PNG和可访问条目的名称、完整path、选中与展开状态；可过滤分页，正文截图走manual.screenshot",
+            Example = "norma.manual.directory q=常用材料 limit=30",
+            Parameters = [Root(), Text("q", "按目录名称包含匹配；省略浏览当前可访问目录（折叠分组可能尚未暴露子页）"),
+                Number("offset", "跳过匹配条数，≥0", "0"), Number("limit", "返回条数，1～100", "30")],
+            Handler = CommandDescriptor.Sync(c => Execute(() => ManualWindowScreenshot.DirectoryView(c.GetString("root") ?? DefaultRoot, c.GetString("q"), c.GetInt("offset", 0), c.GetInt("limit", 30))))
         });
     }
     private static ParameterSpec Root() => new() { Name = "root", Description = "开发脚手架的手册目录；省略使用固定的本机默认路径，可显式覆盖为软件根目录、base 或 jxgcsdzsc", Type = ParamType.String, Default = DefaultRoot };

@@ -61,14 +61,14 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 15;
+static int ExpectedCommandCount() => Catalog.All.Count + 17;
 
 static void TestCommandRegistration()
 {
     var registry = Registry();
     var domain = NormaIdentity.Domain;
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
-        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".manual.screenshot", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
+        .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".manual.screenshot", domain + ".manual.open", domain + ".manual.directory", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
     expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     foreach (var name in expected)
@@ -758,7 +758,18 @@ static void TestManual()
     True(nativeRejected, "原窗口截图必须拒绝负裁切坐标");
     ManualWindowScreenshot.Validate(0, 0, 0, 0);
     if (Environment.GetEnvironmentVariable("NORMA_NATIVE_SCREENSHOT_TEST") == "1")
-        Console.WriteLine(JsonSerializer.Serialize(ManualWindowScreenshot.Capture(ManualCommands.DefaultRoot, null, 0, 0, 0, 0)));
+    {
+        Console.WriteLine(JsonSerializer.Serialize(ManualWindowScreenshot.DirectoryView(ManualCommands.DefaultRoot, "常用材料", 0, 30)));
+        Console.WriteLine(JsonSerializer.Serialize(ManualWindowScreenshot.Open(ManualCommands.DefaultRoot, "常用材料弹性模量及泊松比", null)));
+        var capture = JsonSerializer.SerializeToElement(ManualWindowScreenshot.Capture(ManualCommands.DefaultRoot, null, 0, 0, 0, 0));
+        Equal("content", capture.GetProperty("capture").GetProperty("region").GetString()!);
+        True(capture.GetProperty("capture").GetProperty("width").GetInt32() < capture.GetProperty("capture").GetProperty("windowWidth").GetInt32(), "正文截图没有排除左侧目录");
+        Equal("常用材料弹性模量及泊松比", capture.GetProperty("capture").GetProperty("contentTitle").GetString()!);
+        Console.WriteLine(capture.GetRawText());
+        var missingRejected = false;
+        try { ManualWindowScreenshot.Open(ManualCommands.DefaultRoot, "不存在的手册页-验收", null); } catch (IOException) { missingRejected = true; }
+        True(missingRejected, "不存在的原页面被报告为打开成功");
+    }
 
     foreach (var input in new[] { (-1, 1400, 1600), (0, 639, 1600), (0, 1400, 4001) })
     {
