@@ -36,9 +36,10 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.screenshot", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "仅截原手册右侧正文为PNG（自动识别正文控件，排除左侧目录和工具栏）；支持正文内局部裁切；先manual.open按名称打开页；mode=html为提取HTML",
-            Example = "norma.manual.screenshot mode=window",
+            Summary = "仅截原手册右侧正文为PNG（自动识别正文控件，排除左侧目录和工具栏）；full_page=true双向滚动拼接整页含脚注，否则只截可见视口；先manual.open按名称打开页；mode=html为提取HTML",
+            Example = "norma.manual.screenshot mode=window full_page=true",
             Parameters = [Root(), Choice("mode", "window为原手册当前窗口系统截图；html为提取页渲染（不能代替原版核对）", "window", ["window", "html"]),
+                new ParameterSpec { Name = "full_page", Type = ParamType.Bool, Default = "false", Description = "仅window：true按原窗口双向滚动拼接完整正文及脚注，结束恢复滚动位置；不可同时传非零x/y/width/height。上限4000万像素、宽12000高50000、80块，超限报错不截断；false仅截当前可见视口" },
                 Text("id", "仅mode=html必填，manual.search返回的页ID；window请省略且先在原手册打开所需页面"),
                 Number("x", "仅window：相对右侧正文左上角的横向裁切像素，0～12000", "0"),
                 Number("y", "window：相对右侧正文纵向裁切像素；html：页面纵向偏移像素；默认0", "0"),
@@ -49,9 +50,11 @@ internal static class ManualCommands
                 var mode = c.GetString("mode") ?? "window";
                 var width = c.GetInt("width", 0);
                 var height = c.GetInt("height", 0);
+                var fullPage = c.GetBool("full_page", false);
                 if (mode == "window") return ManualWindowScreenshot.Capture(c.GetString("root") ?? DefaultRoot, c.GetString("id"),
-                    c.GetInt("x", 0), c.GetInt("y", 0), width, height);
+                    c.GetInt("x", 0), c.GetInt("y", 0), width, height, fullPage);
                 if (mode != "html") throw new ArgumentException("mode应为window或html");
+                if (fullPage) throw new ArgumentException("full_page仅支持window模式，html为提取页定尺寸渲染");
                 if (c.GetInt("x", 0) != 0) throw new ArgumentException("html模式不支持x裁切");
                 return ManualScreenshot.Capture(c.GetString("root") ?? DefaultRoot, c.RequireString("id"), c.GetInt("y", 0),
                     width == 0 ? 1400 : width, height == 0 ? 1600 : height);

@@ -1,0 +1,2368 @@
+{
+  "pages": [
+    {
+      "id": "13-02:36",
+      "byteOffset": 3710980,
+      "standard": "GB/T 1801—1999",
+      "lower": 0,
+      "upper": 500,
+      "title": "基本尺寸至500mm的孔、轴公差带",
+      "entries": [
+        {
+          "band": "H1",
+          "raw": "H1",
+          "level": 2,
+          "kind": "孔",
+          "row": 1,
+          "column": "H"
+        },
+        {
+          "band": "JS1",
+          "raw": "Js1",
+          "level": 2,
+          "kind": "孔",
+          "row": 1,
+          "column": "JS"
+        },
+        {
+          "band": "H2",
+          "raw": "H2",
+          "level": 2,
+          "kind": "孔",
+          "row": 2,
+          "column": "H"
+        },
+        {
+          "band": "JS2",
+          "raw": "Js2",
+          "level": 2,
+          "kind": "孔",
+          "row": 2,
+          "column": "JS"
+        },
+        {
+          "band": "H3",
+          "raw": "H3",
+          "level": 2,
+          "kind": "孔",
+          "row": 3,
+          "column": "H"
+        },
+        {
+          "band": "JS3",
+          "raw": "Js3",
+          "level": 2,
+          "kind": "孔",
+          "row": 3,
+          "column": "JS"
+        },
+        {
+          "band": "H4",
+          "raw": "H4",
+          "level": 2,
+          "kind": "孔",
+          "row": 4,
+          "column": "H"
+        },
+        {
+          "band": "JS4",
+          "raw": "Js4",
+          "level": 2,
+          "kind": "孔",
+          "row": 4,
+          "column": "JS"
+        },
+        {
+          "band": "K4",
+          "raw": "K4",
+          "level": 2,
+          "kind": "孔",
+          "row": 4,
+          "column": "K"
+        },
+        {
+          "band": "M4",
+          "raw": "M4",
+          "level": 2,
+          "kind": "孔",
+          "row": 4,
+          "column": "M"
+        },
+        {
+          "band": "G5",
+          "raw": "G5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "G"
+        },
+        {
+          "band": "H5",
+          "raw": "H5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "H"
+        },
+        {
+          "band": "JS5",
+          "raw": "Js5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "JS"
+        },
+        {
+          "band": "K5",
+          "raw": "K5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "K"
+        },
+        {
+          "band": "M5",
+          "raw": "M5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "M"
+        },
+        {
+          "band": "N5",
+          "raw": "N5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "N"
+        },
+        {
+          "band": "P5",
+          "raw": "P5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "P"
+        },
+        {
+          "band": "R5",
+          "raw": "R5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "R"
+        },
+        {
+          "band": "S5",
+          "raw": "S5",
+          "level": 2,
+          "kind": "孔",
+          "row": 5,
+          "column": "S"
+        },
+        {
+          "band": "F6",
+          "raw": "F6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "F"
+        },
+        {
+          "band": "G6",
+          "raw": "G6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "G"
+        },
+        {
+          "band": "H6",
+          "raw": "H6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "H"
+        },
+        {
+          "band": "J6",
+          "raw": "J6",
+          "level": 2,
+          "kind": "孔",
+          "row": 6,
+          "column": "J"
+        },
+        {
+          "band": "JS6",
+          "raw": "Js6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "JS"
+        },
+        {
+          "band": "K6",
+          "raw": "K6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "K"
+        },
+        {
+          "band": "M6",
+          "raw": "M6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "M"
+        },
+        {
+          "band": "N6",
+          "raw": "N6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "N"
+        },
+        {
+          "band": "P6",
+          "raw": "P6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "P"
+        },
+        {
+          "band": "R6",
+          "raw": "R6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "R"
+        },
+        {
+          "band": "S6",
+          "raw": "S6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "S"
+        },
+        {
+          "band": "T6",
+          "raw": "T6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "T"
+        },
+        {
+          "band": "U6",
+          "raw": "U6",
+          "level": 2,
+          "kind": "孔",
+          "row": 6,
+          "column": "U"
+        },
+        {
+          "band": "V6",
+          "raw": "V6",
+          "level": 2,
+          "kind": "孔",
+          "row": 6,
+          "column": "V"
+        },
+        {
+          "band": "X6",
+          "raw": "X6",
+          "level": 2,
+          "kind": "孔",
+          "row": 6,
+          "column": "X"
+        },
+        {
+          "band": "Y6",
+          "raw": "Y6",
+          "level": 2,
+          "kind": "孔",
+          "row": 6,
+          "column": "Y"
+        },
+        {
+          "band": "Z6",
+          "raw": "Z6",
+          "level": 2,
+          "kind": "孔",
+          "row": 6,
+          "column": "Z"
+        },
+        {
+          "band": "D7",
+          "raw": "D7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "D"
+        },
+        {
+          "band": "E7",
+          "raw": "E7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "E"
+        },
+        {
+          "band": "F7",
+          "raw": "F7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "F"
+        },
+        {
+          "band": "G7",
+          "raw": "G7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "G"
+        },
+        {
+          "band": "H7",
+          "raw": "H7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "H"
+        },
+        {
+          "band": "J7",
+          "raw": "J7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "J"
+        },
+        {
+          "band": "JS7",
+          "raw": "Js7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "JS"
+        },
+        {
+          "band": "K7",
+          "raw": "K7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "K"
+        },
+        {
+          "band": "M7",
+          "raw": "M7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "M"
+        },
+        {
+          "band": "N7",
+          "raw": "N7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "N"
+        },
+        {
+          "band": "P7",
+          "raw": "P7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "P"
+        },
+        {
+          "band": "R7",
+          "raw": "R7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "R"
+        },
+        {
+          "band": "S7",
+          "raw": "S7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "S"
+        },
+        {
+          "band": "T7",
+          "raw": "T7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "T"
+        },
+        {
+          "band": "U7",
+          "raw": "U7",
+          "level": 4,
+          "kind": "孔",
+          "row": 7,
+          "column": "U"
+        },
+        {
+          "band": "V7",
+          "raw": "V7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "V"
+        },
+        {
+          "band": "X7",
+          "raw": "X7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "X"
+        },
+        {
+          "band": "Y7",
+          "raw": "Y7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "Y"
+        },
+        {
+          "band": "Z7",
+          "raw": "Z7",
+          "level": 2,
+          "kind": "孔",
+          "row": 7,
+          "column": "Z"
+        },
+        {
+          "band": "C8",
+          "raw": "C8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "C"
+        },
+        {
+          "band": "D8",
+          "raw": "D8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "D"
+        },
+        {
+          "band": "E8",
+          "raw": "E8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "E"
+        },
+        {
+          "band": "F8",
+          "raw": "F8",
+          "level": 4,
+          "kind": "孔",
+          "row": 8,
+          "column": "F"
+        },
+        {
+          "band": "G8",
+          "raw": "G8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "G"
+        },
+        {
+          "band": "H8",
+          "raw": "H8",
+          "level": 4,
+          "kind": "孔",
+          "row": 8,
+          "column": "H"
+        },
+        {
+          "band": "J8",
+          "raw": "J8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "J"
+        },
+        {
+          "band": "JS8",
+          "raw": "Js8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "JS"
+        },
+        {
+          "band": "K8",
+          "raw": "K8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "K"
+        },
+        {
+          "band": "M8",
+          "raw": "M8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "M"
+        },
+        {
+          "band": "N8",
+          "raw": "N8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "N"
+        },
+        {
+          "band": "P8",
+          "raw": "P8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "P"
+        },
+        {
+          "band": "R8",
+          "raw": "R8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "R"
+        },
+        {
+          "band": "S8",
+          "raw": "S8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "S"
+        },
+        {
+          "band": "T8",
+          "raw": "T8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "T"
+        },
+        {
+          "band": "U8",
+          "raw": "U8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "U"
+        },
+        {
+          "band": "V8",
+          "raw": "V8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "V"
+        },
+        {
+          "band": "X8",
+          "raw": "X8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "X"
+        },
+        {
+          "band": "Y8",
+          "raw": "Y8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "Y"
+        },
+        {
+          "band": "Z8",
+          "raw": "Z8",
+          "level": 2,
+          "kind": "孔",
+          "row": 8,
+          "column": "Z"
+        },
+        {
+          "band": "A9",
+          "raw": "A9",
+          "level": 2,
+          "kind": "孔",
+          "row": 9,
+          "column": "A"
+        },
+        {
+          "band": "B9",
+          "raw": "B9",
+          "level": 2,
+          "kind": "孔",
+          "row": 9,
+          "column": "B"
+        },
+        {
+          "band": "C9",
+          "raw": "C9",
+          "level": 2,
+          "kind": "孔",
+          "row": 9,
+          "column": "C"
+        },
+        {
+          "band": "D9",
+          "raw": "D9",
+          "level": 4,
+          "kind": "孔",
+          "row": 9,
+          "column": "D"
+        },
+        {
+          "band": "E9",
+          "raw": "E9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "E"
+        },
+        {
+          "band": "F9",
+          "raw": "F9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "F"
+        },
+        {
+          "band": "H9",
+          "raw": "H9",
+          "level": 4,
+          "kind": "孔",
+          "row": 9,
+          "column": "H"
+        },
+        {
+          "band": "JS9",
+          "raw": "Js9",
+          "level": 2,
+          "kind": "孔",
+          "row": 9,
+          "column": "JS"
+        },
+        {
+          "band": "N9",
+          "raw": "N9",
+          "level": 2,
+          "kind": "孔",
+          "row": 9,
+          "column": "N"
+        },
+        {
+          "band": "P9",
+          "raw": "P9",
+          "level": 2,
+          "kind": "孔",
+          "row": 9,
+          "column": "P"
+        },
+        {
+          "band": "A10",
+          "raw": "A10",
+          "level": 2,
+          "kind": "孔",
+          "row": 10,
+          "column": "A"
+        },
+        {
+          "band": "B10",
+          "raw": "B10",
+          "level": 2,
+          "kind": "孔",
+          "row": 10,
+          "column": "B"
+        },
+        {
+          "band": "C10",
+          "raw": "C10",
+          "level": 2,
+          "kind": "孔",
+          "row": 10,
+          "column": "C"
+        },
+        {
+          "band": "D10",
+          "raw": "D10",
+          "level": 3,
+          "kind": "孔",
+          "row": 10,
+          "column": "D"
+        },
+        {
+          "band": "E10",
+          "raw": "E10",
+          "level": 2,
+          "kind": "孔",
+          "row": 10,
+          "column": "E"
+        },
+        {
+          "band": "H10",
+          "raw": "H10",
+          "level": 3,
+          "kind": "孔",
+          "row": 10,
+          "column": "H"
+        },
+        {
+          "band": "JS10",
+          "raw": "Js10",
+          "level": 2,
+          "kind": "孔",
+          "row": 10,
+          "column": "JS"
+        },
+        {
+          "band": "A11",
+          "raw": "A11",
+          "level": 3,
+          "kind": "孔",
+          "row": 11,
+          "column": "A"
+        },
+        {
+          "band": "B11",
+          "raw": "B11",
+          "level": 3,
+          "kind": "孔",
+          "row": 11,
+          "column": "B"
+        },
+        {
+          "band": "C11",
+          "raw": "C11",
+          "level": 4,
+          "kind": "孔",
+          "row": 11,
+          "column": "C"
+        },
+        {
+          "band": "D11",
+          "raw": "D11",
+          "level": 3,
+          "kind": "孔",
+          "row": 11,
+          "column": "D"
+        },
+        {
+          "band": "H11",
+          "raw": "H11",
+          "level": 4,
+          "kind": "孔",
+          "row": 11,
+          "column": "H"
+        },
+        {
+          "band": "JS11",
+          "raw": "Js11",
+          "level": 2,
+          "kind": "孔",
+          "row": 11,
+          "column": "JS"
+        },
+        {
+          "band": "A12",
+          "raw": "A12",
+          "level": 2,
+          "kind": "孔",
+          "row": 12,
+          "column": "A"
+        },
+        {
+          "band": "B12",
+          "raw": "B12",
+          "level": 3,
+          "kind": "孔",
+          "row": 12,
+          "column": "B"
+        },
+        {
+          "band": "C12",
+          "raw": "C12",
+          "level": 2,
+          "kind": "孔",
+          "row": 12,
+          "column": "C"
+        },
+        {
+          "band": "H12",
+          "raw": "H12",
+          "level": 3,
+          "kind": "孔",
+          "row": 12,
+          "column": "H"
+        },
+        {
+          "band": "JS12",
+          "raw": "Js12",
+          "level": 2,
+          "kind": "孔",
+          "row": 12,
+          "column": "JS"
+        },
+        {
+          "band": "H13",
+          "raw": "H13",
+          "level": 2,
+          "kind": "孔",
+          "row": 13,
+          "column": "H"
+        },
+        {
+          "band": "JS13",
+          "raw": "Js13",
+          "level": 2,
+          "kind": "孔",
+          "row": 13,
+          "column": "JS"
+        },
+        {
+          "band": "h1",
+          "raw": "h1",
+          "level": 2,
+          "kind": "轴",
+          "row": 1,
+          "column": "h"
+        },
+        {
+          "band": "js1",
+          "raw": "js1",
+          "level": 2,
+          "kind": "轴",
+          "row": 1,
+          "column": "js"
+        },
+        {
+          "band": "h2",
+          "raw": "h2",
+          "level": 2,
+          "kind": "轴",
+          "row": 2,
+          "column": "h"
+        },
+        {
+          "band": "js2",
+          "raw": "js2",
+          "level": 2,
+          "kind": "轴",
+          "row": 2,
+          "column": "js"
+        },
+        {
+          "band": "h3",
+          "raw": "h3",
+          "level": 2,
+          "kind": "轴",
+          "row": 3,
+          "column": "h"
+        },
+        {
+          "band": "js3",
+          "raw": "js3",
+          "level": 2,
+          "kind": "轴",
+          "row": 3,
+          "column": "js"
+        },
+        {
+          "band": "g4",
+          "raw": "g4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "g"
+        },
+        {
+          "band": "h4",
+          "raw": "h4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "h"
+        },
+        {
+          "band": "js4",
+          "raw": "js4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "js"
+        },
+        {
+          "band": "k4",
+          "raw": "k4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "k"
+        },
+        {
+          "band": "m4",
+          "raw": "m4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "m"
+        },
+        {
+          "band": "n4",
+          "raw": "n4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "n"
+        },
+        {
+          "band": "p4",
+          "raw": "p4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "p"
+        },
+        {
+          "band": "r4",
+          "raw": "r4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "r"
+        },
+        {
+          "band": "s4",
+          "raw": "s4",
+          "level": 2,
+          "kind": "轴",
+          "row": 4,
+          "column": "s"
+        },
+        {
+          "band": "f5",
+          "raw": "f5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "f"
+        },
+        {
+          "band": "g5",
+          "raw": "g5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "g"
+        },
+        {
+          "band": "h5",
+          "raw": "h5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "h"
+        },
+        {
+          "band": "j5",
+          "raw": "j5",
+          "level": 2,
+          "kind": "轴",
+          "row": 5,
+          "column": "j"
+        },
+        {
+          "band": "js5",
+          "raw": "js5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "js"
+        },
+        {
+          "band": "k5",
+          "raw": "k5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "k"
+        },
+        {
+          "band": "m5",
+          "raw": "m5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "m"
+        },
+        {
+          "band": "n5",
+          "raw": "n5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "n"
+        },
+        {
+          "band": "p5",
+          "raw": "p5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "p"
+        },
+        {
+          "band": "r5",
+          "raw": "r5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "r"
+        },
+        {
+          "band": "s5",
+          "raw": "s5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "s"
+        },
+        {
+          "band": "t5",
+          "raw": "t5",
+          "level": 3,
+          "kind": "轴",
+          "row": 5,
+          "column": "t"
+        },
+        {
+          "band": "u5",
+          "raw": "u5",
+          "level": 2,
+          "kind": "轴",
+          "row": 5,
+          "column": "u"
+        },
+        {
+          "band": "v5",
+          "raw": "v5",
+          "level": 2,
+          "kind": "轴",
+          "row": 5,
+          "column": "v"
+        },
+        {
+          "band": "x5",
+          "raw": "x5",
+          "level": 2,
+          "kind": "轴",
+          "row": 5,
+          "column": "x"
+        },
+        {
+          "band": "e6",
+          "raw": "e6",
+          "level": 2,
+          "kind": "轴",
+          "row": 6,
+          "column": "e"
+        },
+        {
+          "band": "f6",
+          "raw": "f6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "f"
+        },
+        {
+          "band": "g6",
+          "raw": "g6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "g"
+        },
+        {
+          "band": "h6",
+          "raw": "h6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "h"
+        },
+        {
+          "band": "j6",
+          "raw": "j6",
+          "level": 2,
+          "kind": "轴",
+          "row": 6,
+          "column": "j"
+        },
+        {
+          "band": "js6",
+          "raw": "js6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "js"
+        },
+        {
+          "band": "k6",
+          "raw": "k6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "k"
+        },
+        {
+          "band": "m6",
+          "raw": "m6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "m"
+        },
+        {
+          "band": "n6",
+          "raw": "n6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "n"
+        },
+        {
+          "band": "p6",
+          "raw": "p6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "p"
+        },
+        {
+          "band": "r6",
+          "raw": "r6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "r"
+        },
+        {
+          "band": "s6",
+          "raw": "s6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "s"
+        },
+        {
+          "band": "t6",
+          "raw": "t6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "t"
+        },
+        {
+          "band": "u6",
+          "raw": "u6",
+          "level": 4,
+          "kind": "轴",
+          "row": 6,
+          "column": "u"
+        },
+        {
+          "band": "v6",
+          "raw": "v6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "v"
+        },
+        {
+          "band": "x6",
+          "raw": "x6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "x"
+        },
+        {
+          "band": "y6",
+          "raw": "y6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "y"
+        },
+        {
+          "band": "z6",
+          "raw": "z6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "z"
+        },
+        {
+          "band": "d7",
+          "raw": "d7",
+          "level": 2,
+          "kind": "轴",
+          "row": 7,
+          "column": "d"
+        },
+        {
+          "band": "e7",
+          "raw": "e7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "e"
+        },
+        {
+          "band": "f7",
+          "raw": "f7",
+          "level": 4,
+          "kind": "轴",
+          "row": 7,
+          "column": "f"
+        },
+        {
+          "band": "g7",
+          "raw": "g7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "g"
+        },
+        {
+          "band": "h7",
+          "raw": "h7",
+          "level": 4,
+          "kind": "轴",
+          "row": 7,
+          "column": "h"
+        },
+        {
+          "band": "j7",
+          "raw": "j7",
+          "level": 2,
+          "kind": "轴",
+          "row": 7,
+          "column": "j"
+        },
+        {
+          "band": "js7",
+          "raw": "js7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "js"
+        },
+        {
+          "band": "k7",
+          "raw": "k7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "k"
+        },
+        {
+          "band": "m7",
+          "raw": "m7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "m"
+        },
+        {
+          "band": "n7",
+          "raw": "n7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "n"
+        },
+        {
+          "band": "p7",
+          "raw": "p7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "p"
+        },
+        {
+          "band": "r7",
+          "raw": "r7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "r"
+        },
+        {
+          "band": "s7",
+          "raw": "s7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "s"
+        },
+        {
+          "band": "t7",
+          "raw": "t7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "t"
+        },
+        {
+          "band": "u7",
+          "raw": "u7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "u"
+        },
+        {
+          "band": "v7",
+          "raw": "v7",
+          "level": 2,
+          "kind": "轴",
+          "row": 7,
+          "column": "v"
+        },
+        {
+          "band": "x7",
+          "raw": "x7",
+          "level": 2,
+          "kind": "轴",
+          "row": 7,
+          "column": "x"
+        },
+        {
+          "band": "y7",
+          "raw": "y7",
+          "level": 2,
+          "kind": "轴",
+          "row": 7,
+          "column": "y"
+        },
+        {
+          "band": "z7",
+          "raw": "z7",
+          "level": 2,
+          "kind": "轴",
+          "row": 7,
+          "column": "z"
+        },
+        {
+          "band": "c8",
+          "raw": "c8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "c"
+        },
+        {
+          "band": "d8",
+          "raw": "d8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "d"
+        },
+        {
+          "band": "e8",
+          "raw": "e8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "e"
+        },
+        {
+          "band": "f8",
+          "raw": "f8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "f"
+        },
+        {
+          "band": "g8",
+          "raw": "g8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "g"
+        },
+        {
+          "band": "h8",
+          "raw": "h8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "h"
+        },
+        {
+          "band": "js8",
+          "raw": "js8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "js"
+        },
+        {
+          "band": "k8",
+          "raw": "k8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "k"
+        },
+        {
+          "band": "m8",
+          "raw": "m8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "m"
+        },
+        {
+          "band": "n8",
+          "raw": "n8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "n"
+        },
+        {
+          "band": "p8",
+          "raw": "p8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "p"
+        },
+        {
+          "band": "r8",
+          "raw": "r8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "r"
+        },
+        {
+          "band": "s8",
+          "raw": "s8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "s"
+        },
+        {
+          "band": "t8",
+          "raw": "t8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "t"
+        },
+        {
+          "band": "u8",
+          "raw": "u8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "u"
+        },
+        {
+          "band": "v8",
+          "raw": "v8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "v"
+        },
+        {
+          "band": "x8",
+          "raw": "x8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "x"
+        },
+        {
+          "band": "y8",
+          "raw": "y8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "y"
+        },
+        {
+          "band": "z8",
+          "raw": "z8",
+          "level": 2,
+          "kind": "轴",
+          "row": 8,
+          "column": "z"
+        },
+        {
+          "band": "a9",
+          "raw": "a9",
+          "level": 2,
+          "kind": "轴",
+          "row": 9,
+          "column": "a"
+        },
+        {
+          "band": "b9",
+          "raw": "b9",
+          "level": 2,
+          "kind": "轴",
+          "row": 9,
+          "column": "b"
+        },
+        {
+          "band": "c9",
+          "raw": "c9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "c"
+        },
+        {
+          "band": "d9",
+          "raw": "d9",
+          "level": 4,
+          "kind": "轴",
+          "row": 9,
+          "column": "d"
+        },
+        {
+          "band": "e9",
+          "raw": "e9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "e"
+        },
+        {
+          "band": "f9",
+          "raw": "f9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "f"
+        },
+        {
+          "band": "h9",
+          "raw": "h9",
+          "level": 4,
+          "kind": "轴",
+          "row": 9,
+          "column": "h"
+        },
+        {
+          "band": "js9",
+          "raw": "js9",
+          "level": 2,
+          "kind": "轴",
+          "row": 9,
+          "column": "js"
+        },
+        {
+          "band": "a10",
+          "raw": "a10",
+          "level": 2,
+          "kind": "轴",
+          "row": 10,
+          "column": "a"
+        },
+        {
+          "band": "b10",
+          "raw": "b10",
+          "level": 2,
+          "kind": "轴",
+          "row": 10,
+          "column": "b"
+        },
+        {
+          "band": "c10",
+          "raw": "c10",
+          "level": 3,
+          "kind": "轴",
+          "row": 10,
+          "column": "c"
+        },
+        {
+          "band": "d10",
+          "raw": "d10",
+          "level": 3,
+          "kind": "轴",
+          "row": 10,
+          "column": "d"
+        },
+        {
+          "band": "e10",
+          "raw": "e10",
+          "level": 2,
+          "kind": "轴",
+          "row": 10,
+          "column": "e"
+        },
+        {
+          "band": "h10",
+          "raw": "h10",
+          "level": 3,
+          "kind": "轴",
+          "row": 10,
+          "column": "h"
+        },
+        {
+          "band": "js10",
+          "raw": "js10",
+          "level": 2,
+          "kind": "轴",
+          "row": 10,
+          "column": "js"
+        },
+        {
+          "band": "a11",
+          "raw": "a11",
+          "level": 3,
+          "kind": "轴",
+          "row": 11,
+          "column": "a"
+        },
+        {
+          "band": "b11",
+          "raw": "b11",
+          "level": 3,
+          "kind": "轴",
+          "row": 11,
+          "column": "b"
+        },
+        {
+          "band": "c11",
+          "raw": "c11",
+          "level": 4,
+          "kind": "轴",
+          "row": 11,
+          "column": "c"
+        },
+        {
+          "band": "d11",
+          "raw": "d11",
+          "level": 3,
+          "kind": "轴",
+          "row": 11,
+          "column": "d"
+        },
+        {
+          "band": "h11",
+          "raw": "h11",
+          "level": 4,
+          "kind": "轴",
+          "row": 11,
+          "column": "h"
+        },
+        {
+          "band": "js11",
+          "raw": "js11",
+          "level": 2,
+          "kind": "轴",
+          "row": 11,
+          "column": "js"
+        },
+        {
+          "band": "a12",
+          "raw": "a12",
+          "level": 2,
+          "kind": "轴",
+          "row": 12,
+          "column": "a"
+        },
+        {
+          "band": "b12",
+          "raw": "b12",
+          "level": 3,
+          "kind": "轴",
+          "row": 12,
+          "column": "b"
+        },
+        {
+          "band": "c12",
+          "raw": "c12",
+          "level": 2,
+          "kind": "轴",
+          "row": 12,
+          "column": "c"
+        },
+        {
+          "band": "h12",
+          "raw": "h12",
+          "level": 3,
+          "kind": "轴",
+          "row": 12,
+          "column": "h"
+        },
+        {
+          "band": "js12",
+          "raw": "js12",
+          "level": 2,
+          "kind": "轴",
+          "row": 12,
+          "column": "js"
+        },
+        {
+          "band": "a13",
+          "raw": "a13",
+          "level": 2,
+          "kind": "轴",
+          "row": 13,
+          "column": "a"
+        },
+        {
+          "band": "b13",
+          "raw": "b13",
+          "level": 2,
+          "kind": "轴",
+          "row": 13,
+          "column": "b"
+        },
+        {
+          "band": "h13",
+          "raw": "h13",
+          "level": 2,
+          "kind": "轴",
+          "row": 13,
+          "column": "h"
+        },
+        {
+          "band": "js13",
+          "raw": "js13",
+          "level": 2,
+          "kind": "轴",
+          "row": 13,
+          "column": "js"
+        }
+      ]
+    },
+    {
+      "id": "13-02:37",
+      "byteOffset": 3713060,
+      "standard": "GB/T 1801—1999",
+      "lower": 500,
+      "upper": 3150,
+      "title": "基本尺寸大于500～3 150的孔、轴公差带",
+      "entries": [
+        {
+          "band": "G6",
+          "raw": "G6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "G"
+        },
+        {
+          "band": "H6",
+          "raw": "H6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "H"
+        },
+        {
+          "band": "JS6",
+          "raw": "Js6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "JS"
+        },
+        {
+          "band": "K6",
+          "raw": "K6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "K"
+        },
+        {
+          "band": "M6",
+          "raw": "M6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "M"
+        },
+        {
+          "band": "N6",
+          "raw": "N6",
+          "level": 3,
+          "kind": "孔",
+          "row": 6,
+          "column": "N"
+        },
+        {
+          "band": "F7",
+          "raw": "F7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "F"
+        },
+        {
+          "band": "G7",
+          "raw": "G7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "G"
+        },
+        {
+          "band": "H7",
+          "raw": "H7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "H"
+        },
+        {
+          "band": "JS7",
+          "raw": "Js7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "JS"
+        },
+        {
+          "band": "K7",
+          "raw": "K7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "K"
+        },
+        {
+          "band": "M7",
+          "raw": "M7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "M"
+        },
+        {
+          "band": "N7",
+          "raw": "N7",
+          "level": 3,
+          "kind": "孔",
+          "row": 7,
+          "column": "N"
+        },
+        {
+          "band": "D8",
+          "raw": "D8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "D"
+        },
+        {
+          "band": "E8",
+          "raw": "E8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "E"
+        },
+        {
+          "band": "F8",
+          "raw": "F8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "F"
+        },
+        {
+          "band": "H8",
+          "raw": "H8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "H"
+        },
+        {
+          "band": "JS8",
+          "raw": "Js8",
+          "level": 3,
+          "kind": "孔",
+          "row": 8,
+          "column": "JS"
+        },
+        {
+          "band": "D9",
+          "raw": "D9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "D"
+        },
+        {
+          "band": "E9",
+          "raw": "E9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "E"
+        },
+        {
+          "band": "F9",
+          "raw": "F9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "F"
+        },
+        {
+          "band": "H9",
+          "raw": "H9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "H"
+        },
+        {
+          "band": "JS9",
+          "raw": "Js9",
+          "level": 3,
+          "kind": "孔",
+          "row": 9,
+          "column": "JS"
+        },
+        {
+          "band": "D10",
+          "raw": "D10",
+          "level": 3,
+          "kind": "孔",
+          "row": 10,
+          "column": "D"
+        },
+        {
+          "band": "H10",
+          "raw": "H10",
+          "level": 3,
+          "kind": "孔",
+          "row": 10,
+          "column": "H"
+        },
+        {
+          "band": "JS10",
+          "raw": "Js10",
+          "level": 3,
+          "kind": "孔",
+          "row": 10,
+          "column": "JS"
+        },
+        {
+          "band": "D11",
+          "raw": "D11",
+          "level": 3,
+          "kind": "孔",
+          "row": 11,
+          "column": "D"
+        },
+        {
+          "band": "H11",
+          "raw": "H11",
+          "level": 3,
+          "kind": "孔",
+          "row": 11,
+          "column": "H"
+        },
+        {
+          "band": "JS11",
+          "raw": "Js11",
+          "level": 3,
+          "kind": "孔",
+          "row": 11,
+          "column": "JS"
+        },
+        {
+          "band": "H12",
+          "raw": "H12",
+          "level": 3,
+          "kind": "孔",
+          "row": 12,
+          "column": "H"
+        },
+        {
+          "band": "JS12",
+          "raw": "Js12",
+          "level": 3,
+          "kind": "孔",
+          "row": 12,
+          "column": "JS"
+        },
+        {
+          "band": "g6",
+          "raw": "g6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "g"
+        },
+        {
+          "band": "h6",
+          "raw": "h6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "h"
+        },
+        {
+          "band": "js6",
+          "raw": "js6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "js"
+        },
+        {
+          "band": "k6",
+          "raw": "k6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "k"
+        },
+        {
+          "band": "m6",
+          "raw": "m6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "m"
+        },
+        {
+          "band": "n6",
+          "raw": "n6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "n"
+        },
+        {
+          "band": "p6",
+          "raw": "p6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "p"
+        },
+        {
+          "band": "r6",
+          "raw": "r6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "r"
+        },
+        {
+          "band": "s6",
+          "raw": "s6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "s"
+        },
+        {
+          "band": "t6",
+          "raw": "t6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "t"
+        },
+        {
+          "band": "u6",
+          "raw": "u6",
+          "level": 3,
+          "kind": "轴",
+          "row": 6,
+          "column": "u"
+        },
+        {
+          "band": "f7",
+          "raw": "f7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "f"
+        },
+        {
+          "band": "g7",
+          "raw": "g7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "g"
+        },
+        {
+          "band": "h7",
+          "raw": "h7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "h"
+        },
+        {
+          "band": "js7",
+          "raw": "js7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "js"
+        },
+        {
+          "band": "k7",
+          "raw": "k7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "k"
+        },
+        {
+          "band": "m7",
+          "raw": "m7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "m"
+        },
+        {
+          "band": "n7",
+          "raw": "n7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "n"
+        },
+        {
+          "band": "p7",
+          "raw": "p7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "p"
+        },
+        {
+          "band": "r7",
+          "raw": "r7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "r"
+        },
+        {
+          "band": "s7",
+          "raw": "s7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "s"
+        },
+        {
+          "band": "t7",
+          "raw": "t7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "t"
+        },
+        {
+          "band": "u7",
+          "raw": "u7",
+          "level": 3,
+          "kind": "轴",
+          "row": 7,
+          "column": "u"
+        },
+        {
+          "band": "d8",
+          "raw": "d8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "d"
+        },
+        {
+          "band": "e8",
+          "raw": "e8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "e"
+        },
+        {
+          "band": "f8",
+          "raw": "f8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "f"
+        },
+        {
+          "band": "h8",
+          "raw": "h8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "h"
+        },
+        {
+          "band": "js8",
+          "raw": "js8",
+          "level": 3,
+          "kind": "轴",
+          "row": 8,
+          "column": "js"
+        },
+        {
+          "band": "d9",
+          "raw": "d9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "d"
+        },
+        {
+          "band": "e9",
+          "raw": "e9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "e"
+        },
+        {
+          "band": "f9",
+          "raw": "f9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "f"
+        },
+        {
+          "band": "h9",
+          "raw": "h9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "h"
+        },
+        {
+          "band": "js9",
+          "raw": "js9",
+          "level": 3,
+          "kind": "轴",
+          "row": 9,
+          "column": "js"
+        },
+        {
+          "band": "d10",
+          "raw": "d10",
+          "level": 3,
+          "kind": "轴",
+          "row": 10,
+          "column": "d"
+        },
+        {
+          "band": "h10",
+          "raw": "h10",
+          "level": 3,
+          "kind": "轴",
+          "row": 10,
+          "column": "h"
+        },
+        {
+          "band": "js10",
+          "raw": "js10",
+          "level": 3,
+          "kind": "轴",
+          "row": 10,
+          "column": "js"
+        },
+        {
+          "band": "d11",
+          "raw": "d11",
+          "level": 3,
+          "kind": "轴",
+          "row": 11,
+          "column": "d"
+        },
+        {
+          "band": "h11",
+          "raw": "h11",
+          "level": 3,
+          "kind": "轴",
+          "row": 11,
+          "column": "h"
+        },
+        {
+          "band": "js11",
+          "raw": "js11",
+          "level": 3,
+          "kind": "轴",
+          "row": 11,
+          "column": "js"
+        },
+        {
+          "band": "h12",
+          "raw": "h12",
+          "level": 3,
+          "kind": "轴",
+          "row": 12,
+          "column": "h"
+        },
+        {
+          "band": "js12",
+          "raw": "js12",
+          "level": 3,
+          "kind": "轴",
+          "row": 12,
+          "column": "js"
+        }
+      ]
+    }
+  ]
+}

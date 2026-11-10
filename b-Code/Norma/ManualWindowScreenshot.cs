@@ -13,9 +13,17 @@ internal static class ManualWindowScreenshot
             throw new ArgumentException("窗口裁切x/y/width/height应为0～12000像素；width/height=0截到窗口边缘");
     }
 
-    internal static object Capture(string root, string? id, int x, int y, int width, int height)
+    internal static object Capture(string root, string? id, int x, int y, int width, int height, bool fullPage = false)
     {
-        return Run(root, "capture", null, null, null, 0, 30, id, x, y, width, height);
+        ValidateFullPage(fullPage, x, y, width, height);
+        return Run(root, "capture", null, null, null, 0, 30, id, x, y, width, height, fullPage: fullPage);
+    }
+
+    internal static void ValidateFullPage(bool fullPage, int x, int y, int width, int height)
+    {
+        Validate(x, y, width, height);
+        if (fullPage && (x != 0 || y != 0 || width != 0 || height != 0))
+            throw new ArgumentException("full_page=true不能与x/y/width/height局部裁切混用");
     }
 
     internal static object Open(string root, string name, string? path, int scrollY = 0)
@@ -29,7 +37,7 @@ internal static class ManualWindowScreenshot
         return Run(root, "directory", null, null, query, offset, limit, null, 0, 0, 0, 0);
     }
 
-    private static object Run(string root, string action, string? name, string? path, string? query, int offset, int limit, string? id, int x, int y, int width, int height, int scrollY = 0)
+    private static object Run(string root, string action, string? name, string? path, string? query, int offset, int limit, string? id, int x, int y, int width, int height, int scrollY = 0, bool fullPage = false)
     {
         Validate(x, y, width, height);
         if (action == "open" && string.IsNullOrWhiteSpace(name)) throw new ArgumentException("name必填，应为完整页名称");
@@ -66,6 +74,7 @@ internal static class ManualWindowScreenshot
             "-X", x.ToString(CultureInfo.InvariantCulture), "-Y", y.ToString(CultureInfo.InvariantCulture), "-Width", width.ToString(CultureInfo.InvariantCulture), "-Height", height.ToString(CultureInfo.InvariantCulture), "-OutputPath", image }) start.ArgumentList.Add(arg);
         foreach (var pair in new[] { ("-Action", action), ("-ScrollY", scrollY.ToString(CultureInfo.InvariantCulture)), ("-PageName", name), ("-PagePath", path), ("-Query", query), ("-Offset", offset.ToString(CultureInfo.InvariantCulture)), ("-Limit", limit.ToString(CultureInfo.InvariantCulture)) })
             if (pair.Item2 is not null) { start.ArgumentList.Add(pair.Item1); start.ArgumentList.Add(pair.Item2); }
+        if (fullPage) start.ArgumentList.Add("-FullPage");
         using var child = Process.Start(start) ?? throw new IOException("无法启动Windows系统截图辅助进程");
         var stdout = child.StandardOutput.ReadToEndAsync();
         var stderr = child.StandardError.ReadToEndAsync();

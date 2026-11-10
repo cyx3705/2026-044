@@ -29,6 +29,7 @@ public sealed class NormaModule : IModuleContextAware
         CastIronCommands.Register(registry);
         NamedMaterialCommands.Register(registry);
         ProductCommands.Register(registry);
+        BasicCommands.Register(registry);
 
         foreach (var calculation in Catalog.All)
             registry.Register(NormaCommands.For(calculation));
@@ -46,9 +47,9 @@ public sealed class NormaModule : IModuleContextAware
                 new ParameterSpec
                 {
                     Name = "topic",
-                    Description = "只列这一类，如 gear、bolt、bearing；material 为机械材料（强度与物理性能）；省略列全部",
+                    Description = "只列这一类，如 gear、bolt、bearing；material为机械材料，basic为基础标准；省略列全部",
                     Type = ParamType.String,
-                    AllowedValues = Catalog.All.Select(item => item.Topic).Distinct().ToArray(),
+                    AllowedValues = Catalog.All.Select(item => item.Topic).Append("basic").Distinct().ToArray(),
                 },
             ],
             Handler = CommandDescriptor.Sync(context =>

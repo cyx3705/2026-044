@@ -1,0 +1,2081 @@
+{
+  "requirement": "REQ-BASIC-028",
+  "version": "0.13.0",
+  "scope": "极限与配合62叶页",
+  "interpretation": "60页数据/公式归Norma，2页知识归Usus；术语原图未迁入，不宣称图示资产完整",
+  "sourceFile": "13-02/13-02.ysc",
+  "sourceSha256": "a546e27146b2aa87f7e2493785a046130194b31bcfeaacf54472f19fbe707c51",
+  "counts": {
+    "data": 58,
+    "calculation": 2,
+    "knowledge": 2
+  },
+  "pages": [
+    {
+      "id": "13-02:1",
+      "byteOffset": 5581,
+      "title": "极限与配合术语及定义（摘自GB/T 1800",
+      "status": "knowledge",
+      "targets": [
+        "usus.kb.show"
+      ],
+      "dataset": "Usus:U0002～U0040",
+      "note": "39条术语；图示仅文字引用，原图未迁入Usus"
+    },
+    {
+      "id": "13-02:2",
+      "byteOffset": 38513,
+      "title": "轴的基本偏差数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "basic-standards.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:3",
+      "byteOffset": 264534,
+      "title": "孔的基本偏差数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "basic-standards.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:4",
+      "byteOffset": 481274,
+      "title": "标准公差数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "basic-standards.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:5",
+      "byteOffset": 579635,
+      "title": "孔A、B和C的极限偏差（摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:6",
+      "byteOffset": 729349,
+      "title": "孔CD、D和E的极限偏差（摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:7",
+      "byteOffset": 864676,
+      "title": "孔EF和F的极限偏差（摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:8",
+      "byteOffset": 960129,
+      "title": "孔FG和G的极限偏差（摘自GB/T1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:9",
+      "byteOffset": 1047211,
+      "title": "孔H的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:10",
+      "byteOffset": 1193799,
+      "title": "基本尺寸/mm",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:11",
+      "byteOffset": 1303542,
+      "title": "孔J和K的极限偏差（摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:12",
+      "byteOffset": 1384492,
+      "title": "孔M和N的极限偏差（摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:13",
+      "byteOffset": 1495182,
+      "title": "孔P的极限偏差 （摘自GB/T18004—1999）",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:14",
+      "byteOffset": 1560835,
+      "title": "孔R的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:15",
+      "byteOffset": 1668216,
+      "title": "孔S的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:16",
+      "byteOffset": 1777340,
+      "title": "孔T和U的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:17",
+      "byteOffset": 1925581,
+      "title": "孔V、X和Y的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:18",
+      "byteOffset": 2050477,
+      "title": "孔Z和ZA的极限偏差 （摘自GB/T 18004—1999） (µm)",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:19",
+      "byteOffset": 2170483,
+      "title": "孔ZB和ZC的极限偏差（摘自GB/T 18004—1999） （µm）",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "hole-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:20",
+      "byteOffset": 2277450,
+      "title": "轴a、b和c的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:21",
+      "byteOffset": 2418761,
+      "title": "轴cd和 在的极限领头",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:22",
+      "byteOffset": 2517497,
+      "title": "轴e和ef的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:23",
+      "byteOffset": 2600295,
+      "title": "轴f和fg的极限偏差 （摘自GB/T1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:24",
+      "byteOffset": 2704922,
+      "title": "轴g的极限偏差（摘自GN）",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:25",
+      "byteOffset": 2769224,
+      "title": "13.2-25",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:26",
+      "byteOffset": 2770282,
+      "title": "轴js的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:27",
+      "byteOffset": 2771422,
+      "title": "轴j和k的极限偏差 （摘自GB/T1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:28",
+      "byteOffset": 2861693,
+      "title": "轴m和n的极限偏差 （摘自GB/T1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:29",
+      "byteOffset": 2961232,
+      "title": "轴p的极限偏差 （摘自GB/T1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:30",
+      "byteOffset": 3025694,
+      "title": "轴r的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:31",
+      "byteOffset": 3136275,
+      "title": "轴s的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:32",
+      "byteOffset": 3249574,
+      "title": "轴t和u的极限偏差 （摘自GB/T1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:33",
+      "byteOffset": 3390081,
+      "title": "轴v、x和y的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:34",
+      "byteOffset": 3504324,
+      "title": "轴z和za的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:35",
+      "byteOffset": 3604093,
+      "title": "轴zb和zc的极限偏差 （摘自GB/T 1800",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "shaft-limit-deviations.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:36",
+      "byteOffset": 3710980,
+      "title": "基本尺寸至500mm的孔、轴公差带",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "band-usage.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:37",
+      "byteOffset": 3713060,
+      "title": "基本尺寸大于500～3 150的孔、轴公差带",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "band-usage.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:38",
+      "byteOffset": 3747142,
+      "title": "基孔制优先和常用配合 （摘自GB/T 1801—1999）",
+      "status": "data",
+      "targets": [
+        "norma.basic.fit"
+      ],
+      "dataset": "fit-standards.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:39",
+      "byteOffset": 3790997,
+      "title": "基准孔",
+      "status": "data",
+      "targets": [
+        "norma.basic.fit"
+      ],
+      "dataset": "fit-standards.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:40",
+      "byteOffset": 3833749,
+      "title": "优先、常用配合的极限间隙或极限过盈 （摘自GB/T 1801—1999） （µm）",
+      "status": "data",
+      "targets": [
+        "norma.basic.fit"
+      ],
+      "dataset": "fit-standards.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:41",
+      "byteOffset": 4246979,
+      "title": "公差等级的应用范围",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "tolerance-selection.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:42",
+      "byteOffset": 4271821,
+      "title": "公差等级的选择及应用",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "tolerance-selection.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:43",
+      "byteOffset": 4286803,
+      "title": "常用加工方法可能达到的公差等级",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "tolerance-selection.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:44",
+      "byteOffset": 4353384,
+      "title": "各公差等级对应的经济加工方法",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "tolerance-selection.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:45",
+      "byteOffset": 4360957,
+      "title": "不同公差等级加工成本比较",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "tolerance-selection.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:46",
+      "byteOffset": 4412692,
+      "title": "轴的各种基本偏差的应用",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "band-applications.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:47",
+      "byteOffset": 4425145,
+      "title": "优先、常用配合特性及应用举例",
+      "status": "data",
+      "targets": [
+        "norma.basic.fit"
+      ],
+      "dataset": "fit-applications.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:48",
+      "byteOffset": 4474651,
+      "title": "工作状况对过盈和间隙的影响",
+      "status": "knowledge",
+      "targets": [
+        "usus.kb.show"
+      ],
+      "dataset": "Usus:U0041",
+      "note": "14项工况整表一条"
+    },
+    {
+      "id": "13-02:49",
+      "byteOffset": 4485338,
+      "title": "线性尺寸的极限偏差数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.general"
+      ],
+      "dataset": "general-tolerances.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:50",
+      "byteOffset": 4496323,
+      "title": "倒圆半径和倒角高度尺寸的极限偏差数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.general"
+      ],
+      "dataset": "general-tolerances.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:51",
+      "byteOffset": 4501455,
+      "title": "角度尺寸的极限偏差数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.general"
+      ],
+      "dataset": "general-tolerances.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:52",
+      "byteOffset": 4508232,
+      "title": "优先与常用配合的统计极限“间隙或过盈”",
+      "status": "data",
+      "targets": [
+        "norma.basic.fit"
+      ],
+      "dataset": "fit-statistics.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:53",
+      "byteOffset": 5038046,
+      "title": "锥度与锥角系列",
+      "status": "data",
+      "targets": [
+        "norma.basic.angular"
+      ],
+      "dataset": "angular-series.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:54",
+      "byteOffset": 5100036,
+      "title": "棱体的角度与斜度系列",
+      "status": "data",
+      "targets": [
+        "norma.basic.angular"
+      ],
+      "dataset": "angular-series.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:55",
+      "byteOffset": 5143088,
+      "title": "圆锥角公差数值 基本圆锥长度 L/mm 圆 锥 角 公 差 等 级 AT1 AT2 AT3 AT α AT D AT α AT D AT α AT D 大于 至",
+      "status": "data",
+      "targets": [
+        "norma.basic.coneangle"
+      ],
+      "dataset": "cone-angle-tolerances.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:56",
+      "byteOffset": 5268655,
+      "title": "圆锥直径公差所能限制的最大圆锥角误差",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "conical-references.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:57",
+      "byteOffset": 5340705,
+      "title": "圆锥轴向极限偏差计算公式 偏差或 公差名称 外 圆 锥 内 圆 锥 轴向上偏差 轴向下偏差 轴向基本偏差 轴向公差 T z &nbsp;",
+      "status": "calculation",
+      "targets": [
+        "norma.cone.fundamental / norma.cone.limits"
+      ],
+      "dataset": "Cones.cs",
+      "note": "轴向上/下/基本偏差及公差公式，mm/μm转换"
+    },
+    {
+      "id": "13-02:58",
+      "byteOffset": 5345499,
+      "title": "锥度C=1:10时，外圆锥的轴向基本偏差（ez）数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.band"
+      ],
+      "dataset": "cone-axial-deviations.json",
+      "note": "property=圆锥轴向基本偏差；25直径段×31等级分组列；js公式格"
+    },
+    {
+      "id": "13-02:59",
+      "byteOffset": 5346746,
+      "title": "锥度C=1:10时，轴向公差（TZ）数值",
+      "status": "data",
+      "targets": [
+        "norma.basic.tolerance"
+      ],
+      "dataset": "conical-references.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:60",
+      "byteOffset": 5390999,
+      "title": "一般用途圆锥的换算系数",
+      "status": "data",
+      "targets": [
+        "norma.basic.angular"
+      ],
+      "dataset": "conical-references.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:61",
+      "byteOffset": 5403945,
+      "title": "特殊用途圆锥的换算系数",
+      "status": "data",
+      "targets": [
+        "norma.basic.angular"
+      ],
+      "dataset": "conical-references.json",
+      "note": ""
+    },
+    {
+      "id": "13-02:62",
+      "byteOffset": 5418939,
+      "title": "基孔制轴向极限偏差计算公式",
+      "status": "calculation",
+      "targets": [
+        "norma.cone.limits"
+      ],
+      "dataset": "Cones.cs",
+      "note": "基孔制公式按反号及交换端点统一实现，H/h/js及其他分组测试"
+    }
+  ],
+  "usus": [
+    {
+      "id": "U0002",
+      "file": "U0002-轴.md",
+      "sha256": "88dfe18ca714d327191bec8a20d9ebcf5455221844faa081244fcbd181af19b7"
+    },
+    {
+      "id": "U0003",
+      "file": "U0003-基准轴.md",
+      "sha256": "1f57e3c007b6e103cd903af1060f5f16f41f1ed979f8378148c157abd861efe1"
+    },
+    {
+      "id": "U0004",
+      "file": "U0004-孔.md",
+      "sha256": "829ad5bcad3cb5a7c608da71a40c239f3f78aefa0fc83a1eb1e284af3d8b5048"
+    },
+    {
+      "id": "U0005",
+      "file": "U0005-基准孔.md",
+      "sha256": "6f5df0921f67891d95bc62a6f0f3eaeb3c423359247906ca8b404e5b79f990f7"
+    },
+    {
+      "id": "U0006",
+      "file": "U0006-尺寸.md",
+      "sha256": "45bb3a35496ee1b0ae043108d3066c772287f7b3d60338dd42e9a1c3c1dc9191"
+    },
+    {
+      "id": "U0007",
+      "file": "U0007-基本尺寸.md",
+      "sha256": "e0ebc2004015a41097e1c57e1ab70cb0f5aba07210e38058d72d8cccd9e2b368"
+    },
+    {
+      "id": "U0008",
+      "file": "U0008-实际尺寸.md",
+      "sha256": "0cb0ff9d59d543f9ad99f265f05648a3934854e6d4c98d9f56cc140b982d6c56"
+    },
+    {
+      "id": "U0009",
+      "file": "U0009-局部实际尺寸.md",
+      "sha256": "733bcaf2e19c7de491d7a02d9c429435ad39f409d9b0ceac3c0558ce7ff7af57"
+    },
+    {
+      "id": "U0010",
+      "file": "U0010-极限尺寸.md",
+      "sha256": "712fd938d3f45e3bb157e4561539a50d154c74a72c119956d0f60ef86d78e68e"
+    },
+    {
+      "id": "U0011",
+      "file": "U0011-最大极限尺寸.md",
+      "sha256": "75a6758856758cb8fefa9ff641c2debbdc39256f94043363b54bd3715d235094"
+    },
+    {
+      "id": "U0012",
+      "file": "U0012-最小极限尺寸.md",
+      "sha256": "3832d53dc5560e9d3771918efbb2c4dc8227f97689ba57bf8caca9363defab87"
+    },
+    {
+      "id": "U0013",
+      "file": "U0013-极限制.md",
+      "sha256": "d9892374b6b8417149e5bb9ab229f3040dc5cf396999b997bd3be1af32e2864d"
+    },
+    {
+      "id": "U0014",
+      "file": "U0014-零线.md",
+      "sha256": "ffd0618285a194fc4b8d2db15b01dca4fe3bf5b067c55eaff29741cb83b9a27e"
+    },
+    {
+      "id": "U0015",
+      "file": "U0015-偏差.md",
+      "sha256": "3b37953cae5175ab938ad5df6875a28386f3989a1722dae49780b5c62dc04414"
+    },
+    {
+      "id": "U0016",
+      "file": "U0016-极限偏差.md",
+      "sha256": "030ca3e8db782d46146afc8f773614c7fd0732129990794e55cf46498b62d308"
+    },
+    {
+      "id": "U0017",
+      "file": "U0017-上偏差.md",
+      "sha256": "747ecf132c3847546ae03fd23aa7f0663840a2f00ee7e5ba48fa248ad561a652"
+    },
+    {
+      "id": "U0018",
+      "file": "U0018-下偏差.md",
+      "sha256": "a94bf254c8d638fe985d47d0e8cc4239d7a56440a9116f70d37b0f65a272e268"
+    },
+    {
+      "id": "U0019",
+      "file": "U0019-基本偏差.md",
+      "sha256": "702342bf03ec26d2e6444e96298f1b6f7833d7916761030a13c35647975c8b04"
+    },
+    {
+      "id": "U0020",
+      "file": "U0020-尺寸公差(简称公差).md",
+      "sha256": "d13b9a2e6d76d10be9e66dfba94dce730dbaded01c747b6b9305bae6f35be4b8"
+    },
+    {
+      "id": "U0021",
+      "file": "U0021-标准公差（IT）.md",
+      "sha256": "80706f494617a8c0661e93dc4165e53742dcd00d16ca3be6c71e986021ca294a"
+    },
+    {
+      "id": "U0022",
+      "file": "U0022-标准公差等级.md",
+      "sha256": "59fc2a88828ed10419e1a0a1a3507f0806346f840387cf9206577e9ec9463bfc"
+    },
+    {
+      "id": "U0023",
+      "file": "U0023-公差带.md",
+      "sha256": "e2fa0aa9322f1cbc694e088a22744b530ba2c8d5c87cfe120faab36820cd99b0"
+    },
+    {
+      "id": "U0024",
+      "file": "U0024-标准公差因子(iI).md",
+      "sha256": "1273662644a3f1740b31a5a7fff4c67bd68d86e9092a8db8bf1125ae6836b1e9"
+    },
+    {
+      "id": "U0025",
+      "file": "U0025-间隙.md",
+      "sha256": "838f3726e3eb12ad06f20c7520a182ea6dc641654f64119d0a80aa667057d7ab"
+    },
+    {
+      "id": "U0026",
+      "file": "U0026-最小间隙.md",
+      "sha256": "e666bf65b6669b1565f16941d7dae55794f70e0faafa00f8e41879149fb524d6"
+    },
+    {
+      "id": "U0027",
+      "file": "U0027-最大间隙.md",
+      "sha256": "e1c902d49a908409a4cbf7b7480a11294d6472fef97d3348379c509d1c2db68b"
+    },
+    {
+      "id": "U0028",
+      "file": "U0028-过盈.md",
+      "sha256": "2142f222735473eb63c0a409b10f496ee94bd9845c45fb733a31550498aea3da"
+    },
+    {
+      "id": "U0029",
+      "file": "U0029-最小过盈.md",
+      "sha256": "b60687eeceb13d64643dca941bca8fd16a1168fba0a5af169dd5977e1630ee5b"
+    },
+    {
+      "id": "U0030",
+      "file": "U0030-最大过盈.md",
+      "sha256": "2ecd5b771728adfa05f1046c56806eb52296310281209fb11359921e472f775f"
+    },
+    {
+      "id": "U0031",
+      "file": "U0031-配合.md",
+      "sha256": "9ae7978e52554026fc77b75e2b2782071ec90e7a351a028a9ae2350a88d2b505"
+    },
+    {
+      "id": "U0032",
+      "file": "U0032-间隙配合.md",
+      "sha256": "5b5b5be10028dd6b1fba21f0ba11c5a3fd6d18ad6ed942977dc5ecc3f1a13ac0"
+    },
+    {
+      "id": "U0033",
+      "file": "U0033-过盈配合.md",
+      "sha256": "75f7ea4435d47f7fb65802bd4924bac863fe3d19f5bab39faaf0620e98bc4edf"
+    },
+    {
+      "id": "U0034",
+      "file": "U0034-过渡配合.md",
+      "sha256": "314ecd97dd75bb47d04e5aa13741efc1f32270493b3d27fbab3cfac25080ef22"
+    },
+    {
+      "id": "U0035",
+      "file": "U0035-配合公差.md",
+      "sha256": "87fbab7ac233d612391e829171f41faf624c2302142e70921e0cbf210743ed87"
+    },
+    {
+      "id": "U0036",
+      "file": "U0036-配合制.md",
+      "sha256": "d2975fc177bc07e355f83aee4feb24db5e4ebcd47f3f3afe66e5cd5d31d596cc"
+    },
+    {
+      "id": "U0037",
+      "file": "U0037-基轴制配合.md",
+      "sha256": "62b5000ea8ea15bb91e12ced81dab7cd367863805bfd07d9c47e71fb3b6e5521"
+    },
+    {
+      "id": "U0038",
+      "file": "U0038-基孔制配合.md",
+      "sha256": "4051c6eb82996ab4d07ee640c15065f72d5fc1a7c52d4ca930e61973eebe5999"
+    },
+    {
+      "id": "U0039",
+      "file": "U0039-最大实体极限(MML).md",
+      "sha256": "b41c4a8de8c7a56ee6459f96ad77c93078f2b4496c3df878d4ec5bfad1df87e8"
+    },
+    {
+      "id": "U0040",
+      "file": "U0040-最小实体极限(LML).md",
+      "sha256": "25b86ad0c14a076f82c09454b5abfc5c9b8f0725a15192520b4404726056dd44"
+    },
+    {
+      "id": "U0041",
+      "file": "U0041-工作状况对过盈和间隙的影响.md",
+      "sha256": "53bd53b3d5a1920efd4f15615fc66e77505bef54b11ec57447ed237a48b7a8ef"
+    }
+  ],
+  "verifiedCorrections": [
+    {
+      "id": "13-02:5",
+      "row": 16,
+      "column": 5,
+      "designation": "A12",
+      "lower": 180.0,
+      "upper": 200.0,
+      "value": "+1120 +660",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:5",
+      "row": 21,
+      "column": 6,
+      "designation": "A13",
+      "lower": 315.0,
+      "upper": 355.0,
+      "value": "+2090 +1200",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:5",
+      "row": 21,
+      "column": 17,
+      "designation": "C12",
+      "lower": 315.0,
+      "upper": 355.0,
+      "value": "+930 +360",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:6",
+      "row": 9,
+      "column": 18,
+      "designation": "E8",
+      "lower": 80.0,
+      "upper": 120.0,
+      "value": "+126 +72",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:6",
+      "row": 11,
+      "column": 18,
+      "designation": "E8",
+      "lower": 180.0,
+      "upper": 250.0,
+      "value": "+172 +100",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:6",
+      "row": 12,
+      "column": 18,
+      "designation": "E8",
+      "lower": 250.0,
+      "upper": 315.0,
+      "value": "+191 +110",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:9",
+      "row": 7,
+      "column": 20,
+      "designation": "H17",
+      "lower": 10.0,
+      "upper": 18.0,
+      "value": "+1.8 0",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:9",
+      "row": 13,
+      "column": 11,
+      "designation": "H10",
+      "lower": 180.0,
+      "upper": 250.0,
+      "value": "+185 0",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:9",
+      "row": 14,
+      "column": 14,
+      "designation": "H13",
+      "lower": 250.0,
+      "upper": 315.0,
+      "value": "+0.81 0",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:9",
+      "row": 16,
+      "column": 5,
+      "designation": "H4",
+      "lower": 400.0,
+      "upper": 500.0,
+      "value": "+20 0",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:10",
+      "row": 6,
+      "column": 15,
+      "designation": "JS11",
+      "lower": 6.0,
+      "upper": 10.0,
+      "value": "±45",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:10",
+      "row": 7,
+      "column": 14,
+      "designation": "JS10",
+      "lower": 10.0,
+      "upper": 18.0,
+      "value": "±35",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:10",
+      "row": 14,
+      "column": 16,
+      "designation": "JS12",
+      "lower": 250.0,
+      "upper": 315.0,
+      "value": "±0.26",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:10",
+      "row": 14,
+      "column": 17,
+      "designation": "JS13",
+      "lower": 250.0,
+      "upper": 315.0,
+      "value": "±0.405",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:11",
+      "row": 2,
+      "column": 4,
+      "designation": "J8",
+      "lower": 0,
+      "upper": 3.0,
+      "value": "+6 -8",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 15,
+      "column": 4,
+      "designation": "P5",
+      "lower": 500.0,
+      "upper": 630.0,
+      "value": "-78 -110",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 15,
+      "column": 5,
+      "designation": "P6",
+      "lower": 500.0,
+      "upper": 630.0,
+      "value": "-78 -122",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 15,
+      "column": 6,
+      "designation": "P7",
+      "lower": 500.0,
+      "upper": 630.0,
+      "value": "-78 -148",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 15,
+      "column": 7,
+      "designation": "P8",
+      "lower": 500.0,
+      "upper": 630.0,
+      "value": "-78 -188",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 16,
+      "column": 4,
+      "designation": "P5",
+      "lower": 630.0,
+      "upper": 800.0,
+      "value": "-88 -124",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 16,
+      "column": 5,
+      "designation": "P6",
+      "lower": 630.0,
+      "upper": 800.0,
+      "value": "-88 -138",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 16,
+      "column": 6,
+      "designation": "P7",
+      "lower": 630.0,
+      "upper": 800.0,
+      "value": "-88 -168",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 16,
+      "column": 7,
+      "designation": "P8",
+      "lower": 630.0,
+      "upper": 800.0,
+      "value": "-88 -213",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 17,
+      "column": 4,
+      "designation": "P5",
+      "lower": 800.0,
+      "upper": 1000.0,
+      "value": "-100 -140",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 17,
+      "column": 5,
+      "designation": "P6",
+      "lower": 800.0,
+      "upper": 1000.0,
+      "value": "-100 -156",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 17,
+      "column": 6,
+      "designation": "P7",
+      "lower": 800.0,
+      "upper": 1000.0,
+      "value": "-100 -190",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 17,
+      "column": 7,
+      "designation": "P8",
+      "lower": 800.0,
+      "upper": 1000.0,
+      "value": "-100 -240",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 18,
+      "column": 4,
+      "designation": "P5",
+      "lower": 1000.0,
+      "upper": 1250.0,
+      "value": "-120 -167",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 18,
+      "column": 5,
+      "designation": "P6",
+      "lower": 1000.0,
+      "upper": 1250.0,
+      "value": "-120 -186",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 18,
+      "column": 6,
+      "designation": "P7",
+      "lower": 1000.0,
+      "upper": 1250.0,
+      "value": "-120 -225",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 18,
+      "column": 7,
+      "designation": "P8",
+      "lower": 1000.0,
+      "upper": 1250.0,
+      "value": "-120 -285",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 19,
+      "column": 4,
+      "designation": "P5",
+      "lower": 1250.0,
+      "upper": 1600.0,
+      "value": "-140 -195",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 19,
+      "column": 5,
+      "designation": "P6",
+      "lower": 1250.0,
+      "upper": 1600.0,
+      "value": "-140 -218",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 19,
+      "column": 6,
+      "designation": "P7",
+      "lower": 1250.0,
+      "upper": 1600.0,
+      "value": "-140 -265",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 19,
+      "column": 7,
+      "designation": "P8",
+      "lower": 1250.0,
+      "upper": 1600.0,
+      "value": "-140 -335",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 20,
+      "column": 4,
+      "designation": "P5",
+      "lower": 1600.0,
+      "upper": 2000.0,
+      "value": "-170 -235",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 20,
+      "column": 5,
+      "designation": "P6",
+      "lower": 1600.0,
+      "upper": 2000.0,
+      "value": "-170 -262",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 20,
+      "column": 6,
+      "designation": "P7",
+      "lower": 1600.0,
+      "upper": 2000.0,
+      "value": "-170 -320",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 20,
+      "column": 7,
+      "designation": "P8",
+      "lower": 1600.0,
+      "upper": 2000.0,
+      "value": "-170 -400",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 21,
+      "column": 4,
+      "designation": "P5",
+      "lower": 2000.0,
+      "upper": 2500.0,
+      "value": "-195 -273",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 21,
+      "column": 5,
+      "designation": "P6",
+      "lower": 2000.0,
+      "upper": 2500.0,
+      "value": "-195 -305",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 21,
+      "column": 6,
+      "designation": "P7",
+      "lower": 2000.0,
+      "upper": 2500.0,
+      "value": "-195 -370",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 21,
+      "column": 7,
+      "designation": "P8",
+      "lower": 2000.0,
+      "upper": 2500.0,
+      "value": "-195 -475",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 22,
+      "column": 4,
+      "designation": "P5",
+      "lower": 2500.0,
+      "upper": 3150.0,
+      "value": "-240 -336",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 22,
+      "column": 5,
+      "designation": "P6",
+      "lower": 2500.0,
+      "upper": 3150.0,
+      "value": "-240 -375",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 22,
+      "column": 6,
+      "designation": "P7",
+      "lower": 2500.0,
+      "upper": 3150.0,
+      "value": "-240 -450",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:13",
+      "row": 22,
+      "column": 7,
+      "designation": "P8",
+      "lower": 2500.0,
+      "upper": 3150.0,
+      "value": "-240 -570",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:14",
+      "row": 6,
+      "column": 9,
+      "designation": "R10",
+      "lower": 18.0,
+      "upper": 30.0,
+      "value": "-28 -112",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 24,
+      "column": 4,
+      "designation": "S5",
+      "lower": 500.0,
+      "upper": 560.0,
+      "value": "-280 -312",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 24,
+      "column": 5,
+      "designation": "S6",
+      "lower": 500.0,
+      "upper": 560.0,
+      "value": "-280 -324",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 24,
+      "column": 6,
+      "designation": "S7",
+      "lower": 500.0,
+      "upper": 560.0,
+      "value": "-280 -350",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 25,
+      "column": 4,
+      "designation": "S5",
+      "lower": 560.0,
+      "upper": 630.0,
+      "value": "-310 -342",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 25,
+      "column": 5,
+      "designation": "S6",
+      "lower": 560.0,
+      "upper": 630.0,
+      "value": "-310 -354",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 25,
+      "column": 6,
+      "designation": "S7",
+      "lower": 560.0,
+      "upper": 630.0,
+      "value": "-310 -380",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 26,
+      "column": 4,
+      "designation": "S5",
+      "lower": 630.0,
+      "upper": 710.0,
+      "value": "-340 -376",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 26,
+      "column": 5,
+      "designation": "S6",
+      "lower": 630.0,
+      "upper": 710.0,
+      "value": "-340 -390",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 26,
+      "column": 6,
+      "designation": "S7",
+      "lower": 630.0,
+      "upper": 710.0,
+      "value": "-340 -420",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 27,
+      "column": 4,
+      "designation": "S5",
+      "lower": 710.0,
+      "upper": 800.0,
+      "value": "-380 -416",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 27,
+      "column": 5,
+      "designation": "S6",
+      "lower": 710.0,
+      "upper": 800.0,
+      "value": "-380 -430",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 27,
+      "column": 6,
+      "designation": "S7",
+      "lower": 710.0,
+      "upper": 800.0,
+      "value": "-380 -460",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 28,
+      "column": 4,
+      "designation": "S5",
+      "lower": 800.0,
+      "upper": 900.0,
+      "value": "-430 -470",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 28,
+      "column": 5,
+      "designation": "S6",
+      "lower": 800.0,
+      "upper": 900.0,
+      "value": "-430 -486",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 28,
+      "column": 6,
+      "designation": "S7",
+      "lower": 800.0,
+      "upper": 900.0,
+      "value": "-430 -520",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 29,
+      "column": 4,
+      "designation": "S5",
+      "lower": 900.0,
+      "upper": 1000.0,
+      "value": "-470 -510",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 29,
+      "column": 5,
+      "designation": "S6",
+      "lower": 900.0,
+      "upper": 1000.0,
+      "value": "-470 -526",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 29,
+      "column": 6,
+      "designation": "S7",
+      "lower": 900.0,
+      "upper": 1000.0,
+      "value": "-470 -560",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 30,
+      "column": 4,
+      "designation": "S5",
+      "lower": 1000.0,
+      "upper": 1120.0,
+      "value": "-520 -567",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 30,
+      "column": 5,
+      "designation": "S6",
+      "lower": 1000.0,
+      "upper": 1120.0,
+      "value": "-520 -586",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 30,
+      "column": 6,
+      "designation": "S7",
+      "lower": 1000.0,
+      "upper": 1120.0,
+      "value": "-520 -625",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 31,
+      "column": 4,
+      "designation": "S5",
+      "lower": 1120.0,
+      "upper": 1250.0,
+      "value": "-580 -627",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 31,
+      "column": 5,
+      "designation": "S6",
+      "lower": 1120.0,
+      "upper": 1250.0,
+      "value": "-580 -646",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 31,
+      "column": 6,
+      "designation": "S7",
+      "lower": 1120.0,
+      "upper": 1250.0,
+      "value": "-580 -685",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 32,
+      "column": 4,
+      "designation": "S5",
+      "lower": 1250.0,
+      "upper": 1400.0,
+      "value": "-640 -695",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 32,
+      "column": 5,
+      "designation": "S6",
+      "lower": 1250.0,
+      "upper": 1400.0,
+      "value": "-640 -718",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 32,
+      "column": 6,
+      "designation": "S7",
+      "lower": 1250.0,
+      "upper": 1400.0,
+      "value": "-640 -765",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 33,
+      "column": 4,
+      "designation": "S5",
+      "lower": 1400.0,
+      "upper": 1600.0,
+      "value": "-720 -775",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 33,
+      "column": 5,
+      "designation": "S6",
+      "lower": 1400.0,
+      "upper": 1600.0,
+      "value": "-720 -798",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 33,
+      "column": 6,
+      "designation": "S7",
+      "lower": 1400.0,
+      "upper": 1600.0,
+      "value": "-720 -845",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 34,
+      "column": 4,
+      "designation": "S5",
+      "lower": 1600.0,
+      "upper": 1800.0,
+      "value": "-820 -885",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 34,
+      "column": 5,
+      "designation": "S6",
+      "lower": 1600.0,
+      "upper": 1800.0,
+      "value": "-820 -912",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 34,
+      "column": 6,
+      "designation": "S7",
+      "lower": 1600.0,
+      "upper": 1800.0,
+      "value": "-820 -970",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 35,
+      "column": 4,
+      "designation": "S5",
+      "lower": 1800.0,
+      "upper": 2000.0,
+      "value": "-920 -985",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 35,
+      "column": 5,
+      "designation": "S6",
+      "lower": 1800.0,
+      "upper": 2000.0,
+      "value": "-920 -1012",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 35,
+      "column": 6,
+      "designation": "S7",
+      "lower": 1800.0,
+      "upper": 2000.0,
+      "value": "-920 -1070",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 36,
+      "column": 4,
+      "designation": "S5",
+      "lower": 2000.0,
+      "upper": 2240.0,
+      "value": "-1000 -1078",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 36,
+      "column": 5,
+      "designation": "S6",
+      "lower": 2000.0,
+      "upper": 2240.0,
+      "value": "-1000 -1110",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 36,
+      "column": 6,
+      "designation": "S7",
+      "lower": 2000.0,
+      "upper": 2240.0,
+      "value": "-1000 -1175",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 37,
+      "column": 4,
+      "designation": "S5",
+      "lower": 2240.0,
+      "upper": 2500.0,
+      "value": "-1100 -1178",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 37,
+      "column": 5,
+      "designation": "S6",
+      "lower": 2240.0,
+      "upper": 2500.0,
+      "value": "-1100 -1210",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 37,
+      "column": 6,
+      "designation": "S7",
+      "lower": 2240.0,
+      "upper": 2500.0,
+      "value": "-1100 -1275",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 38,
+      "column": 4,
+      "designation": "S5",
+      "lower": 2500.0,
+      "upper": 2800.0,
+      "value": "-1250 -1346",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 38,
+      "column": 5,
+      "designation": "S6",
+      "lower": 2500.0,
+      "upper": 2800.0,
+      "value": "-1250 -1385",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 38,
+      "column": 6,
+      "designation": "S7",
+      "lower": 2500.0,
+      "upper": 2800.0,
+      "value": "-1250 -1460",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 39,
+      "column": 4,
+      "designation": "S5",
+      "lower": 2800.0,
+      "upper": 3150.0,
+      "value": "-1400 -1496",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 39,
+      "column": 5,
+      "designation": "S6",
+      "lower": 2800.0,
+      "upper": 3150.0,
+      "value": "-1400 -1535",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:15",
+      "row": 39,
+      "column": 6,
+      "designation": "S7",
+      "lower": 2800.0,
+      "upper": 3150.0,
+      "value": "-1400 -1610",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:16",
+      "row": 36,
+      "column": 4,
+      "designation": "T7",
+      "lower": 1600.0,
+      "upper": 1800.0,
+      "value": "-1200 -1350",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 5,
+      "column": 9,
+      "designation": "b10",
+      "lower": 10.0,
+      "upper": 18.0,
+      "value": "-150 -220",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 8,
+      "column": 9,
+      "designation": "b10",
+      "lower": 40.0,
+      "upper": 50.0,
+      "value": "-180 -280",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 9,
+      "column": 8,
+      "designation": "b9",
+      "lower": 50.0,
+      "upper": 65.0,
+      "value": "-190 -264",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 9,
+      "column": 9,
+      "designation": "b10",
+      "lower": 50.0,
+      "upper": 65.0,
+      "value": "-190 -310",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 17,
+      "column": 11,
+      "designation": "b12",
+      "lower": 200.0,
+      "upper": 225.0,
+      "value": "-380 -840",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 22,
+      "column": 12,
+      "designation": "b13",
+      "lower": 355.0,
+      "upper": 400.0,
+      "value": "-680 -1570",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:20",
+      "row": 23,
+      "column": 3,
+      "designation": "a10",
+      "lower": 400.0,
+      "upper": 450.0,
+      "value": "-1500 -1750",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:21",
+      "row": 10,
+      "column": 11,
+      "designation": "d8",
+      "lower": 120.0,
+      "upper": 180.0,
+      "value": "-145 -208",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:21",
+      "row": 13,
+      "column": 11,
+      "designation": "d8",
+      "lower": 315.0,
+      "upper": 400.0,
+      "value": "-210 -299",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:22",
+      "row": 9,
+      "column": 6,
+      "designation": "e9",
+      "lower": 80.0,
+      "upper": 120.0,
+      "value": "-72 -159",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:22",
+      "row": 9,
+      "column": 7,
+      "designation": "e10",
+      "lower": 80.0,
+      "upper": 120.0,
+      "value": "-72 -212",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:23",
+      "row": 12,
+      "column": 8,
+      "designation": "f9",
+      "lower": 250.0,
+      "upper": 315.0,
+      "value": "-56 -186",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:27",
+      "row": 4,
+      "column": 6,
+      "designation": "k3",
+      "lower": 6.0,
+      "upper": 10.0,
+      "value": "+2.5 0",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:27",
+      "row": 19,
+      "column": 10,
+      "designation": "k7",
+      "lower": 1250.0,
+      "upper": 1600.0,
+      "value": "+125 0",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:28",
+      "row": 4,
+      "column": 8,
+      "designation": "m9",
+      "lower": 6.0,
+      "upper": 10.0,
+      "value": "+42 +6",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:28",
+      "row": 18,
+      "column": 12,
+      "designation": "n6",
+      "lower": 1000.0,
+      "upper": 1250.0,
+      "value": "+132 +66",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:30",
+      "row": 9,
+      "column": 6,
+      "designation": "r7",
+      "lower": 65.0,
+      "upper": 80.0,
+      "value": "+73 +43",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:33",
+      "row": 20,
+      "column": 4,
+      "designation": "v7",
+      "lower": 225.0,
+      "upper": 250.0,
+      "value": "+386 +340",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:34",
+      "row": 15,
+      "column": 5,
+      "designation": "z9",
+      "lower": 120.0,
+      "upper": 140.0,
+      "value": "+465 +365",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:34",
+      "row": 21,
+      "column": 6,
+      "designation": "z10",
+      "lower": 250.0,
+      "upper": 280.0,
+      "value": "+920 +710",
+      "basis": "基本偏差与IT公差交叉核定"
+    },
+    {
+      "id": "13-02:34",
+      "row": 25,
+      "column": 3,
+      "designation": "z7",
+      "lower": 400.0,
+      "upper": 450.0,
+      "value": "+1163 +1100",
+      "basis": "基本偏差与IT公差交叉核定"
+    }
+  ]
+}

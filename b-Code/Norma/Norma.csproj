@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="NormaVersion.props" />
 
   <PropertyGroup>
@@ -42,6 +42,21 @@
     <EmbeddedResource Include="Formulas\drive-efficiency.tsv" LogicalName="Norma.Formulas.drive-efficiency.tsv" />
     <EmbeddedResource Include="ManualWindowCapture.ps1" LogicalName="Norma.ManualWindowCapture.ps1" />
     <EmbeddedResource Include="Formulas\standards.tsv" LogicalName="Norma.Formulas.standards.tsv" />
+    <EmbeddedResource Include="Formulas\general-tolerances.json" LogicalName="Norma.Formulas.general-tolerances.json" />
+    <EmbeddedResource Include="Formulas\basic-standards.json" LogicalName="Norma.Formulas.basic-standards.json" />
+    <EmbeddedResource Include="Formulas\tolerance-selection.json" LogicalName="Norma.Formulas.tolerance-selection.json" />
+    <EmbeddedResource Include="Formulas\hole-limit-deviations.json" LogicalName="Norma.Formulas.hole-limit-deviations.json" />
+    <EmbeddedResource Include="Formulas\shaft-limit-deviations.json" LogicalName="Norma.Formulas.shaft-limit-deviations.json" />
+    <EmbeddedResource Include="Formulas\band-usage.json" LogicalName="Norma.Formulas.band-usage.json" />
+    <EmbeddedResource Include="Formulas\limits-fits-audit.json" LogicalName="Norma.Formulas.limits-fits-audit.json" />
+    <EmbeddedResource Include="Formulas\cone-axial-deviations.json" LogicalName="Norma.Formulas.cone-axial-deviations.json" />
+    <EmbeddedResource Include="Formulas\cone-angle-tolerances.json" LogicalName="Norma.Formulas.cone-angle-tolerances.json" />
+    <EmbeddedResource Include="Formulas\conical-references.json" LogicalName="Norma.Formulas.conical-references.json" />
+    <EmbeddedResource Include="Formulas\angular-series.json" LogicalName="Norma.Formulas.angular-series.json" />
+    <EmbeddedResource Include="Formulas\fit-statistics.json" LogicalName="Norma.Formulas.fit-statistics.json" />
+    <EmbeddedResource Include="Formulas\fit-standards.json" LogicalName="Norma.Formulas.fit-standards.json" />
+    <EmbeddedResource Include="Formulas\band-applications.json" LogicalName="Norma.Formulas.band-applications.json" />
+    <EmbeddedResource Include="Formulas\fit-applications.json" LogicalName="Norma.Formulas.fit-applications.json" />
     <!-- 硬度—强度换算节点表（机械工程师手册 sjzl 章），PCHIP 的锚点。 -->
     <EmbeddedResource Include="Formulas\metal-high.tsv" LogicalName="Norma.Formulas.metal-high.tsv" />
     <EmbeddedResource Include="Formulas\metal-low.tsv" LogicalName="Norma.Formulas.metal-low.tsv" />

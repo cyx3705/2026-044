@@ -1,0 +1,7216 @@
+{
+  "page": {
+    "id": "13-02:47",
+    "byteOffset": 4425145,
+    "title": "优先、常用配合特性及应用举例",
+    "standard": "机械工程师手册（经验参考）",
+    "table": [
+      [
+        {
+          "raw": "配合制",
+          "row": 0,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "装配 方法",
+          "row": 0,
+          "column": 1,
+          "logicalColumn": 2,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "配合特性及使用条件",
+          "row": 0,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 2,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "应 用 举 例",
+          "row": 0,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "基孔",
+          "row": 1,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "基轴",
+          "row": 1,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/z6",
+          "row": 2,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image002.gif"
+          ]
+        },
+        {
+          "raw": "",
+          "row": 2,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "温差法",
+          "row": 2,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "特重型压入配合",
+          "row": 2,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "用于承受很大的转矩或变载、冲击、振动载荷处，配合处不加紧固件，材料的许用应力要求很大",
+          "row": 2,
+          "column": 4,
+          "logicalColumn": 4,
+          "rowspan": 4,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "中小型交流电动机轴壳上绝缘体和接触环，柴油机传动轴壳体和分电器衬套",
+          "row": 2,
+          "column": 5,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/y6",
+          "row": 3,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image004.gif"
+          ]
+        },
+        {
+          "raw": "小轴肩和环",
+          "row": 3,
+          "column": 1,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/x6",
+          "row": 4,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image006.gif"
+          ]
+        },
+        {
+          "raw": "钢和轻合金或塑料等不同材料的配合，如柴油机销轴与壳体、气缸盖与进气门座等的配合",
+          "row": 4,
+          "column": 1,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/v6",
+          "row": 5,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image008.gif"
+          ]
+        },
+        {
+          "raw": "U7/h6",
+          "row": 5,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image010.gif"
+          ]
+        },
+        {
+          "raw": "压力机或温差",
+          "row": 5,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 10,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "重型压入配合",
+          "row": 5,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "偏心压床的块与轴、柴油机销轴与壳体，连杆孔和衬套外径等配合",
+          "row": 5,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/u6",
+          "row": 6,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image012.gif"
+          ]
+        },
+        {
+          "raw": "用于传递较大转矩，配合处不加紧固件即可得到十分牢固的联接。材料的许用应力要求较大",
+          "row": 6,
+          "column": 1,
+          "logicalColumn": 4,
+          "rowspan": 2,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "车轮轮箍与轮芯、联轴器与轴，轧钢设备中的辊子与心轴、拖拉机活塞销和活塞壳、船舵尾轴和衬套等的配合",
+          "row": 6,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/u7",
+          "row": 7,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image014.gif"
+          ]
+        },
+        {
+          "raw": "蜗轮青铜轮缘与轮芯，安全联轴器销轴与套、螺纹车床蜗杆轴衬和箱体孔等的配合",
+          "row": 7,
+          "column": 1,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/t5",
+          "row": 8,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image016.gif"
+          ]
+        },
+        {
+          "raw": "T6/h5",
+          "row": 8,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image018.gif"
+          ]
+        },
+        {
+          "raw": "中型压入配 合",
+          "row": 8,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 5,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+          "row": 8,
+          "column": 3,
+          "logicalColumn": 4,
+          "rowspan": 5,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "齿轮孔和轴的配合",
+          "row": 8,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/t6",
+          "row": 9,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image020.gif"
+          ]
+        },
+        {
+          "raw": "T7/h6",
+          "row": 9,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image022.gif"
+          ]
+        },
+        {
+          "raw": "联轴器与轴 含油轴承和轴承座、农业机械中曲柄盘与销轴",
+          "row": 9,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/t7",
+          "row": 10,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image024.gif"
+          ]
+        },
+        {
+          "raw": "柴油机连杆衬套和轴瓦，主轴承孔和主轴瓦等的配合",
+          "row": 10,
+          "column": 1,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/s6",
+          "row": 11,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image026.gif"
+          ]
+        },
+        {
+          "raw": "S7/h6",
+          "row": 11,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image028.gif"
+          ]
+        },
+        {
+          "raw": "减速器中轴与蜗轮，空压机连杆头与衬套，辊道辊子和轴，大型减速器低速齿轮与轴的配合",
+          "row": 11,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/s7",
+          "row": 12,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image030.gif"
+          ]
+        },
+        {
+          "raw": "青铜轮缘与轮芯，轴衬与轴承座、空气钻外壳盖与套筒，安全联轴器销钉和套，压气机活塞销和汽缸，拖拉机齿轮泵小齿轮和轴等配合",
+          "row": 12,
+          "column": 1,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/r6",
+          "row": 13,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image032.gif"
+          ]
+        },
+        {
+          "raw": "R7/h6",
+          "row": 13,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image034.gif"
+          ]
+        },
+        {
+          "raw": "轻型压入配合",
+          "row": 13,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+          "row": 13,
+          "column": 3,
+          "logicalColumn": 4,
+          "rowspan": 2,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "重载齿轮与轴、车床齿轮箱中齿轮与衬套、蜗轮青铜轮缘与轮芯，轴和联轴器，可换铰套与铰模板等的配合",
+          "row": 13,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/p5 H7/p6",
+          "row": 14,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image036.gif",
+            "./13.2-47.files/image038.gif"
+          ]
+        },
+        {
+          "raw": "P6/h5 P7/h6",
+          "row": 14,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image040.gif",
+            "./13.2-47.files/image042.gif"
+          ]
+        },
+        {
+          "raw": "冲击振动的重载荷的齿轮和轴、压缩机十字销轴和连杆衬套、柴油机缸体上口和主轴瓦，凸轮孔和凸轮轴等配合",
+          "row": 14,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/p7",
+          "row": 15,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image044.gif"
+          ]
+        },
+        {
+          "raw": "",
+          "row": 15,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "压力机压入",
+          "row": 15,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 4,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "过盈概率66.8%～93.6%",
+          "row": 15,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+          "row": 15,
+          "column": 4,
+          "logicalColumn": 5,
+          "rowspan": 4,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "升降机用蜗轮或带轮的轮缘和轮心，链轮轮缘和轮心，高压循环泵缸和套等的配合",
+          "row": 15,
+          "column": 5,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/n5",
+          "row": 16,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image046.gif"
+          ]
+        },
+        {
+          "raw": "N6/h5",
+          "row": 16,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image048.gif"
+          ]
+        },
+        {
+          "raw": "80%",
+          "row": 16,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "可换铰套与铰模板、增压器主轴和衬套等的配合",
+          "row": 16,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/n6",
+          "row": 17,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image050.gif"
+          ]
+        },
+        {
+          "raw": "N7/h6",
+          "row": 17,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image052.gif"
+          ]
+        },
+        {
+          "raw": "77.7%～82.4%",
+          "row": 17,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "爪型联轴器与轴、链轮轮缘与轮心、蜗轮青铜轮缘与轮心、破碎机等振动机械的齿轮和轴的配合。柴油机泵座与泵缸、压缩机连杆衬套和曲轴衬套。圆柱销与销孔的配合",
+          "row": 17,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/n7",
+          "row": 18,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image054.gif"
+          ]
+        },
+        {
+          "raw": "N8/h7",
+          "row": 18,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image056.gif"
+          ]
+        },
+        {
+          "raw": "58.3%～67.6%",
+          "row": 18,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "安全联轴器销钉和套、高压泵缸和缸套、拖拉机活塞销和活塞毂等的配合",
+          "row": 18,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/m5",
+          "row": 19,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image058.gif"
+          ]
+        },
+        {
+          "raw": "M6/h5",
+          "row": 19,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image060.gif"
+          ]
+        },
+        {
+          "raw": "铜锤打入",
+          "row": 19,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "过盈概率",
+          "row": 19,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+          "row": 19,
+          "column": 4,
+          "logicalColumn": 5,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "压缩机连杆头与衬套、柴油机活塞孔和活塞销的配合",
+          "row": 19,
+          "column": 5,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/m6",
+          "row": 20,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image062.gif"
+          ]
+        },
+        {
+          "raw": "M7/h6",
+          "row": 20,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image064.gif"
+          ]
+        },
+        {
+          "raw": "50%～62.1%",
+          "row": 20,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "蜗轮青铜轮缘与铸铁轮芯、齿轮孔与轴、定位销与孔的配合",
+          "row": 20,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/m7",
+          "row": 21,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image066.gif"
+          ]
+        },
+        {
+          "raw": "M8/h7",
+          "row": 21,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image068.gif"
+          ]
+        },
+        {
+          "raw": "50%～56%",
+          "row": 21,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "升降机构中的轴与孔，压缩机十字销轴与座",
+          "row": 21,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/k5",
+          "row": 22,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image070.gif"
+          ]
+        },
+        {
+          "raw": "K6/h5",
+          "row": 22,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image072.gif"
+          ]
+        },
+        {
+          "raw": "手锤打入",
+          "row": 22,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "46.2%～49.1%",
+          "row": 22,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+          "row": 22,
+          "column": 4,
+          "logicalColumn": 5,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "精密螺纹车主轴箱体孔和主轴前轴承外圈的配合",
+          "row": 22,
+          "column": 5,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/k6",
+          "row": 23,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image074.gif"
+          ]
+        },
+        {
+          "raw": "K7/h6",
+          "row": 23,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image076.gif"
+          ]
+        },
+        {
+          "raw": "41.7%～45%",
+          "row": 23,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "机床不滑动齿轮和轴、中型电动机轴与联轴器或带轮，减速器蜗轮与轴、齿轮和轴的配合",
+          "row": 23,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/k7",
+          "row": 24,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image078.gif"
+          ]
+        },
+        {
+          "raw": "K8/h7",
+          "row": 24,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image080.gif"
+          ]
+        },
+        {
+          "raw": "41.7%～51.2%",
+          "row": 24,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "压缩机连杆孔与十字头销，循环泵活塞与活塞杆",
+          "row": 24,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/js5",
+          "row": 25,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image082.gif"
+          ]
+        },
+        {
+          "raw": "JS6/h5",
+          "row": 25,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image084.gif"
+          ]
+        },
+        {
+          "raw": "手或木锤装卸",
+          "row": 25,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "19.2%～21.1%",
+          "row": 25,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+          "row": 25,
+          "column": 4,
+          "logicalColumn": 5,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "木工机械中轴与轴承的配合",
+          "row": 25,
+          "column": 5,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/js6",
+          "row": 26,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image086.gif"
+          ]
+        },
+        {
+          "raw": "JS7/h6",
+          "row": 26,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image088.gif"
+          ]
+        },
+        {
+          "raw": "18.8%～20%",
+          "row": 26,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "机床变速箱中齿轮和轴、精密仪表中轴和轴承、增压器衬套间的配合",
+          "row": 26,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/js7",
+          "row": 27,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image090.gif"
+          ]
+        },
+        {
+          "raw": "JS8/h7",
+          "row": 27,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image092.gif"
+          ]
+        },
+        {
+          "raw": "17.4%～20.8%",
+          "row": 27,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 2,
+          "images": []
+        },
+        {
+          "raw": "机床变速箱中齿轮和轴、轴端可卸下的皮带轮和手轮、电动机机座与端盖等的配合",
+          "row": 27,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/h5",
+          "row": 28,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image094.gif"
+          ]
+        },
+        {
+          "raw": "H6/h5",
+          "row": 28,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image095.gif"
+          ]
+        },
+        {
+          "raw": "加油后用手旋进",
+          "row": 28,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 6,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "配合间隙较小，能较好的对准中心，一般多用于常拆卸或在调整时需移动或转动的联接处，或工作时滑移较慢并要求较好的导向精度的地方，和对同心度有一定要求通过紧固件传递转矩的固定联接处",
+          "row": 28,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 2,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "剃齿机主轴与剃刀衬套、车床尾座体与套筒、高精度分度盘轴与孔、光学仪器中变焦距系统的孔轴配合",
+          "row": 28,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/h6 H8/h7",
+          "row": 29,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image097.gif",
+            "./13.2-47.files/image099.gif"
+          ]
+        },
+        {
+          "raw": "H7/h6 H8/h7",
+          "row": 29,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image100.gif",
+            "./13.2-47.files/image102.gif"
+          ]
+        },
+        {
+          "raw": "机床变速箱的滑移齿轮和轴、离合器与轴、钻床横臂与立柱、风动工具活塞与缸体、往复运动的精导向的压缩机连杆孔和十字头、定心的凸缘与孔的配合",
+          "row": 29,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/h8",
+          "row": 30,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image104.gif"
+          ]
+        },
+        {
+          "raw": "H8/h8",
+          "row": 30,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image105.gif"
+          ]
+        },
+        {
+          "raw": "间隙定位配合，适用于同心度要求较低、工作时一般无相对运动的配合及负载不大、无振动、拆卸方便，加键可传递转矩的情况",
+          "row": 30,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 4,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "安全扳手销钉和套、一般齿轮和轴、逞轮和轴、螺旋搅拌器叶轮与轴、离合器与轴、操纵件与轴、拨叉和导向轴、滑块和导向轴、减速器油标尺与箱体孔，部分式滑动轴承壳和轴瓦、电动机座上口和端盖",
+          "row": 30,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H9/h9",
+          "row": 31,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image107.gif"
+          ]
+        },
+        {
+          "raw": "H9/h9",
+          "row": 31,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image109.gif"
+          ]
+        }
+      ],
+      [
+        {
+          "raw": "H10/h10",
+          "row": 32,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image111.gif"
+          ]
+        },
+        {
+          "raw": "H10/h10",
+          "row": 32,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image113.gif"
+          ]
+        },
+        {
+          "raw": "起重机链轮与轴、对开轴瓦与轴承座两侧的配合、联接端盖的定心凸缘、一般的铰接、粗造机构中拉杆、杠杆等配合",
+          "row": 32,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H11/h11",
+          "row": 33,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image115.gif"
+          ]
+        },
+        {
+          "raw": "H11/h11",
+          "row": 33,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image117.gif"
+          ]
+        }
+      ],
+      [
+        {
+          "raw": "H6/g5",
+          "row": 34,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image119.gif"
+          ]
+        },
+        {
+          "raw": "G6/h5",
+          "row": 34,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image121.gif"
+          ]
+        },
+        {
+          "raw": "手旋进",
+          "row": 34,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 3,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "具有很小间隙，适用于有一定相对运动、运动速度不高并且精密定位的配合，以及运动可能有冲击但又能保证零件同心度或紧密性的配合",
+          "row": 34,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 3,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "光学分度头主轴与轴承、刨床滑块与滑糟",
+          "row": 34,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/g6",
+          "row": 35,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image123.gif"
+          ]
+        },
+        {
+          "raw": "G7/h6",
+          "row": 35,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 2,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image125.gif"
+          ]
+        },
+        {
+          "raw": "精密机床主轴与轴承、机床传动齿轮与轴、中等精度分度头主轴与轴套、矩形花键定心直径、拖拉机连杆衬套与曲轴的配合",
+          "row": 35,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/g7",
+          "row": 36,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image127.gif"
+          ]
+        },
+        {
+          "raw": "柴油机气缸体挺杆、手电钻中的配合等",
+          "row": 36,
+          "column": 1,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H6/f5",
+          "row": 37,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image129.gif"
+          ]
+        },
+        {
+          "raw": "F6/h5",
+          "row": 37,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image131.gif"
+          ]
+        },
+        {
+          "raw": "手推滑进",
+          "row": 37,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 5,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+          "row": 37,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 3,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "精密机床中变速箱、进给箱的转动件的配合，或其他重要滑动轴承、高精度齿轮轴套与轴承衬套、柴油机的凸轮轴与衬套孔等的配合",
+          "row": 37,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H7/f6",
+          "row": 38,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image133.gif"
+          ]
+        },
+        {
+          "raw": "F7/h6",
+          "row": 38,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image135.gif"
+          ]
+        },
+        {
+          "raw": "爪型离合器与轴、机床中一般轴与滑动轴承，机床夹具、钻模、镗模的导套孔，柴油机机体套孔与汽缸套，柱塞与缸体等的配合",
+          "row": 38,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/f7",
+          "row": 39,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image137.gif"
+          ]
+        },
+        {
+          "raw": "F8/h7",
+          "row": 39,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image139.gif"
+          ]
+        },
+        {
+          "raw": "中等速度、中等载荷的滑动轴承，机床滑移齿轮与轴，蜗杆减速器的轴承端盖与孔，离合器活动爪与轴",
+          "row": 39,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/f8",
+          "row": 40,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image141.gif"
+          ]
+        },
+        {
+          "raw": "F8/h8",
+          "row": 40,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image143.gif"
+          ]
+        },
+        {
+          "raw": "配合间隙较大，能保证良好润滑，允许在工作中发热，故可用于高转速或大跨度或多支点的轴和轴承以及精度低，同心度要求不高的在轴上转动零件与轴的配合",
+          "row": 40,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 2,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "滑块与导向槽，控制机构中的一般轴和孔，支承跨距较大或多支承的传动轴和轴承的配合",
+          "row": 40,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H9/f9",
+          "row": 41,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image145.gif"
+          ]
+        },
+        {
+          "raw": "F9/h9",
+          "row": 41,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image147.gif"
+          ]
+        },
+        {
+          "raw": "安全联轴器轮毂与套，低精度含油轴承与轴、球体滑动轴承与轴承座及轴，链条张紧轮或传动带导轮与轴，柴油机活塞环与环槽宽等配合",
+          "row": 41,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/e7",
+          "row": 42,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image149.gif"
+          ]
+        },
+        {
+          "raw": "E8/h7",
+          "row": 42,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image151.gif"
+          ]
+        },
+        {
+          "raw": "手轻推进",
+          "row": 42,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 5,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "配合间隙较大，适用于高转速载荷不大、方向不变的轴与轴承的配合，或虽是中等转速但轴跨度长或三个以上支点的轴与轴承的配合",
+          "row": 42,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 2,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "汽轮发电机、大电动机的高速轴与滑动轴承，风扇电机的销轴与衬套",
+          "row": 42,
+          "column": 4,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/e8",
+          "row": 43,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image153.gif"
+          ]
+        },
+        {
+          "raw": "E8/h8",
+          "row": 43,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image155.gif"
+          ]
+        },
+        {
+          "raw": "外圆磨床的主轴与轴承、汽轮发电机轴与轴承、柴油机的凸轮轴与轴承、船用链轮轴、中小型电机轴与轴承、手表中的分轮、时轮轮片与轴承的配合",
+          "row": 43,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H9/e9",
+          "row": 44,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image157.gif"
+          ]
+        },
+        {
+          "raw": "E9/h9",
+          "row": 44,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image159.gif"
+          ]
+        },
+        {
+          "raw": "用于精度不高且有较松间隙的转动配合",
+          "row": 44,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "粗糙机构中衬套与轴承圈、含油轴承与座的配合",
+          "row": 44,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H8/d8",
+          "row": 45,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image161.gif"
+          ]
+        },
+        {
+          "raw": "D8/h8",
+          "row": 45,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image163.gif"
+          ]
+        },
+        {
+          "raw": "配合间隙比较大，用于精度不高，高速及负载不高的配合或高温条件下的转动配合，以及由于装配精度不高而引起偏斜的联接",
+          "row": 45,
+          "column": 2,
+          "logicalColumn": 3,
+          "rowspan": 2,
+          "colspan": 3,
+          "images": []
+        },
+        {
+          "raw": "机车车辆轴承、缝纫机梭摆与梭床空压机活塞环与环槽宽度的配合",
+          "row": 45,
+          "column": 3,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "H9/d9",
+          "row": 46,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image165.gif"
+          ]
+        },
+        {
+          "raw": "D9/h9",
+          "row": 46,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": [
+            "./13.2-47.files/image167.gif"
+          ]
+        },
+        {
+          "raw": "通用机械 中的平键联接、柴油机活塞环与环槽宽、空压机活塞与压杆，印染机械中汽缸活塞密封环，热工仪表中精度较低的轴与孔、滑动轴承及较松的皮带轮与轴的配合",
+          "row": 46,
+          "column": 2,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ],
+      [
+        {
+          "raw": "",
+          "row": 47,
+          "column": 0,
+          "logicalColumn": 0,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "",
+          "row": 47,
+          "column": 1,
+          "logicalColumn": 1,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "",
+          "row": 47,
+          "column": 2,
+          "logicalColumn": 2,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "",
+          "row": 47,
+          "column": 3,
+          "logicalColumn": 3,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "",
+          "row": 47,
+          "column": 4,
+          "logicalColumn": 4,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "",
+          "row": 47,
+          "column": 5,
+          "logicalColumn": 5,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        },
+        {
+          "raw": "",
+          "row": 47,
+          "column": 6,
+          "logicalColumn": 6,
+          "rowspan": 1,
+          "colspan": 1,
+          "images": []
+        }
+      ]
+    ],
+    "notes": []
+  },
+  "facts": [
+    {
+      "fit": "H7/z6",
+      "property": "装配方法",
+      "raw": "温差法",
+      "cells": [
+        {
+          "row": 2,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 2,
+          "keyRow": 2,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image002.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/z6",
+      "property": "配合特性及使用条件",
+      "raw": "特重型压入配合；用于承受很大的转矩或变载、冲击、振动载荷处，配合处不加紧固件，材料的许用应力要求很大",
+      "cells": [
+        {
+          "row": 2,
+          "column": 3
+        },
+        {
+          "row": 2,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 2,
+          "keyRow": 2,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image002.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/z6",
+      "property": "应用举例",
+      "raw": "中小型交流电动机轴壳上绝缘体和接触环，柴油机传动轴壳体和分电器衬套",
+      "cells": [
+        {
+          "row": 2,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 2,
+          "keyRow": 2,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image002.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/y6",
+      "property": "装配方法",
+      "raw": "温差法",
+      "cells": [
+        {
+          "row": 2,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 3,
+          "keyRow": 3,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image004.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/y6",
+      "property": "配合特性及使用条件",
+      "raw": "特重型压入配合；用于承受很大的转矩或变载、冲击、振动载荷处，配合处不加紧固件，材料的许用应力要求很大",
+      "cells": [
+        {
+          "row": 2,
+          "column": 3
+        },
+        {
+          "row": 2,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 3,
+          "keyRow": 3,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image004.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/y6",
+      "property": "应用举例",
+      "raw": "小轴肩和环",
+      "cells": [
+        {
+          "row": 3,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 3,
+          "keyRow": 3,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image004.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/x6",
+      "property": "装配方法",
+      "raw": "温差法",
+      "cells": [
+        {
+          "row": 2,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 4,
+          "keyRow": 4,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image006.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/x6",
+      "property": "配合特性及使用条件",
+      "raw": "特重型压入配合；用于承受很大的转矩或变载、冲击、振动载荷处，配合处不加紧固件，材料的许用应力要求很大",
+      "cells": [
+        {
+          "row": 2,
+          "column": 3
+        },
+        {
+          "row": 2,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 4,
+          "keyRow": 4,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image006.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/x6",
+      "property": "应用举例",
+      "raw": "钢和轻合金或塑料等不同材料的配合，如柴油机销轴与壳体、气缸盖与进气门座等的配合",
+      "cells": [
+        {
+          "row": 4,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 4,
+          "keyRow": 4,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image006.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/v6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 5,
+          "keyRow": 5,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image008.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/v6",
+      "property": "配合特性及使用条件",
+      "raw": "重型压入配合；用于承受很大的转矩或变载、冲击、振动载荷处，配合处不加紧固件，材料的许用应力要求很大",
+      "cells": [
+        {
+          "row": 5,
+          "column": 3
+        },
+        {
+          "row": 2,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 5,
+          "keyRow": 5,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image008.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/v6",
+      "property": "应用举例",
+      "raw": "偏心压床的块与轴、柴油机销轴与壳体，连杆孔和衬套外径等配合",
+      "cells": [
+        {
+          "row": 5,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 5,
+          "keyRow": 5,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image008.gif"
+        }
+      ]
+    },
+    {
+      "fit": "U7/h6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 5,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        },
+        {
+          "row": 6,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        },
+        {
+          "row": 7,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        }
+      ]
+    },
+    {
+      "fit": "U7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "重型压入配合；用于承受很大的转矩或变载、冲击、振动载荷处，配合处不加紧固件，材料的许用应力要求很大",
+      "cells": [
+        {
+          "row": 5,
+          "column": 3
+        },
+        {
+          "row": 2,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 5,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        }
+      ]
+    },
+    {
+      "fit": "U7/h6",
+      "property": "应用举例",
+      "raw": "偏心压床的块与轴、柴油机销轴与壳体，连杆孔和衬套外径等配合",
+      "cells": [
+        {
+          "row": 5,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 5,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/u6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 6,
+          "keyRow": 6,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image012.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/u6",
+      "property": "配合特性及使用条件",
+      "raw": "重型压入配合；用于传递较大转矩，配合处不加紧固件即可得到十分牢固的联接。材料的许用应力要求较大",
+      "cells": [
+        {
+          "row": 5,
+          "column": 3
+        },
+        {
+          "row": 6,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 6,
+          "keyRow": 6,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image012.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/u6",
+      "property": "应用举例",
+      "raw": "车轮轮箍与轮芯、联轴器与轴，轧钢设备中的辊子与心轴、拖拉机活塞销和活塞壳、船舵尾轴和衬套等的配合",
+      "cells": [
+        {
+          "row": 6,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 6,
+          "keyRow": 6,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image012.gif"
+        }
+      ]
+    },
+    {
+      "fit": "U7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "重型压入配合；用于传递较大转矩，配合处不加紧固件即可得到十分牢固的联接。材料的许用应力要求较大",
+      "cells": [
+        {
+          "row": 5,
+          "column": 3
+        },
+        {
+          "row": 6,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 6,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        },
+        {
+          "row": 7,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        }
+      ]
+    },
+    {
+      "fit": "U7/h6",
+      "property": "应用举例",
+      "raw": "车轮轮箍与轮芯、联轴器与轴，轧钢设备中的辊子与心轴、拖拉机活塞销和活塞壳、船舵尾轴和衬套等的配合",
+      "cells": [
+        {
+          "row": 6,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 6,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/u7",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 7,
+          "keyRow": 7,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image014.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/u7",
+      "property": "配合特性及使用条件",
+      "raw": "重型压入配合；用于传递较大转矩，配合处不加紧固件即可得到十分牢固的联接。材料的许用应力要求较大",
+      "cells": [
+        {
+          "row": 5,
+          "column": 3
+        },
+        {
+          "row": 6,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 7,
+          "keyRow": 7,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image014.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/u7",
+      "property": "应用举例",
+      "raw": "蜗轮青铜轮缘与轮芯，安全联轴器销轴与套、螺纹车床蜗杆轴衬和箱体孔等的配合",
+      "cells": [
+        {
+          "row": 7,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 7,
+          "keyRow": 7,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image014.gif"
+        }
+      ]
+    },
+    {
+      "fit": "U7/h6",
+      "property": "应用举例",
+      "raw": "蜗轮青铜轮缘与轮芯，安全联轴器销轴与套、螺纹车床蜗杆轴衬和箱体孔等的配合",
+      "cells": [
+        {
+          "row": 7,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 7,
+          "keyRow": 5,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image010.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/t5",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 8,
+          "keyRow": 8,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image016.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/t5",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 8,
+          "keyRow": 8,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image016.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/t5",
+      "property": "应用举例",
+      "raw": "齿轮孔和轴的配合",
+      "cells": [
+        {
+          "row": 8,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 8,
+          "keyRow": 8,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image016.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T6/h5",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 8,
+          "keyRow": 8,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image018.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 8,
+          "keyRow": 8,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image018.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T6/h5",
+      "property": "应用举例",
+      "raw": "齿轮孔和轴的配合",
+      "cells": [
+        {
+          "row": 8,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 8,
+          "keyRow": 8,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image018.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/t6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 9,
+          "keyRow": 9,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image020.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/t6",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 9,
+          "keyRow": 9,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image020.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/t6",
+      "property": "应用举例",
+      "raw": "联轴器与轴 含油轴承和轴承座、农业机械中曲柄盘与销轴",
+      "cells": [
+        {
+          "row": 9,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 9,
+          "keyRow": 9,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image020.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T7/h6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 9,
+          "keyRow": 9,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image022.gif"
+        },
+        {
+          "row": 10,
+          "keyRow": 9,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image022.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 9,
+          "keyRow": 9,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image022.gif"
+        },
+        {
+          "row": 10,
+          "keyRow": 9,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image022.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T7/h6",
+      "property": "应用举例",
+      "raw": "联轴器与轴 含油轴承和轴承座、农业机械中曲柄盘与销轴",
+      "cells": [
+        {
+          "row": 9,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 9,
+          "keyRow": 9,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image022.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/t7",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 10,
+          "keyRow": 10,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image024.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/t7",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 10,
+          "keyRow": 10,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image024.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/t7",
+      "property": "应用举例",
+      "raw": "柴油机连杆衬套和轴瓦，主轴承孔和主轴瓦等的配合",
+      "cells": [
+        {
+          "row": 10,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 10,
+          "keyRow": 10,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image024.gif"
+        }
+      ]
+    },
+    {
+      "fit": "T7/h6",
+      "property": "应用举例",
+      "raw": "柴油机连杆衬套和轴瓦，主轴承孔和主轴瓦等的配合",
+      "cells": [
+        {
+          "row": 10,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 10,
+          "keyRow": 9,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image022.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/s6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 11,
+          "keyRow": 11,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image026.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/s6",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 11,
+          "keyRow": 11,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image026.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/s6",
+      "property": "应用举例",
+      "raw": "减速器中轴与蜗轮，空压机连杆头与衬套，辊道辊子和轴，大型减速器低速齿轮与轴的配合",
+      "cells": [
+        {
+          "row": 11,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 11,
+          "keyRow": 11,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image026.gif"
+        }
+      ]
+    },
+    {
+      "fit": "S7/h6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 11,
+          "keyRow": 11,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image028.gif"
+        },
+        {
+          "row": 12,
+          "keyRow": 11,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image028.gif"
+        }
+      ]
+    },
+    {
+      "fit": "S7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 11,
+          "keyRow": 11,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image028.gif"
+        },
+        {
+          "row": 12,
+          "keyRow": 11,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image028.gif"
+        }
+      ]
+    },
+    {
+      "fit": "S7/h6",
+      "property": "应用举例",
+      "raw": "减速器中轴与蜗轮，空压机连杆头与衬套，辊道辊子和轴，大型减速器低速齿轮与轴的配合",
+      "cells": [
+        {
+          "row": 11,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 11,
+          "keyRow": 11,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image028.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/s7",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 12,
+          "keyRow": 12,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image030.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/s7",
+      "property": "配合特性及使用条件",
+      "raw": "中型压入配 合；不加紧固件可传递较小的转矩，当材料强度不够时，可用来代替重型压入配合，但需加紧固件",
+      "cells": [
+        {
+          "row": 8,
+          "column": 2
+        },
+        {
+          "row": 8,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 12,
+          "keyRow": 12,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image030.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/s7",
+      "property": "应用举例",
+      "raw": "青铜轮缘与轮芯，轴衬与轴承座、空气钻外壳盖与套筒，安全联轴器销钉和套，压气机活塞销和汽缸，拖拉机齿轮泵小齿轮和轴等配合",
+      "cells": [
+        {
+          "row": 12,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 12,
+          "keyRow": 12,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image030.gif"
+        }
+      ]
+    },
+    {
+      "fit": "S7/h6",
+      "property": "应用举例",
+      "raw": "青铜轮缘与轮芯，轴衬与轴承座、空气钻外壳盖与套筒，安全联轴器销钉和套，压气机活塞销和汽缸，拖拉机齿轮泵小齿轮和轴等配合",
+      "cells": [
+        {
+          "row": 12,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 12,
+          "keyRow": 11,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image028.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/r6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 13,
+          "keyRow": 13,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image032.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/r6",
+      "property": "配合特性及使用条件",
+      "raw": "轻型压入配合；用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+      "cells": [
+        {
+          "row": 13,
+          "column": 2
+        },
+        {
+          "row": 13,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 13,
+          "keyRow": 13,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image032.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/r6",
+      "property": "应用举例",
+      "raw": "重载齿轮与轴、车床齿轮箱中齿轮与衬套、蜗轮青铜轮缘与轮芯，轴和联轴器，可换铰套与铰模板等的配合",
+      "cells": [
+        {
+          "row": 13,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 13,
+          "keyRow": 13,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image032.gif"
+        }
+      ]
+    },
+    {
+      "fit": "R7/h6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 13,
+          "keyRow": 13,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image034.gif"
+        }
+      ]
+    },
+    {
+      "fit": "R7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "轻型压入配合；用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+      "cells": [
+        {
+          "row": 13,
+          "column": 2
+        },
+        {
+          "row": 13,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 13,
+          "keyRow": 13,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image034.gif"
+        }
+      ]
+    },
+    {
+      "fit": "R7/h6",
+      "property": "应用举例",
+      "raw": "重载齿轮与轴、车床齿轮箱中齿轮与衬套、蜗轮青铜轮缘与轮芯，轴和联轴器，可换铰套与铰模板等的配合",
+      "cells": [
+        {
+          "row": 13,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 13,
+          "keyRow": 13,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image034.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/p5",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image036.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/p5",
+      "property": "配合特性及使用条件",
+      "raw": "轻型压入配合；用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+      "cells": [
+        {
+          "row": 13,
+          "column": 2
+        },
+        {
+          "row": 13,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image036.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/p5",
+      "property": "应用举例",
+      "raw": "冲击振动的重载荷的齿轮和轴、压缩机十字销轴和连杆衬套、柴油机缸体上口和主轴瓦，凸轮孔和凸轮轴等配合",
+      "cells": [
+        {
+          "row": 14,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image036.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/p6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image038.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/p6",
+      "property": "配合特性及使用条件",
+      "raw": "轻型压入配合；用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+      "cells": [
+        {
+          "row": 13,
+          "column": 2
+        },
+        {
+          "row": 13,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image038.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/p6",
+      "property": "应用举例",
+      "raw": "冲击振动的重载荷的齿轮和轴、压缩机十字销轴和连杆衬套、柴油机缸体上口和主轴瓦，凸轮孔和凸轮轴等配合",
+      "cells": [
+        {
+          "row": 14,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image038.gif"
+        }
+      ]
+    },
+    {
+      "fit": "P6/h5",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image040.gif"
+        }
+      ]
+    },
+    {
+      "fit": "P6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "轻型压入配合；用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+      "cells": [
+        {
+          "row": 13,
+          "column": 2
+        },
+        {
+          "row": 13,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image040.gif"
+        }
+      ]
+    },
+    {
+      "fit": "P6/h5",
+      "property": "应用举例",
+      "raw": "冲击振动的重载荷的齿轮和轴、压缩机十字销轴和连杆衬套、柴油机缸体上口和主轴瓦，凸轮孔和凸轮轴等配合",
+      "cells": [
+        {
+          "row": 14,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image040.gif"
+        }
+      ]
+    },
+    {
+      "fit": "P7/h6",
+      "property": "装配方法",
+      "raw": "压力机或温差",
+      "cells": [
+        {
+          "row": 5,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image042.gif"
+        }
+      ]
+    },
+    {
+      "fit": "P7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "轻型压入配合；用于不拆卸的轻型过盈联接，不依靠配合过盈量传递摩擦载荷，传递转矩时要增加紧固件，以及用于以高的定位精度达到部件的刚性及对中性要求",
+      "cells": [
+        {
+          "row": 13,
+          "column": 2
+        },
+        {
+          "row": 13,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image042.gif"
+        }
+      ]
+    },
+    {
+      "fit": "P7/h6",
+      "property": "应用举例",
+      "raw": "冲击振动的重载荷的齿轮和轴、压缩机十字销轴和连杆衬套、柴油机缸体上口和主轴瓦，凸轮孔和凸轮轴等配合",
+      "cells": [
+        {
+          "row": 14,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 14,
+          "keyRow": 14,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image042.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/p7",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 15,
+          "keyRow": 15,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image044.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/p7",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 15,
+          "keyRow": 15,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image044.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/p7",
+      "property": "过盈概率",
+      "raw": "过盈概率66.8%～93.6%",
+      "cells": [
+        {
+          "row": 15,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 15,
+          "keyRow": 15,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image044.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/p7",
+      "property": "应用举例",
+      "raw": "升降机用蜗轮或带轮的轮缘和轮心，链轮轮缘和轮心，高压循环泵缸和套等的配合",
+      "cells": [
+        {
+          "row": 15,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 15,
+          "keyRow": 15,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image044.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/n5",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image046.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/n5",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image046.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/n5",
+      "property": "过盈概率",
+      "raw": "80%",
+      "cells": [
+        {
+          "row": 16,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image046.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/n5",
+      "property": "应用举例",
+      "raw": "可换铰套与铰模板、增压器主轴和衬套等的配合",
+      "cells": [
+        {
+          "row": 16,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image046.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N6/h5",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image048.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image048.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N6/h5",
+      "property": "过盈概率",
+      "raw": "80%",
+      "cells": [
+        {
+          "row": 16,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image048.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N6/h5",
+      "property": "应用举例",
+      "raw": "可换铰套与铰模板、增压器主轴和衬套等的配合",
+      "cells": [
+        {
+          "row": 16,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 16,
+          "keyRow": 16,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image048.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/n6",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image050.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/n6",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image050.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/n6",
+      "property": "过盈概率",
+      "raw": "77.7%～82.4%",
+      "cells": [
+        {
+          "row": 17,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image050.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/n6",
+      "property": "应用举例",
+      "raw": "爪型联轴器与轴、链轮轮缘与轮心、蜗轮青铜轮缘与轮心、破碎机等振动机械的齿轮和轴的配合。柴油机泵座与泵缸、压缩机连杆衬套和曲轴衬套。圆柱销与销孔的配合",
+      "cells": [
+        {
+          "row": 17,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image050.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N7/h6",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image052.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image052.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N7/h6",
+      "property": "过盈概率",
+      "raw": "77.7%～82.4%",
+      "cells": [
+        {
+          "row": 17,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image052.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N7/h6",
+      "property": "应用举例",
+      "raw": "爪型联轴器与轴、链轮轮缘与轮心、蜗轮青铜轮缘与轮心、破碎机等振动机械的齿轮和轴的配合。柴油机泵座与泵缸、压缩机连杆衬套和曲轴衬套。圆柱销与销孔的配合",
+      "cells": [
+        {
+          "row": 17,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 17,
+          "keyRow": 17,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image052.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/n7",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image054.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/n7",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image054.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/n7",
+      "property": "过盈概率",
+      "raw": "58.3%～67.6%",
+      "cells": [
+        {
+          "row": 18,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image054.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/n7",
+      "property": "应用举例",
+      "raw": "安全联轴器销钉和套、高压泵缸和缸套、拖拉机活塞销和活塞毂等的配合",
+      "cells": [
+        {
+          "row": 18,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image054.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N8/h7",
+      "property": "装配方法",
+      "raw": "压力机压入",
+      "cells": [
+        {
+          "row": 15,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image056.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "用于可承受很大转矩、振动及冲击（但需附加紧固件），不经常拆卸的地方。同心度及配合紧密性较好",
+      "cells": [
+        {
+          "row": 15,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image056.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N8/h7",
+      "property": "过盈概率",
+      "raw": "58.3%～67.6%",
+      "cells": [
+        {
+          "row": 18,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image056.gif"
+        }
+      ]
+    },
+    {
+      "fit": "N8/h7",
+      "property": "应用举例",
+      "raw": "安全联轴器销钉和套、高压泵缸和缸套、拖拉机活塞销和活塞毂等的配合",
+      "cells": [
+        {
+          "row": 18,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 18,
+          "keyRow": 18,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image056.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/m5",
+      "property": "装配方法",
+      "raw": "铜锤打入",
+      "cells": [
+        {
+          "row": 19,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image058.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/m5",
+      "property": "配合特性及使用条件",
+      "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+      "cells": [
+        {
+          "row": 19,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image058.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/m5",
+      "property": "过盈概率",
+      "raw": "过盈概率",
+      "cells": [
+        {
+          "row": 19,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image058.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/m5",
+      "property": "应用举例",
+      "raw": "压缩机连杆头与衬套、柴油机活塞孔和活塞销的配合",
+      "cells": [
+        {
+          "row": 19,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image058.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M6/h5",
+      "property": "装配方法",
+      "raw": "铜锤打入",
+      "cells": [
+        {
+          "row": 19,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image060.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+      "cells": [
+        {
+          "row": 19,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image060.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M6/h5",
+      "property": "过盈概率",
+      "raw": "过盈概率",
+      "cells": [
+        {
+          "row": 19,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image060.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M6/h5",
+      "property": "应用举例",
+      "raw": "压缩机连杆头与衬套、柴油机活塞孔和活塞销的配合",
+      "cells": [
+        {
+          "row": 19,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 19,
+          "keyRow": 19,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image060.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/m6",
+      "property": "装配方法",
+      "raw": "铜锤打入",
+      "cells": [
+        {
+          "row": 19,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image062.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/m6",
+      "property": "配合特性及使用条件",
+      "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+      "cells": [
+        {
+          "row": 19,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image062.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/m6",
+      "property": "过盈概率",
+      "raw": "50%～62.1%",
+      "cells": [
+        {
+          "row": 20,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image062.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/m6",
+      "property": "应用举例",
+      "raw": "蜗轮青铜轮缘与铸铁轮芯、齿轮孔与轴、定位销与孔的配合",
+      "cells": [
+        {
+          "row": 20,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image062.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M7/h6",
+      "property": "装配方法",
+      "raw": "铜锤打入",
+      "cells": [
+        {
+          "row": 19,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image064.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+      "cells": [
+        {
+          "row": 19,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image064.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M7/h6",
+      "property": "过盈概率",
+      "raw": "50%～62.1%",
+      "cells": [
+        {
+          "row": 20,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image064.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M7/h6",
+      "property": "应用举例",
+      "raw": "蜗轮青铜轮缘与铸铁轮芯、齿轮孔与轴、定位销与孔的配合",
+      "cells": [
+        {
+          "row": 20,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 20,
+          "keyRow": 20,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image064.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/m7",
+      "property": "装配方法",
+      "raw": "铜锤打入",
+      "cells": [
+        {
+          "row": 19,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image066.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/m7",
+      "property": "配合特性及使用条件",
+      "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+      "cells": [
+        {
+          "row": 19,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image066.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/m7",
+      "property": "过盈概率",
+      "raw": "50%～56%",
+      "cells": [
+        {
+          "row": 21,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image066.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/m7",
+      "property": "应用举例",
+      "raw": "升降机构中的轴与孔，压缩机十字销轴与座",
+      "cells": [
+        {
+          "row": 21,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image066.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M8/h7",
+      "property": "装配方法",
+      "raw": "铜锤打入",
+      "cells": [
+        {
+          "row": 19,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image068.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "用于配合紧密不经常拆卸的地方。当配合长度大于1.5倍直径时，用来代替H7/n6，同心度好",
+      "cells": [
+        {
+          "row": 19,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image068.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M8/h7",
+      "property": "过盈概率",
+      "raw": "50%～56%",
+      "cells": [
+        {
+          "row": 21,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image068.gif"
+        }
+      ]
+    },
+    {
+      "fit": "M8/h7",
+      "property": "应用举例",
+      "raw": "升降机构中的轴与孔，压缩机十字销轴与座",
+      "cells": [
+        {
+          "row": 21,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 21,
+          "keyRow": 21,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image068.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/k5",
+      "property": "装配方法",
+      "raw": "手锤打入",
+      "cells": [
+        {
+          "row": 22,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image070.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/k5",
+      "property": "配合特性及使用条件",
+      "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image070.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/k5",
+      "property": "过盈概率",
+      "raw": "46.2%～49.1%",
+      "cells": [
+        {
+          "row": 22,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image070.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/k5",
+      "property": "应用举例",
+      "raw": "精密螺纹车主轴箱体孔和主轴前轴承外圈的配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image070.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K6/h5",
+      "property": "装配方法",
+      "raw": "手锤打入",
+      "cells": [
+        {
+          "row": 22,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image072.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image072.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K6/h5",
+      "property": "过盈概率",
+      "raw": "46.2%～49.1%",
+      "cells": [
+        {
+          "row": 22,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image072.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K6/h5",
+      "property": "应用举例",
+      "raw": "精密螺纹车主轴箱体孔和主轴前轴承外圈的配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 22,
+          "keyRow": 22,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image072.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/k6",
+      "property": "装配方法",
+      "raw": "手锤打入",
+      "cells": [
+        {
+          "row": 22,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image074.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/k6",
+      "property": "配合特性及使用条件",
+      "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image074.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/k6",
+      "property": "过盈概率",
+      "raw": "41.7%～45%",
+      "cells": [
+        {
+          "row": 23,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image074.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/k6",
+      "property": "应用举例",
+      "raw": "机床不滑动齿轮和轴、中型电动机轴与联轴器或带轮，减速器蜗轮与轴、齿轮和轴的配合",
+      "cells": [
+        {
+          "row": 23,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image074.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K7/h6",
+      "property": "装配方法",
+      "raw": "手锤打入",
+      "cells": [
+        {
+          "row": 22,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image076.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image076.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K7/h6",
+      "property": "过盈概率",
+      "raw": "41.7%～45%",
+      "cells": [
+        {
+          "row": 23,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image076.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K7/h6",
+      "property": "应用举例",
+      "raw": "机床不滑动齿轮和轴、中型电动机轴与联轴器或带轮，减速器蜗轮与轴、齿轮和轴的配合",
+      "cells": [
+        {
+          "row": 23,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 23,
+          "keyRow": 23,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image076.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/k7",
+      "property": "装配方法",
+      "raw": "手锤打入",
+      "cells": [
+        {
+          "row": 22,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image078.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/k7",
+      "property": "配合特性及使用条件",
+      "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image078.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/k7",
+      "property": "过盈概率",
+      "raw": "41.7%～51.2%",
+      "cells": [
+        {
+          "row": 24,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image078.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/k7",
+      "property": "应用举例",
+      "raw": "压缩机连杆孔与十字头销，循环泵活塞与活塞杆",
+      "cells": [
+        {
+          "row": 24,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image078.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K8/h7",
+      "property": "装配方法",
+      "raw": "手锤打入",
+      "cells": [
+        {
+          "row": 22,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image080.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "用于受不大的冲击载荷处，同心度较好，用于常拆卸部位。为广泛采用的一种过渡配合",
+      "cells": [
+        {
+          "row": 22,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image080.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K8/h7",
+      "property": "过盈概率",
+      "raw": "41.7%～51.2%",
+      "cells": [
+        {
+          "row": 24,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image080.gif"
+        }
+      ]
+    },
+    {
+      "fit": "K8/h7",
+      "property": "应用举例",
+      "raw": "压缩机连杆孔与十字头销，循环泵活塞与活塞杆",
+      "cells": [
+        {
+          "row": 24,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 24,
+          "keyRow": 24,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image080.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/js5",
+      "property": "装配方法",
+      "raw": "手或木锤装卸",
+      "cells": [
+        {
+          "row": 25,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image082.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/js5",
+      "property": "配合特性及使用条件",
+      "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+      "cells": [
+        {
+          "row": 25,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image082.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/js5",
+      "property": "过盈概率",
+      "raw": "19.2%～21.1%",
+      "cells": [
+        {
+          "row": 25,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image082.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/js5",
+      "property": "应用举例",
+      "raw": "木工机械中轴与轴承的配合",
+      "cells": [
+        {
+          "row": 25,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image082.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS6/h5",
+      "property": "装配方法",
+      "raw": "手或木锤装卸",
+      "cells": [
+        {
+          "row": 25,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image084.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+      "cells": [
+        {
+          "row": 25,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image084.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS6/h5",
+      "property": "过盈概率",
+      "raw": "19.2%～21.1%",
+      "cells": [
+        {
+          "row": 25,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image084.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS6/h5",
+      "property": "应用举例",
+      "raw": "木工机械中轴与轴承的配合",
+      "cells": [
+        {
+          "row": 25,
+          "column": 5
+        }
+      ],
+      "keys": [
+        {
+          "row": 25,
+          "keyRow": 25,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image084.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/js6",
+      "property": "装配方法",
+      "raw": "手或木锤装卸",
+      "cells": [
+        {
+          "row": 25,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image086.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/js6",
+      "property": "配合特性及使用条件",
+      "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+      "cells": [
+        {
+          "row": 25,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image086.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/js6",
+      "property": "过盈概率",
+      "raw": "18.8%～20%",
+      "cells": [
+        {
+          "row": 26,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image086.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/js6",
+      "property": "应用举例",
+      "raw": "机床变速箱中齿轮和轴、精密仪表中轴和轴承、增压器衬套间的配合",
+      "cells": [
+        {
+          "row": 26,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image086.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS7/h6",
+      "property": "装配方法",
+      "raw": "手或木锤装卸",
+      "cells": [
+        {
+          "row": 25,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image088.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+      "cells": [
+        {
+          "row": 25,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image088.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS7/h6",
+      "property": "过盈概率",
+      "raw": "18.8%～20%",
+      "cells": [
+        {
+          "row": 26,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image088.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS7/h6",
+      "property": "应用举例",
+      "raw": "机床变速箱中齿轮和轴、精密仪表中轴和轴承、增压器衬套间的配合",
+      "cells": [
+        {
+          "row": 26,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 26,
+          "keyRow": 26,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image088.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/js7",
+      "property": "装配方法",
+      "raw": "手或木锤装卸",
+      "cells": [
+        {
+          "row": 25,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image090.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/js7",
+      "property": "配合特性及使用条件",
+      "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+      "cells": [
+        {
+          "row": 25,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image090.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/js7",
+      "property": "过盈概率",
+      "raw": "17.4%～20.8%",
+      "cells": [
+        {
+          "row": 27,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image090.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/js7",
+      "property": "应用举例",
+      "raw": "机床变速箱中齿轮和轴、轴端可卸下的皮带轮和手轮、电动机机座与端盖等的配合",
+      "cells": [
+        {
+          "row": 27,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image090.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS8/h7",
+      "property": "装配方法",
+      "raw": "手或木锤装卸",
+      "cells": [
+        {
+          "row": 25,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image092.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "用于频繁拆卸同心度要求不高的地方，是最松的一种过渡配合，大部分都将得到间隙",
+      "cells": [
+        {
+          "row": 25,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image092.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS8/h7",
+      "property": "过盈概率",
+      "raw": "17.4%～20.8%",
+      "cells": [
+        {
+          "row": 27,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image092.gif"
+        }
+      ]
+    },
+    {
+      "fit": "JS8/h7",
+      "property": "应用举例",
+      "raw": "机床变速箱中齿轮和轴、轴端可卸下的皮带轮和手轮、电动机机座与端盖等的配合",
+      "cells": [
+        {
+          "row": 27,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 27,
+          "keyRow": 27,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image092.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/h5",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 28,
+          "keyRow": 28,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image094.gif"
+        },
+        {
+          "row": 28,
+          "keyRow": 28,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image095.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较小，能较好的对准中心，一般多用于常拆卸或在调整时需移动或转动的联接处，或工作时滑移较慢并要求较好的导向精度的地方，和对同心度有一定要求通过紧固件传递转矩的固定联接处",
+      "cells": [
+        {
+          "row": 28,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 28,
+          "keyRow": 28,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image094.gif"
+        },
+        {
+          "row": 28,
+          "keyRow": 28,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image095.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/h5",
+      "property": "应用举例",
+      "raw": "剃齿机主轴与剃刀衬套、车床尾座体与套筒、高精度分度盘轴与孔、光学仪器中变焦距系统的孔轴配合",
+      "cells": [
+        {
+          "row": 28,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 28,
+          "keyRow": 28,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image094.gif"
+        },
+        {
+          "row": 28,
+          "keyRow": 28,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image095.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/h6",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image097.gif"
+        },
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image100.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较小，能较好的对准中心，一般多用于常拆卸或在调整时需移动或转动的联接处，或工作时滑移较慢并要求较好的导向精度的地方，和对同心度有一定要求通过紧固件传递转矩的固定联接处",
+      "cells": [
+        {
+          "row": 28,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image097.gif"
+        },
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image100.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/h6",
+      "property": "应用举例",
+      "raw": "机床变速箱的滑移齿轮和轴、离合器与轴、钻床横臂与立柱、风动工具活塞与缸体、往复运动的精导向的压缩机连杆孔和十字头、定心的凸缘与孔的配合",
+      "cells": [
+        {
+          "row": 29,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image097.gif"
+        },
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image100.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/h7",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image099.gif"
+        },
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image102.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较小，能较好的对准中心，一般多用于常拆卸或在调整时需移动或转动的联接处，或工作时滑移较慢并要求较好的导向精度的地方，和对同心度有一定要求通过紧固件传递转矩的固定联接处",
+      "cells": [
+        {
+          "row": 28,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image099.gif"
+        },
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image102.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/h7",
+      "property": "应用举例",
+      "raw": "机床变速箱的滑移齿轮和轴、离合器与轴、钻床横臂与立柱、风动工具活塞与缸体、往复运动的精导向的压缩机连杆孔和十字头、定心的凸缘与孔的配合",
+      "cells": [
+        {
+          "row": 29,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image099.gif"
+        },
+        {
+          "row": 29,
+          "keyRow": 29,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image102.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/h8",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 30,
+          "keyRow": 30,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image104.gif"
+        },
+        {
+          "row": 30,
+          "keyRow": 30,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image105.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/h8",
+      "property": "配合特性及使用条件",
+      "raw": "间隙定位配合，适用于同心度要求较低、工作时一般无相对运动的配合及负载不大、无振动、拆卸方便，加键可传递转矩的情况",
+      "cells": [
+        {
+          "row": 30,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 30,
+          "keyRow": 30,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image104.gif"
+        },
+        {
+          "row": 30,
+          "keyRow": 30,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image105.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/h8",
+      "property": "应用举例",
+      "raw": "安全扳手销钉和套、一般齿轮和轴、逞轮和轴、螺旋搅拌器叶轮与轴、离合器与轴、操纵件与轴、拨叉和导向轴、滑块和导向轴、减速器油标尺与箱体孔，部分式滑动轴承壳和轴瓦、电动机座上口和端盖",
+      "cells": [
+        {
+          "row": 30,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 30,
+          "keyRow": 30,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image104.gif"
+        },
+        {
+          "row": 30,
+          "keyRow": 30,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image105.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/h9",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 31,
+          "keyRow": 31,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image107.gif"
+        },
+        {
+          "row": 31,
+          "keyRow": 31,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image109.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/h9",
+      "property": "配合特性及使用条件",
+      "raw": "间隙定位配合，适用于同心度要求较低、工作时一般无相对运动的配合及负载不大、无振动、拆卸方便，加键可传递转矩的情况",
+      "cells": [
+        {
+          "row": 30,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 31,
+          "keyRow": 31,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image107.gif"
+        },
+        {
+          "row": 31,
+          "keyRow": 31,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image109.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/h9",
+      "property": "应用举例",
+      "raw": "安全扳手销钉和套、一般齿轮和轴、逞轮和轴、螺旋搅拌器叶轮与轴、离合器与轴、操纵件与轴、拨叉和导向轴、滑块和导向轴、减速器油标尺与箱体孔，部分式滑动轴承壳和轴瓦、电动机座上口和端盖",
+      "cells": [
+        {
+          "row": 30,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 31,
+          "keyRow": 31,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image107.gif"
+        },
+        {
+          "row": 31,
+          "keyRow": 31,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image109.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H10/h10",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 32,
+          "keyRow": 32,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image111.gif"
+        },
+        {
+          "row": 32,
+          "keyRow": 32,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image113.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H10/h10",
+      "property": "配合特性及使用条件",
+      "raw": "间隙定位配合，适用于同心度要求较低、工作时一般无相对运动的配合及负载不大、无振动、拆卸方便，加键可传递转矩的情况",
+      "cells": [
+        {
+          "row": 30,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 32,
+          "keyRow": 32,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image111.gif"
+        },
+        {
+          "row": 32,
+          "keyRow": 32,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image113.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H10/h10",
+      "property": "应用举例",
+      "raw": "起重机链轮与轴、对开轴瓦与轴承座两侧的配合、联接端盖的定心凸缘、一般的铰接、粗造机构中拉杆、杠杆等配合",
+      "cells": [
+        {
+          "row": 32,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 32,
+          "keyRow": 32,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image111.gif"
+        },
+        {
+          "row": 32,
+          "keyRow": 32,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image113.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H11/h11",
+      "property": "装配方法",
+      "raw": "加油后用手旋进",
+      "cells": [
+        {
+          "row": 28,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 33,
+          "keyRow": 33,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image115.gif"
+        },
+        {
+          "row": 33,
+          "keyRow": 33,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image117.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H11/h11",
+      "property": "配合特性及使用条件",
+      "raw": "间隙定位配合，适用于同心度要求较低、工作时一般无相对运动的配合及负载不大、无振动、拆卸方便，加键可传递转矩的情况",
+      "cells": [
+        {
+          "row": 30,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 33,
+          "keyRow": 33,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image115.gif"
+        },
+        {
+          "row": 33,
+          "keyRow": 33,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image117.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H11/h11",
+      "property": "应用举例",
+      "raw": "起重机链轮与轴、对开轴瓦与轴承座两侧的配合、联接端盖的定心凸缘、一般的铰接、粗造机构中拉杆、杠杆等配合",
+      "cells": [
+        {
+          "row": 32,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 33,
+          "keyRow": 33,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image115.gif"
+        },
+        {
+          "row": 33,
+          "keyRow": 33,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image117.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/g5",
+      "property": "装配方法",
+      "raw": "手旋进",
+      "cells": [
+        {
+          "row": 34,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 34,
+          "keyRow": 34,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image119.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/g5",
+      "property": "配合特性及使用条件",
+      "raw": "具有很小间隙，适用于有一定相对运动、运动速度不高并且精密定位的配合，以及运动可能有冲击但又能保证零件同心度或紧密性的配合",
+      "cells": [
+        {
+          "row": 34,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 34,
+          "keyRow": 34,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image119.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/g5",
+      "property": "应用举例",
+      "raw": "光学分度头主轴与轴承、刨床滑块与滑糟",
+      "cells": [
+        {
+          "row": 34,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 34,
+          "keyRow": 34,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image119.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G6/h5",
+      "property": "装配方法",
+      "raw": "手旋进",
+      "cells": [
+        {
+          "row": 34,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 34,
+          "keyRow": 34,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image121.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "具有很小间隙，适用于有一定相对运动、运动速度不高并且精密定位的配合，以及运动可能有冲击但又能保证零件同心度或紧密性的配合",
+      "cells": [
+        {
+          "row": 34,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 34,
+          "keyRow": 34,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image121.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G6/h5",
+      "property": "应用举例",
+      "raw": "光学分度头主轴与轴承、刨床滑块与滑糟",
+      "cells": [
+        {
+          "row": 34,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 34,
+          "keyRow": 34,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image121.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/g6",
+      "property": "装配方法",
+      "raw": "手旋进",
+      "cells": [
+        {
+          "row": 34,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 35,
+          "keyRow": 35,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image123.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/g6",
+      "property": "配合特性及使用条件",
+      "raw": "具有很小间隙，适用于有一定相对运动、运动速度不高并且精密定位的配合，以及运动可能有冲击但又能保证零件同心度或紧密性的配合",
+      "cells": [
+        {
+          "row": 34,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 35,
+          "keyRow": 35,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image123.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/g6",
+      "property": "应用举例",
+      "raw": "精密机床主轴与轴承、机床传动齿轮与轴、中等精度分度头主轴与轴套、矩形花键定心直径、拖拉机连杆衬套与曲轴的配合",
+      "cells": [
+        {
+          "row": 35,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 35,
+          "keyRow": 35,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image123.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G7/h6",
+      "property": "装配方法",
+      "raw": "手旋进",
+      "cells": [
+        {
+          "row": 34,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 35,
+          "keyRow": 35,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image125.gif"
+        },
+        {
+          "row": 36,
+          "keyRow": 35,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image125.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "具有很小间隙，适用于有一定相对运动、运动速度不高并且精密定位的配合，以及运动可能有冲击但又能保证零件同心度或紧密性的配合",
+      "cells": [
+        {
+          "row": 34,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 35,
+          "keyRow": 35,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image125.gif"
+        },
+        {
+          "row": 36,
+          "keyRow": 35,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image125.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G7/h6",
+      "property": "应用举例",
+      "raw": "精密机床主轴与轴承、机床传动齿轮与轴、中等精度分度头主轴与轴套、矩形花键定心直径、拖拉机连杆衬套与曲轴的配合",
+      "cells": [
+        {
+          "row": 35,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 35,
+          "keyRow": 35,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image125.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/g7",
+      "property": "装配方法",
+      "raw": "手旋进",
+      "cells": [
+        {
+          "row": 34,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 36,
+          "keyRow": 36,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image127.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/g7",
+      "property": "配合特性及使用条件",
+      "raw": "具有很小间隙，适用于有一定相对运动、运动速度不高并且精密定位的配合，以及运动可能有冲击但又能保证零件同心度或紧密性的配合",
+      "cells": [
+        {
+          "row": 34,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 36,
+          "keyRow": 36,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image127.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/g7",
+      "property": "应用举例",
+      "raw": "柴油机气缸体挺杆、手电钻中的配合等",
+      "cells": [
+        {
+          "row": 36,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 36,
+          "keyRow": 36,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image127.gif"
+        }
+      ]
+    },
+    {
+      "fit": "G7/h6",
+      "property": "应用举例",
+      "raw": "柴油机气缸体挺杆、手电钻中的配合等",
+      "cells": [
+        {
+          "row": 36,
+          "column": 1
+        }
+      ],
+      "keys": [
+        {
+          "row": 36,
+          "keyRow": 35,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image125.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/f5",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 37,
+          "keyRow": 37,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image129.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/f5",
+      "property": "配合特性及使用条件",
+      "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 37,
+          "keyRow": 37,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image129.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H6/f5",
+      "property": "应用举例",
+      "raw": "精密机床中变速箱、进给箱的转动件的配合，或其他重要滑动轴承、高精度齿轮轴套与轴承衬套、柴油机的凸轮轴与衬套孔等的配合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 37,
+          "keyRow": 37,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image129.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F6/h5",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 37,
+          "keyRow": 37,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image131.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F6/h5",
+      "property": "配合特性及使用条件",
+      "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 37,
+          "keyRow": 37,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image131.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F6/h5",
+      "property": "应用举例",
+      "raw": "精密机床中变速箱、进给箱的转动件的配合，或其他重要滑动轴承、高精度齿轮轴套与轴承衬套、柴油机的凸轮轴与衬套孔等的配合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 37,
+          "keyRow": 37,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image131.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/f6",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 38,
+          "keyRow": 38,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image133.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/f6",
+      "property": "配合特性及使用条件",
+      "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 38,
+          "keyRow": 38,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image133.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H7/f6",
+      "property": "应用举例",
+      "raw": "爪型离合器与轴、机床中一般轴与滑动轴承，机床夹具、钻模、镗模的导套孔，柴油机机体套孔与汽缸套，柱塞与缸体等的配合",
+      "cells": [
+        {
+          "row": 38,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 38,
+          "keyRow": 38,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image133.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F7/h6",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 38,
+          "keyRow": 38,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image135.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F7/h6",
+      "property": "配合特性及使用条件",
+      "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 38,
+          "keyRow": 38,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image135.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F7/h6",
+      "property": "应用举例",
+      "raw": "爪型离合器与轴、机床中一般轴与滑动轴承，机床夹具、钻模、镗模的导套孔，柴油机机体套孔与汽缸套，柱塞与缸体等的配合",
+      "cells": [
+        {
+          "row": 38,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 38,
+          "keyRow": 38,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image135.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/f7",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 39,
+          "keyRow": 39,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image137.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/f7",
+      "property": "配合特性及使用条件",
+      "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 39,
+          "keyRow": 39,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image137.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/f7",
+      "property": "应用举例",
+      "raw": "中等速度、中等载荷的滑动轴承，机床滑移齿轮与轴，蜗杆减速器的轴承端盖与孔，离合器活动爪与轴",
+      "cells": [
+        {
+          "row": 39,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 39,
+          "keyRow": 39,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image137.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F8/h7",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 39,
+          "keyRow": 39,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image139.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "具有中等间隙，广泛适用于普通机械中转速不大用普通润滑油或润滑脂润滑的滑动轴承，以及要求在轴上自由转动或移动的配合场合",
+      "cells": [
+        {
+          "row": 37,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 39,
+          "keyRow": 39,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image139.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F8/h7",
+      "property": "应用举例",
+      "raw": "中等速度、中等载荷的滑动轴承，机床滑移齿轮与轴，蜗杆减速器的轴承端盖与孔，离合器活动爪与轴",
+      "cells": [
+        {
+          "row": 39,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 39,
+          "keyRow": 39,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image139.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/f8",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 40,
+          "keyRow": 40,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image141.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/f8",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，能保证良好润滑，允许在工作中发热，故可用于高转速或大跨度或多支点的轴和轴承以及精度低，同心度要求不高的在轴上转动零件与轴的配合",
+      "cells": [
+        {
+          "row": 40,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 40,
+          "keyRow": 40,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image141.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/f8",
+      "property": "应用举例",
+      "raw": "滑块与导向槽，控制机构中的一般轴和孔，支承跨距较大或多支承的传动轴和轴承的配合",
+      "cells": [
+        {
+          "row": 40,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 40,
+          "keyRow": 40,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image141.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F8/h8",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 40,
+          "keyRow": 40,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image143.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F8/h8",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，能保证良好润滑，允许在工作中发热，故可用于高转速或大跨度或多支点的轴和轴承以及精度低，同心度要求不高的在轴上转动零件与轴的配合",
+      "cells": [
+        {
+          "row": 40,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 40,
+          "keyRow": 40,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image143.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F8/h8",
+      "property": "应用举例",
+      "raw": "滑块与导向槽，控制机构中的一般轴和孔，支承跨距较大或多支承的传动轴和轴承的配合",
+      "cells": [
+        {
+          "row": 40,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 40,
+          "keyRow": 40,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image143.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/f9",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 41,
+          "keyRow": 41,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image145.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/f9",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，能保证良好润滑，允许在工作中发热，故可用于高转速或大跨度或多支点的轴和轴承以及精度低，同心度要求不高的在轴上转动零件与轴的配合",
+      "cells": [
+        {
+          "row": 40,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 41,
+          "keyRow": 41,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image145.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/f9",
+      "property": "应用举例",
+      "raw": "安全联轴器轮毂与套，低精度含油轴承与轴、球体滑动轴承与轴承座及轴，链条张紧轮或传动带导轮与轴，柴油机活塞环与环槽宽等配合",
+      "cells": [
+        {
+          "row": 41,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 41,
+          "keyRow": 41,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image145.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F9/h9",
+      "property": "装配方法",
+      "raw": "手推滑进",
+      "cells": [
+        {
+          "row": 37,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 41,
+          "keyRow": 41,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image147.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F9/h9",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，能保证良好润滑，允许在工作中发热，故可用于高转速或大跨度或多支点的轴和轴承以及精度低，同心度要求不高的在轴上转动零件与轴的配合",
+      "cells": [
+        {
+          "row": 40,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 41,
+          "keyRow": 41,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image147.gif"
+        }
+      ]
+    },
+    {
+      "fit": "F9/h9",
+      "property": "应用举例",
+      "raw": "安全联轴器轮毂与套，低精度含油轴承与轴、球体滑动轴承与轴承座及轴，链条张紧轮或传动带导轮与轴，柴油机活塞环与环槽宽等配合",
+      "cells": [
+        {
+          "row": 41,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 41,
+          "keyRow": 41,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image147.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/e7",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 42,
+          "keyRow": 42,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image149.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/e7",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，适用于高转速载荷不大、方向不变的轴与轴承的配合，或虽是中等转速但轴跨度长或三个以上支点的轴与轴承的配合",
+      "cells": [
+        {
+          "row": 42,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 42,
+          "keyRow": 42,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image149.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/e7",
+      "property": "应用举例",
+      "raw": "汽轮发电机、大电动机的高速轴与滑动轴承，风扇电机的销轴与衬套",
+      "cells": [
+        {
+          "row": 42,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 42,
+          "keyRow": 42,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image149.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E8/h7",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 42,
+          "keyRow": 42,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image151.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E8/h7",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，适用于高转速载荷不大、方向不变的轴与轴承的配合，或虽是中等转速但轴跨度长或三个以上支点的轴与轴承的配合",
+      "cells": [
+        {
+          "row": 42,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 42,
+          "keyRow": 42,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image151.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E8/h7",
+      "property": "应用举例",
+      "raw": "汽轮发电机、大电动机的高速轴与滑动轴承，风扇电机的销轴与衬套",
+      "cells": [
+        {
+          "row": 42,
+          "column": 4
+        }
+      ],
+      "keys": [
+        {
+          "row": 42,
+          "keyRow": 42,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image151.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/e8",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 43,
+          "keyRow": 43,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image153.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/e8",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，适用于高转速载荷不大、方向不变的轴与轴承的配合，或虽是中等转速但轴跨度长或三个以上支点的轴与轴承的配合",
+      "cells": [
+        {
+          "row": 42,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 43,
+          "keyRow": 43,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image153.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/e8",
+      "property": "应用举例",
+      "raw": "外圆磨床的主轴与轴承、汽轮发电机轴与轴承、柴油机的凸轮轴与轴承、船用链轮轴、中小型电机轴与轴承、手表中的分轮、时轮轮片与轴承的配合",
+      "cells": [
+        {
+          "row": 43,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 43,
+          "keyRow": 43,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image153.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E8/h8",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 43,
+          "keyRow": 43,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image155.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E8/h8",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙较大，适用于高转速载荷不大、方向不变的轴与轴承的配合，或虽是中等转速但轴跨度长或三个以上支点的轴与轴承的配合",
+      "cells": [
+        {
+          "row": 42,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 43,
+          "keyRow": 43,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image155.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E8/h8",
+      "property": "应用举例",
+      "raw": "外圆磨床的主轴与轴承、汽轮发电机轴与轴承、柴油机的凸轮轴与轴承、船用链轮轴、中小型电机轴与轴承、手表中的分轮、时轮轮片与轴承的配合",
+      "cells": [
+        {
+          "row": 43,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 43,
+          "keyRow": 43,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image155.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/e9",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 44,
+          "keyRow": 44,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image157.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/e9",
+      "property": "配合特性及使用条件",
+      "raw": "用于精度不高且有较松间隙的转动配合",
+      "cells": [
+        {
+          "row": 44,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 44,
+          "keyRow": 44,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image157.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/e9",
+      "property": "应用举例",
+      "raw": "粗糙机构中衬套与轴承圈、含油轴承与座的配合",
+      "cells": [
+        {
+          "row": 44,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 44,
+          "keyRow": 44,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image157.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E9/h9",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 44,
+          "keyRow": 44,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image159.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E9/h9",
+      "property": "配合特性及使用条件",
+      "raw": "用于精度不高且有较松间隙的转动配合",
+      "cells": [
+        {
+          "row": 44,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 44,
+          "keyRow": 44,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image159.gif"
+        }
+      ]
+    },
+    {
+      "fit": "E9/h9",
+      "property": "应用举例",
+      "raw": "粗糙机构中衬套与轴承圈、含油轴承与座的配合",
+      "cells": [
+        {
+          "row": 44,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 44,
+          "keyRow": 44,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image159.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/d8",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 45,
+          "keyRow": 45,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image161.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/d8",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙比较大，用于精度不高，高速及负载不高的配合或高温条件下的转动配合，以及由于装配精度不高而引起偏斜的联接",
+      "cells": [
+        {
+          "row": 45,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 45,
+          "keyRow": 45,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image161.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H8/d8",
+      "property": "应用举例",
+      "raw": "机车车辆轴承、缝纫机梭摆与梭床空压机活塞环与环槽宽度的配合",
+      "cells": [
+        {
+          "row": 45,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 45,
+          "keyRow": 45,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image161.gif"
+        }
+      ]
+    },
+    {
+      "fit": "D8/h8",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 45,
+          "keyRow": 45,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image163.gif"
+        }
+      ]
+    },
+    {
+      "fit": "D8/h8",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙比较大，用于精度不高，高速及负载不高的配合或高温条件下的转动配合，以及由于装配精度不高而引起偏斜的联接",
+      "cells": [
+        {
+          "row": 45,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 45,
+          "keyRow": 45,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image163.gif"
+        }
+      ]
+    },
+    {
+      "fit": "D8/h8",
+      "property": "应用举例",
+      "raw": "机车车辆轴承、缝纫机梭摆与梭床空压机活塞环与环槽宽度的配合",
+      "cells": [
+        {
+          "row": 45,
+          "column": 3
+        }
+      ],
+      "keys": [
+        {
+          "row": 45,
+          "keyRow": 45,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image163.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/d9",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 46,
+          "keyRow": 46,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image165.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/d9",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙比较大，用于精度不高，高速及负载不高的配合或高温条件下的转动配合，以及由于装配精度不高而引起偏斜的联接",
+      "cells": [
+        {
+          "row": 45,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 46,
+          "keyRow": 46,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image165.gif"
+        }
+      ]
+    },
+    {
+      "fit": "H9/d9",
+      "property": "应用举例",
+      "raw": "通用机械 中的平键联接、柴油机活塞环与环槽宽、空压机活塞与压杆，印染机械中汽缸活塞密封环，热工仪表中精度较低的轴与孔、滑动轴承及较松的皮带轮与轴的配合",
+      "cells": [
+        {
+          "row": 46,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 46,
+          "keyRow": 46,
+          "keyColumn": 0,
+          "image": "./13.2-47.files/image165.gif"
+        }
+      ]
+    },
+    {
+      "fit": "D9/h9",
+      "property": "装配方法",
+      "raw": "手轻推进",
+      "cells": [
+        {
+          "row": 42,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 46,
+          "keyRow": 46,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image167.gif"
+        }
+      ]
+    },
+    {
+      "fit": "D9/h9",
+      "property": "配合特性及使用条件",
+      "raw": "配合间隙比较大，用于精度不高，高速及负载不高的配合或高温条件下的转动配合，以及由于装配精度不高而引起偏斜的联接",
+      "cells": [
+        {
+          "row": 45,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 46,
+          "keyRow": 46,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image167.gif"
+        }
+      ]
+    },
+    {
+      "fit": "D9/h9",
+      "property": "应用举例",
+      "raw": "通用机械 中的平键联接、柴油机活塞环与环槽宽、空压机活塞与压杆，印染机械中汽缸活塞密封环，热工仪表中精度较低的轴与孔、滑动轴承及较松的皮带轮与轴的配合",
+      "cells": [
+        {
+          "row": 46,
+          "column": 2
+        }
+      ],
+      "keys": [
+        {
+          "row": 46,
+          "keyRow": 46,
+          "keyColumn": 1,
+          "image": "./13.2-47.files/image167.gif"
+        }
+      ]
+    }
+  ]
+}

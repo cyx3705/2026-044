@@ -1,4 +1,4 @@
-﻿param([long]$WindowHandle,[int]$ExpectedProcessId,[int]$X=0,[int]$Y=0,[int]$Width=0,[int]$Height=0,[string]$OutputPath,[string]$Action='capture',[string]$PageName,[string]$PagePath,[string]$Query,[int]$Offset=0,[int]$Limit=30,[int]$ScrollY=0)
+﻿param([long]$WindowHandle,[int]$ExpectedProcessId,[int]$X=0,[int]$Y=0,[int]$Width=0,[int]$Height=0,[string]$OutputPath,[string]$Action='capture',[string]$PageName,[string]$PagePath,[string]$Query,[int]$Offset=0,[int]$Limit=30,[int]$ScrollY=0,[switch]$FullPage)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding=New-Object System.Text.UTF8Encoding($false)
 Add-Type -AssemblyName System.Drawing
@@ -28,12 +28,30 @@ public static class NormaWindowCapture {
   if(ObjectFromLresult(new IntPtr(result),ref iid,IntPtr.Zero,out doc)!=0)return "";
   try {return Convert.ToString(doc.GetType().InvokeMember("title",System.Reflection.BindingFlags.GetProperty,null,doc,null));}finally{if(Marshal.IsComObject(doc))Marshal.ReleaseComObject(doc);}
  }
- public static void Scroll(IntPtr content,int y) {
+ public static void Scroll(IntPtr content,int y) { ScrollTo(content,0,y); }
+ public static void ScrollTo(IntPtr content,int x,int y) {
   var result=Message(content,RegisterWindowMessage("WM_HTML_GETOBJECT"),0,0);var iid=new Guid("332C4425-26CB-11D0-B483-00C04FD90119");object doc;
   if(result==0||ObjectFromLresult(new IntPtr(result),ref iid,IntPtr.Zero,out doc)!=0)throw new Exception("无法读取正文滚动接口");object window=null;
-  try {window=doc.GetType().InvokeMember("parentWindow",System.Reflection.BindingFlags.GetProperty,null,doc,null);window.GetType().InvokeMember("scrollTo",System.Reflection.BindingFlags.InvokeMethod,null,window,new object[]{0,y});}
+  try {window=doc.GetType().InvokeMember("parentWindow",System.Reflection.BindingFlags.GetProperty,null,doc,null);window.GetType().InvokeMember("scrollTo",System.Reflection.BindingFlags.InvokeMethod,null,window,new object[]{x,y});}
   finally{if(window!=null&&Marshal.IsComObject(window))Marshal.ReleaseComObject(window);if(Marshal.IsComObject(doc))Marshal.ReleaseComObject(doc);}
  }
+ // Read the native document's scroll bounds; no script execution or HTML re-render.
+ public sealed class Bounds { public int Width,Height,ClientWidth,ClientHeight,X,Y; public double Scale; }
+ static object Get(object obj,string property) { return obj.GetType().InvokeMember(property,System.Reflection.BindingFlags.GetProperty,null,obj,null); }
+ static int Int(object obj,string property) { return Convert.ToInt32(Get(obj,property)); }
+ public static Bounds Metrics(IntPtr content) {
+  var result=Message(content,RegisterWindowMessage("WM_HTML_GETOBJECT"),0,0);var iid=new Guid("332C4425-26CB-11D0-B483-00C04FD90119");object doc;
+  if(result==0||ObjectFromLresult(new IntPtr(result),ref iid,IntPtr.Zero,out doc)!=0)throw new Exception("无法读取正文整页尺寸");
+  object element=null,window=null,screen=null;
+  try {
+   element=Get(doc,Convert.ToString(Get(doc,"compatMode"))=="CSS1Compat"?"documentElement":"body");
+   window=Get(doc,"parentWindow");screen=Get(window,"screen");
+   double scale=Convert.ToDouble(Get(screen,"deviceXDPI"))/Convert.ToDouble(Get(screen,"logicalXDPI"));
+   try {double ratio=Convert.ToDouble(Get(window,"devicePixelRatio"));if(ratio>0)scale=ratio;} catch(System.Reflection.TargetInvocationException) {} catch(System.Runtime.InteropServices.COMException) {}
+   return new Bounds{Width=Int(element,"scrollWidth"),Height=Int(element,"scrollHeight"),ClientWidth=Int(element,"clientWidth"),ClientHeight=Int(element,"clientHeight"),X=Int(element,"scrollLeft"),Y=Int(element,"scrollTop"),Scale=scale};
+  } finally {foreach(var obj in new object[]{screen,window,element,doc})if(obj!=null&&Marshal.IsComObject(obj))Marshal.ReleaseComObject(obj);}
+ }
+ [DllImport("user32.dll")] public static extern bool RedrawWindow(IntPtr h,IntPtr rect,IntPtr region,uint flags);
  public static void Select(IntPtr tree,long item) { Message(tree,0x1114,0,item);Message(tree,0x110B,9,item);if(Message(tree,0x110A,9,0)!=item)throw new Exception("原目录未确认选择成功"); }
  public static void Expand(IntPtr tree,long item){Message(tree,0x1102,2,item);}
  public static Entry[] Rows(IntPtr tree,int pid) {
@@ -57,6 +75,10 @@ public static class NormaWindowCapture {
   } finally {if(remote!=IntPtr.Zero)VirtualFreeEx(process,remote,UIntPtr.Zero,0x8000);CloseHandle(process);}
  }
  [StructLayout(LayoutKind.Sequential)] public struct Rect { public int Left,Top,Right,Bottom; }
+ [StructLayout(LayoutKind.Sequential)] public struct Point { public int X,Y; }
+ [DllImport("user32.dll")] public static extern bool GetClientRect(IntPtr h,out Rect r);
+ [DllImport("user32.dll")] public static extern int GetSystemMetrics(int index);
+ [DllImport("user32.dll")] public static extern bool ClientToScreen(IntPtr h,ref Point p);
  [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr h, out Rect r);
  [DllImport("user32.dll")] public static extern bool PrintWindow(IntPtr h, IntPtr dc, uint flags);
  [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr h);
@@ -119,6 +141,85 @@ if($Action -eq 'directory'){
  @{total=$directoryItems.Count;offset=$Offset;returned=$page.Count;nextOffset=$next;items=$page;text=[string]::Join("`n",$lines);note='原手册目录文字查看器；name为完整页名，path用于区分同名和展开祖先；不生成目录截图'} | ConvertTo-Json -Depth 8 -Compress
  exit 0
 }
+# REQ-MANUAL-009: explicit full-page capture; both axes, actual scroll positions, restore in finally.
+if($FullPage){
+ if($X -ne 0 -or $Y -ne 0 -or $Width -ne 0 -or $Height -ne 0){throw 'full_page=true不能与局部裁切参数混用'}
+ $original=[NormaWindowCapture]::Metrics($contentHandle)
+ $title=[NormaWindowCapture]::DocumentTitle($contentHandle)
+ # Legacy IE screen.deviceXDPI is integer-rounded at non-100% zoom.
+ # Calibrate against the physical client area, native inset and scrollbars instead.
+ $client=New-Object NormaWindowCapture+Rect
+ if(-not [NormaWindowCapture]::GetClientRect($contentHandle,[ref]$client)){throw '无法读取正文像素尺寸'}
+ $edgeX=[NormaWindowCapture]::GetSystemMetrics(45);$edgeY=[NormaWindowCapture]::GetSystemMetrics(46)
+ $barX=0;$barY=0
+ if($original.Height -gt $original.ClientHeight){$barX=[NormaWindowCapture]::GetSystemMetrics(2)}
+ if($original.Width -gt $original.ClientWidth){$barY=[NormaWindowCapture]::GetSystemMetrics(3)}
+ $scaleX=($client.Right-$client.Left-2*$edgeX-$barX)/[double]$original.ClientWidth
+ $scaleY=($client.Bottom-$client.Top-2*$edgeY-$barY)/[double]$original.ClientHeight
+ if([Math]::Abs($scaleX-$scaleY) -gt 0.005 -or [Math]::Abs($scaleX-$original.Scale) -gt 0.02){throw '原生正文比例无法与视口一致核对，拒绝不准确拼接'}
+ $scale=[Math]::Min($scaleX,$scaleY)
+ if($scale -le 0 -or $scale -gt 4){throw '正文像素比例不可识别'}
+ $pageWidth=[int][Math]::Ceiling($original.Width*$scale);$pageHeight=[int][Math]::Ceiling($original.Height*$scale)
+ if($pageWidth -lt 1 -or $pageHeight -lt 1 -or $pageWidth -gt 12000 -or $pageHeight -gt 50000 -or [long]$pageWidth*$pageHeight -gt 40000000){throw '整页超过12000×50000或4000万像素上限，未生成截断图片；请分区截图'}
+ if($original.ClientWidth -lt 1 -or $original.ClientHeight -lt 1){throw '正文视口尺寸无效'}
+ # Leave an overlap so native viewport edge/border pixels never become internal seams.
+ $stepX=[Math]::Max(1,$original.ClientWidth-32);$stepY=[Math]::Max(1,$original.ClientHeight-32)
+ $columns=[int][Math]::Ceiling($original.Width/[double]$stepX)
+ $rowCount=[int][Math]::Ceiling($original.Height/[double]$stepY)
+ if($columns*$rowCount -gt 80){throw '整页超过80块上限，未生成截断图片；请分区截图'}
+ $canvas=New-Object System.Drawing.Bitmap($pageWidth,$pageHeight)
+ $painter=[System.Drawing.Graphics]::FromImage($canvas)
+ $tiles=@();$timer=[Diagnostics.Stopwatch]::StartNew()
+ try {
+  $painter.Clear([System.Drawing.Color]::White)
+  for($ty=0;$ty -lt $original.Height;$ty+=$stepY){
+   for($tx=0;$tx -lt $original.Width;$tx+=$stepX){
+    if($timer.Elapsed.TotalSeconds -gt 22){throw '整页截图接近超时，未保存不完整图片'}
+    $sx=[Math]::Min([Math]::Max(0,$tx-16),[Math]::Max(0,$original.Width-$original.ClientWidth))
+    $sy=[Math]::Min([Math]::Max(0,$ty-16),[Math]::Max(0,$original.Height-$original.ClientHeight))
+    [NormaWindowCapture]::ScrollTo($contentHandle,$sx,$sy)
+    [void][NormaWindowCapture]::RedrawWindow($handle,[IntPtr]::Zero,[IntPtr]::Zero,0x185)
+    Start-Sleep -Milliseconds 80
+    $actual=[NormaWindowCapture]::Metrics($contentHandle)
+    if($actual.X -ne $sx -or $actual.Y -ne $sy -or $actual.Width -ne $original.Width -or $actual.Height -ne $original.Height -or $actual.ClientWidth -ne $original.ClientWidth -or $actual.ClientHeight -ne $original.ClientHeight -or [NormaWindowCapture]::DocumentTitle($contentHandle) -cne $title){throw '正文页面、尺寸或滚动位置改变，拒绝报告整页完整'}
+    $rect=New-Object NormaWindowCapture+Rect;$region=New-Object NormaWindowCapture+Rect
+    if(-not [NormaWindowCapture]::GetWindowRect($handle,[ref]$rect) -or -not [NormaWindowCapture]::GetWindowRect($contentHandle,[ref]$region)){throw '无法读取截图区域'}
+    $origin=New-Object NormaWindowCapture+Point
+    if(-not [NormaWindowCapture]::ClientToScreen($contentHandle,[ref]$origin)){throw '无法读取正文客户区原点'}
+    $bitmap=New-Object System.Drawing.Bitmap(($rect.Right-$rect.Left),($rect.Bottom-$rect.Top))
+    $graphics=[System.Drawing.Graphics]::FromImage($bitmap)
+    try {
+     $graphics.Clear([System.Drawing.Color]::Magenta);$dc=$graphics.GetHdc()
+     try {$ok=[NormaWindowCapture]::PrintWindow($handle,$dc,2)} finally {$graphics.ReleaseHdc($dc)}
+     if(-not $ok){throw '整页分块PrintWindow失败'}
+     $destX=[int][Math]::Round($tx*$scale);$destY=[int][Math]::Round($ty*$scale)
+     $endX=[Math]::Min($pageWidth,[int][Math]::Round(($tx+$stepX)*$scale))
+     $endY=[Math]::Min($pageHeight,[int][Math]::Round(($ty+$stepY)*$scale))
+     $sourceX=$origin.X-$rect.Left+$edgeX+[int][Math]::Round(($tx-$sx)*$scale)
+     $sourceY=$origin.Y-$rect.Top+$edgeY+[int][Math]::Round(($ty-$sy)*$scale)
+     $w=$endX-$destX;$h=$endY-$destY
+     if($sourceX+$w -gt $region.Right-$rect.Left -or $sourceY+$h -gt $region.Bottom-$rect.Top){throw '正文像素比例与控件边界不一致，拒绝拼接'}
+     $colors=New-Object 'System.Collections.Generic.HashSet[int]'
+     for($cy=$sourceY;$cy -lt $sourceY+$h;$cy += [Math]::Max(1,[int]($h/30))){for($cx=$sourceX;$cx -lt $sourceX+$w;$cx += [Math]::Max(1,[int]($w/30))){[void]$colors.Add($bitmap.GetPixel($cx,$cy).ToArgb())}}
+     if($colors.Count -eq 1 -and $colors.Contains([System.Drawing.Color]::Magenta.ToArgb())){throw '整页分块未绘制'}
+     $dest=New-Object System.Drawing.Rectangle($destX,$destY,$w,$h)
+     $source=New-Object System.Drawing.Rectangle($sourceX,$sourceY,$w,$h)
+     $painter.DrawImage($bitmap,$dest,$source,[System.Drawing.GraphicsUnit]::Pixel)
+     $tiles+=@{x=$destX;y=$destY;width=$w;height=$h;scrollX=$actual.X;scrollY=$actual.Y}
+    } finally {$graphics.Dispose();$bitmap.Dispose()}
+   }
+  }
+  $canvas.Save($OutputPath,[System.Drawing.Imaging.ImageFormat]::Png)
+ } finally {
+  $painter.Dispose();$canvas.Dispose()
+  [NormaWindowCapture]::ScrollTo($contentHandle,$original.X,$original.Y)
+  [void][NormaWindowCapture]::RedrawWindow($handle,[IntPtr]::Zero,[IntPtr]::Zero,0x185)
+ }
+ $restored=[NormaWindowCapture]::Metrics($contentHandle)
+ if($restored.X -ne $original.X -or $restored.Y -ne $original.Y){Remove-Item -LiteralPath $OutputPath -ErrorAction SilentlyContinue;throw '截图后未能恢复原滚动位置'}
+ @{contentTitle=$title;imagePath=$OutputPath;width=$pageWidth;height=$pageHeight;fullPage=$true;complete=$true;scrollRestored=$true;documentWidth=$original.Width;documentHeight=$original.Height;viewportWidth=$original.ClientWidth;viewportHeight=$original.ClientHeight;pixelScale=$scale;tiles=$tiles;processId=$ExpectedProcessId;windowHandle=$WindowHandle;evidence='native-window';method='Windows PrintWindow tiled';region='content';note='原窗口正文整页双向滚动拼接；覆盖全部正文及脚注，截图后恢复原滚动位置'} | ConvertTo-Json -Depth 8 -Compress
+ exit 0
+}
 $rect=New-Object NormaWindowCapture+Rect
 if(-not [NormaWindowCapture]::GetWindowRect($handle,[ref]$rect)){throw '无法读取手册窗口；请在交互桌面会话运行'}
 $fullWidth=$rect.Right-$rect.Left
@@ -144,6 +245,7 @@ try {
  $cropX=$region.Left-$rect.Left+$X;$cropY=$region.Top-$rect.Top+$Y
  $crop=$bitmap.Clone((New-Object System.Drawing.Rectangle($cropX,$cropY,$Width,$Height)),[System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
  try {$crop.Save($OutputPath,[System.Drawing.Imaging.ImageFormat]::Png)} finally {$crop.Dispose()}
- $result=@{contentTitle=[NormaWindowCapture]::DocumentTitle($contentHandle);imagePath=$OutputPath;width=$Width;height=$Height;x=$X;y=$Y;regionWidth=$regionWidth;regionHeight=$regionHeight;windowWidth=$fullWidth;windowHeight=$fullHeight;processId=$ExpectedProcessId;windowHandle=$WindowHandle;evidence='native-window';method='Windows PrintWindow';region='content';note='原手册右侧正文像素截图；裁切坐标相对正文控件左上角，不含左侧目录和工具栏'}
+ $viewMetrics=[NormaWindowCapture]::Metrics($contentHandle)
+ $result=@{documentWidth=$viewMetrics.Width;documentHeight=$viewMetrics.Height;viewportWidth=$viewMetrics.ClientWidth;viewportHeight=$viewMetrics.ClientHeight;scrollX=$viewMetrics.X;scrollY=$viewMetrics.Y;hasOffscreenContent=($viewMetrics.Width -gt $viewMetrics.ClientWidth -or $viewMetrics.Height -gt $viewMetrics.ClientHeight);contentTitle=[NormaWindowCapture]::DocumentTitle($contentHandle);imagePath=$OutputPath;width=$Width;height=$Height;x=$X;y=$Y;regionWidth=$regionWidth;regionHeight=$regionHeight;windowWidth=$fullWidth;windowHeight=$fullHeight;processId=$ExpectedProcessId;windowHandle=$WindowHandle;evidence='native-window';method='Windows PrintWindow';region='content';fullPage=$false;note='仅当前可见视口，可能未含右侧/下方正文；整页请full_page=true。原手册右侧正文像素截图；裁切坐标相对正文控件左上角，不含左侧目录和工具栏'}
  $result | ConvertTo-Json -Depth 8 -Compress
 } finally {$graphics.Dispose();$bitmap.Dispose()}

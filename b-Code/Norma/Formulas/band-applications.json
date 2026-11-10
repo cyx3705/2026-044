@@ -1,0 +1,682 @@
+{
+  "id": "13-02:46",
+  "byteOffset": 4412692,
+  "title": "轴的各种基本偏差的应用",
+  "standard": "机械工程师手册（经验参考）",
+  "rows": [
+    [
+      {
+        "raw": "配合",
+        "row": 0,
+        "column": 0,
+        "logicalColumn": 0,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "基本偏差",
+        "row": 0,
+        "column": 1,
+        "logicalColumn": 1,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "配 合 特 性 及 应 用",
+        "row": 0,
+        "column": 2,
+        "logicalColumn": 2,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "配合",
+        "row": 0,
+        "column": 3,
+        "logicalColumn": 3,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "基本偏差",
+        "row": 0,
+        "column": 4,
+        "logicalColumn": 4,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "配 合 特 性 及 应 用",
+        "row": 0,
+        "column": 5,
+        "logicalColumn": 5,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 0,
+        "column": 6,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "间隙配合",
+        "row": 1,
+        "column": 0,
+        "logicalColumn": 0,
+        "rowspan": 11,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "a、b",
+        "row": 1,
+        "column": 1,
+        "logicalColumn": 1,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "可得到特别大的间隙，应用很少",
+        "row": 1,
+        "column": 2,
+        "logicalColumn": 2,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "过渡配合",
+        "row": 1,
+        "column": 3,
+        "logicalColumn": 3,
+        "rowspan": 6,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "js",
+        "row": 1,
+        "column": 4,
+        "logicalColumn": 4,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "公差带相对零线对称，平均起来为稍有间隙的配合，多用于IT4～IT7级，要求间隙比h轴配合时小，并允许略有过盈的定位配合，如联轴器、齿圈与钢制轮毂，一般可用手或木锤装配",
+        "row": 1,
+        "column": 5,
+        "logicalColumn": 5,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 1,
+        "column": 6,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "c",
+        "row": 2,
+        "column": 0,
+        "logicalColumn": 1,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "可得到很大间隙，一般适用于缓慢、松弛的动配合，用于工作条件较差（如农业机械），受力变形，或为了便于装配，而必须有较大间隙时。推荐配合为H11/c11。其较高等级的配合，如H8/c7适用于轴在高温工作的紧密动配合，例如内燃机排气阀和导管",
+        "row": 2,
+        "column": 1,
+        "logicalColumn": 2,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 2,
+        "column": 2,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "k",
+        "row": 3,
+        "column": 0,
+        "logicalColumn": 4,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "平均起来没有间隙的配合，适用于IT4～IT7级，推荐用于要求稍有过盈的定位配合，例如为了消除振动用的定位配合，一般用木锤装配",
+        "row": 3,
+        "column": 1,
+        "logicalColumn": 5,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 3,
+        "column": 2,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "d",
+        "row": 4,
+        "column": 0,
+        "logicalColumn": 1,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "一般用于IT7～IT11级，适用于松的转动配合，如密封盖、滑轮、空转带轮等与轴的配合。也适用于大直径滑动轴承配合，如透平机、球磨机、轧滚成形和重型弯曲机及其他重型机械中的一些滑动支承",
+        "row": 4,
+        "column": 1,
+        "logicalColumn": 2,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "m",
+        "row": 4,
+        "column": 2,
+        "logicalColumn": 4,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "平均起来具有不大过盈的过渡配合，适用于IT4～IT7级。一般可用木锤装配，但在最大过盈时，要求相当的压入力",
+        "row": 4,
+        "column": 3,
+        "logicalColumn": 5,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 4,
+        "column": 4,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "n",
+        "row": 5,
+        "column": 0,
+        "logicalColumn": 4,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "平均过盈比用m轴时稍大，很少得到间隙，适用于IT4～IT7级。用锤或压力机装配。通常推荐用于紧密的组件配合。H6/n5在基本尺寸≤3mm时为过渡配合，>3mm时为过盈配合",
+        "row": 5,
+        "column": 1,
+        "logicalColumn": 5,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 5,
+        "column": 2,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "e",
+        "row": 6,
+        "column": 0,
+        "logicalColumn": 1,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "多用于IT7～IT9级，通常适用于要求有明显间隙，易于转动的支承配合，如大跨距支承，多支点支承等配合，高等级的e轴适应于大的、高速重载支承，如汽轮发电机，大的电动机支承等，也适用于内燃机主要轴承，凸轮轴支承、摇臂支承等配合",
+        "row": 6,
+        "column": 1,
+        "logicalColumn": 2,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 6,
+        "column": 2,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "过盈配合",
+        "row": 7,
+        "column": 0,
+        "logicalColumn": 3,
+        "rowspan": 5,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "p",
+        "row": 7,
+        "column": 1,
+        "logicalColumn": 4,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "常用H6/p5、H7/p6在基本尺寸≤3mm时为过渡配合，>3mm时为过盈配合；H8/p7为过渡配合。对非铁类零件，为较轻的压入配合，当需要时易于拆卸。对钢、铸铁或铜-钢组件装配是标准压入配合。对弹性材料，如轻合金等，往往要求很小的过盈，可采用p轴配合",
+        "row": 7,
+        "column": 2,
+        "logicalColumn": 5,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 7,
+        "column": 3,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "f",
+        "row": 8,
+        "column": 0,
+        "logicalColumn": 1,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "多用于IT6～IT8级的一般转动配合。当温度差别不大，对配合基本上没影响时，被广泛用于普通润滑油（或润滑脂）润滑的支承，如齿轮箱、小电动机、泵等的转轴与滑动支承的配合",
+        "row": 8,
+        "column": 1,
+        "logicalColumn": 2,
+        "rowspan": 2,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 8,
+        "column": 2,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "r",
+        "row": 9,
+        "column": 0,
+        "logicalColumn": 4,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "对铁类零件，为中等打入配合；对非铁类零件，为轻的打入配合，当需要时可以拆卸。与H8孔配合的具体类型取决于基本尺寸和轴的公差等级",
+        "row": 9,
+        "column": 1,
+        "logicalColumn": 5,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 9,
+        "column": 2,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "g",
+        "row": 10,
+        "column": 0,
+        "logicalColumn": 1,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "多用于IT5～IT7级，配合间隙很小，制造成本高、除很轻负荷的精密装置外，不推荐用于转动配合，最适合不回转的精密滑动配合，也用于插销等定位配合，如精密连杆轴承、活塞及滑阀、连杆销等",
+        "row": 10,
+        "column": 1,
+        "logicalColumn": 2,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "s",
+        "row": 10,
+        "column": 2,
+        "logicalColumn": 4,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "用于钢和铁制零件的永久性和半永久性装配，过盈量充分，可产生相当大的结合力。当用弹性材料，如轻合金时，配合性质与铁类零件的p轴相当。例如套环压在轴上、阀座等配合。尺寸较大时，为了避免损伤配合表面，需用热胀或冷缩法装配",
+        "row": 10,
+        "column": 3,
+        "logicalColumn": 5,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 10,
+        "column": 4,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ],
+    [
+      {
+        "raw": "h",
+        "row": 11,
+        "column": 0,
+        "logicalColumn": 1,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "多用于IT4～IT11级，广泛应用于无相对转动的零件，作为一般的定位配合若没有温度、变形的影响，也用于精密滑动配合",
+        "row": 11,
+        "column": 1,
+        "logicalColumn": 2,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "t、u、v、x、y、z",
+        "row": 11,
+        "column": 2,
+        "logicalColumn": 4,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "过盈量依次增大，除u外，一般不推荐",
+        "row": 11,
+        "column": 3,
+        "logicalColumn": 5,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      },
+      {
+        "raw": "",
+        "row": 11,
+        "column": 4,
+        "logicalColumn": 6,
+        "rowspan": 1,
+        "colspan": 1,
+        "images": []
+      }
+    ]
+  ],
+  "entries": [
+    {
+      "code": "a",
+      "text": "可得到特别大的间隙，应用很少",
+      "referenceCategory": "间隙配合",
+      "row": 1,
+      "column": 2,
+      "keyRow": 1,
+      "keyColumn": 1
+    },
+    {
+      "code": "b",
+      "text": "可得到特别大的间隙，应用很少",
+      "referenceCategory": "间隙配合",
+      "row": 1,
+      "column": 2,
+      "keyRow": 1,
+      "keyColumn": 1
+    },
+    {
+      "code": "js",
+      "text": "公差带相对零线对称，平均起来为稍有间隙的配合，多用于IT4～IT7级，要求间隙比h轴配合时小，并允许略有过盈的定位配合，如联轴器、齿圈与钢制轮毂，一般可用手或木锤装配",
+      "referenceCategory": "过渡配合",
+      "row": 1,
+      "column": 5,
+      "keyRow": 1,
+      "keyColumn": 4
+    },
+    {
+      "code": "c",
+      "text": "可得到很大间隙，一般适用于缓慢、松弛的动配合，用于工作条件较差（如农业机械），受力变形，或为了便于装配，而必须有较大间隙时。推荐配合为H11/c11。其较高等级的配合，如H8/c7适用于轴在高温工作的紧密动配合，例如内燃机排气阀和导管",
+      "referenceCategory": "间隙配合",
+      "row": 2,
+      "column": 1,
+      "keyRow": 2,
+      "keyColumn": 0
+    },
+    {
+      "code": "k",
+      "text": "平均起来没有间隙的配合，适用于IT4～IT7级，推荐用于要求稍有过盈的定位配合，例如为了消除振动用的定位配合，一般用木锤装配",
+      "referenceCategory": "过渡配合",
+      "row": 3,
+      "column": 1,
+      "keyRow": 3,
+      "keyColumn": 0
+    },
+    {
+      "code": "d",
+      "text": "一般用于IT7～IT11级，适用于松的转动配合，如密封盖、滑轮、空转带轮等与轴的配合。也适用于大直径滑动轴承配合，如透平机、球磨机、轧滚成形和重型弯曲机及其他重型机械中的一些滑动支承",
+      "referenceCategory": "间隙配合",
+      "row": 4,
+      "column": 1,
+      "keyRow": 4,
+      "keyColumn": 0
+    },
+    {
+      "code": "m",
+      "text": "平均起来具有不大过盈的过渡配合，适用于IT4～IT7级。一般可用木锤装配，但在最大过盈时，要求相当的压入力",
+      "referenceCategory": "过渡配合",
+      "row": 4,
+      "column": 3,
+      "keyRow": 4,
+      "keyColumn": 2
+    },
+    {
+      "code": "n",
+      "text": "平均过盈比用m轴时稍大，很少得到间隙，适用于IT4～IT7级。用锤或压力机装配。通常推荐用于紧密的组件配合。H6/n5在基本尺寸≤3mm时为过渡配合，>3mm时为过盈配合",
+      "referenceCategory": "过渡配合",
+      "row": 5,
+      "column": 1,
+      "keyRow": 5,
+      "keyColumn": 0
+    },
+    {
+      "code": "e",
+      "text": "多用于IT7～IT9级，通常适用于要求有明显间隙，易于转动的支承配合，如大跨距支承，多支点支承等配合，高等级的e轴适应于大的、高速重载支承，如汽轮发电机，大的电动机支承等，也适用于内燃机主要轴承，凸轮轴支承、摇臂支承等配合",
+      "referenceCategory": "间隙配合",
+      "row": 6,
+      "column": 1,
+      "keyRow": 6,
+      "keyColumn": 0
+    },
+    {
+      "code": "p",
+      "text": "常用H6/p5、H7/p6在基本尺寸≤3mm时为过渡配合，>3mm时为过盈配合；H8/p7为过渡配合。对非铁类零件，为较轻的压入配合，当需要时易于拆卸。对钢、铸铁或铜-钢组件装配是标准压入配合。对弹性材料，如轻合金等，往往要求很小的过盈，可采用p轴配合",
+      "referenceCategory": "过盈配合",
+      "row": 7,
+      "column": 2,
+      "keyRow": 7,
+      "keyColumn": 1
+    },
+    {
+      "code": "f",
+      "text": "多用于IT6～IT8级的一般转动配合。当温度差别不大，对配合基本上没影响时，被广泛用于普通润滑油（或润滑脂）润滑的支承，如齿轮箱、小电动机、泵等的转轴与滑动支承的配合",
+      "referenceCategory": "间隙配合",
+      "row": 8,
+      "column": 1,
+      "keyRow": 8,
+      "keyColumn": 0
+    },
+    {
+      "code": "r",
+      "text": "对铁类零件，为中等打入配合；对非铁类零件，为轻的打入配合，当需要时可以拆卸。与H8孔配合的具体类型取决于基本尺寸和轴的公差等级",
+      "referenceCategory": "过盈配合",
+      "row": 9,
+      "column": 1,
+      "keyRow": 9,
+      "keyColumn": 0
+    },
+    {
+      "code": "g",
+      "text": "多用于IT5～IT7级，配合间隙很小，制造成本高、除很轻负荷的精密装置外，不推荐用于转动配合，最适合不回转的精密滑动配合，也用于插销等定位配合，如精密连杆轴承、活塞及滑阀、连杆销等",
+      "referenceCategory": "间隙配合",
+      "row": 10,
+      "column": 1,
+      "keyRow": 10,
+      "keyColumn": 0
+    },
+    {
+      "code": "s",
+      "text": "用于钢和铁制零件的永久性和半永久性装配，过盈量充分，可产生相当大的结合力。当用弹性材料，如轻合金时，配合性质与铁类零件的p轴相当。例如套环压在轴上、阀座等配合。尺寸较大时，为了避免损伤配合表面，需用热胀或冷缩法装配",
+      "referenceCategory": "过盈配合",
+      "row": 10,
+      "column": 3,
+      "keyRow": 10,
+      "keyColumn": 2
+    },
+    {
+      "code": "h",
+      "text": "多用于IT4～IT11级，广泛应用于无相对转动的零件，作为一般的定位配合若没有温度、变形的影响，也用于精密滑动配合",
+      "referenceCategory": "间隙配合",
+      "row": 11,
+      "column": 1,
+      "keyRow": 11,
+      "keyColumn": 0
+    },
+    {
+      "code": "t",
+      "text": "过盈量依次增大，除u外，一般不推荐",
+      "referenceCategory": "过盈配合",
+      "row": 11,
+      "column": 3,
+      "keyRow": 11,
+      "keyColumn": 2
+    },
+    {
+      "code": "u",
+      "text": "过盈量依次增大，除u外，一般不推荐",
+      "referenceCategory": "过盈配合",
+      "row": 11,
+      "column": 3,
+      "keyRow": 11,
+      "keyColumn": 2
+    },
+    {
+      "code": "v",
+      "text": "过盈量依次增大，除u外，一般不推荐",
+      "referenceCategory": "过盈配合",
+      "row": 11,
+      "column": 3,
+      "keyRow": 11,
+      "keyColumn": 2
+    },
+    {
+      "code": "x",
+      "text": "过盈量依次增大，除u外，一般不推荐",
+      "referenceCategory": "过盈配合",
+      "row": 11,
+      "column": 3,
+      "keyRow": 11,
+      "keyColumn": 2
+    },
+    {
+      "code": "y",
+      "text": "过盈量依次增大，除u外，一般不推荐",
+      "referenceCategory": "过盈配合",
+      "row": 11,
+      "column": 3,
+      "keyRow": 11,
+      "keyColumn": 2
+    },
+    {
+      "code": "z",
+      "text": "过盈量依次增大，除u外，一般不推荐",
+      "referenceCategory": "过盈配合",
+      "row": 11,
+      "column": 3,
+      "keyRow": 11,
+      "keyColumn": 2
+    }
+  ]
+}

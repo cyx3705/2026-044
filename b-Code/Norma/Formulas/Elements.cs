@@ -309,7 +309,7 @@ internal static class Elements
         Id = "fit.it",
         Title = "标准公差（IT5～IT18）公式值",
         Source = "GB/T 1800.1 / ISO 286-1 标准公差因子 i = 0.45∛D + 0.001D（μm，D 为尺寸段两端的几何平均），IT = 倍数 × i",
-        Scope = "公称尺寸 ≤ 500 mm、IT5～IT18；给出的是未按标准圆整规则修约的公式值，与标准表多数一致，个别档差 1～2%",
+        Scope = "公称尺寸 ≤ 500 mm、IT5～IT18；未按标准圆整规则修约的公式估算；标准表值请用norma.basic.tolerance，二者不互相回退",
         Inputs =
         [
             new Input("size", "D", "mm", "公称尺寸") { Min = 0, MinExclusive = true, Max = 500, Example = 25 },
@@ -341,7 +341,7 @@ internal static class Elements
             r["i"] = i;
             r["it"] = it;
             r["it_rounded"] = it < 100 ? Math.Round(it) : Math.Round(it / 10) * 10;
-            r.Note("正式图纸以 GB/T 1800.1 表值为准；本值用于估算与核对");
+            r.Note("本值用于公式估算；手册GB/T1800.3—1998标准表值请用norma.basic.tolerance，不以估算补表");
         },
     };
 

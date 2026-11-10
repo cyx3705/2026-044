@@ -1,4 +1,4 @@
-namespace Norma.Formulas;
+﻿namespace Norma.Formulas;
 
 /// <summary>全部计算的目录。新增一类计算：写一个静态类的 <c>All()</c>，在这里加一行。</summary>
 public static class Catalog
@@ -10,6 +10,7 @@ public static class Catalog
             .Concat(Joints.All())
             .Concat(Elements.All())
             .Concat(Materials.All())
+            .Concat(Cones.All())
             .ToList();
         var duplicate = all.GroupBy(item => item.Id).FirstOrDefault(group => group.Count() > 1);
         if (duplicate is not null)
@@ -40,6 +41,8 @@ public static class Catalog
         "chain" => "链传动",
         "beam" => "梁",
         "material" => "机械材料",
+        "basic" => "基础标准",
+        "cone" => "圆锥计算",
         _ => topic,
     };
 }

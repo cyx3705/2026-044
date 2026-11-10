@@ -1,0 +1,1476 @@
+{
+  "pages": [
+    {
+      "id": "13-02:49",
+      "byteOffset": 4485338,
+      "title": "线性尺寸的极限偏差数值",
+      "standard": "GB/T 1804—2000",
+      "unit": "mm",
+      "sizeMeaning": "线性基本尺寸",
+      "table": [
+        [
+          {
+            "raw": "公差等级",
+            "row": 0,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "基本尺寸分段",
+            "row": 0,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 8
+          }
+        ],
+        [
+          {
+            "raw": "0.5～3",
+            "row": 1,
+            "column": 0,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞3～6",
+            "row": 1,
+            "column": 1,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞6～30",
+            "row": 1,
+            "column": 2,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞30～120",
+            "row": 1,
+            "column": 3,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞120～400",
+            "row": 1,
+            "column": 4,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞400～1000",
+            "row": 1,
+            "column": 5,
+            "logicalColumn": 6,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞1000～2000",
+            "row": 1,
+            "column": 6,
+            "logicalColumn": 7,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞2000～4000",
+            "row": 1,
+            "column": 7,
+            "logicalColumn": 8,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "精密f",
+            "row": 2,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.05",
+            "row": 2,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.05",
+            "row": 2,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.1",
+            "row": 2,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.15",
+            "row": 2,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.2",
+            "row": 2,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.3",
+            "row": 2,
+            "column": 6,
+            "logicalColumn": 6,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.5",
+            "row": 2,
+            "column": 7,
+            "logicalColumn": 7,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "—",
+            "row": 2,
+            "column": 8,
+            "logicalColumn": 8,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "中等m",
+            "row": 3,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.1",
+            "row": 3,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.1",
+            "row": 3,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.2",
+            "row": 3,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.3",
+            "row": 3,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.5",
+            "row": 3,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.8",
+            "row": 3,
+            "column": 6,
+            "logicalColumn": 6,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1.2",
+            "row": 3,
+            "column": 7,
+            "logicalColumn": 7,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±2",
+            "row": 3,
+            "column": 8,
+            "logicalColumn": 8,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "粗糙c",
+            "row": 4,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.2",
+            "row": 4,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.3",
+            "row": 4,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.5",
+            "row": 4,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.8",
+            "row": 4,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1.2",
+            "row": 4,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±2",
+            "row": 4,
+            "column": 6,
+            "logicalColumn": 6,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±3",
+            "row": 4,
+            "column": 7,
+            "logicalColumn": 7,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±4",
+            "row": 4,
+            "column": 8,
+            "logicalColumn": 8,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "最粗v",
+            "row": 5,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "—",
+            "row": 5,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.5",
+            "row": 5,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1",
+            "row": 5,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1.5",
+            "row": 5,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±2.5",
+            "row": 5,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±4",
+            "row": 5,
+            "column": 6,
+            "logicalColumn": 6,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±6",
+            "row": 5,
+            "column": 7,
+            "logicalColumn": 7,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±8",
+            "row": 5,
+            "column": 8,
+            "logicalColumn": 8,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ]
+      ],
+      "entries": [
+        {
+          "grade": "f",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.05,
+          "raw": "±0.05",
+          "row": 2,
+          "column": 1
+        },
+        {
+          "grade": "f",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 0.05,
+          "raw": "±0.05",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "grade": "f",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 0.1,
+          "raw": "±0.1",
+          "row": 2,
+          "column": 3
+        },
+        {
+          "grade": "f",
+          "lower": 30,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 0.15,
+          "raw": "±0.15",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "grade": "f",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 0.2,
+          "raw": "±0.2",
+          "row": 2,
+          "column": 5
+        },
+        {
+          "grade": "f",
+          "lower": 400,
+          "upper": 1000,
+          "lowerInclusive": false,
+          "value": 0.3,
+          "raw": "±0.3",
+          "row": 2,
+          "column": 6
+        },
+        {
+          "grade": "f",
+          "lower": 1000,
+          "upper": 2000,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±0.5",
+          "row": 2,
+          "column": 7
+        },
+        {
+          "grade": "f",
+          "lower": 2000,
+          "upper": 4000,
+          "lowerInclusive": false,
+          "value": null,
+          "raw": "—",
+          "row": 2,
+          "column": 8
+        },
+        {
+          "grade": "m",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.1,
+          "raw": "±0.1",
+          "row": 3,
+          "column": 1
+        },
+        {
+          "grade": "m",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 0.1,
+          "raw": "±0.1",
+          "row": 3,
+          "column": 2
+        },
+        {
+          "grade": "m",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 0.2,
+          "raw": "±0.2",
+          "row": 3,
+          "column": 3
+        },
+        {
+          "grade": "m",
+          "lower": 30,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 0.3,
+          "raw": "±0.3",
+          "row": 3,
+          "column": 4
+        },
+        {
+          "grade": "m",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±0.5",
+          "row": 3,
+          "column": 5
+        },
+        {
+          "grade": "m",
+          "lower": 400,
+          "upper": 1000,
+          "lowerInclusive": false,
+          "value": 0.8,
+          "raw": "±0.8",
+          "row": 3,
+          "column": 6
+        },
+        {
+          "grade": "m",
+          "lower": 1000,
+          "upper": 2000,
+          "lowerInclusive": false,
+          "value": 1.2,
+          "raw": "±1.2",
+          "row": 3,
+          "column": 7
+        },
+        {
+          "grade": "m",
+          "lower": 2000,
+          "upper": 4000,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2",
+          "row": 3,
+          "column": 8
+        },
+        {
+          "grade": "c",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.2,
+          "raw": "±0.2",
+          "row": 4,
+          "column": 1
+        },
+        {
+          "grade": "c",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 0.3,
+          "raw": "±0.3",
+          "row": 4,
+          "column": 2
+        },
+        {
+          "grade": "c",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±0.5",
+          "row": 4,
+          "column": 3
+        },
+        {
+          "grade": "c",
+          "lower": 30,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 0.8,
+          "raw": "±0.8",
+          "row": 4,
+          "column": 4
+        },
+        {
+          "grade": "c",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 1.2,
+          "raw": "±1.2",
+          "row": 4,
+          "column": 5
+        },
+        {
+          "grade": "c",
+          "lower": 400,
+          "upper": 1000,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2",
+          "row": 4,
+          "column": 6
+        },
+        {
+          "grade": "c",
+          "lower": 1000,
+          "upper": 2000,
+          "lowerInclusive": false,
+          "value": 3.0,
+          "raw": "±3",
+          "row": 4,
+          "column": 7
+        },
+        {
+          "grade": "c",
+          "lower": 2000,
+          "upper": 4000,
+          "lowerInclusive": false,
+          "value": 4.0,
+          "raw": "±4",
+          "row": 4,
+          "column": 8
+        },
+        {
+          "grade": "v",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": null,
+          "raw": "—",
+          "row": 5,
+          "column": 1
+        },
+        {
+          "grade": "v",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±0.5",
+          "row": 5,
+          "column": 2
+        },
+        {
+          "grade": "v",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1",
+          "row": 5,
+          "column": 3
+        },
+        {
+          "grade": "v",
+          "lower": 30,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 1.5,
+          "raw": "±1.5",
+          "row": 5,
+          "column": 4
+        },
+        {
+          "grade": "v",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 2.5,
+          "raw": "±2.5",
+          "row": 5,
+          "column": 5
+        },
+        {
+          "grade": "v",
+          "lower": 400,
+          "upper": 1000,
+          "lowerInclusive": false,
+          "value": 4.0,
+          "raw": "±4",
+          "row": 5,
+          "column": 6
+        },
+        {
+          "grade": "v",
+          "lower": 1000,
+          "upper": 2000,
+          "lowerInclusive": false,
+          "value": 6.0,
+          "raw": "±6",
+          "row": 5,
+          "column": 7
+        },
+        {
+          "grade": "v",
+          "lower": 2000,
+          "upper": 4000,
+          "lowerInclusive": false,
+          "value": 8.0,
+          "raw": "±8",
+          "row": 5,
+          "column": 8
+        }
+      ]
+    },
+    {
+      "id": "13-02:50",
+      "byteOffset": 4496323,
+      "title": "倒圆半径和倒角高度尺寸的极限偏差数值",
+      "standard": "GB/T 1804—2000",
+      "unit": "mm",
+      "sizeMeaning": "倒圆半径或倒角高度",
+      "table": [
+        [
+          {
+            "raw": "公差等级",
+            "row": 0,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "基本尺寸分段",
+            "row": 0,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 4
+          }
+        ],
+        [
+          {
+            "raw": "0.5～3",
+            "row": 1,
+            "column": 0,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞3～6",
+            "row": 1,
+            "column": 1,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞6～30",
+            "row": 1,
+            "column": 2,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞30",
+            "row": 1,
+            "column": 3,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "精密f",
+            "row": 2,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.2",
+            "row": 2,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.5",
+            "row": 2,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±1",
+            "row": 2,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±2",
+            "row": 2,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 2,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "中等m",
+            "row": 3,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "粗糙c",
+            "row": 4,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±0.4",
+            "row": 4,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±1",
+            "row": 4,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±2",
+            "row": 4,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±4",
+            "row": 4,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 2,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "最粗v",
+            "row": 5,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ]
+      ],
+      "entries": [
+        {
+          "grade": "f",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.2,
+          "raw": "±0.2",
+          "row": 2,
+          "column": 1
+        },
+        {
+          "grade": "f",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±0.5",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "grade": "f",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1",
+          "row": 2,
+          "column": 3
+        },
+        {
+          "grade": "f",
+          "lower": 30,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "grade": "m",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.2,
+          "raw": "±0.2",
+          "row": 2,
+          "column": 1
+        },
+        {
+          "grade": "m",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±0.5",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "grade": "m",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1",
+          "row": 2,
+          "column": 3
+        },
+        {
+          "grade": "m",
+          "lower": 30,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "grade": "c",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.4,
+          "raw": "±0.4",
+          "row": 4,
+          "column": 1
+        },
+        {
+          "grade": "c",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1",
+          "row": 4,
+          "column": 2
+        },
+        {
+          "grade": "c",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2",
+          "row": 4,
+          "column": 3
+        },
+        {
+          "grade": "c",
+          "lower": 30,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 4.0,
+          "raw": "±4",
+          "row": 4,
+          "column": 4
+        },
+        {
+          "grade": "v",
+          "lower": 0.5,
+          "upper": 3,
+          "lowerInclusive": true,
+          "value": 0.4,
+          "raw": "±0.4",
+          "row": 4,
+          "column": 1
+        },
+        {
+          "grade": "v",
+          "lower": 3,
+          "upper": 6,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1",
+          "row": 4,
+          "column": 2
+        },
+        {
+          "grade": "v",
+          "lower": 6,
+          "upper": 30,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2",
+          "row": 4,
+          "column": 3
+        },
+        {
+          "grade": "v",
+          "lower": 30,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 4.0,
+          "raw": "±4",
+          "row": 4,
+          "column": 4
+        }
+      ]
+    },
+    {
+      "id": "13-02:51",
+      "byteOffset": 4501455,
+      "title": "角度尺寸的极限偏差数值",
+      "standard": "GB/T 1804—2000",
+      "unit": "°",
+      "sizeMeaning": "角度较短边长度",
+      "table": [
+        [
+          {
+            "raw": "分差等级",
+            "row": 0,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "长度分段/mm",
+            "row": 0,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 5
+          }
+        ],
+        [
+          {
+            "raw": "≤10",
+            "row": 1,
+            "column": 0,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞10～50",
+            "row": 1,
+            "column": 1,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞50～120",
+            "row": 1,
+            "column": 2,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞120～400",
+            "row": 1,
+            "column": 3,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "＞400",
+            "row": 1,
+            "column": 4,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "精密f",
+            "row": 2,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1°",
+            "row": 2,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±30′",
+            "row": 2,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±20′",
+            "row": 2,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±10′",
+            "row": 2,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 2,
+            "colspan": 1
+          },
+          {
+            "raw": "±5′",
+            "row": 2,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 2,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "中等m",
+            "row": 3,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "粗糙c",
+            "row": 4,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1°30′",
+            "row": 4,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1°",
+            "row": 4,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±30′",
+            "row": 4,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±15′",
+            "row": 4,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±10′",
+            "row": 4,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ],
+        [
+          {
+            "raw": "最粗v",
+            "row": 5,
+            "column": 0,
+            "logicalColumn": 0,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±3°",
+            "row": 5,
+            "column": 1,
+            "logicalColumn": 1,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±2°",
+            "row": 5,
+            "column": 2,
+            "logicalColumn": 2,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±1°",
+            "row": 5,
+            "column": 3,
+            "logicalColumn": 3,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±30′",
+            "row": 5,
+            "column": 4,
+            "logicalColumn": 4,
+            "rowspan": 1,
+            "colspan": 1
+          },
+          {
+            "raw": "±20′",
+            "row": 5,
+            "column": 5,
+            "logicalColumn": 5,
+            "rowspan": 1,
+            "colspan": 1
+          }
+        ]
+      ],
+      "entries": [
+        {
+          "grade": "f",
+          "lower": 0,
+          "upper": 10,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1°",
+          "row": 2,
+          "column": 1
+        },
+        {
+          "grade": "f",
+          "lower": 10,
+          "upper": 50,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±30′",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "grade": "f",
+          "lower": 50,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 0.3333333333333333,
+          "raw": "±20′",
+          "row": 2,
+          "column": 3
+        },
+        {
+          "grade": "f",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 0.16666666666666666,
+          "raw": "±10′",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "grade": "f",
+          "lower": 400,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 0.08333333333333333,
+          "raw": "±5′",
+          "row": 2,
+          "column": 5
+        },
+        {
+          "grade": "m",
+          "lower": 0,
+          "upper": 10,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1°",
+          "row": 2,
+          "column": 1
+        },
+        {
+          "grade": "m",
+          "lower": 10,
+          "upper": 50,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±30′",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "grade": "m",
+          "lower": 50,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 0.3333333333333333,
+          "raw": "±20′",
+          "row": 2,
+          "column": 3
+        },
+        {
+          "grade": "m",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 0.16666666666666666,
+          "raw": "±10′",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "grade": "m",
+          "lower": 400,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 0.08333333333333333,
+          "raw": "±5′",
+          "row": 2,
+          "column": 5
+        },
+        {
+          "grade": "c",
+          "lower": 0,
+          "upper": 10,
+          "lowerInclusive": false,
+          "value": 1.5,
+          "raw": "±1°30′",
+          "row": 4,
+          "column": 1
+        },
+        {
+          "grade": "c",
+          "lower": 10,
+          "upper": 50,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1°",
+          "row": 4,
+          "column": 2
+        },
+        {
+          "grade": "c",
+          "lower": 50,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±30′",
+          "row": 4,
+          "column": 3
+        },
+        {
+          "grade": "c",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 0.25,
+          "raw": "±15′",
+          "row": 4,
+          "column": 4
+        },
+        {
+          "grade": "c",
+          "lower": 400,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 0.16666666666666666,
+          "raw": "±10′",
+          "row": 4,
+          "column": 5
+        },
+        {
+          "grade": "v",
+          "lower": 0,
+          "upper": 10,
+          "lowerInclusive": false,
+          "value": 3.0,
+          "raw": "±3°",
+          "row": 5,
+          "column": 1
+        },
+        {
+          "grade": "v",
+          "lower": 10,
+          "upper": 50,
+          "lowerInclusive": false,
+          "value": 2.0,
+          "raw": "±2°",
+          "row": 5,
+          "column": 2
+        },
+        {
+          "grade": "v",
+          "lower": 50,
+          "upper": 120,
+          "lowerInclusive": false,
+          "value": 1.0,
+          "raw": "±1°",
+          "row": 5,
+          "column": 3
+        },
+        {
+          "grade": "v",
+          "lower": 120,
+          "upper": 400,
+          "lowerInclusive": false,
+          "value": 0.5,
+          "raw": "±30′",
+          "row": 5,
+          "column": 4
+        },
+        {
+          "grade": "v",
+          "lower": 400,
+          "upper": null,
+          "lowerInclusive": false,
+          "value": 0.3333333333333333,
+          "raw": "±20′",
+          "row": 5,
+          "column": 5
+        }
+      ]
+    }
+  ]
+}

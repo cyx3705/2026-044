@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using HistoryVulcan.Core.Commands;
 using Norma.Formulas;
 
@@ -167,6 +167,41 @@ internal static class NormaCommands
     internal static IReadOnlyList<IReadOnlyDictionary<string, string>> ToolRows()
         =>
         [
+            new Dictionary<string, string>
+            {
+                ["id"] = "basic.coneangle", ["topic"] = "基础标准", ["command"] = "norma.basic.coneangle",
+                ["title"] = "圆锥角公差（AT等级、圆锥长度）", ["source"] = "机械工程师手册13-02:55，AT1～AT12、L=6～630mm",
+            },
+            new Dictionary<string, string>
+            {
+                ["id"] = "basic.angular", ["topic"] = "基础标准", ["command"] = "norma.basic.angular",
+                ["title"] = "角度与斜度系列（圆锥、棱体、莫氏与贾氏锥度）",
+                ["source"] = "机械工程师手册13-02:53～54、60～61；系列GB/T157—1989、GB/T4096—1983，换算系数为手册查表",
+            },
+            new Dictionary<string, string>
+            {
+                ["id"] = "basic.tolerance", ["topic"] = "基础标准", ["command"] = "norma.basic.tolerance",
+                ["title"] = "IT等级卡（公差值、选用、加工方法及成本比）",
+                ["source"] = "机械工程师手册 极限与配合13-02:4、41～45、56、59；公差值GB/T1800.3—1998，选用/加工及圆锥条件参考为手册查表",
+            },
+            new Dictionary<string, string>
+            {
+                ["id"] = "basic.band", ["topic"] = "基础标准", ["command"] = "norma.basic.band",
+                ["title"] = "孔轴公差带卡（单个H7、g6、直径及C=1:10轴向偏差）",
+                ["source"] = "机械工程师手册 极限与配合13-02:2～37、46、58；应用为手册经验参考，公差/基本偏差1998，孔轴极限偏差1999（原文版本随项）",
+            },
+            new Dictionary<string, string>
+            {
+                ["id"] = "basic.general", ["topic"] = "基础标准", ["command"] = "norma.basic.general",
+                ["title"] = "未注线性和角度尺寸的一般公差（尺寸、f/m/c/v等级）",
+                ["source"] = "机械工程师手册 极限与配合13-02:49～51；GB/T1804—2000",
+            },
+            new Dictionary<string, string>
+            {
+                ["id"] = "basic.fit", ["topic"] = "基础标准", ["command"] = "norma.basic.fit",
+                ["title"] = "公差配合卡（H7/g6、选用、极限间隙/过盈及应用）",
+                ["source"] = "机械工程师手册 极限与配合13-02:38～40、47、52；数值/选用GB/T1801—1999，统计极限JB/T9184—1999，应用为经验参考",
+            },
             new Dictionary<string, string>
             {
                 ["id"] = "product.spec", ["topic"] = "机械材料", ["command"] = "norma.product.spec",

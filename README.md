@@ -1,4 +1,4 @@
-# Norma
+﻿# Norma
 
 > 机械设计经验公式库：按标准条款自描述的公式与查表，供 AI 调用与扩展
 
@@ -23,7 +23,7 @@
 
 ## 能力
 
-每条计算是一条只读指令 `norma.<类>.<方法>`，全部投影到 MCP。
+每条计算是一条只读指令 `norma.<类>.<方法>`，全部投影到 MCP。0.13.0的“基础标准”类提供六个独立查询入口，覆盖极限与配合第2～47、49～62页（含孔轴极限偏差、公差带常用级别、优先/常用配合卡、IT等级加工资料及配合应用），术语定义暂存Usus，第48页工作状况影响整表纳入Usus单条U0041，整章62页的逐页归属与验收见现行约定及`limits-fits-audit.json`。
 
 | 类 | 指令 |
 | --- | --- |
@@ -32,9 +32,14 @@
 | 连接 | `key.flat`、`bolt.thread` / `torque` / `preload` / `tension` / `friction` / `shear`、`weld.fillet`、`fit.press` |
 | 传动 | `screw.drive`、`belt.geometry`、`chain.geometry`；`norma.drive.efficiency q=` 按类型/工况查53条机械传动效率概略值，省略q分页浏览 |
 | 支承与弹性件 | `bearing.load` / `life` / `required` / `static`、`spring.compression` / `wire` |
-| 其他 | `fit.it` 标准公差、`beam.deflection` 梁 |
+| 基础标准 | `norma.basic.tolerance grade=IT7` 查IT等级卡（应用范围、选用举例、可达/经济加工方法、成本比），追加property=圆锥最大角误差或圆锥轴向公差可查第56/59页固定条件参考值；加size=25查标准公差，property/process/feature正交筛选；`norma.basic.band band=H7 size=25` 查单个公差带卡（标准公差、基本偏差、孔轴上/下偏差和常用级别、基本偏差应用、C=1:10圆锥轴向基本偏差）；`band=g6 property=基本偏差应用`无需尺寸查第46页应用说明，`band=* size=25 property=常用级别 usage=4`列圈选公差带；不接收H7/g6配合组合；无表名参数，缺条件一次给齐，一个显式*才展开，未定义不回退估算 |
+| 一般公差 | `norma.basic.general size=25 grade=m`：尺寸mm、f/m/c/v等级两个坐标，增加可选property=线性尺寸/倒圆半径和倒角高度/角度尺寸；省略返回线性尺寸、倒圆半径/倒角高度、角度尺寸的极限偏差；角度按较短边长度查询，返回°并保留原角分文字。缺参一次给齐，一个显式*展开整表；无表名参数，横线/各项超范围返回null |
+| 基础标准配合 | `norma.basic.fit fit=H7/g6 size=25` 查配合卡及原表带符号极限间隙/过盈；`fit=* size=25 usage=3 property=选用级别` 列优先配合，usage=2列常用非优先；`fit=H7/g6 property=应用举例`无需尺寸查应用，可选装配方法/配合特性及使用条件/过盈概率；`property=统计最大间隙或最小过盈`或`统计最小间隙或最大过盈`查统计极限，条件T:Wc=2:1、Pcmin=86%；来源38～40、47及52页，未列数值仍为null |
+| 角度与斜度系列 | `norma.basic.angular designation=C1:10` 查圆锥锥度卡，`α60°`查圆锥角，`β45°`查棱体角，`S1:20`查棱体斜度；支持`MT0`及`贾氏2`别名，返回系列、原表推算值及用途。`property=圆锥换算系数`查以1:10为基准的原表系数，支持36个已有圆锥基本值；可选property/series/standard，无表名参数；一个显式*展开 |
+| 圆锥计算与角公差 | `norma.cone.fundamental taper=0.1 deviation=-7` 由直径基本偏差μm算轴向基本偏差mm；`norma.cone.limits taper=0.1 upper=-7 lower=-20` 算轴向上下偏差和公差，自动反号并交换端点；`norma.basic.coneangle grade=AT7 length=50` 按AT等级、圆锥长度mm查角公差，返回315μrad、1′05″及按实际L计算的ATD=15.8μm。详见REQ-BASIC-025/026 |
+| 其他 | `fit.it` 标准公差公式估算、`beam.deflection` 梁 |
 | 目录 | `norma.formula.list [topic=]`、`norma.formula.show id=` |
-| 手册查询 | `norma.manual.search q= [scope=title/text]` 搜索/浏览目录，`norma.manual.read id=` 分页读正文或 HTML；`norma.manual.open name= [scroll_y=0]` 按页名打开并可滚动长页，`norma.manual.directory` 仅以文字查看左侧目录；`norma.manual.screenshot` 仅截右侧正文，x/y/width/height相对正文局部裁切；`mode=html id=`才渲染提取HTML |
+| 手册查询 | `norma.manual.search q= [scope=title/text]` 搜索/浏览目录，`norma.manual.read id=` 分页读正文或 HTML；`norma.manual.open name= [scroll_y=0]` 按页名打开并可滚动长页，`norma.manual.directory` 仅以文字查看左侧目录；`norma.manual.screenshot full_page=true` 双向滚动拼接整页正文含脚注并恢复位置，默认仅截可见视口；x/y/width/height相对正文局部裁切；`mode=html id=`才渲染提取HTML |
 | 标准代号 | `norma.std.lookup q=` 按代号或名称互查（机械工程师手册「国内/国外部分标准代号」两页） |
 | 机械材料 | `norma.material.limits material= sigma_b=` 从抗拉强度估算材料对称/脉动疲劳极限，保留区间与无定义项 |
 | 机械材料 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
@@ -69,7 +74,6 @@ norma.material.grade grade=HT250 category=力学 property=抗拉强度 condition
 
 指令说明就是注册时的自描述（`diana.docs.read domain=norma`，宿主 6.1.0 起没有消费文档）；每条都带出处、适用范围、参数的符号/单位/范围。自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
 
-指令说明就是注册时的自描述（`diana.docs.read domain=norma`，宿主 6.1.0 起没有消费文档）；自描述装不下的取舍写进 [现行约定](./b-Office/现行约定.md)。
 
 ## 入口
 
