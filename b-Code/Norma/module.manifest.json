@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "type": "HistoryVulcan.Module",
   "name": "Norma",
-  "version": "0.11.8",
+  "version": "0.12.0",
   "description": "机械设计经验公式库：按标准条款自描述的公式与查表，供 AI 调用与扩展",
   "artifact": "Norma.dll",
   "docs": "Norma.xml",

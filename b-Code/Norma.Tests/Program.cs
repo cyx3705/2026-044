@@ -33,6 +33,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("nonferrous and special alloy grade cards", Sync(TestNonFerrousMaterials)),
     ("named nonmetal and composite material cards", Sync(TestNamedMaterials)),
     ("product specifications, combinations and tolerance boundaries", Sync(TestProductSpecs)),
+    ("materials volume omissions and complete audit", Sync(TestMaterialSupplement)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -1099,9 +1100,9 @@ static void TestSteelMaterials()
 static void TestProductSpecs()
 {
     JsonElement J(object value) => JsonSerializer.SerializeToElement(value);
-    Equal(84, ProductSpecs.Pages.Count);
-    Equal(131, ProductSpecs.Entries.SelectMany(e => e.Values).Select(c => (c.Page, c.Table)).Distinct().Count());
-    Equal(7562, ProductSpecs.Entries.Count);
+    Equal(112, ProductSpecs.Pages.Count);
+    Equal(164, ProductSpecs.Entries.SelectMany(e => e.Values).Select(c => (c.Page, c.Table)).Distinct().Count());
+    Equal(9806, ProductSpecs.Entries.Count);
     Equal("2.15 kg·m^-1", (string)ProductSpecs.Query("结构用热轧无缝钢管", "{\"外径\":32,\"壁厚\":3}", "理论重量"));
     var beam = J(ProductSpecs.Query("热轧普通工字钢", "20a"));
     Equal("27.929 kg·m^-1", beam.GetProperty("数据").GetProperty("理论重量").GetString()!);
@@ -1271,6 +1272,52 @@ static void TestNonFerrousMaterials()
     Equal(density.Value, (string)MaterialLibrary.Query("grade", grade: "ZL101", property: density.Property, condition: density.Condition));
     var strengthOnly = JsonSerializer.SerializeToElement(MaterialLibrary.Query("strength", grade: "ZL101"));
     True(!strengthOnly.TryGetProperty("化学成分", out _) && !strengthOnly.TryGetProperty("物理及使用性能", out _), "力学入口不混入成分和物理性能");
+}
+
+// REQ-MATERIAL-011/012, REQ-PRODUCT-003: independent native reference cells and omissions.
+static void TestMaterialSupplement()
+{
+    JsonElement J(object v) => JsonSerializer.SerializeToElement(v);
+    var facts = MaterialSupplement.Facts;
+    Equal(17, MaterialSupplement.Pages.Count);
+    Equal(2828, facts.Count);
+    var density = facts.Single(f => f.Grade == "1Cr18Ni9" && f.Property == "密度");
+    Equal("7.93 g·cm^-3", density.Value);
+    var filtered = J(MaterialLibrary.Query("grade", grade: "1Cr18Ni9", property: "密度", condition: density.Condition));
+    Equal(density.Value, filtered.GetProperty("value").GetString()!);
+    True(filtered.GetProperty("原注").GetArrayLength() > 0, "单值必须保留该表的疑点原注");
+    True(facts.Any(f => f.Grade == "20R" && f.Condition.Contains("21～36mm") && f.Condition.Contains("200℃") && f.Value == "≥186 MPa"), "压力容器板高温强度必须保留厚度与温度");
+    True(facts.Any(f => f.Grade == "ZAlSi7MgA" && f.Property == "固溶温度" && f.Value == "535±5 ℃"), "固溶温度原值");
+    True(J(MaterialLibrary.Query("grade", grade: "ZL101A")).TryGetProperty("热处理工艺", out _), "热处理并入原牌号卡");
+    True(facts.Any(f => f.Grade == "65Mn" && f.Condition.Contains("0.08mm") && f.Condition.Contains("Ⅰ级") && f.Value == "≥29 次"), "弯曲次数按牌号、厚度和强度级别分开");
+    Equal("65~75 %", (string)MaterialLibrary.Query("grade", grade: "F1001G", property: "铁"));
+    var suspect = J(MaterialLibrary.Query("grade", grade: "F1106G", property: "铅"));
+    Equal("68 %", suspect.GetProperty("value").GetString()!);
+    True(suspect.GetProperty("原注")[0].GetString()!.Contains("疑似列名有误"), "不丢掉成分表头疑点");
+    var variable = J(MaterialLibrary.Query("grade", grade: "F1106G", property: "*", condition: facts.First(f => f.Grade == "F1106G").Condition));
+    True(variable.TryGetProperty("原注", out _), "显式变化表也保留疑点");
+    True(!facts.Any(f => f.Grade == "4Nb" || f.Grade == "0Cr17Ni4Cu"), "原文拆行不能猜成两个牌号");
+    foreach (var g in facts.GroupBy(f => (f.Family, f.Grade)))
+    {
+        var card = J(MaterialLibrary.Query("grade", family: g.Key.Family, grade: g.Key.Grade));
+        True(!card.TryGetProperty("missing", out _), "补充牌号完整卡不要求额外条件 " + g.Key);
+        foreach (var v in g.Select(f => f.Value).Distinct())
+            True(card.GetRawText().Contains(JsonSerializer.Serialize(v)), "补充卡丢值 " + g.Key + " " + v);
+    }
+    Equal("≥7.4 mm", (string)ProductSpecs.Query("连续热镀锌薄钢板和钢带的杯突试验值", "{\"厚度\":0.5,\"加工性能\":\"SC\"}", "杯突冲压深度"));
+    Equal("5.05/2.25 g/m（原表单位）", J(ProductSpecs.Query("电镀锡薄钢板和钢带的镀锡量", "{\"镀锡符号\":\"D1\"}", "最小平均镀锡量")).GetProperty("value").GetString()!);
+    Equal("0.25 mm", (string)ProductSpecs.Query("压力容器用钢板公称厚度的附加值", "{\"厚度\":10,\"宽度\":1000}", "计算重量厚度附加值"));
+    Equal("0.5~2.5 mm", (string)ProductSpecs.Query("耐蚀合金冷轧无缝管直径及壁厚", "{\"直径\":10}", "壁厚范围"));
+    Equal("≤60º", (string)ProductSpecs.Query("铝及铝合金挤压棒材（方、六角棒）的扭拧度", "{\"内切圆直径\":14,\"精度\":\"普通级\",\"长度基准\":\"1m长度上\"}", "扭拧度上限"));
+    var wave = J(ProductSpecs.Query("铝及铝合金中间浪或边缘浪偏差", "{\"合金类别\":\"1×××系，8×××系，除3004外的3×××系及5005，5050\",\"厚度\":1,\"波峰中心距\":500}", "中间浪或边缘浪偏差"));
+    True(wave.GetProperty("原注").EnumerateArray().Any(n => n.GetString()!.Contains("不适用于O、F、Hx8")), "波浪公差适用状态脚注必须随值返回");
+    using var stream = typeof(MaterialLibrary).Assembly.GetManifestResourceStream("Norma.Formulas.materials-volume-audit.json")!;
+    var audit = JsonDocument.Parse(stream).RootElement;
+    var pages = audit.GetProperty("pages").EnumerateArray().ToArray();
+    Equal(911, pages.Length);
+    Equal(911, pages.Select(p => p.GetProperty("path").GetString()).Distinct().Count());
+    Equal(303, pages.Count(p => p.GetProperty("status").GetString() == "pending_product"));
+    True(pages.All(p => p.GetProperty("reason").GetString()!.Length > 0), "审计不能没有范围解释");
 }
 
 static void TestCastIronLookup()

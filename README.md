@@ -19,6 +19,8 @@
 | MCP 投影 | `readonly` |
 | 版本与宿主下限 | [`NormaVersion.props`](./b-Code/Norma/NormaVersion.props) |
 
+0.12.0 已完成材料卷911个叶页的目录核对，补充牌号物性/工艺及产品指标；计算数据与未整理范围见 `b-Office/现行约定.md` 和 `b-Code/Norma/Formulas/materials-volume-audit.json`。页级核对不表示整卷表格全部入库。
+
 ## 能力
 
 每条计算是一条只读指令 `norma.<类>.<方法>`，全部投影到 MCP。

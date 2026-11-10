@@ -12,7 +12,7 @@ internal static class CastIronCommands
             var parameters = new List<ParameterSpec>
             {
                 new() { Name = "grade", Type = ParamType.String, Description = "材料牌号或品种名，忽略空格和推荐标记；只填此项返回材料卡片；手册明确对应的代号/旧牌号可查，如ZL101、LY12，歧义返回目标牌号选项；无牌号配方默认返回非等同代表选型卡。省略返回牌号选项；*=兼容单变量展开" },
-                new() { Name = "property", Type = ParamType.String, Description = "可选属性/元素过滤，如抗拉强度、Cr。唯一条件返回带单位的值，多条件返回对应性能；省略保留全部。*=兼容属性展开" },
+                new() { Name = "property", Type = ParamType.String, Description = "可选属性/元素过滤，如抗拉强度、Cr。唯一条件返回带单位的值；有来源疑点/必要脚注时附原注，多条件返回对应性能；省略保留全部。*=兼容属性展开" },
                 new() { Name = "condition", Type = ParamType.String, Description = "可选条件精确过滤：试样/壁厚/温度/热处理/同名配方，按卡片条件填写；省略保留所有场景，不插值；*=兼容条件展开" },
                 new() { Name = "family", Type = ParamType.String, Description = "可选材料分支；可用钢、有色金属、高温合金、耐蚀合金、粉末冶金筛选；同牌号跨产品合并，其他同名跨分支返回选项；一次最多一个参数为*" },
                 new() { Name = "basis", Type = ParamType.String, Default = "representative", AllowedValues = ["representative", "source"], Description = "名称查询口径：representative默认返回代表牌号及原配方，明确非等同；source返回原配方。直接查正式牌号不受影响；属性过滤跟随所选口径" },
@@ -22,7 +22,7 @@ internal static class CastIronCommands
             registry.Register(new CommandDescriptor
             {
                 Name = "norma.material." + key, Domain = "norma", CommandClass = "material", Readonly = true,
-                Summary = key == "grade" ? "金属牌号库：输入牌号返回成分及各场景力学/物理性能的精简JSON卡片；含铸铁、钢、有色及特种合金；非金属和复合材料名称查询见material.library" : "材料力学性能：输入牌号返回各产品/状态/温度性能；支持铸铁、钢及有色/高温/耐蚀/粉末冶金材料；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
+                Summary = key == "grade" ? "金属牌号库：输入牌号返回成分及各场景力学/物理性能、热处理工艺的精简JSON卡片；含铸铁、钢、有色及特种合金；非金属和复合材料名称查询见material.library" : "材料力学性能：输入牌号返回各产品/状态/温度性能；支持铸铁、钢及有色/高温/耐蚀/粉末冶金材料；可选属性/条件过滤，完整材料卡片见material.grade；不是强度换算",
                 Example = "norma.material." + key + " grade=HT250",
                 Parameters = parameters,
                 Handler = CommandDescriptor.Sync(c =>

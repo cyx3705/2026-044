@@ -37,6 +37,8 @@
     <EmbeddedResource Include="Formulas\nonferrous.json" LogicalName="Norma.Formulas.nonferrous.json" />
     <EmbeddedResource Include="Formulas\nonmetal.json" LogicalName="Norma.Formulas.nonmetal.json" />
     <EmbeddedResource Include="Formulas\product-specs.json" LogicalName="Norma.Formulas.product-specs.json" />
+    <EmbeddedResource Include="Formulas\material-supplement.json" LogicalName="Norma.Formulas.material-supplement.json" />
+    <EmbeddedResource Include="Formulas\materials-volume-audit.json" LogicalName="Norma.Formulas.materials-volume-audit.json" />
     <EmbeddedResource Include="Formulas\drive-efficiency.tsv" LogicalName="Norma.Formulas.drive-efficiency.tsv" />
     <EmbeddedResource Include="ManualWindowCapture.ps1" LogicalName="Norma.ManualWindowCapture.ps1" />
     <EmbeddedResource Include="Formulas\standards.tsv" LogicalName="Norma.Formulas.standards.tsv" />

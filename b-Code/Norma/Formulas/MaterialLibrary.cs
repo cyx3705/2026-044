@@ -18,7 +18,7 @@ internal static class MaterialLibrary
         ["铬钼铜铸铁"] = ["MTCrMoCu25", "MTCrMoCu30", "MTCrMoCu35"],
         ["Cu-Cr-Mo合金铸铁"] = ["MTCrMoCu25", "MTCrMoCu30", "MTCrMoCu35"],
     };
-    private static readonly Lazy<CastIronLookup.Fact[]> AllFacts = new(() => CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).Concat(SteelMaterials.Facts).Concat(NonFerrousMaterials.Facts).ToArray());
+    private static readonly Lazy<CastIronLookup.Fact[]> AllFacts = new(() => CastIronLookup.Facts.Concat(MaterialRepresentatives.AdditionalFacts).Concat(SteelMaterials.Facts).Concat(NonFerrousMaterials.Facts).Concat(MaterialSupplement.Facts).ToArray());
     internal static IEnumerable<CastIronLookup.Fact> Data => AllFacts.Value.Where(f =>
         f.Family != "通用" && !Labels.Contains(f.Property));
 
@@ -39,8 +39,18 @@ internal static class MaterialLibrary
         {
             if (basis == "representative" && MaterialRepresentatives.Selections.Any(s => Norm(s.Material) == Norm(grade)))
                 throw new ArgumentException("名称代表选型不支持*；请直接查询返回牌号，或用basis=source展开原配方");
-            var expanded = AllFacts.Value.Select(f => tool == "grade" && f.RowId.StartsWith("nonferrous:", StringComparison.Ordinal) ? f with { Tool = "grade" } : f).ToArray();
-            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, expanded);
+            var expanded = AllFacts.Value.Select(f => tool == "grade" && (f.RowId.StartsWith("nonferrous:", StringComparison.Ordinal) || MaterialSupplement.IsSupplement(f)) ? f with { Tool = "grade" } : f).ToArray();
+            var answer = CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, expanded);
+            var relevant = expanded.Where(f => f.Tool == tool
+                && (string.IsNullOrWhiteSpace(family) || family == "*" || Norm(f.Family) == Norm(family))
+                && (string.IsNullOrWhiteSpace(grade) || grade == "*" || Norm(f.Grade) == Norm(grade))
+                && (string.IsNullOrWhiteSpace(property) || property == "*" || Norm(f.Property) == Norm(property))
+                && (string.IsNullOrWhiteSpace(condition) || condition == "*" || Norm(f.Condition) == Norm(condition)));
+            var notes = MaterialSupplement.Notes(relevant);
+            var shape = System.Text.Json.JsonSerializer.SerializeToElement(answer);
+            return notes.Length == 0 || (shape.ValueKind == System.Text.Json.JsonValueKind.Object
+                && (shape.TryGetProperty("missing", out _) || shape.TryGetProperty("error", out _)))
+                ? answer : new { values = answer, 原注 = notes };
         }
         var selections = MaterialRepresentatives.Selections.Where(s => Norm(s.Material) == Norm(grade)
             && (string.IsNullOrWhiteSpace(family) || Norm(s.Family) == Norm(family))).ToArray();
@@ -88,7 +98,11 @@ internal static class MaterialLibrary
         var families = facts.Select(f => f.Family).Distinct().ToArray();
         if (families.Length > 1 && !facts.All(f => f.RowId.StartsWith("steel:", StringComparison.Ordinal))) return new { missing = "family", @default = (string?)null, options = families };
         if (!string.IsNullOrWhiteSpace(property) && facts.Select(f => f.Condition).Distinct().Count() == 1
-            && facts.Select(f => f.Value).Distinct().Count() == 1) return facts[0].Value;
+            && facts.Select(f => f.Value).Distinct().Count() == 1)
+        {
+            var notes = MaterialSupplement.Notes(facts);
+            return notes.Length == 0 ? facts[0].Value : new { value = facts[0].Value, 原注 = notes };
+        }
         var card = Card(facts, tool != "strength", string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition));
         if (Norm(requestedGrade) != Norm(grade)) card["查询牌号"] = requestedGrade!;
         return card;
@@ -162,11 +176,15 @@ internal static class MaterialLibrary
         if (mechanical.Length > 0) result["力学性能"] = Block(mechanical);
         var physical = facts.Where(f => f.Tool == "physical").ToArray();
         if (physical.Length > 0) result["物理及使用性能"] = Block(physical);
-        if (facts.All(f => f.RowId.StartsWith("nonferrous:", StringComparison.Ordinal)))
+        var process = facts.Where(f => f.Tool == "process").ToArray();
+        if (process.Length > 0) result["热处理工艺"] = Block(process);
+        var supplementNotes = MaterialSupplement.Notes(facts);
+        if (supplementNotes.Length > 0) result["原注"] = supplementNotes;
+        if (facts.Any(f => f.RowId.StartsWith("nonferrous:", StringComparison.Ordinal)))
         {
             result["说明"] = "手册旧版原值；多值原文与条件按原顺序对应，非连续区间；原表疑点未擅改";
             var notes = NonFerrousMaterials.Notes(facts);
-            if (notes.Count > 0) result["原注"] = notes;
+            if (notes.Count > 0) result["原注"] = notes.Select(n => n.Key + " " + n.Value).Concat(supplementNotes).Distinct().ToArray();
             if (name is "2A112017" or "5A01" or "5A05" or "FH2036" or "GH1040")
                 result["原表疑点"] = "牌号、列位或数字存在疑点，保留原文，待标准原件复核";
         }
