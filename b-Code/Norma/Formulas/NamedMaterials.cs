@@ -32,6 +32,7 @@ internal static class NamedMaterials
     });
     internal static IReadOnlyList<Page> Pages => Loaded.Value.Pages;
     internal static IReadOnlyList<Fact> Facts => Loaded.Value.Facts;
+    internal static IEnumerable<Fact> AllFacts => Facts.Concat(ReferenceMaterials.All.Facts);
     private static string Norm(string? text) => Regex.Replace(text ?? "", @"\s|\^?[①②③④⑤⑥]", "").ToUpperInvariant();
     private static bool Match(string value, string? filter) => string.IsNullOrWhiteSpace(filter) || filter == "*" || Norm(value) == Norm(filter);
     private static object Options(string key, IEnumerable<string> source, int offset, int limit)
@@ -42,13 +43,16 @@ internal static class NamedMaterials
     }
 
     internal static object Query(string? name = null, string? property = null, string? condition = null,
-        string? family = null, int offset = 0, int limit = 20)
+        string? family = null, int offset = 0, int limit = 20, string? category = null)
     {
         if (offset < 0 || limit is < 1 or > 100) throw new ArgumentException("offset≥0，limit为1～100");
+        if (!string.IsNullOrWhiteSpace(category) && !ReferenceMaterials.Categories.Contains(category))
+            throw new ArgumentException("category为" + string.Join("/", ReferenceMaterials.Categories));
         var variables = new[] { ("name", name), ("property", property), ("condition", condition), ("family", family) }.Where(p => p.Item2 == "*").ToArray();
         if (variables.Length > 1) throw new ArgumentException("一次最多一个参数为*");
-        var rows = Facts.Where(f => string.IsNullOrWhiteSpace(family) || family == "*" || Norm(f.Family) == Norm(family)
-            || f.Family.Split('/').Any(part => Norm(part) == Norm(family)));
+        var rows = AllFacts.Where(f => string.IsNullOrWhiteSpace(family) || family == "*" || Norm(f.Family) == Norm(family)
+            || f.Family.Split('/').Any(part => Norm(part) == Norm(family)))
+            .Where(f => string.IsNullOrWhiteSpace(category) || Category(f) == category);
         if (!string.IsNullOrWhiteSpace(name) && name != "*")
         {
             var exact = rows.Where(f => Norm(f.Name) == Norm(name)).ToArray();
@@ -93,9 +97,13 @@ internal static class NamedMaterials
                 var choices = facts.Select(f => Dimension(f, key)).Distinct().ToArray();
                 if (string.IsNullOrWhiteSpace(input) && choices.Length > 1) return Options(key, choices, offset, limit);
             }
-            var table = facts.Select(f => new Dictionary<string, string> { [variable] = Dimension(f, variable), ["value"] = Value(f) }).DistinctBy(r => (r[variable], r["value"])).ToArray();
-            return new { rows = table.Skip(offset).Take(limit).ToArray(), total = table.Length,
-                nextOffset = offset + limit < table.Length ? (int?)(offset + limit) : null };
+            var table = facts.Select(f => new Dictionary<string, object> { [variable] = Dimension(f, variable), ["value"] = Value(f) })
+                .DistinctBy(r => JsonSerializer.Serialize(r)).ToArray();
+            var result = new Dictionary<string, object?> { ["rows"] = table.Skip(offset).Take(limit).ToArray(), ["total"] = table.Length,
+                ["nextOffset"] = offset + limit < table.Length ? offset + limit : null };
+            var note = Notes(facts);
+            if (note.Count > 0) result["原注"] = note;
+            return result;
         }
         var families = facts.Select(f => f.Family).Distinct().ToArray();
         if (!string.IsNullOrWhiteSpace(property) && facts.Select(f => f.Property).Distinct().Count() == 1
@@ -113,8 +121,8 @@ internal static class NamedMaterials
             var values = new Dictionary<string, object>();
             foreach (var p in group.GroupBy(f => f.Property))
             {
-                var distinct = p.Select(f => f.Value).Distinct().ToArray();
-                values[p.Key] = distinct.Length == 1 ? distinct[0] : p.Select(f => new { value = f.Value,
+                var distinct = p.Select(Value).DistinctBy(v => JsonSerializer.Serialize(v)).ToArray();
+                values[p.Key] = distinct.Length == 1 ? distinct[0] : p.Select(f => new { value = Value(f),
                     source = PageFor(f).SourceId + ":表" + (f.Table + 1) + ":行" + (f.Row + 1) + ":列" + (f.Column + 1) }).ToArray();
             }
             blocks[group.Key] = values;
@@ -132,9 +140,12 @@ internal static class NamedMaterials
         "name" => f.Name, "property" => f.Property, "condition" => f.Condition, "family" => f.Family,
         _ => throw new ArgumentException("未知维度")
     };
-    private static Page PageFor(Fact f) => Pages.Single(p => p.Key == f.Page);
-    private static string Value(Fact f)
+    private static string Category(Fact f) => ReferenceMaterials.All.Categories.TryGetValue(f.Page, out var category)
+        ? category : f.Family.Contains("复合材料", StringComparison.Ordinal) ? "复合材料" : "非金属";
+    private static Page PageFor(Fact f) => Pages.Concat(ReferenceMaterials.All.Pages).Single(p => p.Key == f.Page);
+    private static object Value(Fact f)
     {
+        if (ReferenceMaterials.All.Values.TryGetValue(f, out var reference)) return reference;
         var value = f.Value;
         // Bounds are explicit in this property's heading, never inferred from a grade name.
         if (Regex.IsMatch(value, @"^[+-]?\d+(?:\.\d+)?$"))
@@ -152,6 +163,8 @@ internal static class NamedMaterials
     {
         var result = new Dictionary<string, string>();
         var selected = facts.ToArray();
+        foreach (var f in selected)
+            if (ReferenceMaterials.All.Notes.TryGetValue(f, out var text)) result[PageFor(f).SourceId] = text;
         foreach (var page in selected.Select(PageFor).DistinctBy(p => p.Key))
         {
             var note = Regex.Match(page.Notes, @"(?:注[：:]|[①②③④⑤⑥]).*", RegexOptions.Singleline).Value;

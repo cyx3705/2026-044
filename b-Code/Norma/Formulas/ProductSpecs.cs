@@ -39,7 +39,11 @@ internal static class ProductSpecs
     });
     internal static IReadOnlyList<Page> Pages => Loaded.Value.Pages;
     internal static IReadOnlyList<Entry> Entries => Loaded.Value.Entries;
-    internal static string InputGuide => string.Join("；", Entries.GroupBy(e => e.Name).Select(g =>
+    // Product performance without an explicit grade belongs to material.library.
+    internal static bool IsPerformance(Cell c) => c.Page == 6000 ||
+        Regex.IsMatch(c.Property, "抗拉强度|屈服点|伸长率|硬度|杯突|断面收缩率|180°.*试验|180°弯曲次数");
+    internal static IEnumerable<Entry> SpecificationEntries => Entries.Select(e => e with { Values = e.Values.Where(c => !IsPerformance(c)).ToArray() }).Where(e => e.Values.Length > 0);
+    internal static string InputGuide => string.Join("；", SpecificationEntries.GroupBy(e => e.Name).Select(g =>
         g.Key + "(" + string.Join("/", g.SelectMany(e => e.Spec.Keys).Distinct()) + ")"));
     // Latin dimensions are case-sensitive: B and b, H and h can be different axes.
     private static string Norm(string? value) => Regex.Replace(value ?? "", @"\s+", "").Replace('×', 'x').Replace('＊', '*');
@@ -60,7 +64,7 @@ internal static class ProductSpecs
         var wildcards = filters.Where(p => p.Value == "*").Select(p => p.Key)
             .Concat(property == "*" ? new[] { "property" } : []).Concat(name == "*" ? new[] { "name" } : []).ToArray();
         if (wildcards.Length > 1 || standard == "*") throw new ArgumentException("一次最多一个*，用于name、property或spec中的一个字段；standard不支持*");
-        var entries = Entries.ToArray();
+        var entries = SpecificationEntries.ToArray();
         if (!string.IsNullOrWhiteSpace(standard))
         {
             var pages = Pages.Where(p => Norm(p.Title).Contains(Norm(standard), StringComparison.OrdinalIgnoreCase)).Select(p => p.Key).ToHashSet();

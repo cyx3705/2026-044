@@ -66,7 +66,7 @@ internal static class CastIron
                 var paired = t.Entry switch { 551 => 550, 550 => 551, 299 => 298, 298 => 299, 402 => 403, 403 => 402, _ => 0 };
                 if (paired != 0) related = $"iron:{paired}:1:{i + 1}";
                 rows.Add(new(id, t.Id, t.Family, identity, kind, properties,
-                    catalog ? "牌号目录投影，化学成分未在此表给出；力学性能请调用material.strength并使用同一table/grade。" : null, related));
+                    catalog ? "牌号目录投影，化学成分未在此表给出；力学性能请调用material.grade category=力学并使用同一grade。" : null, related));
             }
         }
         // Exact row/grade query never discards other conditions of the same grade.

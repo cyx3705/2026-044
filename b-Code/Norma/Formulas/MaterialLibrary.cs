@@ -23,10 +23,12 @@ internal static class MaterialLibrary
         f.Family != "通用" && !Labels.Contains(f.Property));
 
     internal static object Query(string tool, string? family = null, string? grade = null, string? property = null,
-        string? condition = null, int offset = 0, int limit = 20, string basis = "representative")
+        string? condition = null, int offset = 0, int limit = 20, string basis = "representative", string? category = null)
     {
         if (offset < 0 || limit is < 1 or > 100) throw new ArgumentException("offset≥0，limit为1～100");
         if (basis is not ("representative" or "source")) throw new ArgumentException("basis为representative或source");
+        var kind = category switch { null or "" => null, "成分" => "grade", "力学" => "strength", "物理" => "physical", "工艺" => "process",
+            _ => throw new ArgumentException("category为成分/力学/物理/工艺；省略保留全部") };
         var requestedGrade = grade;
         if (!string.IsNullOrWhiteSpace(grade) && NonFerrousMaterials.Aliases.TryGetValue(Norm(grade), out var mapped))
         {
@@ -39,7 +41,7 @@ internal static class MaterialLibrary
         {
             if (basis == "representative" && MaterialRepresentatives.Selections.Any(s => Norm(s.Material) == Norm(grade)))
                 throw new ArgumentException("名称代表选型不支持*；请直接查询返回牌号，或用basis=source展开原配方");
-            var expanded = AllFacts.Value.Select(f => tool == "grade" && (f.RowId.StartsWith("nonferrous:", StringComparison.Ordinal) || MaterialSupplement.IsSupplement(f)) ? f with { Tool = "grade" } : f).ToArray();
+            var expanded = AllFacts.Value.Where(f => kind is null || f.Tool == kind).Select(f => tool == "grade" ? f with { Tool = "grade" } : f).ToArray();
             var answer = CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, expanded);
             var relevant = expanded.Where(f => f.Tool == tool
                 && (string.IsNullOrWhiteSpace(family) || family == "*" || Norm(f.Family) == Norm(family))
@@ -60,7 +62,7 @@ internal static class MaterialLibrary
             var selected = selections[0];
             var target = Data.Where(f => Norm(f.Grade) == Norm(selected.Grade)).ToArray();
             var targetFamily = target.Select(f => f.Family).Distinct().Single();
-            var answer = Query(tool, targetFamily, selected.Grade, property, condition, offset, limit, "source");
+            var answer = Query(tool, targetFamily, selected.Grade, property, condition, offset, limit, "source", category);
             var result = answer as Dictionary<string, object> ?? new Dictionary<string, object> { ["牌号"] = selected.Grade, ["取值"] = answer };
             result["代表对象"] = selected.Family + "/" + selected.Material;
             result["选型关系"] = "用途基准，非等同或替代认证";
@@ -68,12 +70,12 @@ internal static class MaterialLibrary
             result["选型依据"] = selected.Source;
             if (string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition))
             {
-                var original = Data.Where(f => f.Family == selected.Family && f.Grade == selected.Material).ToArray();
-                result["原配方（非代表牌号指标）"] = Card(original, tool != "strength", false);
+                var original = Data.Where(f => f.Family == selected.Family && f.Grade == selected.Material && (kind is null || f.Tool == kind)).ToArray();
+                if (original.Length > 0) result["原配方（非代表牌号指标）"] = Card(original, tool != "strength" && (kind is null || kind == "grade"), false);
             }
             return result;
         }
-        var rows = Data.Where(f => tool != "strength" || f.Tool == "strength");
+        var rows = Data.Where(f => (tool != "strength" || f.Tool == "strength") && (kind is null || f.Tool == kind));
         if (!string.IsNullOrWhiteSpace(family)) rows = rows.Where(f => Norm(f.Family) == Norm(family) || family == "钢" && f.RowId.StartsWith("steel:", StringComparison.Ordinal));
         if (basis == "representative" && string.IsNullOrWhiteSpace(family) && string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition)
             && !string.IsNullOrWhiteSpace(grade) && GradeAliases.TryGetValue(grade.Trim(), out var aliases))
@@ -94,7 +96,8 @@ internal static class MaterialLibrary
                 nextOffset = offset + limit < options.Length ? (int?)(offset + limit) : null };
         }
         if (facts.Length == 0)
-            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit, AllFacts.Value);
+            return CastIronLookup.Lookup(tool, family, grade, property, condition, offset, limit,
+                AllFacts.Value.Where(f => kind is null || f.Tool == kind).Select(f => tool == "grade" ? f with { Tool = "grade" } : f).ToArray());
         var families = facts.Select(f => f.Family).Distinct().ToArray();
         if (families.Length > 1 && !facts.All(f => f.RowId.StartsWith("steel:", StringComparison.Ordinal))) return new { missing = "family", @default = (string?)null, options = families };
         if (!string.IsNullOrWhiteSpace(property) && facts.Select(f => f.Condition).Distinct().Count() == 1
@@ -103,7 +106,7 @@ internal static class MaterialLibrary
             var notes = MaterialSupplement.Notes(facts);
             return notes.Length == 0 ? facts[0].Value : new { value = facts[0].Value, 原注 = notes };
         }
-        var card = Card(facts, tool != "strength", string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition));
+        var card = Card(facts, tool != "strength" && (kind is null || kind == "grade"), string.IsNullOrWhiteSpace(property) && string.IsNullOrWhiteSpace(condition));
         if (Norm(requestedGrade) != Norm(grade)) card["查询牌号"] = requestedGrade!;
         return card;
     }

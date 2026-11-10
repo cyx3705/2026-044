@@ -25,7 +25,6 @@ public sealed class NormaModule : IModuleContextAware
     internal static void Register(ICommandRegistrar registry)
     {
         ManualCommands.Register(registry);
-        PhysicalCommands.Register(registry);
         DriveCommands.Register(registry);
         CastIronCommands.Register(registry);
         NamedMaterialCommands.Register(registry);

@@ -34,6 +34,7 @@ var tests = new (string Name, Func<Task> Run)[]
     ("named nonmetal and composite material cards", Sync(TestNamedMaterials)),
     ("product specifications, combinations and tolerance boundaries", Sync(TestProductSpecs)),
     ("materials volume omissions and complete audit", Sync(TestMaterialSupplement)),
+    ("consolidated material and specification tools", Sync(TestConsolidatedMaterials)),
     ("page owner follows domain", Sync(TestPageOwner)),
     ("buttons, actions and commands line up", Sync(TestPageWiring)),
     ("versions agree", Sync(TestVersionsAgree)),
@@ -70,7 +71,7 @@ static Registrar Registry()
     return registry;
 }
 
-static int ExpectedCommandCount() => Catalog.All.Count + 25;
+static int ExpectedCommandCount() => Catalog.All.Count + 16;
 
 static void TestCommandRegistration()
 {
@@ -79,10 +80,9 @@ static void TestCommandRegistration()
     var expected = Catalog.All.Select(item => domain + "." + item.Id)
         .Concat([domain + ".formula.list", domain + ".formula.show", domain + ".std.lookup", domain + ".metal.strength", domain + ".manual.search", domain + ".manual.read", domain + ".manual.screenshot", domain + ".manual.open", domain + ".manual.directory", domain + ".ui.describe", domain + ".ui.actions", domain + ".ui.data"])
         .ToList();
-    expected.AddRange(PhysicalTables.Tables.Select(t => "norma.material." + t.Key));
     expected.Add("norma.drive.efficiency");
     expected.Add("norma.product.spec");
-    expected.AddRange(new[] { "norma.material.grade", "norma.material.strength", "norma.material.library" });
+    expected.AddRange(new[] { "norma.material.grade", "norma.material.library" });
     foreach (var name in expected)
     {
         True(registry.TryGet(name, out var descriptor), $"未注册 {name}");
@@ -646,23 +646,22 @@ static async Task TestHostLoadsPackage()
             True(manualResult.GetProperty("success").GetBoolean(), manualResult.GetRawText());
         }
 
-        // 新物理表经隔离宿主装载后的实际命令调用。
-        foreach (var (method, query, field, expected) in new[]
+        // Merged named/reference library is exercised through the real host.
+        foreach (var (query, category, property, expected) in new[]
         {
-            ("elastic", "铅", "e", 16d), ("density", "铅", "rho", 11.37),
-            ("thermal", "铜", "conductivity", 384d), ("expansion", "碳钢", "20~100", 10.6),
-            ("bulk", "焦炭", "rho_bulk", 0.36),
-            ("friction", "钢-钢", "static_dry", 0.15),
-            ("object_friction", "滚动轴承/深沟球轴承/轴向载荷", "f", 0.004),
-            ("rolling_arm", "橡胶轮胎对沥青路面", "k", 2.5),
+            ("铅", "密度", "密度", "11.37 g/cm³（=t/m³）"),
+            ("铅", "弹性", "弹性模量", "16 GPa"),
+            ("铜", "热学", "热导率", "384 W/(m·K)"),
+            ("钢-钢", "滑动摩擦", "静摩擦/无润滑剂", "0.15 1"),
+            ("滚动轴承/深沟球轴承/轴向载荷", "物体摩擦", "摩擦系数", "0.004 1"),
+            ("橡胶轮胎对沥青路面", "滚动摩擦力臂", "滚动摩擦力臂", "2.5 mm"),
+            ("PTFE", "非金属", "密度", "2.1~2.2 g·cm^-3"),
         })
         {
-            var physical = await Probe(archive, $"norma.material.{method} q={query}");
-            var physicalResult = physical.GetProperty("data").GetProperty("result");
-            True(physicalResult.GetProperty("success").GetBoolean(), physicalResult.GetRawText());
-            var payload = physicalResult.GetProperty("data");
-            var row = payload.GetProperty("items")[0];
-            Near(expected, row.GetProperty("properties").GetProperty(field).GetProperty("min").GetDouble(), 1e-9, "宿主物理表 " + method);
+            var probe = await Probe(archive, $"norma.material.library name={query} category={category} property={property}");
+            var materialResult = probe.GetProperty("data").GetProperty("result");
+            True(materialResult.GetProperty("success").GetBoolean(), materialResult.GetRawText());
+            Equal(expected, materialResult.GetProperty("data").GetString()!);
         }
 
         var efficiencyProbe = await Probe(archive, "norma.drive.efficiency q=自锁蜗杆");
@@ -676,7 +675,7 @@ static async Task TestHostLoadsPackage()
         True(specResult.GetProperty("data").ValueKind == JsonValueKind.String, specResult.GetRawText());
         Equal("2.15 kg·m^-1", specResult.GetProperty("data").GetString()!);
 
-        foreach (var (key, args, expected) in new[] { ("grade", "property=Cr", "14～18 %"), ("strength", "property=硬度HRC condition=硬化态或硬化态并去应力处理", "≥58 HRC") })
+        foreach (var (key, args, expected) in new[] { ("grade", "property=Cr", "14～18 %"), ("grade", "category=力学 property=硬度HRC condition=硬化态或硬化态并去应力处理", "≥58 HRC") })
         {
             var ironProbe = await Probe(archive, $"norma.material.{key} grade=KmTBCr15Mo {args}");
             var ironResult = ironProbe.GetProperty("data").GetProperty("result");
@@ -1205,7 +1204,7 @@ static void TestNamedMaterials()
         var json = JsonSerializer.Serialize(card);
         True(!JsonSerializer.SerializeToElement(card).TryGetProperty("missing", out _), "具体材料卡不应要求补参");
         foreach (var value in group.Select(f => f.Value).Distinct())
-            True(json.Contains(JsonSerializer.Serialize(value)), "资料卡遗漏原表单元格：" + group.Key.Name + "/" + value);
+            True(json.Contains(JsonSerializer.Serialize(value)[1..^1]), "资料卡遗漏原表单元格：" + group.Key.Name + "/" + value);
         sizes.Add(Encoding.UTF8.GetByteCount(JsonSerializer.Serialize(card, new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping })));
     }
     Console.WriteLine($"Named material cards: {sizes.Count}, median {sizes.Order().ElementAt(sizes.Count / 2)} B, max {sizes.Max()} B");
@@ -1275,6 +1274,61 @@ static void TestNonFerrousMaterials()
 }
 
 // REQ-MATERIAL-011/012, REQ-PRODUCT-003: independent native reference cells and omissions.
+// REQ-MATERIAL-013: two material keys, one specification surface, no duplicate registrations.
+static void TestConsolidatedMaterials()
+{
+    JsonElement J(object value) => JsonSerializer.SerializeToElement(value);
+    var registry = Registry();
+    var retired = PhysicalTables.Tables.Select(t => "norma.material." + t.Key).Append("norma.material.strength").ToArray();
+    foreach (var name in retired)
+    {
+        True(!registry.TryGet(name, out _), "重复工具仍在注册：" + name);
+        True(!NormaCommands.PageRows().Any(r => r["command"] == name), "退役工具仍在目录");
+    }
+    Equal(48, registry.All.Count());
+    var grade = registry.All.Single(c => c.Name == "norma.material.grade");
+    True(grade.Parameters.Any(p => p.Name == "grade") && !grade.Parameters.Any(p => p.Name == "name"), "牌号是独立主键");
+    var mechanical = J(MaterialLibrary.Query("grade", grade: "QT900-2", category: "力学"));
+    True(mechanical.TryGetProperty("力学性能", out _) && !mechanical.TryGetProperty("化学成分", out _), "可选分类替代独立强度工具");
+    Equal("≥250 MPa", (string)MaterialLibrary.Query("grade", grade: "HT250", property: "抗拉强度", condition: "单铸试棒", category: "力学"));
+    Equal("11.37 g/cm³（=t/m³）", (string)NamedMaterials.Query("铅", "密度", category: "密度"));
+    Equal("2.5 mm", (string)NamedMaterials.Query("橡胶轮胎对沥青路面", "滚动摩擦力臂", category: "滚动摩擦力臂"));
+    Equal("10.6~12.2 10⁻⁶/℃", (string)NamedMaterials.Query("碳钢", "线膨胀系数", "常用材料线膨胀系数（通用参考，非牌号指标）；温区=20~100℃", category: "线膨胀"));
+    var options = J(NamedMaterials.Query(category: "滑动摩擦", limit: 2));
+    Equal("name", options.GetProperty("missing").GetString()!);
+    Equal(JsonValueKind.Null, options.GetProperty("default").ValueKind);
+    Equal(2, options.GetProperty("options").GetArrayLength());
+    var unknown = J(NamedMaterials.Query("球墨铸铁", "切变模量", category: "弹性"));
+    Equal(JsonValueKind.Null, unknown.GetProperty("value").ValueKind);
+    Equal("原表未给出", unknown.GetProperty("reason").GetString()!);
+    var inverted = J(NamedMaterials.Query("离合器", "摩擦系数", category: "物体摩擦"));
+    // A partial object name must offer choices; it cannot select a different load case.
+    True(inverted.TryGetProperty("missing", out _) || inverted.TryGetProperty("原注", out _), "对象工况不可自动选首项");
+    foreach (var f in ReferenceMaterials.All.Facts.Where(f => f.Page < 10000).GroupBy(f => f.Name))
+    {
+        var card = NamedMaterials.Query(f.Key, family: "通用参考");
+        var serialized = JsonSerializer.Serialize(card);
+        foreach (var raw in f.Select(f => f.Value).Distinct())
+            True(serialized.Contains(JsonSerializer.Serialize(raw)[1..^1], StringComparison.Ordinal), "合并丢失参考值 " + f.Key + ":" + raw);
+        Equal(serialized, JsonSerializer.Serialize(NamedMaterials.Query(f.Key, family: "通用参考", offset: 9999, limit: 1)));
+    }
+    True(ReferenceMaterials.All.Facts.Where(f => f.Page < 10000).Count() == PhysicalTables.Tables.Sum(t => PhysicalTables.Search(t.Key, null, null, 0, 100).Items.Count * t.Fields.Length), "八表全部单元格必须纳入");
+    var productValues = ProductSpecs.Entries.SelectMany(e => e.Values).ToArray();
+    Equal(productValues.Length, ProductSpecs.SpecificationEntries.SelectMany(e => e.Values).Count() + productValues.Count(ProductSpecs.IsPerformance));
+    True(!ProductSpecs.SpecificationEntries.SelectMany(e => e.Values).Any(ProductSpecs.IsPerformance), "规格库不重复发布纯材料性能");
+    foreach (var f in ReferenceMaterials.All.Facts.Where(f => f.Page >= 10000).GroupBy(f => f.Name))
+    {
+        var card = JsonSerializer.Serialize(NamedMaterials.Query(f.Key, category: "产品性能"));
+        foreach (var raw in f.Select(f => f.Value).Distinct()) True(card.Contains(JsonSerializer.Serialize(raw)[1..^1], StringComparison.Ordinal), "迁移丢失产品性能 " + f.Key + ":" + raw);
+    }
+    True(J(NamedMaterials.Query("HT250")).GetProperty("options").GetArrayLength() == 0, "名称材料库不冒充牌号库");
+    foreach (var request in new Action[] { () => NamedMaterials.Query("PTFE", category: "未知"), () => NamedMaterials.Query(name: "*", property: "*"), () => MaterialLibrary.Query("grade", grade: "HT250", category: "未知") })
+    {
+        var rejected = false; try { request(); } catch (ArgumentException) { rejected = true; }
+        True(rejected, "非法分类或多变量未拒绝");
+    }
+}
+
 static void TestMaterialSupplement()
 {
     JsonElement J(object v) => JsonSerializer.SerializeToElement(v);
@@ -1304,7 +1358,7 @@ static void TestMaterialSupplement()
         foreach (var v in g.Select(f => f.Value).Distinct())
             True(card.GetRawText().Contains(JsonSerializer.Serialize(v)), "补充卡丢值 " + g.Key + " " + v);
     }
-    Equal("≥7.4 mm", (string)ProductSpecs.Query("连续热镀锌薄钢板和钢带的杯突试验值", "{\"厚度\":0.5,\"加工性能\":\"SC\"}", "杯突冲压深度"));
+    Equal("≥7.4 mm", (string)NamedMaterials.Query("连续热镀锌薄钢板和钢带的杯突试验值", "杯突冲压深度", "厚度=0.5mm；加工性能=SC", category: "产品性能"));
     Equal("5.05/2.25 g/m（原表单位）", J(ProductSpecs.Query("电镀锡薄钢板和钢带的镀锡量", "{\"镀锡符号\":\"D1\"}", "最小平均镀锡量")).GetProperty("value").GetString()!);
     Equal("0.25 mm", (string)ProductSpecs.Query("压力容器用钢板公称厚度的附加值", "{\"厚度\":10,\"宽度\":1000}", "计算重量厚度附加值"));
     Equal("0.5~2.5 mm", (string)ProductSpecs.Query("耐蚀合金冷轧无缝管直径及壁厚", "{\"直径\":10}", "壁厚范围"));
@@ -1364,7 +1418,7 @@ static void TestCastIronLookup()
         if (result is string value) Equal(fact.Value, value);
         else True(J(result).TryGetProperty("error", out _), "完整参数不能返回缺参/整库");
     }
-    var command = Registry().All.Single(c => c.Name == "norma.material.strength");
+    var command = Registry().All.Single(c => c.Name == "norma.material.grade");
     var response = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "HT250", ["property"] = "抗拉强度", ["condition"] = "单铸试棒" }, "test", null, CancellationToken.None)).Result;
     Equal("≥250 MPa", J(response.Data!).GetString()!);
     True(J(response.Data!).GetRawText().Length < 30, "正常取值必须保持常数大小");
@@ -1443,7 +1497,7 @@ static void TestCastIron()
         foreach (var row in all) foreach (var cell in row.Properties.Values)
             True(cell.Kind != "text" || cell.Unit.Length == 0, "未解析数值单元格：" + row.Id + " " + cell.Text);
         Equal(0, CastIron.Search(tool, q: "不存在的材料").Total);
-        var registry = Registry(); True(registry.TryGet("norma.material." + tool, out var command), "缺少铸铁工具");
+        var registry = Registry(); True(registry.TryGet("norma.material.grade", out var command), "缺少铸铁工具");
         Equal("material", command!.CommandClass);
         var result = command.Handler(new CommandContext(command, new Dictionary<string, string> { ["grade"] = "KmTBCr15Mo" }, "test", null, CancellationToken.None)).Result;
         True(result.Success, result.Message); JsonSerializer.Serialize(result.Data);
@@ -1453,7 +1507,7 @@ static void TestCastIron()
         var rejected = false; try { CastIron.Search("strength", offset: start, limit: limit); } catch (ArgumentException) { rejected = true; }
         True(rejected, "非法分页拒绝");
     }
-    foreach (var key in new[] { "grade", "strength" }) True(NormaCommands.PageRows().Any(r => r["id"] == "material." + key), "目录遗漏");
+    foreach (var key in new[] { "grade", "library" }) True(NormaCommands.PageRows().Any(r => r["id"] == "material." + key), "目录遗漏");
 }
 
 static void TestDriveEfficiency()
@@ -1547,7 +1601,7 @@ static void TestPhysicalTables()
         Equal(all.Items[2].Id, second.Items[0].Id);
         Equal(0, PhysicalTables.Search(t.Key, "不存在的材料", null, 0, 20).Total);
         var registry = Registry();
-        True(registry.TryGet("norma.material." + t.Key, out var descriptor), "未注册物理表");
+        True(registry.TryGet("norma.material.library", out var descriptor), "未注册合并材料库");
         Equal("material", descriptor!.CommandClass);
         var outcome = descriptor.Handler(new CommandContext(descriptor, new Dictionary<string, string>(), "test", null, CancellationToken.None)).Result;
         True(outcome.Success, outcome.Message);
@@ -1624,7 +1678,7 @@ static void TestPhysicalTables()
         Equal("原表区间倒置，待核", cell.Undefined!);
         True(cell.Value is null && cell.Min is null && cell.Max is null && row.Note is not null, "倒置范围不能自动排序猜改");
     }
-    Equal(14, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
+    Equal(5, NormaCommands.PageRows().Count(row => row["topic"] == "机械材料"));
     foreach (var (offset, limit, period) in new[] { (-1, 20, (string?)null), (0, 0, (string?)null), (0, 101, (string?)null), (0, 20, (string?)"20~150") })
     {
         var rejected = false;

@@ -39,13 +39,17 @@
 | 机械材料 | `norma.material.limits material= sigma_b=` 从抗拉强度估算材料对称/脉动疲劳极限，保留区间与无定义项 |
 | 机械材料 | `norma.metal.strength family= value= scale= grade=` 钢/变形铝合金/铜合金的硬度互转与强度换算（PCHIP 保形插值，含肖氏 HS、表面洛氏、维氏、布氏） |
 
-| 机械材料 | norma.material.elastic 弹性模量/泊松比、norma.material.density 密度、norma.material.thermal 熔点/热导率/比热容、norma.material.expansion 线膨胀、norma.material.bulk 堆密度/安息角；material.friction 材料滑动摩擦（静/动及润滑四列）、material.object_friction 物体摩擦、material.rolling_arm 滚动摩擦力臂(mm)；q= 查询，省略浏览整表 |
+| 材料牌号库 | `norma.material.grade grade=HT250`：牌号是主键；成分、力学、物理、工艺合一，category/property/condition/family可选 |
+| 材料库 | `norma.material.library name=PTFE`：非金属/复合材料按名称或型号查卡；通用物性、堆积、摩擦及无明确牌号的产品性能也在此，以category分类 |
+| 产品规格库 | `norma.product.spec name=结构用热轧无缝钢管 spec='{"外径":32,"壁厚":3}' property=理论重量`：尺寸、重量、截面参数、供应组合及公差；产品全名/坐标见工具自描述 |
 
-产品规格库（首批84页131表）：`norma.product.spec name=结构用热轧无缝钢管 spec='{"外径":32,"壁厚":3}' property=理论重量`，固定条件取值或返回规格卡，一个`*`展开表。产品选项与每种产品的spec字段已写入命令自描述。当前85个产品/专表入口，涵盖型钢、钢管、部分板棒管制品和公差；不是材料大卷全部规格表。
+0.12.1 合并了9个重复入口：`material.strength`改为牌号库`category=力学`；8个物性/摩擦专用入口改为材料库可选分类。Norma总注册指令57→48，对MCP公开54→45。材料数据查询固定为牌号库、材料库、规格库三个入口；硬度换算和疲劳极限估算保留独立计算。
 
-非金属及复合材料库：`norma.material.library name=PTFE` 或 `name=T300/4211`，按名称/型号返回完整精简资料卡；覆盖124页159张性能及成分表，514个原文材料名称/型号，保留配方、含量基准、方向、温度与尺寸条件。可选property/condition/family过滤；省略name或名称有歧义时返回选项，单个`*`可展开变化表。纯规格和泛用途表未搬入材料卡。
+材料库支持category=非金属/复合材料/弹性/密度/热学/线膨胀/堆积/滑动摩擦/物体摩擦/滚动摩擦力臂/产品性能。例如`name=铅 category=密度 property=密度`或`name=钢-钢 category=滑动摩擦`。通用参考值不归给具体牌号，原表温区、载荷、配方和单位保持独立；缺值保留null及原因。类别/属性均不需要新增工具。
 
-金属牌号库：`norma.material.grade grade=HT250` 直接返回该牌号的化学成分、各场景力学/物理性能和来源；已收录铸铁28页30表、钢材153页227表，以及铜铝锌钛/轴承/高温/耐蚀/粉末冶金材料139页（199张原表归一化为282表，623张新增牌号卡）。保留原表待核异写和旧版标准，按产品/状态/温度等条件合并；ZL101、LY12等明确代号/旧牌号可以直查，歧义返回目标选项。`norma.material.strength`保留力学性能入口。property/condition/family均为可选过滤，唯一属性/条件直接返回带单位的值；显式一个`*`保留兼容的一维展开。牌号卡片完整返回，不受limit截断；省略grade返回分页选项。无牌号配方默认按用途选择代表牌号，返回同格式卡片、选型关系和原配方；basis=source查看原配方，代表选型不是材料等同或替代认证。
+原产品数据中的791格纯力学/试验性能转由材料库`category=产品性能`查询；不推定钢带/钢丝的牌号。规格入口当前为99页150表、9126条规则、22018格、106个产品/专表；存储仍保留全部原表用于追溯，整卷未整理范围不变。
+
+牌号库仍以材料牌号为主键，保留ZL101、LY12等明确代号映射；category=成分/力学/物理/工艺过滤，省略返回完整牌号卡。非金属和复合材料使用独立材料库的name主键。缺变量返回default=null及选项，一个显式*才返回变化表；完整卡片不受limit截断。原有用途代表选型和basis=source仍保留，并明确非等同或替代认证。
 
 ```text
 norma.material.grade grade=HT250
@@ -56,7 +60,7 @@ norma.material.grade grade=MTCrMoCu35
 norma.material.grade grade=钨铸铁
 norma.material.grade grade=钨铸铁 basis=source
 norma.material.grade grade=KmTBCr15Mo property=Cr
-norma.material.strength grade=HT250 property=抗拉强度 condition=单铸试棒
+norma.material.grade grade=HT250 category=力学 property=抗拉强度 condition=单铸试棒
 ```
 
 6个合金体系名称关联到17个导轨牌号；各用途原数据写入对应卡片“同族参考配方（非本牌号标准指标）”，不覆盖牌号标准成分/性能，不宣称跨用途等同。其余29个分支名称条目（27个名称）依REQ-MATERIAL-008选用5个用途基准：HT250、HT350、东亚DH33、KmTBCr2、KmTBNi4Cr2-GT。名称默认返回代表卡及原配方；basis=source只查原数据。DH33新增厂家公开抗弯强度与HV30硬度，化学成分未公开；其他牌号沿用手册原数据。
