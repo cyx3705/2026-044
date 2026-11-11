@@ -24,7 +24,7 @@ internal static class CastIronCommands
             registry.Register(new CommandDescriptor
             {
                 Name = "norma.material." + key, Domain = "norma", CommandClass = "material", Readonly = true,
-                Summary = "材料牌号库：以牌号为主键，返回成分、各场景力学/物理性能和热处理工艺；含铸铁、钢、有色及特种合金。category可选性能分类；非金属、无牌号材料及通用物性见material.library，尺寸规格见product.spec",
+                Summary = "按金属牌号查询成分、性能和热处理",
                 Example = "norma.material." + key + " grade=HT250",
                 Parameters = parameters,
                 Handler = CommandDescriptor.Sync(c =>

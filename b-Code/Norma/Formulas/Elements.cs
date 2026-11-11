@@ -35,6 +35,7 @@ internal static class Elements
 
     private static Calculation BearingLoad() => new()
     {
+        CatalogSummary = "计算滚动轴承当量动载荷",
         Id = "bearing.load",
         Title = "滚动轴承当量动载荷",
         Source = "GB/T 6391 / ISO 281：P = f_p (X F_r + Y F_a)",
@@ -57,6 +58,7 @@ internal static class Elements
 
     private static Calculation BearingLife() => new()
     {
+        CatalogSummary = "计算滚动轴承基本额定寿命与修正寿命",
         Id = "bearing.life",
         Title = "滚动轴承基本额定寿命与修正寿命",
         Source = "ISO 281:2007：L₁₀ = (C/P)^ε（10⁶ 转），L_nm = a₁ a_ISO L₁₀，L_h = 10⁶ L/(60n)；a₁ 取 ISO 281 可靠度系数",
@@ -98,6 +100,7 @@ internal static class Elements
 
     private static Calculation BearingRequired() => new()
     {
+        CatalogSummary = "按要求寿命计算轴承所需额定动载荷",
         Id = "bearing.required",
         Title = "按要求寿命求所需额定动载荷",
         Source = "由 ISO 281 寿命式反解：C′ = P/f_t·(60 n L_h′/(10⁶ a₁ a_ISO))^(1/ε)",
@@ -122,6 +125,7 @@ internal static class Elements
 
     private static Calculation BearingStatic() => new()
     {
+        CatalogSummary = "计算滚动轴承静强度安全系数",
         Id = "bearing.static",
         Title = "滚动轴承静强度安全系数",
         Source = "ISO 76：P₀ = X₀ F_r + Y₀ F_a（且不小于 F_r），S₀ = C₀ / P₀",
@@ -151,6 +155,7 @@ internal static class Elements
 
     private static Calculation Spring() => new()
     {
+        CatalogSummary = "计算圆柱螺旋压缩弹簧应力和刚度",
         Id = "spring.compression",
         Title = "圆柱螺旋压缩弹簧应力与刚度",
         Source = "GB/T 23935 / EN 13906-1：旋绕比 C = D/d，曲度系数 K = (4C−1)/(4C−4) + 0.615/C（Wahl），τ = 8KFD/(πd³)，刚度 k = Gd⁴/(8D³n)",
@@ -195,6 +200,7 @@ internal static class Elements
 
     private static Calculation SpringWire() => new()
     {
+        CatalogSummary = "按强度计算压缩弹簧簧丝直径",
         Id = "spring.wire",
         Title = "按强度求压缩弹簧簧丝直径",
         Source = "由 τ = 8KFC/(πd²) 反解：d ≥ 1.6 √(K F C / [τ])",
@@ -218,6 +224,7 @@ internal static class Elements
 
     private static Calculation Belt() => new()
     {
+        CatalogSummary = "计算开口带传动的带长、中心距和包角",
         Id = "belt.geometry",
         Title = "带传动几何：带长、中心距、包角、带速",
         Source = "开口传动：L₀ = 2a₀ + π(d₁ + d₂)/2 + (d₂ − d₁)²/(4a₀)；a ≈ a₀ + (L_d − L₀)/2；α₁ = 180° − (d₂ − d₁)/a·57.3°；v = πd₁n₁/60000",
@@ -259,6 +266,7 @@ internal static class Elements
 
     private static Calculation Chain() => new()
     {
+        CatalogSummary = "计算滚子链节数、中心距和链速",
         Id = "chain.geometry",
         Title = "滚子链传动几何：链节数、中心距、链速",
         Source = "L_p = 2a₀/p + (z₁+z₂)/2 + ((z₂−z₁)/(2π))²·p/a₀，取偶数；a = p/4·[(L_p − (z₁+z₂)/2) + √((L_p − (z₁+z₂)/2)² − 8((z₂−z₁)/(2π))²)]；链轮分度圆 d = p/sin(180°/z)",
@@ -306,6 +314,7 @@ internal static class Elements
 
     private static Calculation Tolerance() => new()
     {
+        CatalogSummary = "按标准公式计算 IT 等级公差",
         Id = "fit.it",
         Title = "标准公差（IT5～IT18）公式值",
         Source = "GB/T 1800.1 / ISO 286-1 标准公差因子 i = 0.45∛D + 0.001D（μm，D 为尺寸段两端的几何平均），IT = 倍数 × i",
@@ -347,6 +356,7 @@ internal static class Elements
 
     private static Calculation Beam() => new()
     {
+        CatalogSummary = "计算等截面梁的最大挠度、转角和弯矩",
         Id = "beam.deflection",
         Title = "等截面梁最大挠度、转角与弯矩",
         Source = "材料力学经典解：悬臂端部集中 FL³/(3EI)，悬臂均布 WL³/(8EI)，简支中点集中 FL³/(48EI)，简支均布 5WL³/(384EI)（W 为均布总载荷）",

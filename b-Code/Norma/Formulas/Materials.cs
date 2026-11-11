@@ -7,6 +7,7 @@ internal static class Materials
     {
         yield return new Calculation
         {
+            CatalogSummary = "换算常用材料极限强度的近似值",
             Id = "material.limits",
             Title = "常用材料极限强度的近似关系",
             Source = "机械工程师手册 sjzl:7《常用材料极限强度的近似关系》；sjzl/sjzl.ysc HTML 条目7，字节偏移145957；条目号不是印刷页码",

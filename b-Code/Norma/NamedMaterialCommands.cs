@@ -8,7 +8,7 @@ internal static class NamedMaterialCommands
     internal static void Register(ICommandRegistrar registry) => registry.Register(new CommandDescriptor
     {
         Name = "norma.material.library", Domain = "norma", CommandClass = "material", Readonly = true,
-        Summary = "材料库：按名称/型号查询非金属、复合材料，以及无牌号类别/产品的通用物性、堆积和摩擦数据；category可选分类。具体金属牌号性能见material.grade；尺寸、重量、公差见product.spec",
+        Summary = "查询非金属及无牌号材料的通用物性",
         Example = "norma.material.library name=PTFE",
         Parameters =
         [

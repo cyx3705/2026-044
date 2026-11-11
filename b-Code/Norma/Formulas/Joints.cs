@@ -30,6 +30,7 @@ internal static class Joints
 
     private static Calculation Thread() => new()
     {
+        CatalogSummary = "查询普通螺纹基本尺寸和应力截面积",
         Id = "bolt.thread",
         Title = "普通螺纹基本尺寸与应力截面积",
         Source = "GB/T 196 / ISO 724 基本尺寸：d₂ = d − 0.6495P，d₃ = d − 1.2269P；GB/T 3098.1 / ISO 898-1 应力截面积 A_s = π/4·((d₂ + d₃)/2)²",
@@ -57,6 +58,7 @@ internal static class Joints
 
     private static Calculation Torque() => new()
     {
+        CatalogSummary = "由预紧力计算螺栓拧紧力矩",
         Id = "bolt.torque",
         Title = "由预紧力求拧紧力矩",
         Source = "T = K F₀ d（K 为拧紧力矩系数，综合螺纹与支承面摩擦）",
@@ -68,6 +70,7 @@ internal static class Joints
 
     private static Calculation Preload() => new()
     {
+        CatalogSummary = "由拧紧力矩计算螺栓预紧力",
         Id = "bolt.preload",
         Title = "由拧紧力矩求预紧力",
         Source = "F₀ = T / (K d)",
@@ -79,6 +82,7 @@ internal static class Joints
 
     private static Calculation Tension() => new()
     {
+        CatalogSummary = "校核轴向载荷下紧螺栓的强度",
         Id = "bolt.tension",
         Title = "受轴向载荷的紧螺栓强度",
         Source = "总拉力 F₂ = F₀ + C_b F（C_b = c_b/(c_b + c_m)），残余预紧力 F₁ = F₀ − (1 − C_b)F；σ_ca = 1.3 F₂ / A_s（1.3 计入拧紧扭转切应力）",
@@ -121,6 +125,7 @@ internal static class Joints
 
     private static Calculation Friction() => new()
     {
+        CatalogSummary = "计算横向载荷下摩擦传力螺栓的预紧力",
         Id = "bolt.friction",
         Title = "受横向载荷的普通螺栓所需预紧力",
         Source = "靠摩擦传力：F₀ ≥ K_s F / (f i z)",
@@ -139,6 +144,7 @@ internal static class Joints
 
     private static Calculation Shear() => new()
     {
+        CatalogSummary = "校核铰制孔螺栓的剪切和挤压强度",
         Id = "bolt.shear",
         Title = "铰制孔用螺栓剪切与挤压强度",
         Source = "τ = F / (m π d₀²/4)，σ_p = F / (d₀ L_min)",
@@ -167,6 +173,7 @@ internal static class Joints
 
     private static Calculation Screw() => new()
     {
+        CatalogSummary = "计算螺旋传动的力矩、效率和自锁",
         Id = "screw.drive",
         Title = "螺旋传动的力矩、效率与自锁",
         Source = "导程角 ψ = arctan(nP/(πd₂))，当量摩擦角 ρ_v = arctan(f/cos(α/2))；举升力矩 T = F d₂/2·tan(ψ + ρ_v)，效率 η = tanψ/tan(ψ + ρ_v)，自锁条件 ψ ≤ ρ_v",
@@ -204,6 +211,7 @@ internal static class Joints
 
     private static Calculation Fillet() => new()
     {
+        CatalogSummary = "校核角焊缝受剪强度",
         Id = "weld.fillet",
         Title = "角焊缝受剪强度",
         Source = "τ = F / (h_e Σl)，有效厚度 h_e = 0.7k（直角角焊缝）",
@@ -228,6 +236,7 @@ internal static class Joints
 
     private static Calculation Press() => new()
     {
+        CatalogSummary = "计算圆柱面过盈连接",
         Id = "fit.press",
         Title = "圆柱面过盈连接",
         Source = "厚壁圆筒 Lamé 解：p = δ / (d (C₁/E₁ + C₂/E₂))，C₁ = (d² + d₁²)/(d² − d₁²) − ν₁，C₂ = (d₂² + d²)/(d₂² − d²) + ν₂；T = p π d l f d/2，F_a = p π d l f",

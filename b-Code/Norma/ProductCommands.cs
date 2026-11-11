@@ -8,7 +8,7 @@ internal static class ProductCommands
     internal static void Register(ICommandRegistrar registry) => registry.Register(new CommandDescriptor
     {
         Name = "norma.product.spec", Domain = "norma", CommandClass = "product", Readonly = true,
-        Summary = "产品规格库：按产品、型号或尺寸查规格卡、理论重量、截面参数和公差；缺条件给选项，一个*展开表；手册旧版数据，不插值",
+        Summary = "查询产品规格、理论重量和尺寸公差",
         Example = "norma.product.spec name=热轧普通工字钢 spec=20a property=理论重量",
         Parameters =
         [

@@ -11,7 +11,7 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.search", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "搜索本地机械工程师手册的标题或正文，返回可复用页 ID、出处与摘要；q 省略可浏览目录",
+            Summary = "搜索本地机械手册的标题或正文",
             Example = "norma.manual.search q=硬度 chapter=sjzl",
             Parameters = [Root(), Text("q", "关键词，空格分隔为全部匹配；省略列目录，如 硬度 强度"),
                 Choice("scope", "匹配标题或正文；title 查目录更快，text 包含表格文字", "title", ["title", "text"]),
@@ -24,7 +24,7 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.read", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "按搜索返回的页 ID 读取手册正文或原始 HTML，分页保留表格文字、来源字节位置和图片引用",
+            Summary = "按页编号读取手册正文或原始网页",
             Example = "norma.manual.read id=sjzl:17",
             Parameters = [Root(), new ParameterSpec { Name = "id", Description = "搜索返回的页 ID，如 sjzl:17；冒号后是条目序号，不是印刷页码", Type = ParamType.String, Required = true },
                 Choice("format", "text 为正文/表格文本，html 为原始页面（可核对合并单元格）", "text", ["text", "html"]),
@@ -36,7 +36,7 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.screenshot", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "仅截原手册右侧正文为PNG（自动识别正文控件，排除左侧目录和工具栏）；full_page=true双向滚动拼接整页含脚注，否则只截可见视口；先manual.open按名称打开页；mode=html为提取HTML",
+            Summary = "截取原手册正文，可滚动拼接整页",
             Example = "norma.manual.screenshot mode=window full_page=true",
             Parameters = [Root(), Choice("mode", "window为原手册当前窗口系统截图；html为提取页渲染（不能代替原版核对）", "window", ["window", "html"]),
                 new ParameterSpec { Name = "full_page", Type = ParamType.Bool, Default = "false", Description = "仅window：true按原窗口双向滚动拼接完整正文及脚注，结束恢复滚动位置；不可同时传非零x/y/width/height。上限4000万像素、宽12000高50000、80块，超限报错不截断；false仅截当前可见视口" },
@@ -63,7 +63,7 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.open", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "按完整页名称在原手册打开页面，选择后核实右侧正文标题；同名页用directory返回的完整path区分，不修改手册文件",
+            Summary = "按完整页名打开原手册并核对标题",
             Example = "norma.manual.open name=常用材料弹性模量及泊松比",
             Parameters = [Root(), new ParameterSpec { Name = "name", Description = "原手册目录中的完整页名称，严格匹配；如常用材料弹性模量及泊松比", Type = ParamType.String, Required = true },
                 Text("path", "可选：directory返回的完整目录路径，/分隔；逐级展开祖先并区分同名页"), Number("scroll_y", "打开后滚到正文纵向像素位置，0～50000，默认0回顶部；长表下方核对时增大", "0")],
@@ -72,7 +72,7 @@ internal static class ManualCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.manual.directory", Domain = "norma", CommandClass = "manual", Readonly = true,
-            Summary = "文字查看原手册左侧目录：只返回文字树与条目的名称、完整path、选中和展开状态，不生成目录截图；支持过滤分页",
+            Summary = "读取原手册目录文字及条目路径",
             Example = "norma.manual.directory q=常用材料 limit=30",
             Parameters = [Root(), Text("q", "按目录名称包含匹配；省略浏览当前可访问目录（折叠分组可能尚未暴露子页）"),
                 Number("offset", "跳过匹配条数，≥0", "0"), Number("limit", "返回条数，1～100", "30")],

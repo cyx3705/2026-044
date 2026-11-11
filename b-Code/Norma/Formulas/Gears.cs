@@ -84,6 +84,7 @@ internal static class Gears
 
     private static Calculation Geometry() => new()
     {
+        CatalogSummary = "计算渐开线圆柱齿轮副几何尺寸",
         Id = "gear.geometry",
         Title = "齿轮副几何尺寸",
         Source = "GB/T 3374 / ISO 21771 渐开线圆柱齿轮几何：无侧隙啮合方程、中心距变动系数、齿顶高变动系数、端面重合度",
@@ -157,6 +158,7 @@ internal static class Gears
 
     private static Calculation Contact() => new()
     {
+        CatalogSummary = "校核齿轮齿面接触强度",
         Id = "gear.contact",
         Title = "齿面接触强度校核",
         Source = "GB/T 3480.2 / ISO 6336-2 方法 B 基本式：σ_H = Z_H Z_E Z_ε Z_β √(F_t/(d₁b)·(u+1)/u)·√(K_A K_v K_Hβ K_Hα)",
@@ -225,6 +227,7 @@ internal static class Gears
 
     private static Calculation Bending() => new()
     {
+        CatalogSummary = "校核齿轮齿根弯曲强度",
         Id = "gear.bending",
         Title = "齿根弯曲强度校核",
         Source = "GB/T 3480.3 / ISO 6336-3 方法 B：σ_F = F_t/(b mₙ)·Y_F Y_S Y_β Y_ε·K_A K_v K_Fβ K_Fα；Y_F、Y_S 按载荷作用于单对齿啮合外界点求齿形",
@@ -346,6 +349,7 @@ internal static class Gears
 
     private static Calculation Diameter() => new()
     {
+        CatalogSummary = "按接触强度初估小齿轮直径",
         Id = "gear.diameter",
         Title = "按接触强度初估小轮直径",
         Source = "由接触强度基本式反解：d₁ ≥ ∛(2K T₁/φ_d·(u+1)/u·(Z_H Z_E Z_ε/σ_HP)²)，常见于机械设计教材的设计式",
@@ -379,6 +383,7 @@ internal static class Gears
 
     private static Calculation Module() => new()
     {
+        CatalogSummary = "按弯曲强度初估齿轮模数",
         Id = "gear.module",
         Title = "按弯曲强度初估模数",
         Source = "由齿根弯曲基本式反解：mₙ ≥ ∛(2K T₁ Y_ε cos²β/(φ_d z₁²)·Y_Fa Y_Sa/σ_FP)，常见于机械设计教材的设计式",

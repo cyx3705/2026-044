@@ -11,7 +11,7 @@ internal static class BasicCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.basic.coneangle", Domain = "norma", CommandClass = "basic", Readonly = true,
-            Summary = "圆锥角公差：AT1～AT12等级与基本圆锥长度L两个坐标，返回μrad、原表角秒及按实际L计算的直径公差；不混IT与直径",
+            Summary = "按等级和圆锥长度查询圆锥角公差",
             Example = "norma.basic.coneangle grade=AT7 length=50",
             Parameters =
             [
@@ -23,7 +23,7 @@ internal static class BasicCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.basic.angular", Domain = "norma", CommandClass = "basic", Readonly = true,
-            Summary = "角度与斜度系列卡：以C1:10、α60°、β45°、S1:20等带几何符号的基本值查系列、对应角度/锥度/斜度及用途；支持莫氏/贾氏代号，无表名参数",
+            Summary = "查询角度、锥度和斜度系列及用途",
             Example = "norma.basic.angular designation=C1:10",
             Parameters =
             [
@@ -39,7 +39,7 @@ internal static class BasicCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.basic.general", Domain = "norma", CommandClass = "basic", Readonly = true,
-            Summary = "未注公差的一般公差：以尺寸mm和f/m/c/v等级，返回线性、倒圆/倒角、角度极限偏差，可用property只取一项；角度项尺寸指较短边长，缺参一次给齐",
+            Summary = "查询未注尺寸的一般公差",
             Example = "norma.basic.general size=25 grade=m",
             Parameters =
             [
@@ -52,7 +52,7 @@ internal static class BasicCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.basic.tolerance", Domain = "norma", CommandClass = "basic", Readonly = true,
-            Summary = "IT公差等级卡：等级统摄应用范围、选用举例、可达与经济加工方法、加工成本比；给尺寸再查标准公差值；缺条件一次给齐，一个显式*展开",
+            Summary = "查询 IT 等级公差、用途和加工方法",
             Example = "norma.basic.tolerance size=25 grade=IT7",
             Parameters =
             [
@@ -71,7 +71,7 @@ internal static class BasicCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.basic.band", Domain = "norma", CommandClass = "basic", Readonly = true,
-            Summary = "单个孔轴公差带卡：以H7、g6等单独代号及基本尺寸查标准公差、基本偏差及孔轴极限偏差、常用级别、基本偏差应用；应用无需尺寸；usage按选用级别筛选；大小写区分孔轴，不接收配合组合，缺条件一次给齐",
+            Summary = "查询单个孔轴公差带的偏差和应用",
             Example = "norma.basic.band band=K7 size=25",
             Parameters =
             [
@@ -87,7 +87,7 @@ internal static class BasicCommands
         registry.Register(new CommandDescriptor
         {
             Name = "norma.basic.fit", Domain = "norma", CommandClass = "basic", Readonly = true,
-            Summary = "公差配合卡：H7/g6等配合代号统摄选用级别、极限间隙/过盈、统计极限、装配方法、特性、应用举例及过盈概率；应用属性无需尺寸，一个显式*展开",
+            Summary = "查询公差配合的间隙、过盈和应用",
             Example = "norma.basic.fit fit=H7/g6 size=25",
             Parameters =
             [

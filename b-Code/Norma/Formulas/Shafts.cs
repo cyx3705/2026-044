@@ -16,6 +16,7 @@ internal static class Shafts
 
     private static Calculation Torque() => new()
     {
+        CatalogSummary = "按功率和转速换算扭矩",
         Id = "drive.torque",
         Title = "功率转速换算扭矩",
         Source = "T = 9550 P / n（P 单位 kW，n 单位 r/min，T 单位 N·m）",
@@ -36,6 +37,7 @@ internal static class Shafts
 
     private static Calculation Torsion() => new()
     {
+        CatalogSummary = "按扭转强度估算轴径",
         Id = "shaft.torsion",
         Title = "按扭转强度估算轴径",
         Source = "d ≥ A₀ ∛(P/n)，A₀ 由许用扭转切应力折算；常用 45 钢 A₀ = 103～126，40Cr 等合金钢 97～112",
@@ -67,6 +69,7 @@ internal static class Shafts
 
     private static Calculation Combined() => new()
     {
+        CatalogSummary = "按弯扭合成强度校核轴",
         Id = "shaft.combined",
         Title = "按弯扭合成强度校核轴",
         Source = "第三强度理论：σ_ca = √(M² + (αT)²) / W，实心 W = πd³/32，空心乘 (1 − β⁴)",
@@ -94,6 +97,7 @@ internal static class Shafts
 
     private static Calculation Endurance() => new()
     {
+        CatalogSummary = "用 Marin 修正计算零件疲劳极限",
         Id = "fatigue.endurance",
         Title = "零件疲劳极限（Marin 修正）",
         Source = "Shigley《机械工程设计》Marin 方程：S_e = k_a k_b k_c k_d k_e S′_e，S′_e = 0.5 S_ut（S_ut ≤ 1400 MPa，否则 700 MPa）",
@@ -158,6 +162,7 @@ internal static class Shafts
 
     private static Calculation Safety() => new()
     {
+        CatalogSummary = "计算变应力下的疲劳安全系数",
         Id = "fatigue.safety",
         Title = "变应力下的疲劳安全系数",
         Source = "Shigley 平均应力修正准则：Goodman σ_a/S_e + σ_m/S_ut = 1/n；Gerber；Soderberg；ASME 椭圆；首次屈服 Langer n_y = S_y/(σ_a + σ_m)",
@@ -199,6 +204,7 @@ internal static class Shafts
 
     private static Calculation ShaftFatigue() => new()
     {
+        CatalogSummary = "校核弯扭复合轴截面的疲劳安全系数",
         Id = "fatigue.shaft",
         Title = "轴危险截面疲劳安全系数（弯扭复合）",
         Source = "S_σ = σ₋₁/(K_σ σ_a + ψ_σ σ_m)，S_τ = τ₋₁/(K_τ τ_a + ψ_τ τ_m)，S_ca = S_σ S_τ/√(S_σ² + S_τ²)；国内机械设计教材的轴精确校核式",
@@ -238,6 +244,7 @@ internal static class Shafts
 
     private static Calculation FlatKey() => new()
     {
+        CatalogSummary = "校核普通平键连接的挤压强度",
         Id = "key.flat",
         Title = "普通平键连接挤压强度",
         Source = "σ_p = 2T / (k l d)，k ≈ 0.5h，工作长度 A 型 l = L − b、B 型 l = L、C 型 l = L − b/2",

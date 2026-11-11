@@ -8,7 +8,7 @@ internal static class DriveCommands
     internal static void Register(ICommandRegistrar registry) => registry.Register(new CommandDescriptor
     {
         Name = "norma.drive.efficiency", Domain = "norma", CommandClass = "drive", Readonly = true,
-        Summary = "机械传动效率概略值查表（机械工程师手册sjzl:22）：按型式/工况查询η，保留区间；减速器已含滚动轴承损耗，倒置区间数值null",
+        Summary = "查询机械传动的概略效率区间",
         Example = "norma.drive.efficiency q=圆柱齿轮传动",
         Parameters =
         [

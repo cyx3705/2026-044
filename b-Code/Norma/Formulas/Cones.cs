@@ -7,6 +7,7 @@ internal static class Cones
     {
         yield return new Calculation
         {
+            CatalogSummary = "换算圆锥轴向基本偏差",
             Id = "cone.fundamental", Title = "圆锥轴向基本偏差换算",
             Source = "机械工程师手册13-02:57（字节5340705）：ez=−e/C；Ez=−E/C",
             Scope = "内外圆锥通用；输入直径基本偏差（不是半径偏差），保留其符号。C=(D−d)/L=2tan(α/2)，α为全角；输出遵循原手册轴向坐标。第58页为C=0.1的外圆锥参考值，第60～61页系数为约数，本计算使用输入的实际C。",
@@ -17,6 +18,7 @@ internal static class Cones
         };
         yield return new Calculation
         {
+            CatalogSummary = "换算圆锥轴向极限偏差和公差",
             Id = "cone.limits", Title = "圆锥轴向极限偏差及公差换算",
             Source = "机械工程师手册13-02:57、62（字节5340705、5418939）：esz=−ei/C，eiz=−es/C，Tz=(es−ei)/C；内圆锥同理",
             Scope = "内外圆锥通用，输入直径上、下偏差μm；先反号并交换上下端点，再除以实际锥度。第62页基孔制H给ESz=0、EIz=−Tzi，h给esz=Tze、eiz=0，js给±Tze/2，均是同一关系的特例。无公差带等级或表名参数，不隐选公差值。",

@@ -66,7 +66,7 @@ public sealed class NormaModule : IModuleContextAware
             Name = NormaIdentity.Domain + ".formula.show",
             Domain = NormaIdentity.Domain,
             CommandClass = "formula",
-            Summary = "查看一条计算的完整元数据：出处、适用范围、输入输出的符号与单位",
+            Summary = "查看公式出处、适用范围及输入输出单位",
             Example = NormaIdentity.Domain + ".formula.show id=gear.contact",
             Readonly = true,
             Parameters =
@@ -96,7 +96,7 @@ public sealed class NormaModule : IModuleContextAware
             Name = NormaIdentity.Domain + ".std.lookup",
             Domain = NormaIdentity.Domain,
             CommandClass = "std",
-            Summary = "国内外标准代号查表：按代号或名称互查（GB→国家标准、国际标准化→ISO）",
+            Summary = "按代号或名称查询国内外标准",
             Example = NormaIdentity.Domain + ".std.lookup q=JB",
             Readonly = true,
             Parameters =
@@ -135,7 +135,7 @@ public sealed class NormaModule : IModuleContextAware
             Name = NormaIdentity.Domain + ".metal.strength",
             Domain = NormaIdentity.Domain,
             CommandClass = "material",
-            Summary = "强度换算：金属硬度互转与强度估算，钢/铝/铜，PCHIP 保形插值，分牌号并标明各硬度制的无定义区间",
+            Summary = "换算金属硬度并估算强度",
             Example = NormaIdentity.Domain + ".metal.strength family=steel value=45 scale=hrc grade=stainless",
             Readonly = true,
             Parameters =

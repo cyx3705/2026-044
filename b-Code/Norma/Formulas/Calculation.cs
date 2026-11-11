@@ -74,6 +74,9 @@ public sealed class Calculation
 
     public required string Title { get; init; }
 
+    /// <summary>注册目录中的一句话说明；出处与适用范围由公式详情提供。</summary>
+    internal string? CatalogSummary { get; init; }
+
     /// <summary>出处：标准条款或公认教材的公式名，供核对。</summary>
     public required string Source { get; init; }
 

@@ -28,28 +28,10 @@ internal static class NormaCommands
         };
     }
 
-    /// <summary>宿主自描述审计要求一句话说明不超过这么多字。</summary>
-    internal const int SummaryLimit = 120;
+    internal const int SummaryLimit = 30;
 
-    /// <summary>
-    /// 一句话说明：名称加出处简称（出处里第一个冒号或分号之前的部分）。完整出处与适用范围
-    /// 太长，放在 formula.show 和每次计算结果的 source / scope 里。
-    /// </summary>
-    internal static string Summary(Calculation calculation)
-    {
-        var source = calculation.Source;
-        var cut = source.IndexOfAny(['：', '；']);
-        var brief = cut > 0 ? source[..cut] : source;
-        if (brief.Length > 50)
-        {
-            var comma = brief.IndexOf('，');
-            brief = comma is > 0 and <= 50 ? brief[..comma] : brief[..49] + "…";
-        }
-
-        var tail = $"；完整出处与适用范围见 {NormaIdentity.Domain}.formula.show";
-        var head = $"{calculation.Title}（{brief}）";
-        return head.Length + tail.Length <= SummaryLimit ? head + tail : head;
-    }
+    /// <summary>出处与适用范围留在公式详情和计算结果中。</summary>
+    internal static string Summary(Calculation calculation) => calculation.CatalogSummary ?? calculation.Title;
 
     private static ParameterSpec Spec(Input input)
     {
